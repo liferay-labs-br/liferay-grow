@@ -1,0 +1,46 @@
+.sign__in {
+    
+    max-width: 99.4vw;
+    max-height: 90vh;
+
+    .signin__col {
+        height: calc(100vh - 61px);
+        background-color: white;
+    }
+    
+    .signin__background {
+        background-image: url("/assets/background.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .signin__main {
+        padding-top: 200px;
+    }
+
+    .signin__navigation_buttons {
+        margin-top: 50px;
+    }
+
+    .signin__btn-back {
+        margin-left: -10px;
+    }
+
+    .signin__footer {
+        margin-top: 80px;
+        p {
+            color: #6B6C7E;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: left;
+        }
+    }
+
+    .btn-link {
+        font-weight: bold;
+    }
+}
+

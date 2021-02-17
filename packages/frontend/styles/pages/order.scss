@@ -1,0 +1,38 @@
+.order-details {
+    background-color: #E7E7ED;   
+}
+
+.order-list {
+    background-color: white;
+    height: 85vh;
+    overflow: auto;
+
+}
+
+.service-list {
+    cursor: pointer;
+}
+
+.order-card {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #E7E7ED;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.order-info {
+    margin-bottom: 20px;
+
+    p {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 150%;
+        display: flex;
+        align-items: center;
+        color: #6B6C7E;
+    
+        margin-bottom: 7px;
+    };
+}
