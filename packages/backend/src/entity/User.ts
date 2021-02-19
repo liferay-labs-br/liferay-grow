@@ -20,7 +20,7 @@ export class User extends BaseEntity {
   @Index({ unique: true })
   login: string;
 
-  @JoinColumn()
+  @JoinColumn({ name: 'user' })
   github: Github;
 
   @Field()
