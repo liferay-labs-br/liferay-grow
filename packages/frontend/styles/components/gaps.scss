@@ -1,0 +1,40 @@
+.gaps {
+    &__header {
+        margin-top: 40px;
+
+        h1 {
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 45px;
+            letter-spacing: 0em;
+        }
+        
+        p {
+            font-size: 14px;
+            color: #393A4A;
+        }
+    }
+
+    &__content {
+        margin-top: 20px;
+
+        &__box {
+            padding: 32px 24px;
+            background-color: white;
+            min-height: 400px;
+
+            &__title {
+                font-size: 28px;
+                font-weight: 600;
+                line-height: 42px;
+                letter-spacing: 0em;
+            }
+        }
+    }
+
+    &__sidebar {
+        display: flex;
+        margin-top: 300px;
+    }
+}

@@ -18,13 +18,13 @@ import Table from '../components/Table';
 import {
   createOrderMutation,
   deleteOrderMutation,
-  getAllOrders,
+  getAllOrders
 } from '../graphql/schemas';
 
 const StatusTypeDisplay = {
   IN_PROCESSING: 'info',
   NOT_PROCESSED: 'danger',
-  PROCESSED: 'success',
+  PROCESSED: 'success'
 };
 
 const columns = [
@@ -35,7 +35,7 @@ const columns = [
         <span className="ml-2 link">{value}</span>
       </Link>
     ),
-    value: 'Name',
+    value: 'Name'
   },
   {
     key: 'createdBy',
@@ -51,20 +51,20 @@ const columns = [
         <span className="ml-2">{value}</span>
       </>
     ),
-    value: 'Created By',
+    value: 'Created By'
   },
   {
     key: 'createdAt',
     render: (date) => moment(date).fromNow(),
-    value: 'Created At',
+    value: 'Created At'
   },
   {
     key: 'status',
     render: (status) => (
       <ClayLabel displayType={StatusTypeDisplay[status]}>{status}</ClayLabel>
     ),
-    value: 'Status',
-  },
+    value: 'Status'
+  }
 ];
 
 const Order: React.FC = () => {
@@ -80,17 +80,17 @@ const Order: React.FC = () => {
 
   const actions = [
     {
-      action({ id }) {
+      action ({ id }) {
         router.push(`/order/${id}`);
       },
-      name: 'Edit',
+      name: 'Edit'
     },
     {
-      action({ id }) {
+      action ({ id }) {
         deleteOrder({ variables: { id } }).then(refetch);
       },
-      name: 'Delete',
-    },
+      name: 'Delete'
+    }
   ];
 
   const toggleModal = () => {

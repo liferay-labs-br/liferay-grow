@@ -1,0 +1,40 @@
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    height: 100%;
+
+    &__box {
+        width: 600px;
+        background-color: white;
+        padding: 32px;
+
+        &__title {
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 35px;
+            letter-spacing: 0em;
+            text-align: left;
+        }
+    
+        &__description {
+            margin-top: 10px;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: #6B6C7E;
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
