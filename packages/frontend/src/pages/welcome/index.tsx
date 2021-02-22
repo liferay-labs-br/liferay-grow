@@ -1,9 +1,17 @@
 import ClayButton from '@clayui/button';
+import { useRouter } from 'next/router';
 import React from 'react';
 
+import SEO from '../../components/SEO';
+import useLang from '../../hooks/useLang';
+
 export default function Welcome (): React.ReactElement {
+  const router = useRouter();
+  const i18n = useLang();
+
   return (
     <div className="welcome">
+      <SEO title={i18n.sub('app-title-x', 'welcome')} />
       <div className="welcome__box">
         <h1 className="welcome__box__title">
           Welcome to the Engineering team program, Grow Together
@@ -15,7 +23,7 @@ export default function Welcome (): React.ReactElement {
 
         <div className="welcome__box__buttons">
           <ClayButton displayType="secondary">Skip it</ClayButton>
-          <ClayButton className="ml-3">Continue</ClayButton>
+          <ClayButton onClick={() => router.push('/welcome/gaps')} className="ml-3">Continue</ClayButton>
         </div>
       </div>
     </div>

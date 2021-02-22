@@ -1,6 +1,10 @@
+
+$primary: #0b5fff !default;
+$secondary: #6b6c7e !default;
+$success: #287d3c !default;
+
 @import './pages/sign-in.scss';
 @import './components/page.scss';
-@import './pages/order.scss';
 @import './pages/welcome.scss';
 @import './components/gaps.scss';
 

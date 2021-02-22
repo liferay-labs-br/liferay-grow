@@ -3,11 +3,15 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
+import SEO from '../../components/SEO';
 import { authGithub } from '../../graphql/schemas';
+import useLang from '../../hooks/useLang';
 import Layout from './_layout';
 
 const AuthMiddleware = (): React.ReactElement => {
   const router = useRouter();
+  const i18n = useLang();
+
   const [onAuthGithub, { loading }] = useMutation(authGithub);
 
   const authUserGithub = async () => {
@@ -28,7 +32,13 @@ const AuthMiddleware = (): React.ReactElement => {
 
   return (
     <Layout>
-      {loading ? <div>Wait...</div> : <div>Redirecting...</div>}
+      <SEO title={i18n.sub('app-title-x', 'Auth Middleware')} />
+
+      {loading ? (
+        <div>{`${i18n.get('wait')}...`}</div>
+      ) : (
+        <div>{`${i18n.get('redirecting')}...`}</div>
+      )}
     </Layout>
   );
 };

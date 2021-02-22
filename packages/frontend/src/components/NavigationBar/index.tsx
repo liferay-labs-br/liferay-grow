@@ -2,7 +2,7 @@ import ClayButton from '@clayui/button';
 import ClayNavigationBar from '@clayui/navigation-bar';
 import React from 'react';
 
-import UserAvatar from '../UserAvatar';
+// import UserAvatar from '../UserAvatar';
 
 const NavigationBar = () => {
   return (
@@ -22,7 +22,7 @@ const NavigationBar = () => {
       </ClayNavigationBar.Item>
       <ul className="navbar-nav">
         <li className="dropdown nav-item">
-          <UserAvatar />
+          {/* <UserAvatar /> */}
         </li>
       </ul>
     </ClayNavigationBar>

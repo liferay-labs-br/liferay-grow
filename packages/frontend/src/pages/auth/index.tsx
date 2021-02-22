@@ -3,10 +3,13 @@ import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import SEO from '../../components/SEO';
+import useLang from '../../hooks/useLang';
 import Layout from './_layout';
 
 const SignIn = (): React.ReactElement => {
   const router = useRouter();
+  const i18n = useLang();
 
   const onSignInGithub = () => {
     const { NEXT_PUBLIC_GITHUB_CLIENT_ID } = process.env;
@@ -18,13 +21,14 @@ const SignIn = (): React.ReactElement => {
 
   return (
     <Layout>
+      <SEO title={i18n.sub('app-title-x', 'Auth')} />
       <h1>
         Engineering <br /> Grow Together
       </h1>
       <ClayLayout.Row className="mt-5">
         <ClayLayout.Col xl={12}>
           <ClayButton onClick={onSignInGithub} className="btn-block">
-            Sign in with Github
+            {i18n.get('sign-in-with-github')}
           </ClayButton>
         </ClayLayout.Col>
       </ClayLayout.Row>
@@ -35,7 +39,7 @@ const SignIn = (): React.ReactElement => {
             displayType="unstyled"
             className="btn-link"
           >
-            {"Don't have a Github account?"}
+            {i18n.get('dont-have-a-github-account')}
           </ClayButton>
         </ClayLayout.Col>
       </ClayLayout.Row>

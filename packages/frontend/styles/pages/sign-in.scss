@@ -1,5 +1,5 @@
 .sign__in {
-    
+
     max-width: 99.4vw;
     max-height: 90vh;
 
@@ -7,7 +7,7 @@
         height: calc(100vh - 55px);
         background-color: white;
     }
-    
+
     .signin__background {
         background-image: url("/assets/background.png");
         background-size: cover;
@@ -28,6 +28,7 @@
 
     .signin__footer {
         margin-top: 80px;
+
         p {
             color: #6B6C7E;
             font-size: 16px;
@@ -43,4 +44,3 @@
         font-weight: bold;
     }
 }
-

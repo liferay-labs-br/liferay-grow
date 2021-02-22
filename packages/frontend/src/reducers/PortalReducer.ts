@@ -1,13 +1,13 @@
 import { ActionMap } from '.';
 
-export const LANGUAGE_KEY = '@trickster-app/language';
+export const LANGUAGE_KEY = '@liferay-app/language';
 
 export enum Languages {
   pt_BR = 'pt_BR',
   en_US = 'en_US',
 }
 
-export const DEFAULT_LANGUAGE_ID = Languages.pt_BR;
+export const DEFAULT_LANGUAGE_ID = Languages.en_US;
 
 export enum Types {
   EDIT_LANGUAGE = 'EDIT_LANGUAGE',
@@ -22,7 +22,7 @@ type PortalActionPayload = {
 };
 
 export const portalState = {
-  languageId: DEFAULT_LANGUAGE_ID,
+  languageId: DEFAULT_LANGUAGE_ID
 };
 
 export type PortalActions = ActionMap<PortalActionPayload>[keyof ActionMap<
@@ -31,13 +31,13 @@ export type PortalActions = ActionMap<PortalActionPayload>[keyof ActionMap<
 
 export const portalReducer = (
   state: Portal,
-  action: PortalActions | any,
+  action: PortalActions | any
 ): Portal => {
   switch (action.type) {
     case Types.EDIT_LANGUAGE: {
       return {
         ...state,
-        languageId: action.payload,
+        languageId: action.payload
       };
     }
 

@@ -36,5 +36,28 @@
     &__sidebar {
         display: flex;
         margin-top: 300px;
+
+        &__active {
+            background-color: rgba(11, 95, 255, 0.05) !important;
+
+            svg {
+                color: $primary;
+            }
+
+            span {
+                margin-left: -5px;
+                font-weight: 600;
+                color: $primary;
+            }
+        }
+
+        ul {
+            width: 320px !important;
+            list-style: none;
+
+            li {
+                padding: 10px;
+            }
+        }
     }
 }
