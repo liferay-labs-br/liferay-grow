@@ -10,6 +10,12 @@ export class Github extends BaseEntity {
   @PrimaryColumn({ generated: 'uuid' })
   id: string;
 
+  @Field()
+  @Column()
+  @Index({ unique: true })
+  accountId: number;
+
+  @Field(() => User)
   @OneToOne(() => User, {
     cascade: true,
     onDelete: 'CASCADE',
@@ -27,23 +33,23 @@ export class Github extends BaseEntity {
   @Column()
   avatar_url: string;
 
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   email: string;
 
   @Field()
   @Column()
   name: string;
 
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   company: string;
 
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   location: string;
 
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   bio: string;
 }

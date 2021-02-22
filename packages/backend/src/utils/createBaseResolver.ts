@@ -4,7 +4,7 @@ import {
   Mutation,
   Query,
   Resolver,
-  UseMiddleware,
+  UseMiddleware
 } from 'type-graphql';
 
 import { MiddlewareBaseResolver, PaginationQL } from '../interfaces';
@@ -18,42 +18,43 @@ import { execMiddleware, normalizePagination } from './globalMethods';
  * @param returnType return classType
  * @param middlewares optional middlewares to be applied in defaults functions
  */
-export function createBaseResolver<classType extends ClassType>(
+export function createBaseResolver<classType extends ClassType> (
   suffix: string,
   entity: any,
   returnType: classType,
   inputTypes: { create: classType; update: classType; filter?: classType },
-  middlewares?: MiddlewareBaseResolver,
+  relations: string[] = [],
+  middlewares?: MiddlewareBaseResolver
 ): any {
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
     @UseMiddleware(isAuth)
     @Query(() => [returnType], { name: `getAll${suffix}` })
-    async getAll(): Promise<ClassType[]> {
-      return entity.find();
+    async getAll (): Promise<ClassType[]> {
+      return entity.find({ relations });
     }
 
     @UseMiddleware(isAuth)
     @Query(() => [returnType], { name: `getAll${suffix}Filter` })
-    async getAllFiltered(
-      @Arg('data', () => inputTypes.filter || inputTypes.create) data: any,
+    async getAllFiltered (
+      @Arg('data', () => inputTypes.filter || inputTypes.create) data: any
     ): Promise<ClassType[]> {
-      return entity.find({ where: data });
+      return entity.find({ relations, where: data });
     }
 
     @UseMiddleware(isAuth)
     @Query(() => [returnType], { name: `getAll${suffix}Paginate` })
-    async getAllPagination(
-      @Arg('data', () => PaginationQL) data: PaginationQL,
+    async getAllPagination (
+      @Arg('data', () => PaginationQL) data: PaginationQL
     ): Promise<ClassType[]> {
       const { skip, take } = normalizePagination(data);
-      return entity.find({ skip, take });
+      return entity.find({ relations, skip, take });
     }
 
     @UseMiddleware(isAuth)
     @Query(() => returnType, { name: `get${suffix}` })
-    async get(@Arg('id', () => String) id: string): Promise<ClassType | Error> {
-      const content = await entity.findOne(id);
+    async get (@Arg('id', () => String) id: string): Promise<ClassType | Error> {
+      const content = await entity.findOne({ relations, where: { id } });
       if (!content) {
         throw new Error(`${suffix} not found`);
       }
@@ -62,8 +63,8 @@ export function createBaseResolver<classType extends ClassType>(
 
     @UseMiddleware(isAuth)
     @Mutation(() => returnType, { name: `create${suffix}` })
-    async create(
-      @Arg('data', () => inputTypes.create) data: any,
+    async create (
+      @Arg('data', () => inputTypes.create) data: any
     ): Promise<ClassType> {
       if (middlewares && middlewares.create) {
         await execMiddleware(entity, data, ...middlewares.create);
@@ -73,9 +74,9 @@ export function createBaseResolver<classType extends ClassType>(
 
     @UseMiddleware(isAuth)
     @Mutation(() => returnType, { name: `updateBy${suffix}ID` })
-    async updateByID(
+    async updateByID (
       @Arg('data', () => inputTypes.update) data: any,
-      @Arg('id') id: string,
+      @Arg('id') id: string
     ): Promise<ClassType> {
       const entityData = await this.get(id);
       return this.update(data, entityData);
@@ -83,8 +84,8 @@ export function createBaseResolver<classType extends ClassType>(
 
     @UseMiddleware(isAuth)
     @Mutation(() => [returnType], { name: `createMulti${suffix}` })
-    async createMulti(
-      @Arg('data', () => [inputTypes.create]) data: any[],
+    async createMulti (
+      @Arg('data', () => [inputTypes.create]) data: any[]
     ): Promise<ClassType[]> {
       const promises = data.map((obj) => entity.create(obj).save());
       const insertedData = await Promise.all(promises);
@@ -93,7 +94,7 @@ export function createBaseResolver<classType extends ClassType>(
 
     @UseMiddleware(isAuth)
     @Mutation(() => Boolean, { name: `deleteBy${suffix}ID` })
-    async deleteByID(@Arg('id', () => String) id: string): Promise<boolean> {
+    async deleteByID (@Arg('id', () => String) id: string): Promise<boolean> {
       if (middlewares && middlewares.delete) {
         await execMiddleware(entity, id, ...middlewares.delete);
       }
@@ -106,7 +107,7 @@ export function createBaseResolver<classType extends ClassType>(
       return !!data;
     }
 
-    async update(data: any, entityData: any): Promise<any> {
+    async update (data: any, entityData: any): Promise<any> {
       for (const field in data) {
         entityData[field] = data[field];
       }
