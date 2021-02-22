@@ -10,25 +10,25 @@ export class Office extends MainEntity {
   @Index({ unique: true })
   @Field()
   @Column()
-  name: string
+  name: string;
 
   @Field()
   @Column()
-  city: string
+  city: string;
 
   @Field()
   @Column()
-  state: string
+  state: string;
 
   @Field()
   @Column()
-  country: string
+  country: string;
 
   @Field(() => [Team], { nullable: true })
   @OneToMany(() => Team, (team) => team.office, {
     cascade: true,
     onDelete: 'CASCADE',
-    primary: true
+    primary: true,
   })
-  teams: Team[]
+  teams: Team[];
 }

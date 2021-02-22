@@ -18,8 +18,8 @@ interface Translation {
 const useLang = (): Translation => {
   const {
     state: {
-      portal: { languageId = DEFAULT_LANGUAGE_ID }
-    }
+      portal: { languageId = DEFAULT_LANGUAGE_ID },
+    },
   } = useContext(AppContext);
 
   const translate = (word: string) => {
@@ -41,7 +41,7 @@ const useLang = (): Translation => {
       });
 
       return translatedWord;
-    }
+    },
   };
 };
 

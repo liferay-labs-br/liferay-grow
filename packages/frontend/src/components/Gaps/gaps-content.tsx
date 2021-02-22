@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function GapsContent (): React.ReactElement {
+export default function GapsContent(): React.ReactElement {
   return (
     <div className="gaps__content">
       <div className="gaps__content__box">

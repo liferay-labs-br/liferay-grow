@@ -5,7 +5,7 @@ import React from 'react';
 import SEO from '../../components/SEO';
 import useLang from '../../hooks/useLang';
 
-export default function Welcome (): React.ReactElement {
+export default function Welcome(): React.ReactElement {
   const router = useRouter();
   const i18n = useLang();
 
@@ -23,7 +23,12 @@ export default function Welcome (): React.ReactElement {
 
         <div className="welcome__box__buttons">
           <ClayButton displayType="secondary">Skip it</ClayButton>
-          <ClayButton onClick={() => router.push('/welcome/gaps')} className="ml-3">Continue</ClayButton>
+          <ClayButton
+            onClick={() => router.push('/welcome/gaps')}
+            className="ml-3"
+          >
+            Continue
+          </ClayButton>
         </div>
       </div>
     </div>

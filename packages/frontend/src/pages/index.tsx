@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function index () {
+export default function index() {
   return (
     <div
       style={{
@@ -9,7 +9,7 @@ export default function index () {
         alignSelf: 'center',
         display: 'flex',
         height: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       Some Dashboard

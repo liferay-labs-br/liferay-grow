@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function GapsHeader (): React.ReactElement {
+export default function GapsHeader(): React.ReactElement {
   return (
     <div className="gaps__header">
       <h1>Grow Together</h1>

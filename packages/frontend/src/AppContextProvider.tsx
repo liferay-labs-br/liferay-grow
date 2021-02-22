@@ -15,7 +15,7 @@ const AppProvider: React.FC = ({ children }) => {
       en: Languages.en_US,
       'en-US': Languages.en_US,
       pt: Languages.pt_BR,
-      'pt-BR': Languages.pt_BR
+      'pt-BR': Languages.pt_BR,
     };
 
     const getLanguageValue =
@@ -31,7 +31,7 @@ const AppProvider: React.FC = ({ children }) => {
     if (token) {
       dispatch({
         payload: { sudo, token },
-        type: Types.SET_LOGGED_USER
+        type: Types.SET_LOGGED_USER,
       });
     }
   }, []);

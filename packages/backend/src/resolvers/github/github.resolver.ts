@@ -5,7 +5,7 @@ import { promisify } from 'util';
 
 import { Github } from '../../entity/Github';
 import { User } from '../../entity/User';
-import { logger } from '../../utils/globalMethods'; ;
+import { logger } from '../../utils/globalMethods';
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET } = process.env;
 
@@ -20,9 +20,9 @@ const getGithubUser = async (code: string): Promise<any> => {
     const githubUser = await request.get('https://api.github.com/user', {
       headers: {
         Authorization: `token ${access_token}`,
-        'User-Agent': 'Liferay Grow Together'
+        'User-Agent': 'Liferay Grow Together',
       },
-      json: true
+      json: true,
     });
 
     return githubUser;
@@ -34,7 +34,7 @@ const getGithubUser = async (code: string): Promise<any> => {
 const assignToken = async (payload: any): Promise<string> => {
   const token = await promisify(jsonwebtoken.sign)(
     payload,
-    JWT_SECRET as string
+    JWT_SECRET as string,
   );
 
   return token as string;
@@ -43,7 +43,7 @@ const assignToken = async (payload: any): Promise<string> => {
 @Resolver(Github)
 export class GithubResolver {
   @Query(() => [Github], { name: 'getAllGithubs' })
-  async getAllGithubs (): Promise<Github[]> {
+  async getAllGithubs(): Promise<Github[]> {
     const githubs = await Github.find({ relations: ['user'] });
 
     console.log(githubs);
@@ -52,15 +52,24 @@ export class GithubResolver {
   }
 
   @Mutation(() => String, { name: 'authGithub' })
-  async authGithub (@Arg('code') code: string): Promise<string> {
+  async authGithub(@Arg('code') code: string): Promise<string> {
     const githubUser = await getGithubUser(code);
-    const { avatar_url, bio, company, email, id: accountId, location, login, name } = githubUser;
+    const {
+      avatar_url,
+      bio,
+      company,
+      email,
+      id: accountId,
+      location,
+      login,
+      name,
+    } = githubUser;
 
     const user = await Github.findOne({
       relations: ['user'],
       where: {
-        login
-      }
+        login,
+      },
     });
 
     let token = '';
@@ -79,7 +88,7 @@ export class GithubResolver {
         location,
         login,
         name,
-        user: newUser
+        user: newUser,
       }).save();
 
       newUser.github = newGithub;

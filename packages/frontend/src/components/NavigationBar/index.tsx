@@ -21,9 +21,7 @@ const NavigationBar = () => {
         <ClayButton displayType="unstyled" />
       </ClayNavigationBar.Item>
       <ul className="navbar-nav">
-        <li className="dropdown nav-item">
-          {/* <UserAvatar /> */}
-        </li>
+        <li className="dropdown nav-item">{/* <UserAvatar /> */}</li>
       </ul>
     </ClayNavigationBar>
   );

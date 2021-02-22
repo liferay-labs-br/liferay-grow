@@ -32,7 +32,7 @@ const MyApp = ({ Component, pageProps }: AppProps): React.ReactElement => {
             return (
               <ApolloProvider
                 client={{
-                  ...apolloClient
+                  ...apolloClient,
                 }}
               >
                 <Layout>

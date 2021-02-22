@@ -22,22 +22,20 @@ type PortalActionPayload = {
 };
 
 export const portalState = {
-  languageId: DEFAULT_LANGUAGE_ID
+  languageId: DEFAULT_LANGUAGE_ID,
 };
 
-export type PortalActions = ActionMap<PortalActionPayload>[keyof ActionMap<
-  PortalActionPayload
->];
+export type PortalActions = ActionMap<PortalActionPayload>[keyof ActionMap<PortalActionPayload>];
 
 export const portalReducer = (
   state: Portal,
-  action: PortalActions | any
+  action: PortalActions | any,
 ): Portal => {
   switch (action.type) {
     case Types.EDIT_LANGUAGE: {
       return {
         ...state,
-        languageId: action.payload
+        languageId: action.payload,
       };
     }
 

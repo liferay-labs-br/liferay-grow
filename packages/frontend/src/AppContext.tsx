@@ -10,7 +10,7 @@ type InitialStateType = {
 
 const initialState = {
   portal: portalState,
-  user: userState
+  user: userState,
 };
 
 const AppContext = createContext<{
@@ -18,12 +18,12 @@ const AppContext = createContext<{
   dispatch: Dispatch<any>;
 }>({
   dispatch: () => {},
-  state: initialState
+  state: initialState,
 });
 
 const mainReducer = ({ portal, user }: InitialStateType, action: any) => ({
   portal: portalReducer(portal, action),
-  user: userReducer(user, action)
+  user: userReducer(user, action),
 });
 
 export { mainReducer, initialState };

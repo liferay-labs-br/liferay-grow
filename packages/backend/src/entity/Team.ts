@@ -1,9 +1,16 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-import { Column, Entity, Index, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { MainEntity } from './MainEntity';
 import { Office } from './Office';
-import { User } from './User'; ;
+import { User } from './User';
 
 @ObjectType()
 @Entity()
@@ -25,7 +32,7 @@ export class Team extends MainEntity {
   @OneToMany(() => User, (user) => user.team, {
     cascade: true,
     onDelete: 'CASCADE',
-    primary: true
+    primary: true,
   })
   users: User[];
 }

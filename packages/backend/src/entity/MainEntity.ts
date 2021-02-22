@@ -1,5 +1,10 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-import { BaseEntity, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BaseEntity,
+  CreateDateColumn,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @ObjectType()
 export class MainEntity extends BaseEntity {

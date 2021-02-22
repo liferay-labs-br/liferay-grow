@@ -5,7 +5,7 @@ import { GapsContent, GapsHeader, GapsSidebar } from '../../components/Gaps';
 import SEO from '../../components/SEO';
 import useLang from '../../hooks/useLang';
 
-export default function Gaps (): React.ReactElement {
+export default function Gaps(): React.ReactElement {
   const i18n = useLang();
 
   return (

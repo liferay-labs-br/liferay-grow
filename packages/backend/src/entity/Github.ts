@@ -1,5 +1,13 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, Index, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { User } from './User';
 
@@ -19,10 +27,10 @@ export class Github extends BaseEntity {
   @OneToOne(() => User, {
     cascade: true,
     onDelete: 'CASCADE',
-    primary: true
+    primary: true,
   })
   @JoinColumn()
-  user: User
+  user: User;
 
   @Field()
   @Column()

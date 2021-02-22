@@ -1,7 +1,7 @@
 import { ActionMap } from '.';
 
 interface UserType {
-  name: string
+  name: string;
 }
 
 export enum Types {
@@ -22,12 +22,10 @@ type UserActionsPayload = {
 
 export const userState = {
   token: null,
-  user: null
+  user: null,
 };
 
-export type UserActions = ActionMap<UserActionsPayload>[keyof ActionMap<
-  UserActionsPayload
->];
+export type UserActions = ActionMap<UserActionsPayload>[keyof ActionMap<UserActionsPayload>];
 
 export const userReducer = (state: User, action: UserActions | any): User => {
   switch (action.type) {
@@ -35,7 +33,7 @@ export const userReducer = (state: User, action: UserActions | any): User => {
       const { token } = action.payload;
       return {
         ...state,
-        token
+        token,
       };
     }
 
@@ -43,7 +41,7 @@ export const userReducer = (state: User, action: UserActions | any): User => {
       return {
         ...state,
         token: null,
-        user: null
+        user: null,
       };
     }
 

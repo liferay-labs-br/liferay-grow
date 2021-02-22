@@ -15,7 +15,7 @@ const statuses = {
   CREATED: 'primary',
   DISCARDED: 'danger',
   IN_EXECUTION: 'warning',
-  WAITING_WINDOW: 'secondary'
+  WAITING_WINDOW: 'secondary',
 };
 
 const getLabelColor = (label) => {
@@ -41,7 +41,7 @@ const Order = ({ id }: IOrder): React.ReactElement => {
   const router = useRouter();
   const { loading, data = {} } = useQuery(getOrderQuery, {
     pollInterval: 15000,
-    variables: { id }
+    variables: { id },
   });
 
   const { getOrder = { services: [] } } = data;

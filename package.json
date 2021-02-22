@@ -6,7 +6,9 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-      "format": "eslint packages/**/src/* --ext .js --fix",
+      "format": "eslint packages/**/src/* --ext .ts --fix --no-error-on-unmatched-pattern",
+      "dev:server": "yarn workspace @monorepo/backend dev",
+      "dev:frontend": "yarn workspace @monorepo/frontend dev",
       "test": "jest"
     },
     "workspaces": {

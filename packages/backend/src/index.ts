@@ -14,7 +14,7 @@ class App {
   public apolloConfig: Config;
   public apollo: ApolloServer;
 
-  constructor () {
+  constructor() {
     config();
     this.express = Express();
     this.initializeDatabase();
@@ -23,7 +23,7 @@ class App {
     this.initializeApollo();
   }
 
-  private async initializeApollo (): Promise<void> {
+  private async initializeApollo(): Promise<void> {
     const { APP_NAME, ENVIRONMENT, RUN_PLAYGROUND = true } = process.env;
 
     const apolloServerConfig: Config = {
@@ -33,15 +33,15 @@ class App {
         const { message, path } = error;
         logger.error(
           `Message: ${message.toUpperCase()} / On Path: ${JSON.stringify(
-            path
-          )}`
+            path,
+          )}`,
         );
         return error;
       },
       playground: RUN_PLAYGROUND
         ? { title: APP_NAME, workspaceName: ENVIRONMENT }
         : false,
-      schema: await createSchema()
+      schema: await createSchema(),
     };
 
     if (ENVIRONMENT === 'production') {
@@ -51,17 +51,17 @@ class App {
 
     apolloServer.applyMiddleware({
       app: this.express,
-      cors: true
+      cors: true,
     });
   }
 
-  private initializeMiddlewares (): void {
+  private initializeMiddlewares(): void {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(helmet({ contentSecurityPolicy: false }));
   }
 
-  private async initializeDatabase (): Promise<void> {
+  private async initializeDatabase(): Promise<void> {
     try {
       await createTypeormConn();
     } catch (e) {
@@ -69,11 +69,11 @@ class App {
     }
   }
 
-  private initializeControllers (): void {
+  private initializeControllers(): void {
     this.express.get('/', (_, res) => res.json({ message: 'Hi!' }));
   }
 
-  public listen (): void {
+  public listen(): void {
     const { APP_NAME, PORT = 3333 } = process.env;
 
     logger.debug(`Starting ${APP_NAME} Server`);

@@ -10,9 +10,7 @@ const Layout: React.FC = ({ children }: ILayout) => {
   return (
     <div className="application">
       <NavigationBar />
-      <div className="content">
-        {children}
-      </div>
+      <div className="content">{children}</div>
     </div>
   );
 };

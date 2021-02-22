@@ -7,9 +7,9 @@ import { isAuth } from '../../middlewares/isAuth';
 @Resolver(User)
 export class UserResolver {
   @Query(() => [User], { name: 'getAllUsers' })
-  async getAllUsers (): Promise<User[]> {
+  async getAllUsers(): Promise<User[]> {
     const users = await User.find({
-      relations: ['github', 'team', 'team.office']
+      relations: ['github', 'team', 'team.office'],
     });
 
     return users;
@@ -17,9 +17,9 @@ export class UserResolver {
 
   @Query(() => User, { name: 'me' })
   @UseMiddleware(isAuth)
-  async getMe (@Ctx() ctx: MyContext): Promise<User | undefined> {
+  async getMe(@Ctx() ctx: MyContext): Promise<User | undefined> {
     const {
-      req: { headers }
+      req: { headers },
     } = ctx;
     const { loggedUser }: any = headers;
 
@@ -27,7 +27,7 @@ export class UserResolver {
 
     const user = await User.findOne({
       relations: ['github', 'team'],
-      where: { user: id }
+      where: { user: id },
     });
 
     return user;

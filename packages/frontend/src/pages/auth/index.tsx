@@ -15,7 +15,7 @@ const SignIn = (): React.ReactElement => {
     const { NEXT_PUBLIC_GITHUB_CLIENT_ID } = process.env;
     window.open(
       `https://github.com/login/oauth/authorize?client_id=${NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=users`,
-      '_self'
+      '_self',
     );
   };
 

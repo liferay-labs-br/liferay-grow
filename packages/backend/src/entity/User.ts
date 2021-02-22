@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToOne,
   PrimaryColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 
 import { Github } from './Github';
@@ -17,21 +17,21 @@ import { Team } from './Team';
 export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryColumn({ generated: 'uuid' })
-  id: string
+  id: string;
 
   @Field(() => Github)
   @OneToOne(() => Github, (github) => github.user)
-  github: Github
+  github: Github;
 
   @Field(() => Team, { nullable: true })
   @ManyToOne(() => Team, (team) => team.users)
-  team: Team
+  team: Team;
 
   @Field()
   @CreateDateColumn()
-  created_at: Date
+  created_at: Date;
 
   @Field()
   @UpdateDateColumn()
-  updated_at: Date
+  updated_at: Date;
 }

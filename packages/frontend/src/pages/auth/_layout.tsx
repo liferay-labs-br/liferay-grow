@@ -14,7 +14,12 @@ const Auth: React.FC = ({ children, className }: Auth) => {
   return (
     <div className={`sign__in ${className}`}>
       <ClayLayout.Row justify="start" className="signin__row">
-        <ClayLayout.Col size={4} sm={6} lg={4} className="signin__col signin__main">
+        <ClayLayout.Col
+          size={4}
+          sm={6}
+          lg={4}
+          className="signin__col signin__main"
+        >
           <ClayLayout.ContainerFluid view>
             <ClayLayout.Row justify="center">
               <ClayLayout.Col xl={8} lg={10}>
