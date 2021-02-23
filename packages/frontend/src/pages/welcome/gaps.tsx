@@ -3,9 +3,10 @@ import React from 'react';
 
 import { GapsContent, GapsHeader, GapsSidebar } from '../../components/Gaps';
 import SEO from '../../components/SEO';
+import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
 
-export default function Gaps(): React.ReactElement {
+const Gaps = (): React.ReactElement => {
   const i18n = useLang();
 
   return (
@@ -23,4 +24,6 @@ export default function Gaps(): React.ReactElement {
       </ClayLayout.Row>
     </ClayLayout.ContainerFluid>
   );
-}
+};
+
+export default withAuth(Gaps);

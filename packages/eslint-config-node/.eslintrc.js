@@ -31,7 +31,9 @@ module.exports = {
     "sort-keys-fix/sort-keys-fix": "warn",
     "no-explicit-any": "off",
     "camelcase": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"]
   },
   settings: {
     'import/resolver': {

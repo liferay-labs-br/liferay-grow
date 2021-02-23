@@ -1,5 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
-import request from 'request-promise';
+import request, { Options } from 'request-promise';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { promisify } from 'util';
 
@@ -8,6 +8,13 @@ import { User } from '../../entity/User';
 import { logger } from '../../utils/globalMethods';
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET } = process.env;
+
+const options: Options | any = {
+  headers: {
+    'User-Agent': 'Liferay Grow Together',
+  },
+  json: true,
+};
 
 const getGithubUser = async (code: string): Promise<any> => {
   const baseURL = 'https://github.com/login/oauth/access_token';
@@ -18,11 +25,11 @@ const getGithubUser = async (code: string): Promise<any> => {
   if (response.includes('access_token=')) {
     const access_token = response.split('=')[1].split('&').shift();
     const githubUser = await request.get('https://api.github.com/user', {
+      ...options,
       headers: {
+        ...options.headers,
         Authorization: `token ${access_token}`,
-        'User-Agent': 'Liferay Grow Together',
       },
-      json: true,
     });
 
     return githubUser;
@@ -31,9 +38,24 @@ const getGithubUser = async (code: string): Promise<any> => {
   }
 };
 
+const belongsToLiferayOrg = async (username: string): Promise<boolean> => {
+  try {
+    const organizations: Array<any> = await request(
+      `https://api.github.com/users/${username}/orgs`,
+      options,
+    );
+
+    const liferayOrg = organizations.find((org) => org.login === 'liferay');
+
+    return !!liferayOrg;
+  } catch (e) {
+    return false;
+  }
+};
+
 const assignToken = async (payload: any): Promise<string> => {
   const token = await promisify(jsonwebtoken.sign)(
-    payload,
+    { ...payload },
     JWT_SECRET as string,
   );
 
@@ -45,8 +67,6 @@ export class GithubResolver {
   @Query(() => [Github], { name: 'getAllGithubs' })
   async getAllGithubs(): Promise<Github[]> {
     const githubs = await Github.find({ relations: ['user'] });
-
-    console.log(githubs);
 
     return githubs;
   }
@@ -75,10 +95,15 @@ export class GithubResolver {
     let token = '';
 
     if (user) {
-      token = await assignToken({ ...user });
+      token = await assignToken(user);
     } else {
-      const newUser = await User.create().save();
+      const isLiferayMember = await belongsToLiferayOrg(login);
 
+      if (!isLiferayMember) {
+        throw new Error('not-a-liferay-member');
+      }
+
+      const newUser = await User.create().save();
       const newGithub = await Github.create({
         accountId,
         avatar_url,
@@ -93,7 +118,7 @@ export class GithubResolver {
 
       newUser.github = newGithub;
 
-      token = await assignToken({ ...newGithub });
+      token = await assignToken(newGithub);
 
       await newUser.save();
     }

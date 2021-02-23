@@ -3,9 +3,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import SEO from '../../components/SEO';
+import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
 
-export default function Welcome(): React.ReactElement {
+const Welcome = (): React.ReactElement => {
   const router = useRouter();
   const i18n = useLang();
 
@@ -33,4 +34,6 @@ export default function Welcome(): React.ReactElement {
       </div>
     </div>
   );
-}
+};
+
+export default withAuth(Welcome);

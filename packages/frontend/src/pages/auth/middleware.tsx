@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -18,8 +19,11 @@ const AuthMiddleware = (): React.ReactElement => {
     const urlQuery = new URLSearchParams(location.search);
     const code = urlQuery.get('code');
     if (code) {
-      await onAuthGithub({ variables: { code } });
+      const {
+        data: { authGithub: token },
+      } = await onAuthGithub({ variables: { code } });
       toast.info('Welcome, User. You ill be redirect');
+      Cookies.set('token', token, { expires: 1, sameSite: 'strict' });
       router.push('/');
     } else {
       router.push('/auth');
