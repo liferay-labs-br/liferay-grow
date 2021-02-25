@@ -1,11 +1,13 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
-import SEO from '../components/SEO';
+import SEO from '../components/meta';
 import withAuth from '../hocs/withAuth';
 import useLang from '../hooks/useLang';
 
 const Index = () => {
   const i18n = useLang();
+  const router = useRouter();
 
   return (
     <div
@@ -19,7 +21,9 @@ const Index = () => {
       }}
     >
       <SEO title={i18n.sub('app-title-x', 'Dashboard')} />
-      Some Dashboard
+      <button type="button" onClick={() => router.push('/welcome')}>
+        Some Dashboard
+      </button>
     </div>
   );
 };

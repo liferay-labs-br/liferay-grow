@@ -16,7 +16,7 @@ interface ManagementToolbarProps {
   addButton?: React.ReactElement;
 }
 
-const Component = ({
+const ManagementToolbar = ({
   addButton,
   info,
   listType,
@@ -130,7 +130,6 @@ const Component = ({
               <ClayButton
                 className="nav-link nav-link-monospaced"
                 displayType="unstyled"
-                onClick={() => {}}
               >
                 <ClayIcon symbol="info-circle-open" />
               </ClayButton>
@@ -199,4 +198,4 @@ const Component = ({
   );
 };
 
-export default Component;
+export default ManagementToolbar;

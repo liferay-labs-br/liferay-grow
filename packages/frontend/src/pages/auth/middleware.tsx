@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import SEO from '../../components/SEO';
+import SEO from '../../components/meta';
 import { authGithub } from '../../graphql/schemas';
+import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
 import Layout from './_layout';
 
@@ -18,12 +19,13 @@ const AuthMiddleware = (): React.ReactElement => {
   const authUserGithub = async () => {
     const urlQuery = new URLSearchParams(location.search);
     const code = urlQuery.get('code');
+
     if (code) {
       const {
         data: { authGithub: token },
       } = await onAuthGithub({ variables: { code } });
-      toast.info('Welcome, User. You ill be redirect');
       Cookies.set('token', token, { expires: 1, sameSite: 'strict' });
+      toast.info('Welcome, User. You ill be redirect');
       router.push('/');
     } else {
       router.push('/auth');
@@ -47,4 +49,4 @@ const AuthMiddleware = (): React.ReactElement => {
   );
 };
 
-export default AuthMiddleware;
+export default withPublic(AuthMiddleware);

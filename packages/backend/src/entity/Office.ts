@@ -5,7 +5,7 @@ import { MainEntity } from './MainEntity';
 import { Team } from './Team';
 
 @ObjectType()
-@Entity()
+@Entity({ orderBy: { name: 'ASC' } })
 export class Office extends MainEntity {
   @Index({ unique: true })
   @Field()

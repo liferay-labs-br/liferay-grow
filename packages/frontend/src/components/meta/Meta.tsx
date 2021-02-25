@@ -2,14 +2,19 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-type ISeo = {
+type IMeta = {
   description?: string;
   title?: string;
   icon?: string;
   image?: string;
 };
 
-const SEO = ({ description, icon, image, title }: ISeo): React.ReactElement => {
+const Meta = ({
+  description,
+  icon,
+  image,
+  title,
+}: IMeta): React.ReactElement => {
   const router = useRouter();
   const { asPath } = router;
   const baseURL = 'https://liferay.com';
@@ -50,4 +55,4 @@ const SEO = ({ description, icon, image, title }: ISeo): React.ReactElement => {
   );
 };
 
-export default SEO;
+export default Meta;

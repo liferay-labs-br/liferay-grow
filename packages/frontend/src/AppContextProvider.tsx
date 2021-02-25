@@ -5,7 +5,7 @@ import { LANGUAGE_KEY, Languages } from './reducers/PortalReducer';
 import { Types } from './reducers/UserReducer';
 import { keys } from './utils/util';
 
-const AppProvider: React.FC = ({ children }) => {
+const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
   useEffect(() => {
@@ -26,11 +26,10 @@ const AppProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem(keys.token);
-    const sudo = localStorage.getItem(keys.sudo);
 
     if (token) {
       dispatch({
-        payload: { sudo, token },
+        payload: { token },
         type: Types.SET_LOGGED_USER,
       });
     }

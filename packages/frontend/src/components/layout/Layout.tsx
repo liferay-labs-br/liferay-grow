@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavigationBar from '../NavigationBar';
+import NavigationBar from '../navigation-bar';
 
 interface ILayout {
   children: React.ReactElement;

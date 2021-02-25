@@ -7,12 +7,15 @@ class TeamBaseInput {
 }
 
 @InputType()
-export class CreateTeamInput extends TeamBaseInput {}
+export class CreateTeamInput extends TeamBaseInput {
+  @Field({ nullable: true })
+  office?: string;
+}
 
 @InputType()
 export class UpdateTeamInput extends TeamBaseInput {
-  @Field()
-  office: string;
+  @Field({ nullable: true })
+  office?: string;
 }
 
 @InputType()

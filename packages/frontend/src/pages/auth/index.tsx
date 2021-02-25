@@ -3,21 +3,25 @@ import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import SEO from '../../components/SEO';
+import SEO from '../../components/meta';
+import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
 import Layout from './_layout';
 
-const SignIn = (): React.ReactElement => {
-  const router = useRouter();
-  const i18n = useLang();
+const onAuthGithub = () => {
+  const { NEXT_PUBLIC_GITHUB_CLIENT_ID } = process.env;
+  const GITHUB_OAUTH = 'https://github.com/login/oauth/authorize';
+  const SCOPE = 'users';
 
-  const onSignInGithub = () => {
-    const { NEXT_PUBLIC_GITHUB_CLIENT_ID } = process.env;
-    window.open(
-      `https://github.com/login/oauth/authorize?client_id=${NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=users`,
-      '_self',
-    );
-  };
+  window.open(
+    `${GITHUB_OAUTH}?client_id=${NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=${SCOPE}`,
+    '_self',
+  );
+};
+
+const Auth = (): React.ReactElement => {
+  const i18n = useLang();
+  const router = useRouter();
 
   return (
     <Layout>
@@ -27,7 +31,7 @@ const SignIn = (): React.ReactElement => {
       </h1>
       <ClayLayout.Row className="mt-5">
         <ClayLayout.Col xl={12}>
-          <ClayButton onClick={onSignInGithub} className="btn-block">
+          <ClayButton onClick={onAuthGithub} className="btn-block">
             {i18n.get('sign-in-with-github')}
           </ClayButton>
         </ClayLayout.Col>
@@ -47,4 +51,4 @@ const SignIn = (): React.ReactElement => {
   );
 };
 
-export default SignIn;
+export default withPublic(Auth);

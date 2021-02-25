@@ -10,7 +10,6 @@ export enum Types {
 }
 
 export type User = {
-  sudo: string | null;
   token: string | null;
   user: UserType | null;
 };

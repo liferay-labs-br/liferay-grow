@@ -2,9 +2,13 @@ import ClayButton from '@clayui/button';
 import ClayNavigationBar from '@clayui/navigation-bar';
 import React from 'react';
 
+import useLang from '../../hooks/useLang';
+
 // import UserAvatar from '../UserAvatar';
 
 const NavigationBar = () => {
+  const i18n = useLang();
+
   return (
     <ClayNavigationBar
       className="NavigationBar"
@@ -14,7 +18,7 @@ const NavigationBar = () => {
       <ClayNavigationBar.Item className="item" active>
         <ClayButton displayType="unstyled">
           <img src="/assets/dxp-icon.svg"></img>
-          <span className="ml-2">Liferay Grow</span>
+          <span className="ml-2">{i18n.get('app-title')}</span>
         </ClayButton>
       </ClayNavigationBar.Item>
       <ClayNavigationBar.Item active>

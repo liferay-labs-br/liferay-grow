@@ -5,14 +5,14 @@ class OfficeBaseInput {
   @Field()
   name: string;
 
-  @Field()
-  city: string;
+  @Field({ nullable: true })
+  city?: string;
 
-  @Field()
-  state: string;
+  @Field({ nullable: true })
+  state?: string;
 
-  @Field()
-  country: string;
+  @Field({ nullable: true })
+  country?: string;
 }
 
 @InputType()

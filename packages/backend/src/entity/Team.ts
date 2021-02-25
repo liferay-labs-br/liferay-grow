@@ -13,7 +13,7 @@ import { Office } from './Office';
 import { User } from './User';
 
 @ObjectType()
-@Entity()
+@Entity({ orderBy: { name: 'ASC' } })
 export class Team extends MainEntity {
   @Field(() => ID)
   @PrimaryColumn({ generated: 'uuid' })
@@ -25,7 +25,9 @@ export class Team extends MainEntity {
   name: string;
 
   @Field(() => Office, { nullable: true })
-  @ManyToOne(() => Office, (office) => office.teams)
+  @ManyToOne(() => Office, (office) => office.teams, {
+    cascade: ['insert', 'update'],
+  })
   office: Office;
 
   @Field(() => [User])

@@ -1,6 +1,6 @@
-import '../../styles/globals.scss';
-import '@clayui/css/lib/css/atlas.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@clayui/css/lib/css/atlas.css';
+import '../../styles/globals.scss';
 
 import { ApolloProvider } from '@apollo/client';
 import { ClayIconSpriteContext } from '@clayui/icon';
@@ -10,10 +10,9 @@ import { ToastContainer } from 'react-toastify';
 
 import AppContext from '../AppContext';
 import AppContextProvider from '../AppContextProvider';
-import Layout from '../components/Layout';
+import spritemap from '../assets/spritemap.svg';
+import Layout from '../components/layout';
 import { useApollo } from '../graphql/nextApollo';
-
-const spritemap = require('../assets/spritemap.svg');
 
 const MyApp = ({ Component, pageProps }: AppProps): React.ReactElement => {
   const apolloClient = useApollo(pageProps.initialApolloState);
