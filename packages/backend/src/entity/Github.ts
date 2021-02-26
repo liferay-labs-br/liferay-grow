@@ -1,23 +1,12 @@
-import { Field, ID, ObjectType } from 'type-graphql';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  OneToOne,
-  PrimaryColumn,
-} from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
+import { Column, Entity, Index, JoinColumn, OneToOne } from 'typeorm';
 
+import { MainEntity } from './MainEntity';
 import { User } from './User';
 
 @ObjectType()
 @Entity()
-export class Github extends BaseEntity {
-  @Field(() => ID)
-  @PrimaryColumn({ generated: 'uuid' })
-  id: string;
-
+export class Github extends MainEntity {
   @Field()
   @Column()
   @Index({ unique: true })
