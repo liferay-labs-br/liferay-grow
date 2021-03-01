@@ -10,11 +10,7 @@ const Inputs = {
   update: UpdateTeamInput,
 };
 
-const BaseResolver = createBaseResolver('Team', Team, Team, Inputs, [
-  'users',
-  'users.github',
-  'office',
-]);
+const BaseResolver = createBaseResolver('Team', Team, Team, Inputs, ['office']);
 
 @Resolver(Team)
 export class TeamResolver extends BaseResolver {}

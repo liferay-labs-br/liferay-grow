@@ -1,5 +1,5 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Entity, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm';
 
 import { Github } from './Github';
 import { MainEntity } from './MainEntity';
@@ -12,7 +12,8 @@ export class User extends MainEntity {
   @OneToOne(() => Github, (github) => github.user)
   github: Github;
 
-  @Field(() => Team, { nullable: true })
-  @ManyToOne(() => Team, (team) => team.users)
-  team: Team;
+  @Field(() => [Team], { nullable: true })
+  @JoinTable()
+  @ManyToMany(() => Team)
+  team: Team[];
 }

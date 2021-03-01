@@ -77,9 +77,10 @@ export function createBaseResolver<classType extends ClassType>(
     async updateByID(
       @Arg('data', () => inputTypes.update) data: any,
       @Arg('id') id: string,
-    ): Promise<ClassType> {
-      const entityData = await this.get(id);
-      return this.update(data, entityData);
+    ): Promise<ClassType | Error> {
+      await entity.update(id, data);
+
+      return this.get(id);
     }
 
     @UseMiddleware(isAuth)
