@@ -1,4 +1,4 @@
-<p align="center"> A monorepo boilerplate</p>
+<p align="center">Liferay Grow</p>
 
 <p align="center">
   <a href="http://makeapullrequest.com">
@@ -15,7 +15,7 @@
 
 ## :house: Getting started
 
-1. Clone this repo using: `https://github.com/kevenleone/monorepo.git`
+1. Clone this repo using: `https://github.com/liferay-labs-br/liferay-grow`
 2. Install the packages using your preference package manager ( yarn install )
 
 ## :tada: Features
@@ -38,4 +38,4 @@ All kinds of contributions are very welcome and appreciated
 
 
 ## :book: License
-MIT license, Copyright (c) 2020 Keven Leone.
+MIT license, Copyright (c) 2021 Liferay Labs BR.
