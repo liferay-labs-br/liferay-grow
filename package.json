@@ -1,8 +1,12 @@
 {
-    "name": "monorepo",
+    "name": "liferay-grow",
     "version": "1.0.0",
-    "repository": "https://github.com/kevenleone/monorepo.git",
-    "author": "Keven <keven.santos.sz@gmail.com>",
+    "repository": "https://github.com/liferay-labs-br/liferay-grow.git",
+    "maintainers": [
+      "Adriano Interaminense <adriano.interaminense@gmail.com>",
+      "Mateus Castro <mateus.domingos@liferay.com>"
+    ],
+    "author": "Keven Leone <keven.leone@liferay.com>",
     "license": "MIT",
     "private": true,
     "scripts": {

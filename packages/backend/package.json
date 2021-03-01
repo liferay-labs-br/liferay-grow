@@ -2,8 +2,8 @@
   "name": "@monorepo/backend",
   "version": "1.0.0",
   "main": "src/index.ts",
-  "repository": "https://github.com/kevenleone/monorepo.git",
-  "author": "Keven <keven.santos.sz@gmail.com>",
+  "repository": "https://github.com/liferay-labs-br/liferay-grow.git",
+  "author": "Keven Leone <keven.leone@liferay.com>",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
