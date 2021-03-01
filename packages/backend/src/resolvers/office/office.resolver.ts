@@ -16,8 +16,6 @@ const Inputs = {
 
 const BaseResolver = createBaseResolver('Office', Office, Office, Inputs, [
   'teams',
-  'teams.users',
-  'teams.users.github',
 ]);
 
 @Resolver(Office)

@@ -1,9 +1,8 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, Index, ManyToOne } from 'typeorm';
 
 import { MainEntity } from './MainEntity';
 import { Office } from './Office';
-import { User } from './User';
 
 @ObjectType()
 @Entity({ orderBy: { name: 'ASC' } })
@@ -18,12 +17,4 @@ export class Team extends MainEntity {
     cascade: ['insert', 'update'],
   })
   office: Office;
-
-  @Field(() => [User])
-  @OneToMany(() => User, (user) => user.team, {
-    cascade: true,
-    onDelete: 'CASCADE',
-    primary: true,
-  })
-  users: User[];
 }
