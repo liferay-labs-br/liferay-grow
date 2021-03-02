@@ -6,6 +6,7 @@
 
 1. Clone this repo using: `https://github.com/liferay-labs-br/liferay-grow`
 2. Install the packages using your preference package manager ( yarn install )
+3. Read more in [Installation Guide](docs/installation.md)
 
 ## :tada: Features
 
