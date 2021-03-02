@@ -4,10 +4,6 @@ import React, { useEffect, useReducer } from 'react';
 import GapsContext, { initialState, mainReducer } from './GapsContext';
 import { Types } from './reducer/main-reducer';
 
-type GapsContextProviderProps = {
-  children: React.ReactElement;
-};
-
 const query = gql`
   query {
     getAllOffice {
@@ -30,9 +26,9 @@ const query = gql`
   }
 `;
 
-const GapsContextProvider = ({
+const GapsContextProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
-}: GapsContextProviderProps): React.ReactElement => {
+}) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
   const { data } = useQuery(query);

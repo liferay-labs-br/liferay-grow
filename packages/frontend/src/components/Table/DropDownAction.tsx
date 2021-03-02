@@ -3,20 +3,22 @@ import React from 'react';
 
 const { Divider, Item } = ClayDropDown;
 
-interface IDropDownAction {
-  item: any;
-  setActive(param: any): any;
+type NameFn = (item: string) => React.ReactNode;
+
+interface IDropDownAction extends React.HTMLAttributes<HTMLElement> {
+  item: string;
+  setActive(value: boolean): void;
   action: {
-    action(param: any): any;
-    name: string | Function;
+    action: (item: string) => void;
+    name: string | NameFn;
   };
 }
 
-const DropDownAction = ({
+const DropDownAction: React.FC<IDropDownAction> = ({
   action: { action, name },
   item,
   setActive,
-}: IDropDownAction): React.ReactElement => {
+}) => {
   if (name === 'divider') {
     return <Divider />;
   }

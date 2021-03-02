@@ -7,13 +7,11 @@ import { steps } from './constants';
 import GapsContext from './GapsContext';
 import { Types } from './reducer/main-reducer';
 
-type GapItemProps = {
+interface IGapItemProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean;
-  onClick: () => any;
-  children: React.ReactChild;
-};
+}
 
-const GapItem = ({ active, children, onClick }: GapItemProps) => (
+const GapItem: React.FC<IGapItemProps> = ({ active, children, onClick }) => (
   <li
     onClick={onClick}
     className={classNames('gaps__sidebar__item', {
@@ -29,7 +27,7 @@ const GapItem = ({ active, children, onClick }: GapItemProps) => (
   </li>
 );
 
-export default function GapsSidebar(): React.ReactElement {
+const GapsSidebar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const {
     dispatch,
     state: {
@@ -54,4 +52,6 @@ export default function GapsSidebar(): React.ReactElement {
       </ul>
     </div>
   );
-}
+};
+
+export default GapsSidebar;

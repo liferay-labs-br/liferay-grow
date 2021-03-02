@@ -8,17 +8,17 @@ import DropDownAction from './DropDownAction';
 
 const { ItemList } = ClayDropDown;
 
-interface IDropDown {
+interface IDropDown extends React.HTMLAttributes<HTMLElement> {
   actions: Array<any>;
   item: any;
   noActionsMessage?: string;
 }
 
-const Component = ({
+const Component: React.FC<IDropDown> = ({
   actions = [],
   item,
   noActionsMessage,
-}: IDropDown): React.ReactElement => {
+}) => {
   const [active, setActive] = useState(false);
 
   const DropdownButton = (
