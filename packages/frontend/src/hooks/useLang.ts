@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import AppContext from '../AppContext';
 import { DEFAULT_LANGUAGE_ID } from '../reducers/PortalReducer';
 
-const getKeyValue = (obj: Record<string, any> = {}) => (key: string) =>
+const getKeyValue = (obj: Record<string, string> = {}) => (key: string) =>
   obj[key];
 const capitalize = (s: string): string => {
   if (typeof s !== 'string') return '';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function GapsHeader(): React.ReactElement {
+const GapsHeader: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   return (
     <div className="gaps__header">
       <h1>Grow Together</h1>
@@ -19,4 +19,6 @@ export default function GapsHeader(): React.ReactElement {
       </p>
     </div>
   );
-}
+};
+
+export default GapsHeader;

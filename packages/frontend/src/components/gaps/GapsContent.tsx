@@ -7,7 +7,7 @@ import GapsContext from './GapsContext';
 import { Types } from './reducer/main-reducer';
 import GapsGetStarted from './steps/GapsGetStarted';
 
-export default function GapsContent(): React.ReactElement {
+const GapsContent: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
   const {
     dispatch,
@@ -50,4 +50,6 @@ export default function GapsContent(): React.ReactElement {
       </div>
     </div>
   );
-}
+};
+
+export default GapsContent;

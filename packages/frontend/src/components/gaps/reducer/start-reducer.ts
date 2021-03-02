@@ -4,7 +4,7 @@ enum Types {
   EDIT_OFFICE = 'EDIT_OFFICE',
 }
 
-type Office = {
+export type Office = {
   title: string;
   id: string;
 };
@@ -13,7 +13,7 @@ type StartActionPayload = {
   [Types.EDIT_OFFICE]: string;
 };
 
-type GetStarted = {
+export type GetStarted = {
   office: Office | null;
 };
 
@@ -41,4 +41,3 @@ export const startReducer = (
 };
 
 export { Types, startState };
-export type { Office, GetStarted };

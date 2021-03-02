@@ -1,23 +1,23 @@
 {
-    "name": "monorepo",
-    "version": "1.0.0",
-    "repository": "https://github.com/kevenleone/monorepo.git",
-    "author": "Keven <keven.santos.sz@gmail.com>",
-    "license": "MIT",
-    "private": true,
-    "scripts": {
-      "format": "eslint packages/**/src/* --ext .ts --fix --no-error-on-unmatched-pattern",
-      "dev:server": "yarn workspace @monorepo/backend dev",
-      "dev:frontend": "yarn workspace @monorepo/frontend dev",
-      "test": "jest"
-    },
-    "workspaces": {
-      "packages": [
-        "packages/*"
-      ]
-    },
-    "devDependencies": {
-      "@monorepo/eslint-config-node": "*"
-    }
+  "name": "monorepo",
+  "version": "1.0.0",
+  "repository": "https://github.com/kevenleone/monorepo.git",
+  "author": "Keven <keven.santos.sz@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "format": "eslint packages/**/src/* --ext .ts --fix --no-error-on-unmatched-pattern",
+    "dev:server": "yarn workspace @monorepo/backend dev",
+    "dev:frontend": "yarn workspace @monorepo/frontend dev",
+    "test": "jest"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "@monorepo/eslint-config-node": "*",
+    "@types/prop-types": "^15.7.3"
   }
-  
+}

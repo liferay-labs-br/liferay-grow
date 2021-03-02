@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 
 import GapsContext from '../GapsContext';
 
-export default function GapsGetStarted(): React.ReactElement {
+const GapsGetStarted: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const {
     state: {
       main: { carrees: careerDepartament, offices },
@@ -42,4 +42,6 @@ export default function GapsGetStarted(): React.ReactElement {
       </ClayForm.Group>
     </ClayForm>
   );
-}
+};
+
+export default GapsGetStarted;

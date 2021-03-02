@@ -4,9 +4,7 @@ import React from 'react';
 
 import useLang from '../../hooks/useLang';
 
-// import UserAvatar from '../UserAvatar';
-
-const NavigationBar = () => {
+const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
 
   return (

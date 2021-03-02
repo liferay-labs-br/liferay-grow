@@ -8,21 +8,21 @@ import ClayManagementToolbar, {
 } from '@clayui/management-toolbar';
 import React, { useState } from 'react';
 
-interface ManagementToolbarProps {
+interface IManagementToolbarProps extends React.HTMLAttributes<HTMLElement> {
   searchText?: string;
   orderBy?: boolean;
   listType?: string;
   info?: boolean;
-  addButton?: React.ReactElement;
+  addButton?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const ManagementToolbar = ({
+const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
   addButton,
   info,
   listType,
   orderBy,
   searchText,
-}: ManagementToolbarProps): React.ReactElement => {
+}) => {
   const filterItems = [
     { label: 'Filter Action 1', onClick: () => alert('Filter clicked') },
     { label: 'Filter Action 2', onClick: () => alert('Filter clicked') },

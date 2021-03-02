@@ -2,11 +2,7 @@ import React from 'react';
 
 import NavigationBar from '../navigation-bar';
 
-interface ILayout {
-  children: React.ReactElement;
-}
-
-const Layout: React.FC = ({ children }: ILayout) => {
+const Layout: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children }) => {
   return (
     <div className="application">
       <NavigationBar />

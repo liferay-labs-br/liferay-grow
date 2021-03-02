@@ -3,21 +3,20 @@ import ClayLayout from '@clayui/layout';
 import ClayPanel from '@clayui/panel';
 import React from 'react';
 
-interface IPage {
-  addButton?(): any;
-  onClickBack?(): any;
-  children: React.ReactElement;
+interface IPage extends React.HTMLAttributes<HTMLElement> {
+  addButton?: () => React.ReactNode;
+  onClickBack?: () => void;
   title: string;
   withPanel?: boolean;
 }
 
-const Page = ({
-  addButton = () => <></>,
-  onClickBack,
+const Page: React.FC<IPage> = ({
+  addButton,
   children,
+  onClickBack,
   title,
   withPanel,
-}: IPage): React.ReactElement => {
+}) => {
   return (
     <ClayLayout.ContainerFluid className="page-component">
       <ClayLayout.Row className="header">
@@ -34,7 +33,7 @@ const Page = ({
           </div>
         </ClayLayout.Col>
         <ClayLayout.Col style={{ marginTop: -7, textAlign: 'end' }}>
-          {addButton()}
+          {addButton && addButton()}
         </ClayLayout.Col>
       </ClayLayout.Row>
 
