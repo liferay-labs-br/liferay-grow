@@ -11,8 +11,6 @@ import { logger } from './utils/globalMethods';
 import { createTypeormConn } from './utils/typeORMConn';
 class App {
   public express: Express.Application;
-  public apolloConfig: Config;
-  public apollo: ApolloServer;
 
   constructor() {
     config();
@@ -25,6 +23,8 @@ class App {
 
   private async initializeApollo(): Promise<void> {
     const { APP_NAME, ENVIRONMENT, RUN_PLAYGROUND = true } = process.env;
+
+    logger.debug(`${APP_NAME} environment: ${ENVIRONMENT}`);
 
     const apolloServerConfig: Config = {
       cacheControl: { defaultMaxAge: 30 },
@@ -64,6 +64,7 @@ class App {
   private async initializeDatabase(): Promise<void> {
     try {
       await createTypeormConn();
+      logger.debug('Database connected success');
     } catch (e) {
       logger.error('Database connection error' + e.message);
     }
@@ -76,10 +77,8 @@ class App {
   public listen(): void {
     const { APP_NAME, PORT = 3333 } = process.env;
 
-    logger.debug(`Starting ${APP_NAME} Server`);
-
     this.express.listen(PORT, () => {
-      logger.debug(`App listening on the port ${PORT}`);
+      logger.debug(`${APP_NAME} listening on the port ${PORT}`);
     });
   }
 }
