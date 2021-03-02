@@ -1,5 +1,3 @@
-import { ActionMap } from '../../../reducers';
-
 enum Types {
   EDIT_STEP = 'EDIT_STEP',
   EDIT_OFFICES = 'EDIT_OFFICES',
@@ -18,12 +16,7 @@ interface Office extends DefaultEntity {
 interface Career extends DefaultEntity {
   careers: DefaultEntity[];
 }
-
-type StartActionPayload = {
-  [Types.EDIT_STEP]: string;
-};
-
-type Main = {
+export type Main = {
   step: string;
   offices: Office[];
   carrees: Career[];
@@ -35,9 +28,12 @@ const mainState: Main = {
   step: 'get-started',
 };
 
-type StartActions = ActionMap<StartActionPayload>[keyof ActionMap<StartActionPayload>];
+type Action = {
+  type: Types;
+  payload: any;
+};
 
-export const mainReducer = (state: Main, action: StartActions | any): Main => {
+export const mainReducer = (state: Main, action: Action): Main => {
   switch (action.type) {
     case Types.EDIT_STEP: {
       return {
@@ -71,4 +67,3 @@ export const mainReducer = (state: Main, action: StartActions | any): Main => {
 };
 
 export { Types, mainState };
-export type { Main };

@@ -4,7 +4,9 @@ import { Portal, portalReducer, portalState } from './reducers/PortalReducer';
 import { User, userReducer, userState } from './reducers/UserReducer';
 
 type Action = {
-  payload: any;
+  payload: {
+    token: string;
+  };
   type: string;
 };
 
@@ -20,13 +22,16 @@ const initialState = {
 
 const AppContext = createContext<{
   state: InitialStateType;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<Action>;
 }>({
   dispatch: () => null,
   state: initialState,
 });
 
-const mainReducer = ({ portal, user }: InitialStateType, action: Action) => ({
+const mainReducer = (
+  { portal, user }: InitialStateType,
+  action: Action,
+): InitialStateType => ({
   portal: portalReducer(portal, action),
   user: userReducer(user, action),
 });

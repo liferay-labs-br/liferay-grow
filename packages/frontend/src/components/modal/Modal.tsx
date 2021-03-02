@@ -3,17 +3,16 @@ import React, { ReactElement } from 'react';
 
 type Size = 'full-screen' | 'lg' | 'sm';
 
-interface ModalProps {
-  children: ReactElement;
+interface IModalProps extends React.HTMLAttributes<HTMLElement> {
   first?: ReactElement;
   last?: ReactElement;
-  title?: string;
-  toggle(): void;
-  visible: boolean;
   size?: Size;
+  title?: string;
+  toggle: () => void;
+  visible: boolean;
 }
 
-const Modal = ({
+const Modal: React.FC<IModalProps> = ({
   children,
   first,
   last,
@@ -21,21 +20,21 @@ const Modal = ({
   title,
   toggle,
   visible,
-}: ModalProps): ReactElement => {
+}) => {
   const { observer } = useModal({
     onClose: toggle,
   });
 
+  if (!visible) {
+    return null;
+  }
+
   return (
-    <>
-      {visible && (
-        <ClayModal observer={observer} size={size}>
-          <ClayModal.Header>{title}</ClayModal.Header>
-          <ClayModal.Body>{children}</ClayModal.Body>
-          {first || (last && <ClayModal.Footer first={first} last={last} />)}
-        </ClayModal>
-      )}
-    </>
+    <ClayModal observer={observer} size={size}>
+      <ClayModal.Header>{title}</ClayModal.Header>
+      <ClayModal.Body>{children}</ClayModal.Body>
+      {first || (last && <ClayModal.Footer first={first} last={last} />)}
+    </ClayModal>
   );
 };
 

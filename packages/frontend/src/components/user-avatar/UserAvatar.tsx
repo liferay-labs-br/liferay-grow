@@ -1,7 +1,7 @@
 import ClayDropDown from '@clayui/drop-down';
 import React, { useState } from 'react';
 
-const UserAvatar = () => {
+const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const [active, setActive] = useState(false);
 
   return (

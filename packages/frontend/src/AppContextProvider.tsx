@@ -5,7 +5,9 @@ import { LANGUAGE_KEY, Languages } from './reducers/PortalReducer';
 import { Types } from './reducers/UserReducer';
 import { keys } from './utils/util';
 
-const AppProvider = ({ children }) => {
+const AppProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+  children,
+}) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
   useEffect(() => {

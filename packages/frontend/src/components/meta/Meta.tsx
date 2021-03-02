@@ -2,19 +2,14 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-type IMeta = {
+interface IMeta extends React.HTMLAttributes<HTMLElement> {
   description?: string;
-  title?: string;
   icon?: string;
   image?: string;
-};
+  title?: string;
+}
 
-const Meta = ({
-  description,
-  icon,
-  image,
-  title,
-}: IMeta): React.ReactElement => {
+const Meta: React.FC<IMeta> = ({ description, icon, image, title }) => {
   const router = useRouter();
   const { asPath } = router;
   const baseURL = 'https://liferay.com';
