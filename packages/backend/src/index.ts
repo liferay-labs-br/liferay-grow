@@ -55,23 +55,34 @@ class App {
     });
   }
 
-  private initializeMiddlewares(): void {
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: true }));
-    this.express.use(helmet({ contentSecurityPolicy: false }));
+  private initializeControllers(): void {
+    this.express.get('/', (_, res) => res.json({ message: 'Hi!' }));
   }
 
   private async initializeDatabase(): Promise<void> {
     try {
-      await createTypeormConn();
+      const conn = await createTypeormConn();
+
       logger.debug('Database connected success');
+
+      const migrations = await conn.runMigrations({ transaction: 'all' });
+
+      if (migrations.length) {
+        logger.info(
+          `Migrations executed: ${migrations
+            .map(({ name }) => name)
+            .join(', ')}`,
+        );
+      }
     } catch (e) {
       logger.error('Database connection error' + e.message);
     }
   }
 
-  private initializeControllers(): void {
-    this.express.get('/', (_, res) => res.json({ message: 'Hi!' }));
+  private initializeMiddlewares(): void {
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: true }));
+    this.express.use(helmet({ contentSecurityPolicy: false }));
   }
 
   public listen(): void {
