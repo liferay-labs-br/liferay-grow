@@ -7,16 +7,22 @@ class KnowledgeSkillBaseInput {
 }
 
 @InputType()
-export class CreateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
+class CreateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
   @Field({ nullable: true })
   area?: string;
 }
 
 @InputType()
-export class UpdateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
+class UpdateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
   @Field({ nullable: true })
   area?: string;
 }
 
 @InputType()
-export class FilterKnowledgeSkillInput extends KnowledgeSkillBaseInput {}
+class FilterKnowledgeSkillInput extends KnowledgeSkillBaseInput {}
+
+export default {
+  create: CreateKnowledgeSkillInput,
+  filter: FilterKnowledgeSkillInput,
+  update: UpdateKnowledgeSkillInput,
+};

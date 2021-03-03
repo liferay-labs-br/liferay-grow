@@ -15,13 +15,11 @@ import { execMiddleware, normalizePagination } from './globalMethods';
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
  * @param entity TypeORM Entity
  * @param inputTypes object with create, update and optionally update inputTypes
- * @param returnType return classType
  * @param middlewares optional middlewares to be applied in defaults functions
  */
 export function createBaseResolver<classType extends ClassType>(
   suffix: string,
   entity: any,
-  returnType: classType,
   inputTypes: { create: classType; update: classType; filter?: classType },
   relations: string[] = [],
   middlewares?: MiddlewareBaseResolver,
@@ -29,13 +27,13 @@ export function createBaseResolver<classType extends ClassType>(
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
     @UseMiddleware(isAuth)
-    @Query(() => [returnType], { name: `getAll${suffix}` })
+    @Query(() => [entity], { name: `getAll${suffix}` })
     async getAll(): Promise<ClassType[]> {
       return entity.find({ relations });
     }
 
     @UseMiddleware(isAuth)
-    @Query(() => [returnType], { name: `getAll${suffix}Filter` })
+    @Query(() => [entity], { name: `getAll${suffix}Filter` })
     async getAllFiltered(
       @Arg('data', () => inputTypes.filter || inputTypes.create) data: any,
     ): Promise<ClassType[]> {
@@ -43,7 +41,7 @@ export function createBaseResolver<classType extends ClassType>(
     }
 
     @UseMiddleware(isAuth)
-    @Query(() => [returnType], { name: `getAll${suffix}Paginate` })
+    @Query(() => [entity], { name: `getAll${suffix}Paginate` })
     async getAllPagination(
       @Arg('data', () => PaginationQL) data: PaginationQL,
     ): Promise<ClassType[]> {
@@ -52,7 +50,7 @@ export function createBaseResolver<classType extends ClassType>(
     }
 
     @UseMiddleware(isAuth)
-    @Query(() => returnType, { name: `get${suffix}` })
+    @Query(() => entity, { name: `get${suffix}` })
     async get(@Arg('id', () => String) id: string): Promise<ClassType | Error> {
       const content = await entity.findOne({ relations, where: { id } });
       if (!content) {
@@ -62,7 +60,7 @@ export function createBaseResolver<classType extends ClassType>(
     }
 
     @UseMiddleware(isAuth)
-    @Mutation(() => returnType, { name: `create${suffix}` })
+    @Mutation(() => entity, { name: `create${suffix}` })
     async create(
       @Arg('data', () => inputTypes.create) data: any,
     ): Promise<ClassType | Error> {
@@ -76,7 +74,7 @@ export function createBaseResolver<classType extends ClassType>(
     }
 
     @UseMiddleware(isAuth)
-    @Mutation(() => returnType, { name: `updateBy${suffix}ID` })
+    @Mutation(() => entity, { name: `updateBy${suffix}ID` })
     async updateByID(
       @Arg('data', () => inputTypes.update) data: any,
       @Arg('id') id: string,
@@ -87,7 +85,7 @@ export function createBaseResolver<classType extends ClassType>(
     }
 
     @UseMiddleware(isAuth)
-    @Mutation(() => [returnType], { name: `createMulti${suffix}` })
+    @Mutation(() => [entity], { name: `createMulti${suffix}` })
     async createMulti(
       @Arg('data', () => [inputTypes.create]) data: any[],
     ): Promise<ClassType[]> {

@@ -7,16 +7,22 @@ class CareerBaseInput {
 }
 
 @InputType()
-export class CreateCareerInput extends CareerBaseInput {
+class CreateCareerInput extends CareerBaseInput {
   @Field({ nullable: true })
   carreerDepartament?: string;
 }
 
 @InputType()
-export class UpdateCareerInput extends CareerBaseInput {
+class UpdateCareerInput extends CareerBaseInput {
   @Field({ nullable: true })
   carreerDepartament?: string;
 }
 
 @InputType()
-export class FilterCareerInput extends CareerBaseInput {}
+class FilterCareerInput extends CareerBaseInput {}
+
+export default {
+  create: CreateCareerInput,
+  filter: FilterCareerInput,
+  update: UpdateCareerInput,
+};

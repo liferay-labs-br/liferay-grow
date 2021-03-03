@@ -2,21 +2,10 @@ import { Resolver } from 'type-graphql';
 
 import { KnowledgeSkill } from '../../entity/KnowledgeSkill';
 import { createBaseResolver } from '../../utils/createBaseResolver';
-import {
-  CreateKnowledgeSkillInput,
-  FilterKnowledgeSkillInput,
-  UpdateKnowledgeSkillInput,
-} from './Inputs';
-
-const Inputs = {
-  create: CreateKnowledgeSkillInput,
-  filter: FilterKnowledgeSkillInput,
-  update: UpdateKnowledgeSkillInput,
-};
+import Inputs from './Inputs';
 
 const BaseResolver = createBaseResolver(
   'KnowledgeSkill',
-  KnowledgeSkill,
   KnowledgeSkill,
   Inputs,
   ['area'],

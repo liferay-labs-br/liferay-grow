@@ -19,10 +19,16 @@ class OfficeBaseInput {
 }
 
 @InputType()
-export class CreateOfficeInput extends OfficeBaseInput {}
+class CreateOfficeInput extends OfficeBaseInput {}
 
 @InputType()
-export class UpdateOfficeInput extends OfficeBaseInput {}
+class UpdateOfficeInput extends OfficeBaseInput {}
 
 @InputType()
-export class FilterOfficeInput extends OfficeBaseInput {}
+class FilterOfficeInput extends OfficeBaseInput {}
+
+export default {
+  create: CreateOfficeInput,
+  filter: FilterOfficeInput,
+  update: UpdateOfficeInput,
+};

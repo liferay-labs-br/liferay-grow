@@ -2,21 +2,10 @@ import { Resolver } from 'type-graphql';
 
 import { CareerDepartament } from '../../entity/CareerDepartament';
 import { createBaseResolver } from '../../utils/createBaseResolver';
-import {
-  CreateCareerDepartamentInput,
-  FilterCareerDepartamentInput,
-  UpdateCareerDepartamentInput,
-} from './Inputs';
-
-const Inputs = {
-  create: CreateCareerDepartamentInput,
-  filter: FilterCareerDepartamentInput,
-  update: UpdateCareerDepartamentInput,
-};
+import Inputs from './Inputs';
 
 const BaseResolver = createBaseResolver(
   'CareerDepartament',
-  CareerDepartament,
   CareerDepartament,
   Inputs,
   ['careers'],
