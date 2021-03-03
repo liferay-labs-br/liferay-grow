@@ -2,21 +2,10 @@ import { Resolver } from 'type-graphql';
 
 import { KnowledgeMatriz } from '../../entity/KnowledgeMatriz';
 import { createBaseResolver } from '../../utils/createBaseResolver';
-import {
-  CreateKnowledgeMatrizInput,
-  FilterKnowledgeMatrizInput,
-  UpdateKnowledgeMatrizInput,
-} from './Inputs';
-
-const Inputs = {
-  create: CreateKnowledgeMatrizInput,
-  filter: FilterKnowledgeMatrizInput,
-  update: UpdateKnowledgeMatrizInput,
-};
+import Inputs from './Inputs';
 
 const BaseResolver = createBaseResolver(
   'KnowledgeMatriz',
-  KnowledgeMatriz,
   KnowledgeMatriz,
   Inputs,
 );

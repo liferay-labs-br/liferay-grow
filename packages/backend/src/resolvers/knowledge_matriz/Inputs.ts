@@ -10,10 +10,16 @@ class KnowledgeMatrizBaseInput {
 }
 
 @InputType()
-export class CreateKnowledgeMatrizInput extends KnowledgeMatrizBaseInput {}
+class CreateKnowledgeMatrizInput extends KnowledgeMatrizBaseInput {}
 
 @InputType()
-export class UpdateKnowledgeMatrizInput extends KnowledgeMatrizBaseInput {}
+class UpdateKnowledgeMatrizInput extends KnowledgeMatrizBaseInput {}
 
 @InputType()
-export class FilterKnowledgeMatrizInput extends KnowledgeMatrizBaseInput {}
+class FilterKnowledgeMatrizInput extends KnowledgeMatrizBaseInput {}
+
+export default {
+  create: CreateKnowledgeMatrizInput,
+  filter: FilterKnowledgeMatrizInput,
+  update: UpdateKnowledgeMatrizInput,
+};

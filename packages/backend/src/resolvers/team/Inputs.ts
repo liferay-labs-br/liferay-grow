@@ -7,16 +7,22 @@ class TeamBaseInput {
 }
 
 @InputType()
-export class CreateTeamInput extends TeamBaseInput {
+class CreateTeamInput extends TeamBaseInput {
   @Field({ nullable: true })
   office?: string;
 }
 
 @InputType()
-export class UpdateTeamInput extends TeamBaseInput {
+class UpdateTeamInput extends TeamBaseInput {
   @Field({ nullable: true })
   office?: string;
 }
 
 @InputType()
-export class FilterTeamInput extends TeamBaseInput {}
+class FilterTeamInput extends TeamBaseInput {}
+
+export default {
+  create: CreateTeamInput,
+  filter: FilterTeamInput,
+  update: UpdateTeamInput,
+};

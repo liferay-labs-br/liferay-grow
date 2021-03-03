@@ -7,10 +7,16 @@ class CareerDepartamentBaseInput {
 }
 
 @InputType()
-export class CreateCareerDepartamentInput extends CareerDepartamentBaseInput {}
+class CreateCareerDepartamentInput extends CareerDepartamentBaseInput {}
 
 @InputType()
-export class UpdateCareerDepartamentInput extends CareerDepartamentBaseInput {}
+class UpdateCareerDepartamentInput extends CareerDepartamentBaseInput {}
 
 @InputType()
-export class FilterCareerDepartamentInput extends CareerDepartamentBaseInput {}
+class FilterCareerDepartamentInput extends CareerDepartamentBaseInput {}
+
+export default {
+  create: CreateCareerDepartamentInput,
+  filter: FilterCareerDepartamentInput,
+  update: UpdateCareerDepartamentInput,
+};

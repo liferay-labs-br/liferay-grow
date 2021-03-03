@@ -2,15 +2,9 @@ import { Resolver } from 'type-graphql';
 
 import { Team } from '../../entity/Team';
 import { createBaseResolver } from '../../utils/createBaseResolver';
-import { CreateTeamInput, FilterTeamInput, UpdateTeamInput } from './Inputs';
+import Inputs from './Inputs';
 
-const Inputs = {
-  create: CreateTeamInput,
-  filter: FilterTeamInput,
-  update: UpdateTeamInput,
-};
-
-const BaseResolver = createBaseResolver('Team', Team, Team, Inputs, ['office']);
+const BaseResolver = createBaseResolver('Team', Team, Inputs, ['office']);
 
 @Resolver(Team)
 export class TeamResolver extends BaseResolver {}
