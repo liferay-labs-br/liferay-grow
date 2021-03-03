@@ -13,6 +13,9 @@ class OfficeBaseInput {
 
   @Field({ nullable: true })
   country?: string;
+
+  @Field({ nullable: true })
+  address?: string;
 }
 
 @InputType()

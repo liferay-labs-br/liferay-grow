@@ -22,6 +22,10 @@ export class Office extends MainEntity {
 
   @Field()
   @Column()
+  address: string;
+
+  @Field()
+  @Column()
   country: string;
 
   @Field(() => [Team], { nullable: true })
