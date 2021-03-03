@@ -1,5 +1,5 @@
 export interface MiddlewareBaseResolver {
-  create?: Function[];
-  update?: Function[];
-  delete?: Function[];
+  create?: Array<() => void>;
+  update?: Array<() => void>;
+  delete?: Array<() => void>;
 }
