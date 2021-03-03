@@ -64,7 +64,7 @@ export function normalizePagination(
 export async function execMiddleware(
   entity: EntityOptions,
   data: any,
-  ...middlewares: Function[]
+  ...middlewares: Array<(entity: EntityOptions, data: any) => void>
 ): Promise<void> {
   for (const middleware of middlewares) {
     await middleware(entity, data);

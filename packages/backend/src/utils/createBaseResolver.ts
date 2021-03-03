@@ -65,11 +65,14 @@ export function createBaseResolver<classType extends ClassType>(
     @Mutation(() => returnType, { name: `create${suffix}` })
     async create(
       @Arg('data', () => inputTypes.create) data: any,
-    ): Promise<ClassType> {
+    ): Promise<ClassType | Error> {
       if (middlewares && middlewares.create) {
         await execMiddleware(entity, data, ...middlewares.create);
       }
-      return entity.create(data).save();
+
+      const { id } = await entity.create(data).save();
+
+      return this.get(id);
     }
 
     @UseMiddleware(isAuth)
