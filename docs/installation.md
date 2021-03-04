@@ -9,7 +9,7 @@ So, yarn is **required** to install and run scripts.
     1. Create a copy of .env.example in packages/frontend/.env.example to .env in this same frontend folder. and changes some environments if you need.
 3. Backend Configuration
     1. Create a copy of .env.example in *packages/backend/.env.example* to .env in this same backend folder. and changes some environments if you need.
-    2. Create a copy of ormconfig *packages/backend/ormconfig.example.json* and put in the main folder (the same level from packages) with the name *ormconfig.json*
+    2. Create a copy of ormconfig *ormconfig.example.ts* and put in the main folder (the same level from packages) with the name *ormconfig.ts*
     3. Replace the connection with name **development** with your database credentials, like host, user and password. *note: you must create a database first.*
     4. After setup everything, you can use: **yarn dev:server** in the main folder to run the backend.
     5. If everything work as expected, you will see this message
