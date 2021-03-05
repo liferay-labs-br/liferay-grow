@@ -1,11 +1,14 @@
 import ClayButton from '@clayui/button';
 import ClayNavigationBar from '@clayui/navigation-bar';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import useLang from '../../hooks/useLang';
+import UserAvatar from '../user-avatar';
 
 const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
+  const router = useRouter();
 
   return (
     <ClayNavigationBar
@@ -14,16 +17,15 @@ const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
       style={{ borderBottom: '1px solid #F1F2F5', margin: 'auto', padding: 15 }}
     >
       <ClayNavigationBar.Item className="item" active>
-        <ClayButton displayType="unstyled">
+        <ClayButton onClick={() => router.push('/')} displayType="unstyled">
           <img src="/assets/dxp-icon.svg"></img>
           <span className="ml-2">{i18n.get('app-title')}</span>
         </ClayButton>
       </ClayNavigationBar.Item>
-      <ClayNavigationBar.Item active>
-        <ClayButton displayType="unstyled" />
-      </ClayNavigationBar.Item>
       <ul className="navbar-nav">
-        <li className="dropdown nav-item">{/* <UserAvatar /> */}</li>
+        <li className="dropdown nav-item">
+          <UserAvatar />
+        </li>
       </ul>
     </ClayNavigationBar>
   );

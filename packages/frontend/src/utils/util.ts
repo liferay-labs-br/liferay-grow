@@ -8,8 +8,16 @@ export function redirect(ctx, path: string): void {
   }
 }
 
+export const parseJwt = (token: string): any => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
+
 export const keys = {
-  token: '@liferay-grow/token',
+  token: 'liferay-grow-token',
 };
 
 export const languagesFull = {

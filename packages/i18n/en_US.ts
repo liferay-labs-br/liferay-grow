@@ -9,4 +9,5 @@ export default {
   'sign-in-with-github': 'Sign in with Github',
   'skill-details': 'Skills Details',
   'terms-of-use': 'Terms of Use | Privacy Policies',
+  'welcome-x': 'Welcome, {0}',
 };

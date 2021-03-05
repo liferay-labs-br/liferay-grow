@@ -3,7 +3,7 @@ import React, { useEffect, useReducer } from 'react';
 import AppContext, { initialState, mainReducer } from './AppContext';
 import { LANGUAGE_KEY, Languages } from './reducers/PortalReducer';
 import { Types } from './reducers/UserReducer';
-import { keys } from './utils/util';
+import { getToken } from './utils/cookie';
 
 const AppProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
@@ -27,7 +27,7 @@ const AppProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem(keys.token);
+    const token = getToken();
 
     if (token) {
       dispatch({

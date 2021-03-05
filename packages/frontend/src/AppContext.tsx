@@ -4,9 +4,7 @@ import { Portal, portalReducer, portalState } from './reducers/PortalReducer';
 import { User, userReducer, userState } from './reducers/UserReducer';
 
 type Action = {
-  payload: {
-    token: string;
-  };
+  payload?: any;
   type: string;
 };
 
