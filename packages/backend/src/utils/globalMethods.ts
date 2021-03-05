@@ -1,7 +1,9 @@
 import { gql } from 'apollo-server-express';
 import { EntityOptions } from 'typeorm';
 
+import { User } from '../entity/User';
 import { Pagination } from '../interfaces';
+import { MyContext } from '../interfaces/MyContext';
 import Constants from '../utils/contants';
 import Logger from '../utils/logger';
 
@@ -60,6 +62,29 @@ export function normalizePagination(
     take,
   };
 }
+
+export const getLoggedUserFromCtx = (ctx: MyContext): any => {
+  const loggedUser: any = ctx.req.headers.loggedUser || {};
+
+  return loggedUser;
+};
+
+export const getUserFromCtxOrFail = async (
+  ctx: MyContext,
+  relations: string[] = [],
+): Promise<User> => {
+  const loggedUser = getLoggedUserFromCtx(ctx);
+  const {
+    user: { id },
+  } = loggedUser;
+
+  try {
+    const user = await User.findOneOrFail(id, { relations });
+    return user;
+  } catch (e) {
+    throw new Error('User not exists');
+  }
+};
 
 export async function execMiddleware(
   entity: EntityOptions,
