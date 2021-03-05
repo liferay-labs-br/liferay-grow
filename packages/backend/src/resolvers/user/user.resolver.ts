@@ -9,7 +9,15 @@ export class UserResolver {
   @Query(() => [User], { name: 'getAllUsers' })
   async getAllUsers(): Promise<User[]> {
     const users = await User.find({
-      relations: ['github', 'team', 'team.office'],
+      relations: [
+        'github',
+        'growMap',
+        'growMap.knowledgeSkillDetails',
+        'growMap.knowledgeSkillDetails.knowledgeSkill',
+        'growMap.knowledgeSkillDetails.knowledgeMatriz',
+        'team',
+        'team.office',
+      ],
     });
 
     return users;
