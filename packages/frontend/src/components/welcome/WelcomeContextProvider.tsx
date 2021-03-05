@@ -23,6 +23,11 @@ const query = gql`
         name
       }
     }
+
+    getAllRole {
+      id
+      name
+    }
   }
 `;
 

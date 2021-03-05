@@ -42,7 +42,7 @@ export class GithubResolver {
     } = githubUser;
 
     const user = await Github.findOne({
-      relations: ['user'],
+      relations: ['user', 'user.growMap'],
       where: {
         login,
       },

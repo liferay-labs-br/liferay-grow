@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { parseCookies } from '../utils/cookie';
-import { redirect } from '../utils/util';
+import { keys, redirect } from '../utils/util';
 import { WrappedComponent } from './types';
 
 const withPublic = (
@@ -12,7 +12,7 @@ const withPublic = (
 
     static async getInitialProps(ctx) {
       const { req } = ctx;
-      const { token } = parseCookies(req);
+      const { [keys.token]: token } = parseCookies(req);
 
       if (token) {
         redirect(ctx, '/');

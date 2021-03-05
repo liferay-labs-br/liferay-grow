@@ -31,11 +31,11 @@ export class UserResolver {
     } = ctx;
     const { loggedUser }: any = headers;
 
-    const id = loggedUser?.user;
+    const { id } = loggedUser?.user;
 
     const user = await User.findOne({
-      relations: ['github', 'team'],
-      where: { user: id },
+      relations: ['github', 'team', 'growMap'],
+      where: { id },
     });
 
     return user;

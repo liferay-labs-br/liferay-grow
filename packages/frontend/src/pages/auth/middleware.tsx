@@ -1,13 +1,15 @@
 import { useMutation } from '@apollo/client';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
+import AppContext from '../../AppContext';
 import SEO from '../../components/meta';
 import { authGithub } from '../../graphql/mutations';
 import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
+import { Types } from '../../reducers/UserReducer';
+import { parseJwt } from '../../utils/util';
 import Layout from './_layout';
 
 const AuthMiddleware = (): React.ReactElement => {
@@ -15,25 +17,34 @@ const AuthMiddleware = (): React.ReactElement => {
   const i18n = useLang();
 
   const [onAuthGithub, { loading }] = useMutation(authGithub);
+  const { dispatch } = useContext(AppContext);
 
-  const authUserGithub = async () => {
+  const fetchUserGithub = async () => {
     const urlQuery = new URLSearchParams(location.search);
     const code = urlQuery.get('code');
 
     if (code) {
       const {
-        data: { authGithub: token },
+        data: { authGithub: bearer },
       } = await onAuthGithub({ variables: { code } });
-      Cookies.set('token', token, { expires: 1, sameSite: 'strict' });
-      toast.info('Welcome, User. You ill be redirect');
-      router.push('/');
+
+      dispatch({ payload: { token: bearer }, type: Types.SET_LOGGED_USER });
+
+      const {
+        name,
+        user: { growMap },
+      } = parseJwt(bearer);
+
+      toast.info(i18n.sub('welcome-x', name));
+
+      router.push(growMap ? '/' : '/welcome');
     } else {
       router.push('/auth');
     }
   };
 
   useEffect(() => {
-    authUserGithub();
+    fetchUserGithub();
   }, []);
 
   return (
