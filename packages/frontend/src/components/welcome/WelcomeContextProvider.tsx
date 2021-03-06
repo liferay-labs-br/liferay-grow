@@ -1,8 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useEffect, useReducer } from 'react';
 
-import GapsContext, { initialState, mainReducer } from './GapsContext';
 import { Types } from './reducer/main-reducer';
+import WelcomeContext, { initialState, mainReducer } from './WelcomeContext';
 
 const query = gql`
   query {
@@ -26,7 +26,7 @@ const query = gql`
   }
 `;
 
-const GapsContextProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+const WelcomeContextProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
@@ -44,10 +44,10 @@ const GapsContextProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   }, [data]);
 
   return (
-    <GapsContext.Provider value={{ dispatch, state }}>
+    <WelcomeContext.Provider value={{ dispatch, state }}>
       {children}
-    </GapsContext.Provider>
+    </WelcomeContext.Provider>
   );
 };
 
-export default GapsContextProvider;
+export default WelcomeContextProvider;

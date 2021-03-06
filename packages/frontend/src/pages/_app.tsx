@@ -14,17 +14,19 @@ import spritemap from '../assets/spritemap.svg';
 import Layout from '../components/layout';
 import { useApollo } from '../graphql/nextApollo';
 
-const MyApp = ({ Component, pageProps }: AppProps): React.ReactElement => {
+const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
     <ClayIconSpriteContext.Provider value={spritemap}>
       <ToastContainer position="bottom-left" />
+
       <AppContextProvider>
         <AppContext.Consumer>
           {({ state }) => {
             const token = state.user.token;
             const language = state.portal.languageId;
+
             apolloClient.link.options.headers.Authorization = `Bearer ${token}`;
             apolloClient.link.options.headers['Accept-Language'] = language;
 
@@ -46,4 +48,4 @@ const MyApp = ({ Component, pageProps }: AppProps): React.ReactElement => {
   );
 };
 
-export default MyApp;
+export default App;

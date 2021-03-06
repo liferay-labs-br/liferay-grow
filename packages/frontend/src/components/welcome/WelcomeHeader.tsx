@@ -1,8 +1,8 @@
 import React from 'react';
 
-const GapsHeader: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
+const WelcomeHeader: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   return (
-    <div className="gaps__header">
+    <div className="welcome__header">
       <h1>Grow Together</h1>
       <p>
         When you have a very busy day and are committed to activities and
@@ -21,4 +21,4 @@ const GapsHeader: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   );
 };
 
-export default GapsHeader;
+export default WelcomeHeader;
