@@ -2,10 +2,13 @@ import React from 'react';
 
 import { parseCookies } from '../utils/cookie';
 import { redirect } from '../utils/util';
+import { WrappedComponent } from './types';
 
-const withPublic = (App: any) => {
+const withPublic = (
+  Component: React.ComponentType<WrappedComponent>,
+): React.ReactNode => {
   return class WithData extends React.Component {
-    static displayName = `withPublic(${App.displayName})`;
+    static displayName = `withPublic(${Component.displayName})`;
 
     static async getInitialProps(ctx) {
       const { req } = ctx;
@@ -21,7 +24,7 @@ const withPublic = (App: any) => {
     }
 
     render() {
-      return <App {...this.props} />;
+      return <Component {...this.props} />;
     }
   };
 };
