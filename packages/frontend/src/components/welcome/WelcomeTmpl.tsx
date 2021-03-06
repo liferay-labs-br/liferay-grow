@@ -5,7 +5,6 @@ import React from 'react';
 import useLang from '../../hooks/useLang';
 import SEO from '../meta';
 import { getCurrentStep } from './utils';
-import WelcomeContent from './WelcomeContent';
 import WelcomeHeader from './WelcomeHeader';
 import WelcomeSidebar from './WelcomeSidebar';
 
@@ -27,7 +26,7 @@ const WelcomeTmpl: React.FC<React.HTMLAttributes<HTMLElement>> = ({
           <WelcomeHeader />
           <hr />
 
-          <WelcomeContent>{children}</WelcomeContent>
+          {children}
         </ClayLayout.Col>
       </ClayLayout.Row>
     </ClayLayout.ContainerFluid>

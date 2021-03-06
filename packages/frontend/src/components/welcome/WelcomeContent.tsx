@@ -1,51 +1,41 @@
-import ClayButton from '@clayui/button';
-import { useRouter } from 'next/router';
 import React from 'react';
 
-import useLang from '../../hooks/useLang';
-import { steps } from './constants';
-import { getCurrentStep } from './utils';
-
-const WelcomeContent: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+const WelcomeContentTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
-  const i18n = useLang();
-  const router = useRouter();
-  const currentStep = getCurrentStep(router);
-  const nextStep = steps[steps.indexOf(currentStep) + 1];
-  const prevStep = steps[steps.indexOf(currentStep) - 1];
+  return <h1 className="welcome__content--box-title">{children}</h1>;
+};
 
+const WelcomeContentBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+  children,
+}) => {
   return (
-    <div className="welcome__content">
-      <div className="welcome__content--box">
-        <div className="welcome__content--box-content">
-          <h1 className="welcome__content--box-title">
-            {i18n.get(currentStep)}
-          </h1>
-
-          <div>{children}</div>
-        </div>
-
-        <div className="welcome__content--box-footer mt-4">
-          {prevStep && (
-            <ClayButton
-              displayType="secondary"
-              className="mr-2"
-              onClick={() => router.push(prevStep)}
-            >
-              {i18n.get('prev')}
-            </ClayButton>
-          )}
-
-          {nextStep && (
-            <ClayButton onClick={() => router.push(nextStep)}>
-              {i18n.get('next')}
-            </ClayButton>
-          )}
-        </div>
-      </div>
+    <div className="welcome__content--box-content">
+      <div>{children}</div>
     </div>
   );
 };
+
+const WelcomeContentFooter: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+  children,
+}) => {
+  return <div className="welcome__content--box-footer mt-4">{children}</div>;
+};
+
+const WelcomeContent: React.FC<React.HTMLAttributes<HTMLElement>> & {
+  Title: React.ElementType;
+  Body: React.ElementType;
+  Footer: React.ElementType;
+} = ({ children }) => {
+  return (
+    <div className="welcome__content">
+      <div className="welcome__content--box">{children}</div>
+    </div>
+  );
+};
+
+WelcomeContent.Title = WelcomeContentTitle;
+WelcomeContent.Body = WelcomeContentBody;
+WelcomeContent.Footer = WelcomeContentFooter;
 
 export default WelcomeContent;
