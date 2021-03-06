@@ -12,7 +12,7 @@
         background-color: white;
         padding: 32px;
 
-        &__title {
+        &--title {
             font-size: 28px;
             font-style: normal;
             font-weight: 700;
@@ -21,7 +21,7 @@
             text-align: left;
         }
     
-        &__description {
+        &--description {
             margin-top: 10px;
             font-size: 16px;
             font-style: normal;
@@ -32,7 +32,7 @@
             color: #6B6C7E;
         }
 
-        &__buttons {
+        &--buttons {
             display: flex;
             justify-content: flex-end;
         }

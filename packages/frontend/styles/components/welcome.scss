@@ -1,4 +1,4 @@
-.gaps {
+.welcome {
     &__header {
         margin-top: 40px;
 
@@ -19,12 +19,15 @@
     &__content {
         margin-top: 20px;
 
-        &__box {
+        &--box {
             padding: 32px 24px;
             background-color: white;
             min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-            &__title {
+            &--title {
                 font-size: 28px;
                 font-weight: 600;
                 line-height: 42px;
@@ -37,7 +40,7 @@
         display: flex;
         margin-top: 300px;
 
-        &__active {
+        &--active {
             background-color: rgba(11, 95, 255, 0.05) !important;
 
             svg {
