@@ -8,6 +8,7 @@ import {
 } from 'type-graphql';
 
 import { GrowMap } from '../../entity/GrowMap';
+import { KnowledgeGapsDetails } from '../../entity/KnowledgeGapsDetails';
 import { KnowledgeSkillDetails } from '../../entity/KnowledgeSkillDetails';
 import { MyContext } from '../../interfaces';
 import { isAuth } from '../../middlewares/isAuth';
@@ -42,14 +43,15 @@ export class GrowMapResolver {
 
     const growMap = await GrowMap.create();
 
-    const growDetails: KnowledgeSkillDetails[] = [];
+    const knowledgeSkillDetails: KnowledgeSkillDetails[] = [];
+    const knowledgeGapsDetails: KnowledgeGapsDetails[] = [];
 
     for (const {
       isMentor,
       knowledgeMatrizId,
       knowledgeSkillId,
     } of data.knowledgeSkillDetails) {
-      const growDetail = await KnowledgeSkillDetails.create({
+      const knowledgeSkillDetail = await KnowledgeSkillDetails.create({
         isMentor,
       }).save();
 
@@ -62,17 +64,35 @@ export class GrowMapResolver {
       );
 
       if (knowledgeSkill && knowledgeMatriz) {
-        growDetail.knowledgeSkill = knowledgeSkill;
-        growDetail.knowledgeMatriz = knowledgeMatriz;
+        knowledgeSkillDetail.knowledgeSkill = knowledgeSkill;
+        knowledgeSkillDetail.knowledgeMatriz = knowledgeMatriz;
       }
 
-      await growDetail.save();
+      await knowledgeSkillDetail.save();
 
-      growDetails.push(growDetail);
+      knowledgeSkillDetails.push(knowledgeSkillDetail);
+    }
+
+    for (const { knowledgeSkillId } of data.knowledgeGapsDetails) {
+      const knowledgeGapsDetail = await KnowledgeGapsDetails.create().save();
+
+      const knowledgeSkill = knowledgeSkills.find(
+        ({ id }) => id === knowledgeSkillId,
+      );
+
+      if (knowledgeSkill) {
+        knowledgeGapsDetail.knowledgeSkill = knowledgeSkill;
+      }
+
+      await knowledgeGapsDetail.save();
+
+      knowledgeGapsDetails.push(knowledgeGapsDetail);
     }
 
     user.growMap = growMap;
-    growMap.knowledgeSkillDetails = growDetails;
+
+    growMap.knowledgeSkillDetails = knowledgeSkillDetails;
+    growMap.knowledgeGapsDetails = knowledgeGapsDetails;
     growMap.user = user;
 
     await growMap.save();
