@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import SEO from '../../components/meta';
-import { authGithub } from '../../graphql/schemas';
+import { authGithub } from '../../graphql/mutations';
 import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
 import Layout from './_layout';
