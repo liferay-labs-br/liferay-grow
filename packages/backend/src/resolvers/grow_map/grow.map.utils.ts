@@ -8,7 +8,7 @@ export const getKnowledgeEntities = async (
   knowledgeMatrizes: KnowledgeMatriz[];
   knowledgeSkills: KnowledgeSkill[];
 }> => {
-  const { knowledgeSkillDetails } = data;
+  const { knowledgeGapsDetails, knowledgeSkillDetails } = data;
 
   const knowledgeMatrizSetIds = [
     ...new Set(
@@ -16,10 +16,15 @@ export const getKnowledgeEntities = async (
     ),
   ];
 
+  const getKnowledgeSkills = ({
+    knowledgeSkillId,
+  }: {
+    knowledgeSkillId: string;
+  }) => knowledgeSkillId;
+
   const knowledgeSkillSetIds = [
-    ...new Set(
-      knowledgeSkillDetails.map(({ knowledgeSkillId }) => knowledgeSkillId),
-    ),
+    ...new Set(knowledgeSkillDetails.map(getKnowledgeSkills)),
+    ...new Set(knowledgeGapsDetails.map(getKnowledgeSkills)),
   ];
 
   const knowledgeMatrizes = await KnowledgeMatriz.findByIds(
