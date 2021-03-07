@@ -1,5 +1,12 @@
 import { gql } from '@apollo/client';
 
+const allRoles = `
+  getAllRole {
+    id
+    name
+  }
+`;
+
 const allOffices = `
   getAllOffice {
     id
@@ -11,21 +18,19 @@ const allOffices = `
   }
 `;
 
-const allCareerDepartament = `
-  getAllCareerDepartament {
-    id
-    name
-    careers {
+export const allKnowledgeSkills = gql`
+  query {
+    skills: getAllKnowledgeSkill {
       id
       name
     }
   }
-}
 `;
 
 export const getStarted = gql`
   query {
-    offices: ${allOffices}
+    roles: ${allRoles}
 
-    careerDepartaments: ${allCareerDepartament}
+    offices: ${allOffices}
+  }
 `;
