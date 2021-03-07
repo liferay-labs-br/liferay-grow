@@ -3,17 +3,17 @@ import { parseJwt } from '../utils/util';
 import { ActionMap } from '.';
 
 interface UserType {
-  name: string;
-  accountId: number;
-  avatar_url: string;
-  bio: string;
-  company: string;
-  created_at: string;
-  email: string;
-  id: string;
-  location: string;
-  login: string;
-  user: {
+  name?: string;
+  accountId?: number;
+  avatar_url?: string;
+  bio?: string;
+  company?: string;
+  created_at?: string;
+  email?: string;
+  id?: string;
+  location?: string;
+  login?: string;
+  user?: {
     id: string;
     growMap: {
       id: string;
@@ -28,8 +28,7 @@ export enum Types {
 
 export type User = {
   token: string | null;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  user: UserType | {}; // This empty object should be replaced soon
+  loggedUser: UserType;
 };
 
 type UserActionsPayload = {
@@ -38,8 +37,8 @@ type UserActionsPayload = {
 };
 
 export const userState = {
+  loggedUser: {},
   token: null,
-  user: {},
 };
 
 export type UserActions = ActionMap<UserActionsPayload>[keyof ActionMap<UserActionsPayload>];
@@ -53,8 +52,8 @@ export const userReducer = (state: User, action: UserActions | any): User => {
 
       return {
         ...state,
+        loggedUser: parseJwt(token),
         token,
-        user: parseJwt(token),
       };
     }
 
@@ -63,8 +62,8 @@ export const userReducer = (state: User, action: UserActions | any): User => {
 
       return {
         ...state,
+        loggedUser: null,
         token: null,
-        user: null,
       };
     }
 

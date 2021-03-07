@@ -11,13 +11,15 @@ import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
 
 const GetStartedBody: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
+  const i18n = useLang();
+
   return (
     <WrappedSafeComponent query={getStarted}>
-      {({ careerDepartaments, offices }) => {
+      {({ offices, roles }) => {
         return (
           <ClayForm>
             <ClayForm.Group>
-              <label htmlFor="office">Office</label>
+              <label htmlFor="team">{i18n.get('team')}</label>
               <ClaySelect>
                 {offices.map((office) => (
                   <optgroup key={office.id} label={office.name}>
@@ -31,16 +33,12 @@ const GetStartedBody: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
               </ClaySelect>
             </ClayForm.Group>
             <ClayForm.Group>
-              <label htmlFor="job-title">Job Title</label>
+              <label htmlFor="role">{i18n.get('role')}</label>
               <ClaySelect>
-                {careerDepartaments.map((departament) => (
-                  <optgroup key={departament.id} label={departament.name}>
-                    {departament.careers.map((career) => (
-                      <option key={career.id} value={career.id}>
-                        {career.name}
-                      </option>
-                    ))}
-                  </optgroup>
+                {roles.map((roles) => (
+                  <option key={roles.id} value={roles.id}>
+                    {roles.name}
+                  </option>
                 ))}
               </ClaySelect>
             </ClayForm.Group>
