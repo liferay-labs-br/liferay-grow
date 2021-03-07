@@ -12,6 +12,8 @@ export class UserResolver {
       relations: [
         'github',
         'growMap',
+        'growMap.knowledgeGapsDetails',
+        'growMap.knowledgeGapsDetails.knowledgeSkill',
         'growMap.knowledgeSkillDetails',
         'growMap.knowledgeSkillDetails.knowledgeSkill',
         'growMap.knowledgeSkillDetails.knowledgeMatriz',
