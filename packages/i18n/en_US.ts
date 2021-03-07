@@ -6,8 +6,10 @@ export default {
   'get-started': 'Get Started',
   'knowledge-gaps': 'Knowledge Gaps',
   'personal-details': 'Personal Details',
+  role: 'Role',
   'sign-in-with-github': 'Sign in with Github',
-  'skill-details': 'Skills Details',
+  'skills-details': 'Skills Details',
+  team: 'Team',
   'terms-of-use': 'Terms of Use | Privacy Policies',
   'welcome-x': 'Welcome, {0}',
 };
