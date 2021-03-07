@@ -25,7 +25,9 @@ const Welcome: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
         </p>
 
         <div className="welcome__box--buttons">
-          <ClayButton displayType="secondary">Skip it</ClayButton>
+          <ClayButton displayType="secondary" onClick={() => router.push('/')}>
+            Skip it
+          </ClayButton>
 
           <ClayButton
             onClick={() => router.push('/welcome/get-started')}

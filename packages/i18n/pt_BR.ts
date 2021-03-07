@@ -1,4 +1,15 @@
 export default {
-  'app-title': 'Liferay Grow Together',
-  'app-title-x': 'Grow Together - {0}'
+  'app-title': 'Liferay Grow',
+  'app-title-x': 'Grow Together - {0}',
+  copyright: 'Copyright 2021. All Rights Reserverd.',
+  'dont-have-a-github-account': 'Não tem uma conta do Github?',
+  'get-started': 'Comece agora',
+  'knowledge-gaps': 'Knowledge Gaps',
+  'personal-details': 'Informações pessoais',
+  role: 'Função / Papel',
+  'sign-in-with-github': 'Entre com Github',
+  'skills-details': 'Habilidades',
+  team: 'Time',
+  'terms-of-use': 'Termos de uso | Políticas de privacidade',
+  'welcome-x': 'Bem vindo, {0}',
 };

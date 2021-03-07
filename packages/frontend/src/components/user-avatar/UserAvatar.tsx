@@ -11,11 +11,11 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const {
     dispatch,
     state: {
-      user: { user },
+      user: { loggedUser },
     },
   } = useContext(AppContext);
 
-  const { avatar_url, name } = user || {};
+  const { avatar_url, name } = loggedUser || {};
 
   const i18n = useLang();
   const router = useRouter();
@@ -39,9 +39,7 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
         active={active}
         onActiveChange={setActive}
       >
-        <ClayDropDown.Help>
-          {i18n.sub('welcome-back-x', name)}
-        </ClayDropDown.Help>
+        <ClayDropDown.Help>{i18n.sub('welcome-x', name)}</ClayDropDown.Help>
         <ClayDropDown.ItemList>
           <ClayDropDown.Group header={i18n.get('settings')}>
             <ClayDropDown.Item onClick={onLogout}>
