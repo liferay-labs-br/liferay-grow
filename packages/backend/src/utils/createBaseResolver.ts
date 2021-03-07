@@ -1,38 +1,39 @@
 import {
   Arg,
   ClassType,
+  MiddlewareFn,
   Mutation,
   Query,
   Resolver,
   UseMiddleware,
 } from 'type-graphql';
 
-import { MiddlewareBaseResolver, PaginationQL } from '../interfaces';
+import { MyContext, PaginationQL } from '../interfaces';
 import { isAuth } from '../middlewares/isAuth';
-import { execMiddleware, normalizePagination } from './globalMethods';
+import { normalizePagination } from './globalMethods';
 
 /**
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
  * @param entity TypeORM Entity
  * @param inputTypes object with create, update and optionally update inputTypes
- * @param middlewares optional middlewares to be applied in defaults functions
+ * @param middlewares optional middlewares to be applied in useMiddlewares
  */
 export function createBaseResolver<classType extends ClassType>(
   suffix: string,
   entity: any,
   inputTypes: { create: classType; update: classType; filter?: classType },
   relations: string[] = [],
-  middlewares?: MiddlewareBaseResolver,
+  middlewares: Array<MiddlewareFn<MyContext>> = [isAuth],
 ): any {
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Query(() => [entity], { name: `getAll${suffix}` })
     async getAll(): Promise<ClassType[]> {
       return entity.find({ relations });
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Query(() => [entity], { name: `getAll${suffix}Filter` })
     async getAllFiltered(
       @Arg('data', () => inputTypes.filter || inputTypes.create) data: any,
@@ -40,7 +41,7 @@ export function createBaseResolver<classType extends ClassType>(
       return entity.find({ relations, where: data });
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Query(() => [entity], { name: `getAll${suffix}Paginate` })
     async getAllPagination(
       @Arg('data', () => PaginationQL) data: PaginationQL,
@@ -49,7 +50,7 @@ export function createBaseResolver<classType extends ClassType>(
       return entity.find({ relations, skip, take });
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Query(() => entity, { name: `get${suffix}` })
     async get(@Arg('id', () => String) id: string): Promise<ClassType | Error> {
       const content = await entity.findOne({ relations, where: { id } });
@@ -59,21 +60,17 @@ export function createBaseResolver<classType extends ClassType>(
       return content;
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Mutation(() => entity, { name: `create${suffix}` })
     async create(
       @Arg('data', () => inputTypes.create) data: any,
     ): Promise<ClassType | Error> {
-      if (middlewares && middlewares.create) {
-        await execMiddleware(entity, data, ...middlewares.create);
-      }
-
       const { id } = await entity.create(data).save();
 
       return this.get(id);
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Mutation(() => entity, { name: `updateBy${suffix}ID` })
     async updateByID(
       @Arg('data', () => inputTypes.update) data: any,
@@ -84,7 +81,7 @@ export function createBaseResolver<classType extends ClassType>(
       return this.get(id);
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Mutation(() => [entity], { name: `createMulti${suffix}` })
     async createMulti(
       @Arg('data', () => [inputTypes.create]) data: any[],
@@ -94,13 +91,9 @@ export function createBaseResolver<classType extends ClassType>(
       return insertedData;
     }
 
-    @UseMiddleware(isAuth)
+    @UseMiddleware(middlewares)
     @Mutation(() => Boolean, { name: `deleteBy${suffix}ID` })
     async deleteByID(@Arg('id', () => String) id: string): Promise<boolean> {
-      if (middlewares && middlewares.delete) {
-        await execMiddleware(entity, id, ...middlewares.delete);
-      }
-
       const _entity = await this.get(id);
       if (!_entity) {
         throw new Error(`No data found on Entity: ${suffix}, ID: ${id}`);
