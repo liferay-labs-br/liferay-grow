@@ -9,6 +9,7 @@ const BaseResolver = createBaseResolver(
   KnowledgeSkill,
   Inputs,
   ['area'],
+  [],
 );
 
 @Resolver(KnowledgeSkill)

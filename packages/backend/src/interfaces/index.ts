@@ -1,4 +1,4 @@
 export { MiddlewareBaseResolver } from './MiddlewareBaseResolver';
-export { Pagination, PaginationQL } from './Pagination';
+export { PaginationQL, PaginateObject } from './Pagination';
 export { Configuration } from './Config';
 export { MyContext } from './MyContext';
