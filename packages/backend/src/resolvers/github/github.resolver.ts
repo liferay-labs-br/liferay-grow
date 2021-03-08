@@ -7,7 +7,7 @@ import { User } from '../../entity/User';
 import { logger } from '../../utils/globalMethods';
 import { belongsToLiferayOrg, getGithubUser } from './github.utils';
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET, VALIDATE_LIFERAY_ORG } = process.env;
 
 const assignToken = async (payload: any): Promise<string> => {
   const token = await promisify(jsonwebtoken.sign)(
@@ -53,10 +53,12 @@ export class GithubResolver {
     if (user) {
       token = await assignToken(user);
     } else {
-      const isLiferayMember = await belongsToLiferayOrg(login);
+      if (VALIDATE_LIFERAY_ORG) {
+        const isLiferayMember = await belongsToLiferayOrg(login);
 
-      if (!isLiferayMember) {
-        throw new Error('not-a-liferay-member');
+        if (!isLiferayMember) {
+          throw new Error('not-a-liferay-member');
+        }
       }
 
       const newUser = await User.create().save();
