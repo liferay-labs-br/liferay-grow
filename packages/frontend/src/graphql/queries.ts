@@ -1,5 +1,22 @@
 import { gql } from '@apollo/client';
 
+const me = `
+  me {
+    id
+    github {
+      id
+      accountId
+      login
+      avatar_url
+      email
+      name
+      company
+      location
+      bio
+    }
+  }
+`;
+
 const allRoles = `
   getAllRole {
     id
@@ -32,5 +49,11 @@ export const getStarted = gql`
     roles: ${allRoles}
 
     offices: ${allOffices}
+  }
+`;
+
+export const getMe = gql`
+  query {
+    me: ${me}
   }
 `;
