@@ -1,16 +1,18 @@
 import {
   Arg,
   ClassType,
+  Field,
   MiddlewareFn,
   Mutation,
+  ObjectType,
   Query,
   Resolver,
   UseMiddleware,
 } from 'type-graphql';
 
-import { MyContext, PaginationQL } from '../interfaces';
+import { MyContext, PaginateObject, PaginationQL } from '../interfaces';
 import { isAuth } from '../middlewares/isAuth';
-import { normalizePagination } from './globalMethods';
+import { paginate } from '../utils/globalMethods';
 
 /**
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
@@ -25,6 +27,15 @@ export function createBaseResolver<classType extends ClassType>(
   relations: string[] = [],
   middlewares: Array<MiddlewareFn<MyContext>> = [isAuth],
 ): any {
+  @ObjectType(`PaginateObject${suffix}`)
+  class PaginateObjectType {
+    @Field(() => PaginateObject)
+    pagination: PaginateObject;
+
+    @Field(() => [entity])
+    rows: classType[];
+  }
+
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
     @UseMiddleware(middlewares)
@@ -42,12 +53,26 @@ export function createBaseResolver<classType extends ClassType>(
     }
 
     @UseMiddleware(middlewares)
-    @Query(() => [entity], { name: `getAll${suffix}Paginate` })
+    @Query(() => PaginateObjectType, { name: `getAll${suffix}Paginate` })
     async getAllPagination(
       @Arg('data', () => PaginationQL) data: PaginationQL,
-    ): Promise<ClassType[]> {
-      const { skip, take } = normalizePagination(data);
-      return entity.find({ relations, skip, take });
+    ): Promise<PaginateObjectType> {
+      const { pageIndex = 1, pageSize = 20 } = data;
+
+      const totalCount = await entity.count();
+
+      const pagination = paginate(totalCount, pageIndex, pageSize);
+
+      const rows = await entity.find({
+        relations,
+        skip: pagination.startIndex,
+        take: pagination.pageSize,
+      });
+
+      return {
+        pagination,
+        rows,
+      };
     }
 
     @UseMiddleware(middlewares)

@@ -2,7 +2,6 @@ import { gql } from 'apollo-server-express';
 import { EntityOptions } from 'typeorm';
 
 import { User } from '../entity/User';
-import { Pagination } from '../interfaces';
 import { MyContext } from '../interfaces/MyContext';
 import Constants from '../utils/contants';
 import Logger from '../utils/logger';
@@ -36,30 +35,76 @@ export function getGraphqlOperation(graphqlQuery: any): string {
   }
 }
 
-/**
- *
- * @param pagination Pagination Object
- * @param defaultSize How many items will be displayed, default = 20
- */
+export function paginate(
+  totalItems: number,
+  currentPage = 1,
+  pageSize = 10,
+  maxPages = 10,
+): {
+  currentPage: number;
+  endIndex: number;
+  endPage: number;
+  pageSize: number;
+  pages: number[];
+  startIndex: number;
+  startPage: number;
+  totalItems: number;
+  totalPages: number;
+} {
+  // calculate total pages
+  const totalPages = Math.ceil(totalItems / pageSize);
 
-export function normalizePagination(
-  pagination: Pagination,
-  defaultSize = 20,
-): Pagination {
-  const pageSize = pagination.pageSize || defaultSize;
-  const pageIndex = pagination.pageIndex || 1;
-  const take = pageSize;
-  let skip = 0;
-
-  if (pageIndex > 1) {
-    skip = take * (pageIndex - 1);
+  // ensure current page isn't out of range
+  if (currentPage < 1) {
+    currentPage = 1;
+  } else if (currentPage > totalPages) {
+    currentPage = totalPages;
   }
 
+  let startPage: number, endPage: number;
+  if (totalPages <= maxPages) {
+    // total pages less than max so show all pages
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    // total pages more than max so calculate start and end pages
+    const maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
+    const maxPagesAfterCurrentPage = Math.ceil(maxPages / 2) - 1;
+    if (currentPage <= maxPagesBeforeCurrentPage) {
+      // current page near the start
+      startPage = 1;
+      endPage = maxPages;
+    } else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
+      // current page near the end
+      startPage = totalPages - maxPages + 1;
+      endPage = totalPages;
+    } else {
+      // current page somewhere in the middle
+      startPage = currentPage - maxPagesBeforeCurrentPage;
+      endPage = currentPage + maxPagesAfterCurrentPage;
+    }
+  }
+
+  // calculate start and end item indexes
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+
+  // create an array of pages to the pager control
+  const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
+    (i) => startPage + i,
+  );
+
+  // return object with all pager properties required by the view
   return {
-    pageIndex,
+    currentPage,
+    endIndex,
+    endPage,
     pageSize,
-    skip,
-    take,
+    pages,
+    startIndex,
+    startPage,
+    totalItems,
+    totalPages,
   };
 }
 
