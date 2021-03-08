@@ -20,10 +20,14 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
   const router = useRouter();
 
+  const redirectTo = (path: string) => {
+    setActive(false);
+    router.push(path);
+  };
+
   const onLogout = () => {
     dispatch({ type: Types.SET_LOGOUT });
-    router.push('/auth');
-    setActive(false);
+    redirectTo('/auth');
   };
 
   if (avatar_url) {
@@ -41,11 +45,12 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
       >
         <ClayDropDown.Help>{i18n.sub('welcome-x', name)}</ClayDropDown.Help>
         <ClayDropDown.ItemList>
-          <ClayDropDown.Group header={i18n.get('settings')}>
-            <ClayDropDown.Item onClick={onLogout}>
-              {i18n.get('logout')}
-            </ClayDropDown.Item>
-          </ClayDropDown.Group>
+          <ClayDropDown.Item onClick={() => redirectTo('/profile')}>
+            {i18n.get('profile')}
+          </ClayDropDown.Item>
+          <ClayDropDown.Item onClick={onLogout}>
+            {i18n.get('logout')}
+          </ClayDropDown.Item>
         </ClayDropDown.ItemList>
       </ClayDropDown>
     );

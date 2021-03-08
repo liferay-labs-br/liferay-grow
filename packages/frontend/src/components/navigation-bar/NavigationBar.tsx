@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import useLang from '../../hooks/useLang';
-import UserAvatar from '../user-avatar';
+import NavigationOptions from '../navigation-options';
 
 const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
@@ -22,11 +22,7 @@ const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
           <span className="ml-2">{i18n.get('app-title')}</span>
         </ClayButton>
       </ClayNavigationBar.Item>
-      <ul className="navbar-nav">
-        <li className="dropdown nav-item">
-          <UserAvatar />
-        </li>
-      </ul>
+      <NavigationOptions />
     </ClayNavigationBar>
   );
 };

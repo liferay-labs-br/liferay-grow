@@ -30,14 +30,11 @@ const AuthMiddleware = (): React.ReactElement => {
 
       dispatch({ payload: { token: bearer }, type: Types.SET_LOGGED_USER });
 
-      const {
-        name,
-        user: { growMap },
-      } = parseJwt(bearer);
+      const token = parseJwt(bearer);
 
-      toast.info(i18n.sub('welcome-x', name));
+      toast.info(i18n.sub('welcome-x', token?.name));
 
-      router.push(growMap ? '/' : '/welcome');
+      router.push(token?.user?.growMap ? '/' : '/welcome');
     } else {
       router.push('/auth');
     }
