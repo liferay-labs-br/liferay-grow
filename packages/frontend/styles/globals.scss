@@ -5,6 +5,7 @@ $success: #287d3c !default;
 
 @import './components/page.scss';
 @import './components/welcome.scss';
+@import './components/profile.scss';
 
 @import './pages/sign-in.scss';
 @import './pages/welcome.scss';
@@ -49,27 +50,6 @@ body {
   cursor: pointer;
 }
 
-.import-file {
-  background-color: #f1f2f5;
-  border: 2px dashed #CDCED9;
-  height: 412px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  span {
-    font-weight: bold;
-  }
-
-  p {
-    color: #6B6C7E;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: center;
-  }
+.text-black {
+  color: black;
 }
