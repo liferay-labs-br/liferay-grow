@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import ClayLoadingIndicator from '@clayui/loading-indicator';
 import React from 'react';
 
 interface IWrappedSafeComponentProps extends React.HTMLAttributes<HTMLElement> {
@@ -20,7 +21,7 @@ const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
     }
 
     if (loading) {
-      return <div>loading</div>;
+      return <ClayLoadingIndicator />;
     }
   } catch (error) {
     console.error(error); // eslint-disable-line no-console
