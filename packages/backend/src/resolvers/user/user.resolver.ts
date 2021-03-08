@@ -1,28 +1,46 @@
-import { Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
+import { Arg, Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
+import {} from 'typeorm';
 
+import { Github } from '../../entity/Github';
 import { User } from '../../entity/User';
 import { MyContext } from '../../interfaces';
 import { isAuth } from '../../middlewares/isAuth';
+
+const relations = [
+  'github',
+  'growMap',
+  'growMap.knowledgeGapsDetails',
+  'growMap.knowledgeGapsDetails.knowledgeSkill',
+  'growMap.knowledgeSkillDetails',
+  'growMap.knowledgeSkillDetails.knowledgeSkill',
+  'growMap.knowledgeSkillDetails.knowledgeMatriz',
+  'team',
+  'team.office',
+];
 
 @Resolver(User)
 export class UserResolver {
   @Query(() => [User], { name: 'getAllUsers' })
   async getAllUsers(): Promise<User[]> {
     const users = await User.find({
-      relations: [
-        'github',
-        'growMap',
-        'growMap.knowledgeGapsDetails',
-        'growMap.knowledgeGapsDetails.knowledgeSkill',
-        'growMap.knowledgeSkillDetails',
-        'growMap.knowledgeSkillDetails.knowledgeSkill',
-        'growMap.knowledgeSkillDetails.knowledgeMatriz',
-        'team',
-        'team.office',
-      ],
+      relations,
     });
 
     return users;
+  }
+
+  @Query(() => User, { name: 'getUserByLogin' })
+  async getUserByLogin(@Arg('login') login: string): Promise<User | Error> {
+    try {
+      const githubs = await Github.findOneOrFail({
+        relations: ['user'],
+        where: { login },
+      });
+
+      return User.findOneOrFail(githubs.user.id, { relations });
+    } catch (e) {
+      throw new Error('Account not exists');
+    }
   }
 
   @Query(() => User, { name: 'me' })
@@ -35,11 +53,6 @@ export class UserResolver {
 
     const { id } = loggedUser?.user;
 
-    const user = await User.findOne({
-      relations: ['github', 'team', 'growMap'],
-      where: { id },
-    });
-
-    return user;
+    return User.findOneOrFail(id, { relations });
   }
 }
