@@ -1,0 +1,22 @@
+.skill-management {
+    button {
+        &:hover {
+            text-decoration: underline;
+        }
+    
+        &:focus, &:active:focus {
+            box-shadow: none;
+        }
+    }
+    
+    &__btn-more {
+        color: $secondary;
+        font-size: 0.875rem;
+        transition: 0.2s;
+        margin-bottom: 16px;
+        transition: 0.2s;
+    }
+    &__btn-add-skill {
+        font-size: 0.875rem;
+    }
+}
