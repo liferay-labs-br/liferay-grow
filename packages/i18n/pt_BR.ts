@@ -1,15 +1,22 @@
 export default {
+  'add-more-skills': 'Adicione como habilidade',
   'app-title': 'Liferay Grow',
   'app-title-x': 'Grow Together - {0}',
-  copyright: 'Copyright 2021. All Rights Reserverd.',
+  copyright: 'Copyright 2021. Todos os direitos reservados.',
   'dont-have-a-github-account': 'Não tem uma conta do Github?',
   'get-started': 'Comece agora',
+  'i-feel-comfortable-with-being-a-mentor':
+    'Me sinto confortável em ser mentor.',
   'knowledge-gaps': 'Knowledge Gaps',
+  'more-skills': 'Mais habilidades',
+  'no-results-for-x': `Sem resultados para "{0}"`,
   'personal-details': 'Informações pessoais',
   role: 'Função / Papel',
   'sign-in-with-github': 'Entre com Github',
+  'skill-and-gaps': 'Habilidades e Gaps',
   'skills-details': 'Habilidades',
   team: 'Time',
+  teams: 'Times',
   'terms-of-use': 'Termos de uso | Políticas de privacidade',
   'welcome-x': 'Bem vindo, {0}',
 };
