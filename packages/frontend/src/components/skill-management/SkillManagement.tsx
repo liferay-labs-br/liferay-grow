@@ -1,91 +1,56 @@
-import ClayButton, { ClayButtonWithIcon } from '@clayui/button';
-import { ClayInput } from '@clayui/form';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
-import useLang from '../../hooks/useLang';
-import SkillComponent from './Skill';
+import SkillContext from './SkillContext';
+import SkillManagementBars from './SkillManagementBars';
+import SkillManagementSearch from './SkillManagementSearch';
+import SkillManagementUserList from './SkillManagementUserList';
+import { Skill, Types } from './SkillReducer';
 
-export type Skill = {
-  id: string;
-  name: string;
-};
+const SkillManagement: React.FC = () => {
+  const {
+    dispatch,
+    state: { selectedSkills, skills, variables },
+  } = useContext(SkillContext);
 
-type SkillManagementProps = {
-  handleAddNewSkill: () => void;
-  handleClickSkill: (skill: Skill) => void;
-  handleMoreSkills: () => void;
-  handleSearch: (search: string) => void;
-  moreSkills: boolean;
-  skills: Skill[];
-};
+  const handleMoreSkills = (count = 10) => {
+    dispatch({
+      payload: { ...variables, pageSize: variables.pageSize + count },
+      type: Types.EDIT_VARIABLES,
+    });
+  };
 
-const SkillManagement: React.FC<SkillManagementProps> = ({
-  handleAddNewSkill,
-  handleClickSkill,
-  handleMoreSkills,
-  handleSearch,
-  moreSkills,
-  skills,
-}) => {
-  const i18n = useLang();
-  const [search, setSearch] = useState('');
+  const handleClickSkill = (skill: Skill) => {
+    dispatch({
+      payload: [...selectedSkills, skill],
+      type: Types.EDIT_SELECTED_SKILLS,
+    });
+
+    handleMoreSkills(1);
+  };
+
+  const filteredSkills = skills.filter(
+    (row) => !selectedSkills.find((selected) => selected.id === row.id),
+  );
 
   return (
     <div className="skill-management">
-      <ClayInput.Group>
-        <ClayInput.GroupItem>
-          <ClayInput
-            aria-label="Search"
-            className="form-control input-group-inset input-group-inset-after"
-            placeholder={i18n.get('skills-details')}
-            type="text"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              handleSearch(e.target.value);
-            }}
-          />
-          <ClayInput.GroupInsetItem after tag="span">
-            <ClayButtonWithIcon
-              displayType="unstyled"
-              symbol="search"
-              type="submit"
-            />
-          </ClayInput.GroupInsetItem>
-        </ClayInput.GroupItem>
-      </ClayInput.Group>
-      <div className="mt-3">
-        {skills.map((skill) => (
-          <SkillComponent
-            key={skill.id}
-            skill={skill}
-            onClick={handleClickSkill}
-          />
-        ))}
+      <SkillManagementSearch />
 
-        {skills.length === 0 && (
-          <div className="d-flex align-items-center">
-            <span>{`No results for "${search}"`}</span>
-            <ClayButton
-              displayType="link"
-              className="skill-management__btn-add-skill"
-              onClick={handleAddNewSkill}
-            >
-              Add New Skill
-            </ClayButton>
-          </div>
-        )}
+      <SkillManagementBars>
+        <SkillManagementBars.List
+          filteredSkills={filteredSkills}
+          onClick={handleClickSkill}
+        />
+        <SkillManagementBars.Results filteredSkills={filteredSkills} />
+        <SkillManagementBars.Footer
+          filteredSkills={filteredSkills}
+          handleMoreSkills={handleMoreSkills}
+        />
+      </SkillManagementBars>
 
-        {moreSkills && (
-          <ClayButton
-            displayType="link"
-            className="skill-management__btn-more"
-            onClick={handleMoreSkills}
-          >
-            More Skills
-          </ClayButton>
-        )}
-      </div>
+      <SkillManagementBars>
+        <SkillManagementUserList />
+      </SkillManagementBars>
     </div>
   );
 };

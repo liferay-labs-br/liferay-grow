@@ -9,11 +9,7 @@ const WelcomeContentTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
 const WelcomeContentBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
-  return (
-    <div className="welcome__content--box-content">
-      <div>{children}</div>
-    </div>
-  );
+  return <div className="welcome__content--box-content">{children}</div>;
 };
 
 const WelcomeContentFooter: React.FC<React.HTMLAttributes<HTMLElement>> = ({
