@@ -8,6 +8,8 @@ const BaseResolver = createBaseResolver(
   'KnowledgeMatriz',
   KnowledgeMatriz,
   Inputs,
+  [],
+  [],
 );
 
 @Resolver(KnowledgeMatriz)

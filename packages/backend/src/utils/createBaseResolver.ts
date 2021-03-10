@@ -2,6 +2,7 @@ import {
   Arg,
   ClassType,
   Field,
+  InputType,
   MiddlewareFn,
   Mutation,
   ObjectType,
@@ -12,7 +13,7 @@ import {
 
 import { MyContext, PaginateObject, PaginationQL } from '../interfaces';
 import { isAuth } from '../middlewares/isAuth';
-import { paginate } from '../utils/globalMethods';
+import { applyFilters, paginate } from '../utils/globalMethods';
 
 /**
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
@@ -23,7 +24,7 @@ import { paginate } from '../utils/globalMethods';
 export function createBaseResolver<classType extends ClassType>(
   suffix: string,
   entity: any,
-  inputTypes: { create: classType; update: classType; filter?: classType },
+  inputTypes: { create: classType; update: classType; filter: classType },
   relations: string[] = [],
   middlewares: Array<MiddlewareFn<MyContext>> = [isAuth],
 ): any {
@@ -34,6 +35,12 @@ export function createBaseResolver<classType extends ClassType>(
 
     @Field(() => [entity])
     rows: classType[];
+  }
+
+  @InputType(`PaginateFilterInput${suffix}`)
+  class FilterInputCustom extends PaginationQL {
+    @Field(() => inputTypes.filter, { nullable: true })
+    search?: typeof inputTypes.filter;
   }
 
   @Resolver({ isAbstract: true })
@@ -55,18 +62,19 @@ export function createBaseResolver<classType extends ClassType>(
     @UseMiddleware(middlewares)
     @Query(() => PaginateObjectType, { name: `getAll${suffix}Paginate` })
     async getAllPagination(
-      @Arg('data', () => PaginationQL) data: PaginationQL,
+      @Arg('data', () => FilterInputCustom) data: FilterInputCustom,
     ): Promise<PaginateObjectType> {
-      const { pageIndex = 1, pageSize = 20 } = data;
+      const { pageIndex = 1, pageSize = 20, search } = data;
 
       const totalCount = await entity.count();
 
-      const pagination = paginate(totalCount, pageIndex, pageSize);
+      const pagination = paginate(totalCount, search ? 1 : pageIndex, pageSize);
 
       const rows = await entity.find({
         relations,
         skip: pagination.startIndex,
         take: pagination.pageSize,
+        where: applyFilters(search),
       });
 
       return {

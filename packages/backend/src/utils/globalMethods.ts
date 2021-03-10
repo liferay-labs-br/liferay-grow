@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express';
-import { EntityOptions } from 'typeorm';
+import { EntityOptions, Like } from 'typeorm';
 
 import { User } from '../entity/User';
 import { MyContext } from '../interfaces/MyContext';
@@ -8,6 +8,19 @@ import Logger from '../utils/logger';
 
 export const constants = Constants;
 export const logger = Logger;
+
+export const applyFilters = (where: any = {}): any => {
+  const data: any = {};
+
+  for (const key in where) {
+    const value = where[key];
+
+    data[key] =
+      typeof value === 'string' && value.includes('%') ? Like(value) : value;
+  }
+
+  return data;
+};
 
 /**
  *
