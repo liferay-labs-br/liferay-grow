@@ -5,6 +5,7 @@ import React from 'react';
 import useLang from '../../hooks/useLang';
 import ProfileHeader from './ProfileHeader';
 import ProfilePanelSkill from './ProfilePanelSkill';
+import ProfileSidebar from './ProfileSidebar';
 
 interface Github {
   id: string;
@@ -94,10 +95,12 @@ export const ProfileWrapper: React.FC<IProfileWrapperProps> = ({ me }) => {
       />
 
       <ClayLayout.Row className="mt-4">
-        <ClayLayout.Col size={2}>
-          <ClayCard className="p-4">{'One of two columns'}</ClayCard>
+        <ClayLayout.Col size={3}>
+          <ClayCard className="p-4">
+            <ProfileSidebar />
+          </ClayCard>
         </ClayLayout.Col>
-        <ClayLayout.Col size={10}>
+        <ClayLayout.Col size={9}>
           <ClayCard className="p-4">
             <ProfilePanelSkill
               title={i18n.get('skill-details')}
