@@ -44,6 +44,38 @@ export const allKnowledgeSkills = gql`
   }
 `;
 
+export const allKnowledgeMatriz = gql`
+  query {
+    matriz: getAllKnowledgeMatriz {
+      id
+      name
+    }
+  }
+`;
+
+export const allKnowledgeSkillsPaginate = gql`
+  query($data: PaginateFilterInputKnowledgeSkill!) {
+    skillsPaginate: getAllKnowledgeSkillPaginate(data: $data) {
+      pagination {
+        currentPage
+        endIndex
+        endPage
+        pageSize
+        pages
+        startIndex
+        startPage
+        totalItems
+        totalPages
+        totalPages
+      }
+      rows {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const getStarted = gql`
   query {
     roles: ${allRoles}
