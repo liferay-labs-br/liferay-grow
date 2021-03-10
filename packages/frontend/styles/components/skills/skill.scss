@@ -1,0 +1,55 @@
+.skill {
+    margin-right: 16px;
+    margin-bottom: 16px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: $primary-l3;
+        color: $primary;
+        border-color: $primary-l2;
+    }
+}
+
+.skill-management {
+    button {
+        &:hover {
+            text-decoration: underline;
+        }
+    
+        &:focus, &:active:focus {
+            box-shadow: none;
+        }
+    }
+    
+    &__btn-more {
+        color: $secondary;
+        font-size: 0.875rem;
+        transition: 0.2s;
+        margin-bottom: 16px;
+        transition: 0.2s;
+    }
+    &__btn-add-skill {
+        font-size: 0.875rem;
+    }
+}
+
+.skill-list {
+    margin-top: 20px;
+
+    &__item {
+         border: 1px solid #E7E7ED;
+         padding: 16px;
+    }
+
+    &__item:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    &__remove {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
