@@ -4,8 +4,8 @@ import ClayLayout from '@clayui/layout';
 import React, { useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
+import { Types } from '../../types';
 import SkillContext from './SkillContext';
-import { Types } from './SkillReducer';
 
 const SkillList: React.FC<any> = () => {
   const i18n = useLang();

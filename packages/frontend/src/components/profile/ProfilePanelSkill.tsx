@@ -4,7 +4,7 @@ import ClayPanel from '@clayui/panel';
 import ClayProgressBar from '@clayui/progress-bar';
 import React from 'react';
 
-interface Skill {
+type Skill = {
   id: string;
   knowledgeSkill: {
     name: string;
@@ -12,9 +12,9 @@ interface Skill {
   knowledgeMatriz?: {
     name: string;
   };
-}
+};
 
-interface IProfilePanelSkillProps {
+interface IProfilePanelSkillProps extends React.HTMLAttributes<HTMLElement> {
   title: string;
   skills: Skill[];
 }

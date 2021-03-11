@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 
 import AppContext from '../../AppContext';
 import useLang from '../../hooks/useLang';
-import { Types } from '../../reducers/UserReducer';
+import { Types } from '../../types';
 
 const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const [active, setActive] = useState(false);
@@ -26,7 +26,7 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   };
 
   const onLogout = () => {
-    dispatch({ type: Types.SET_LOGOUT });
+    dispatch({ payload: null, type: Types.SET_LOGOUT });
     redirectTo('/auth');
   };
 

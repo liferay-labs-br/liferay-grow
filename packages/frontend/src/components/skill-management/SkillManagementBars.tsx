@@ -3,29 +3,29 @@ import ClayIcon from '@clayui/icon';
 import React, { useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
+import { Skill } from '../../types';
 import LoadingWrapper from '../loading';
 import SkillContext from './SkillContext';
-import { Skill } from './SkillReducer';
 
-type SkillInfoProps = {
-  onClick: (skill: Skill) => void;
+interface ISkillInfoProps extends React.HTMLAttributes<HTMLElement> {
+  onClick: any;
   skill: Skill;
-};
+}
 
-type SkillListProps = {
-  onClick: (skill: Skill) => void;
+interface ISkillListProps extends React.HTMLAttributes<HTMLElement> {
+  onClick: any;
   filteredSkills: Skill[];
   loading?: boolean;
-};
+}
 
-type SkillFooterProps = {
+interface ISkillFooterProps extends React.HTMLAttributes<HTMLElement> {
   filteredSkills: Skill[];
   handleMoreSkills: () => void;
-};
+}
 
-type SkillResultsFooter = {
+interface ISkillResultsFooter extends React.HTMLAttributes<HTMLElement> {
   filteredSkills: Skill[];
-};
+}
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   Footer: React.ElementType;
@@ -33,7 +33,7 @@ const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   Results: React.ElementType;
 } = ({ children }) => <div className="mt-3">{children}</div>;
 
-const SkillInfo: React.FC<SkillInfoProps> = ({ onClick, skill }) => (
+const SkillInfo: React.FC<ISkillInfoProps> = ({ onClick, skill }) => (
   <ClayButton
     displayType="secondary"
     className="skill"
@@ -43,7 +43,7 @@ const SkillInfo: React.FC<SkillInfoProps> = ({ onClick, skill }) => (
   </ClayButton>
 );
 
-const SkillList: React.FC<SkillListProps> = ({
+const SkillList: React.FC<ISkillListProps> = ({
   filteredSkills,
   loading,
   onClick,
@@ -61,7 +61,7 @@ const SkillList: React.FC<SkillListProps> = ({
   );
 };
 
-const SkillResults: React.FC<SkillResultsFooter> = ({ filteredSkills }) => {
+const SkillResults: React.FC<ISkillResultsFooter> = ({ filteredSkills }) => {
   const i18n = useLang();
 
   const {
@@ -85,7 +85,7 @@ const SkillResults: React.FC<SkillResultsFooter> = ({ filteredSkills }) => {
   );
 };
 
-const SkillFooter: React.FC<SkillFooterProps> = ({
+const SkillFooter: React.FC<ISkillFooterProps> = ({
   filteredSkills,
   handleMoreSkills,
 }) => {

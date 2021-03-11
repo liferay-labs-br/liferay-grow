@@ -1,43 +1,6 @@
-import { ActionMap } from '../../reducers';
+import { ActionMap, ActionsPayload, SkillManagement, Types } from '../../types';
 
-export type Skill = {
-  id: string;
-  name: string;
-};
-
-type Variables = {
-  pageSize: number;
-  pageIndex: number;
-  search?: {
-    name: string;
-  };
-};
-
-type KnowledgeMatriz = {
-  id: string;
-  name: string;
-};
-
-export enum Types {
-  EDIT_SEARCH = 'EDIT_SEARCH',
-  EDIT_SKILLS = 'EDIT_SKILLS',
-  EDIT_VARIABLES = 'EDIT_VARIABLES',
-  EDIT_SELECTED_SKILLS = 'EDIT_SELECTED_SKILLS',
-  EDIT_KNOWLEDGE_MATRIZ = 'EDIT_KNOWLEDGE_MATRIZ',
-}
-
-export type SkillManagement = {
-  search: string;
-  selectedSkills: Skill[];
-  skills: Skill[];
-  pagination: any;
-  variables: Variables;
-  knowledgeMatriz: KnowledgeMatriz[];
-};
-
-type SkillManagementActionPayload = {
-  [Types.EDIT_SEARCH]: string;
-};
+type SkillManagementActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
 export const SkillManagementState: SkillManagement = {
   knowledgeMatriz: [],
@@ -48,11 +11,9 @@ export const SkillManagementState: SkillManagement = {
   variables: { pageIndex: 1, pageSize: 9 },
 };
 
-export type SkillManagementActions = ActionMap<SkillManagementActionPayload>[keyof ActionMap<SkillManagementActionPayload>];
-
 export const SkillManagementReducer = (
   state: SkillManagement,
-  action: SkillManagementActions | any,
+  action: SkillManagementActions,
 ): SkillManagement => {
   switch (action.type) {
     case Types.EDIT_SEARCH: {
@@ -63,10 +24,12 @@ export const SkillManagementReducer = (
     }
 
     case Types.EDIT_SKILLS: {
+      const { pagination, skills } = action.payload;
+
       return {
         ...state,
-        pagination: action.payload.pagination,
-        skills: action.payload.skills,
+        pagination,
+        skills,
       };
     }
 
