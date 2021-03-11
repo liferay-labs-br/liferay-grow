@@ -6,8 +6,8 @@ import {
   allKnowledgeSkillsPaginate,
 } from '../../graphql/queries';
 import useDebounce from '../../hooks/useDebounce';
+import { Types } from '../../types';
 import SkillContext, { initialState, mainReducer } from './SkillContext';
-import { Types } from './SkillReducer';
 
 const DEBOUNCE_TIMER = 200;
 

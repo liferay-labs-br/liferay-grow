@@ -6,9 +6,9 @@ import DropDown from './DropDown';
 interface ITable {
   borderless?: boolean;
   className?: string;
-  actions: Array<any>;
-  columns: Array<any>;
-  items: Array<any>;
+  actions: any[];
+  columns: any[];
+  items: any[];
 }
 
 const TableComponent = ({

@@ -1,8 +1,6 @@
 import ClayDropDown from '@clayui/drop-down';
 import React from 'react';
 
-const { Divider, Item } = ClayDropDown;
-
 type NameFn = (item: string) => React.ReactNode;
 
 interface IDropDownAction extends React.HTMLAttributes<HTMLElement> {
@@ -13,6 +11,8 @@ interface IDropDownAction extends React.HTMLAttributes<HTMLElement> {
     name: string | NameFn;
   };
 }
+
+const { Divider, Item } = ClayDropDown;
 
 const DropDownAction: React.FC<IDropDownAction> = ({
   action: { action, name },

@@ -7,7 +7,7 @@ import ProfileHeader from './ProfileHeader';
 import ProfilePanelSkill from './ProfilePanelSkill';
 import ProfileSidebar from './ProfileSidebar';
 
-interface Github {
+type Github = {
   id: string;
   login: string;
   avatar_url: string;
@@ -16,12 +16,12 @@ interface Github {
   company: string;
   location: string;
   bio: string;
-}
+};
 
-interface User {
+type User = {
   id: string;
   github: Github;
-}
+};
 
 interface IProfileWrapperProps extends React.HTMLAttributes<HTMLElement> {
   me: User;

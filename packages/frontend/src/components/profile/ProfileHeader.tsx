@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { IProfileHeaderProps } from './types';
+interface IProfileHeaderProps extends React.HTMLAttributes<HTMLElement> {
+  avatar: string;
+  location: string;
+  name: string;
+  role: string;
+}
 
 const ProfileHeader: React.FC<IProfileHeaderProps> = ({
   avatar,

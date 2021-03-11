@@ -3,8 +3,8 @@ import { ClayInput } from '@clayui/form';
 import React, { useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
+import { Types } from '../../types';
 import SkillContext from './SkillContext';
-import { Types } from './SkillReducer';
 
 const SkillManagementSearch: React.FC<any> = () => {
   const i18n = useLang();

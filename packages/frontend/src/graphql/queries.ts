@@ -17,14 +17,14 @@ const me = `
   }
 `;
 
-const allRoles = `
+const allRole = `
   getAllRole {
     id
     name
   }
 `;
 
-const allOffices = `
+const allOffice = `
   getAllOffice {
     id
     name
@@ -78,9 +78,8 @@ export const allKnowledgeSkillsPaginate = gql`
 
 export const getStarted = gql`
   query {
-    roles: ${allRoles}
-
-    offices: ${allOffices}
+    roles: ${allRole}
+    offices: ${allOffice}
   }
 `;
 
