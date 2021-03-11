@@ -2,10 +2,10 @@ import React from 'react';
 
 import { parseCookies } from '../utils/cookie';
 import { keys, redirect } from '../utils/util';
-import { WrappedComponent } from './types';
+import { IWrappedComponentProps } from './types';
 
 const withPublic = (
-  Component: React.ComponentType<WrappedComponent>,
+  Component: React.ComponentType<IWrappedComponentProps>,
 ): React.ReactNode => {
   return class WithData extends React.Component {
     static displayName = `withPublic(${Component.displayName})`;

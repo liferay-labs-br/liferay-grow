@@ -4,9 +4,8 @@ import SkillContext from './SkillContext';
 import SkillManagementBars from './SkillManagementBars';
 import SkillManagementSearch from './SkillManagementSearch';
 import SkillManagementUserList from './SkillManagementUserList';
-import { Skill, Types } from './SkillReducer';
 
-const SkillManagement: React.FC = () => {
+const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const {
     dispatch,
     state: { selectedSkills, skills, variables },

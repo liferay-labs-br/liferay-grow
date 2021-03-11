@@ -1,8 +1,6 @@
 import ClayModal, { useModal } from '@clayui/modal';
 import React, { ReactElement } from 'react';
 
-type Size = 'full-screen' | 'lg' | 'sm';
-
 interface IModalProps extends React.HTMLAttributes<HTMLElement> {
   first?: ReactElement;
   last?: ReactElement;

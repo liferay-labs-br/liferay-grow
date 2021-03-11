@@ -1,8 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 
 import AppContext, { initialState, mainReducer } from './AppContext';
-import { LANGUAGE_KEY, Languages } from './reducers/PortalReducer';
-import { Types } from './reducers/UserReducer';
+import { LANGUAGE_KEY } from './reducers/PortalReducer';
 import { getToken } from './utils/cookie';
 
 const AppProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
@@ -23,7 +22,7 @@ const AppProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
     const getLanguageValue =
       localStorage.getItem(LANGUAGE_KEY) || mapLanguages[language];
 
-    dispatch({ payload: getLanguageValue, type: 'EDIT_LANGUAGE' });
+    dispatch({ payload: getLanguageValue, type: Types.EDIT_LANGUAGE });
   }, []);
 
   useEffect(() => {

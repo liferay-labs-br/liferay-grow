@@ -5,27 +5,6 @@ import React, { useContext } from 'react';
 import useLang from '../../hooks/useLang';
 import LoadingWrapper from '../loading';
 import SkillContext from './SkillContext';
-import { Skill } from './SkillReducer';
-
-type SkillInfoProps = {
-  onClick: (skill: Skill) => void;
-  skill: Skill;
-};
-
-type SkillListProps = {
-  onClick: (skill: Skill) => void;
-  filteredSkills: Skill[];
-  loading?: boolean;
-};
-
-type SkillFooterProps = {
-  filteredSkills: Skill[];
-  handleMoreSkills: () => void;
-};
-
-type SkillResultsFooter = {
-  filteredSkills: Skill[];
-};
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   Footer: React.ElementType;

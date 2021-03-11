@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
 import SkillContext from './SkillContext';
-import { Types } from './SkillReducer';
 
 const SkillManagementSearch: React.FC<any> = () => {
   const i18n = useLang();

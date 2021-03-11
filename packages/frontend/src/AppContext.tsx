@@ -1,17 +1,7 @@
 import { createContext, Dispatch } from 'react';
 
-import { Portal, portalReducer, portalState } from './reducers/PortalReducer';
-import { User, userReducer, userState } from './reducers/UserReducer';
-
-type Action = {
-  payload?: any;
-  type: string;
-};
-
-type InitialStateType = {
-  portal: Portal;
-  user: User;
-};
+import { portalReducer, portalState } from './reducers/PortalReducer';
+import { userReducer, userState } from './reducers/UserReducer';
 
 const initialState = {
   portal: portalState,
@@ -19,7 +9,7 @@ const initialState = {
 };
 
 const AppContext = createContext<{
-  state: InitialStateType;
+  state: InitialStateAppContextType;
   dispatch: Dispatch<Action>;
 }>({
   dispatch: () => null,
@@ -27,9 +17,9 @@ const AppContext = createContext<{
 });
 
 const mainReducer = (
-  { portal, user }: InitialStateType,
+  { portal, user, welcome }: InitialStateAppContextType,
   action: Action,
-): InitialStateType => ({
+): InitialStateAppContextType => ({
   portal: portalReducer(portal, action),
   user: userReducer(user, action),
 });

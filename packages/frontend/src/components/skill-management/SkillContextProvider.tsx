@@ -7,7 +7,6 @@ import {
 } from '../../graphql/queries';
 import useDebounce from '../../hooks/useDebounce';
 import SkillContext, { initialState, mainReducer } from './SkillContext';
-import { Types } from './SkillReducer';
 
 const DEBOUNCE_TIMER = 200;
 

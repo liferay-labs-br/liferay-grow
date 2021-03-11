@@ -8,7 +8,6 @@ import SEO from '../../components/meta';
 import { authGithub } from '../../graphql/mutations';
 import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
-import { Types } from '../../reducers/UserReducer';
 import { parseJwt } from '../../utils/util';
 import Layout from './_layout';
 

@@ -3,8 +3,6 @@ import React from 'react';
 
 const { Divider, Item } = ClayDropDown;
 
-type NameFn = (item: string) => React.ReactNode;
-
 interface IDropDownAction extends React.HTMLAttributes<HTMLElement> {
   item: string;
   setActive(value: boolean): void;

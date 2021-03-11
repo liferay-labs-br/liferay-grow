@@ -9,7 +9,7 @@ import DropDownAction from './DropDownAction';
 const { ItemList } = ClayDropDown;
 
 interface IDropDown extends React.HTMLAttributes<HTMLElement> {
-  actions: Array<any>;
+  actions: any[];
   item: any;
   noActionsMessage?: string;
 }
