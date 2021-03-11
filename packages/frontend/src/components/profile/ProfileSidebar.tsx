@@ -6,8 +6,8 @@ import React from 'react';
 import useLang from '../../hooks/useLang';
 
 const steps = [
-  { name: 'skill-and-gaps', path: '/', symbol: 'books' },
-  { name: 'teams', path: '/teams', symbol: 'users' },
+  { name: 'skill-and-gaps', path: '/profile', symbol: 'books' },
+  { name: 'teams', path: '/profile/teams', symbol: 'users' },
 ];
 
 interface ISidebarItemProps extends React.HTMLAttributes<HTMLElement> {
@@ -41,7 +41,7 @@ const ProfileSidebar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
       <div className="profile__sidebar__list">
         {steps.map(({ name, path, symbol }) => (
           <SidebarItem
-            active={path === '/'}
+            active={path === router.pathname}
             key={path}
             symbol={symbol}
             onClick={() => router.push(path)}
