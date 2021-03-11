@@ -83,6 +83,15 @@ export const getStarted = gql`
   }
 `;
 
+export const getAllTeam = gql`
+  query {
+    teams: getAllTeam {
+      id
+      name
+    }
+  }
+`;
+
 export const getMe = gql`
   query {
     me: ${me}
