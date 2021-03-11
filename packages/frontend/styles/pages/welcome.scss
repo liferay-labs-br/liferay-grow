@@ -37,4 +37,8 @@
             justify-content: flex-end;
         }
     }
+
+    &__sidebar--checked .lexicon-icon {
+        color: #5ACA75;
+    }
 }
