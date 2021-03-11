@@ -1,13 +1,4 @@
-import { ActionMap, ActionsPayload, Types } from '../types';
-
-type Steps = {
-  checked: boolean;
-  value: string;
-}[];
-
-type Welcome = {
-  steps: Steps;
-};
+import { ActionMap, ActionsPayload, Steps, Types, Welcome } from '../types';
 
 type WelcomeActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 

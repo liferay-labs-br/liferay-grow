@@ -128,3 +128,12 @@ export type User = {
     };
   };
 };
+
+export type Steps = {
+  checked: boolean;
+  value: string;
+}[];
+
+export type Welcome = {
+  steps: Steps;
+};

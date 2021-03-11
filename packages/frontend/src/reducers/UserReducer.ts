@@ -1,12 +1,12 @@
 import { ActionMap, ActionsPayload, Types, User } from '../types';
-import { delToken, setToken } from '../utils/cookie';
+import { delToken, getToken, setToken } from '../utils/cookie';
 import { parseJwt } from '../utils/util';
 
 type UserActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
 export const userState = {
   loggedUser: {},
-  token: null,
+  token: getToken(),
 };
 
 export const userReducer = (state: User, action: UserActions): User => {

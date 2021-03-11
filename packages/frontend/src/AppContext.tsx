@@ -3,7 +3,7 @@ import { createContext, Dispatch } from 'react';
 import { portalReducer, portalState } from './reducers/PortalReducer';
 import { userReducer, userState } from './reducers/UserReducer';
 import { welcomeReducer, welcomeState } from './reducers/WelcomeReducer';
-import { Action, Portal, User } from './types';
+import { Action, Portal, User, Welcome } from './types';
 
 type InitialStateAppContextType = {
   portal: Portal;
