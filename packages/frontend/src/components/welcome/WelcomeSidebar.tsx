@@ -1,18 +1,20 @@
 import ClayIcon from '@clayui/icon';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 
+import AppContext from '../../AppContext';
 import useLang from '../../hooks/useLang';
-import { steps } from './constants';
 import { getCurrentStep } from './utils';
 
 interface ISidebarItemProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean;
+  checked: boolean;
 }
 
 const SidebarItem: React.FC<ISidebarItemProps> = ({
   active,
+  checked,
   children,
   onClick,
 }) => (
@@ -20,11 +22,12 @@ const SidebarItem: React.FC<ISidebarItemProps> = ({
     onClick={onClick}
     className={classNames('welcome__sidebar--item', {
       'welcome__sidebar--active': active,
+      'welcome__sidebar--checked': checked,
     })}
   >
     <ClayIcon
       fontSize={active ? 22 : 16}
-      symbol="simple-circle"
+      symbol={checked ? 'check' : 'simple-circle'}
       className="mr-4"
     />
     <span>{children}</span>
@@ -32,6 +35,11 @@ const SidebarItem: React.FC<ISidebarItemProps> = ({
 );
 
 const WelcomeSidebar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
+  const {
+    state: {
+      welcome: { steps },
+    },
+  } = useContext(AppContext);
   const router = useRouter();
   const i18n = useLang();
   const currentStep = getCurrentStep(router);
@@ -39,13 +47,14 @@ const WelcomeSidebar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   return (
     <div className="welcome__sidebar">
       <ul>
-        {steps.map((step) => (
+        {steps.map(({ checked, value }) => (
           <SidebarItem
-            active={step === currentStep}
-            key={step}
-            onClick={() => router.push(step)}
+            active={value === currentStep}
+            checked={checked}
+            key={value}
+            onClick={() => router.push(value)}
           >
-            {i18n.get(step)}
+            {i18n.get(value)}
           </SidebarItem>
         ))}
       </ul>

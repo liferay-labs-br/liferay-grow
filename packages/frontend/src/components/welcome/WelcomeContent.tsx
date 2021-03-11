@@ -1,4 +1,12 @@
+import ClayLayout from '@clayui/layout';
+import { useRouter } from 'next/router';
 import React from 'react';
+
+import useLang from '../../hooks/useLang';
+import SEO from '../meta';
+import { getCurrentStep } from './utils';
+import WelcomeHeader from './WelcomeHeader';
+import WelcomeSidebar from './WelcomeSidebar';
 
 const WelcomeContentTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
@@ -23,10 +31,27 @@ const WelcomeContent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   Body: React.ElementType;
   Footer: React.ElementType;
 } = ({ children }) => {
+  const i18n = useLang();
+  const router = useRouter();
+  const currentStep = getCurrentStep(router);
+
   return (
-    <div className="welcome__content">
-      <div className="welcome__content--box">{children}</div>
-    </div>
+    <ClayLayout.ContainerFluid className={currentStep}>
+      <SEO title={i18n.sub('app-title-x', currentStep)} />
+      <ClayLayout.Row>
+        <ClayLayout.Col size={4}>
+          <WelcomeSidebar />
+        </ClayLayout.Col>
+        <ClayLayout.Col>
+          <WelcomeHeader />
+          <hr />
+
+          <div className="welcome__content">
+            <div className="welcome__content--box">{children}</div>
+          </div>
+        </ClayLayout.Col>
+      </ClayLayout.Row>
+    </ClayLayout.ContainerFluid>
   );
 };
 
