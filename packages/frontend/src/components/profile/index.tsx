@@ -1,89 +1,21 @@
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
-import React from 'react';
+import React, { useContext } from 'react';
 
-import useLang from '../../hooks/useLang';
+import AppContext from '../../AppContext';
 import ProfileHeader from './ProfileHeader';
-import ProfilePanelSkill from './ProfilePanelSkill';
 import ProfileSidebar from './ProfileSidebar';
 
-type Github = {
-  id: string;
-  login: string;
-  avatar_url: string;
-  email: string;
-  name: string;
-  company: string;
-  location: string;
-  bio: string;
-};
-
-type User = {
-  id: string;
-  github: Github;
-};
-
-interface IProfileWrapperProps extends React.HTMLAttributes<HTMLElement> {
-  me: User;
-}
-
-const skillDetails = [
-  {
-    id: '1',
-    knowledgeMatriz: {
-      name: 'Beginner',
-    },
-    knowledgeSkill: {
-      name: 'Java',
-    },
-  },
-  {
-    id: '2',
-    knowledgeMatriz: {
-      name: 'Professional',
-    },
-    knowledgeSkill: {
-      name: 'Prototyping',
-    },
-  },
-  {
-    id: '3',
-    knowledgeMatriz: {
-      name: 'Beginner',
-    },
-    knowledgeSkill: {
-      name: 'Typescript',
-    },
-  },
-];
-
-const gapsDetails = [
-  {
-    id: '1',
-    knowledgeSkill: {
-      name: 'Java',
-    },
-  },
-  {
-    id: '2',
-    knowledgeSkill: {
-      name: 'Prototyping',
-    },
-  },
-  {
-    id: '3',
-    knowledgeSkill: {
-      name: 'Typescript',
-    },
-  },
-];
-
-export const ProfileWrapper: React.FC<IProfileWrapperProps> = ({ me }) => {
-  const i18n = useLang();
-
+export const ProfileWrapper: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+  children,
+}) => {
   const {
-    github: { avatar_url, location, name },
-  } = me;
+    state: {
+      user: {
+        loggedUser: { avatar_url, location, name },
+      },
+    },
+  } = useContext(AppContext);
 
   return (
     <>
@@ -101,16 +33,7 @@ export const ProfileWrapper: React.FC<IProfileWrapperProps> = ({ me }) => {
           </ClayCard>
         </ClayLayout.Col>
         <ClayLayout.Col size={9}>
-          <ClayCard className="p-4">
-            <ProfilePanelSkill
-              title={i18n.get('skill-details')}
-              skills={skillDetails}
-            />
-            <ProfilePanelSkill
-              title={i18n.get('knowledge-gaps')}
-              skills={gapsDetails}
-            />
-          </ClayCard>
+          <ClayCard className="p-4">{children}</ClayCard>
         </ClayLayout.Col>
       </ClayLayout.Row>
     </>
