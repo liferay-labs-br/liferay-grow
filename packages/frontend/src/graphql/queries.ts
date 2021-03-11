@@ -1,18 +1,20 @@
 import { gql } from '@apollo/client';
 
-const me = `
-  me {
-    id
-    github {
+import { GITHUB_FRAGMENT, GROW_MAP_FRAGMENT } from './fragments';
+
+export const getMe = gql`
+  ${GITHUB_FRAGMENT}
+  ${GROW_MAP_FRAGMENT}
+
+  query {
+    me {
       id
-      accountId
-      login
-      avatar_url
-      email
-      name
-      company
-      location
-      bio
+      github {
+        ...GithubFields
+      }
+      growMap {
+        ...GrowMapFields
+      }
     }
   }
 `;
@@ -89,11 +91,5 @@ export const getAllTeam = gql`
       id
       name
     }
-  }
-`;
-
-export const getMe = gql`
-  query {
-    me: ${me}
   }
 `;

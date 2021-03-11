@@ -13,8 +13,9 @@ const relations = [
   'growMap.knowledgeSkillDetails',
   'growMap.knowledgeSkillDetails.knowledgeSkill',
   'growMap.knowledgeSkillDetails.knowledgeMatriz',
-  'team',
-  'team.office',
+  'growMap.userDetails',
+  'growMap.userDetails.role',
+  'growMap.userDetails.teams',
 ];
 
 @Resolver(User)
