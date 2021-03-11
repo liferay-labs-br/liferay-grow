@@ -1,5 +1,4 @@
 import { Arg, Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
-import {} from 'typeorm';
 
 import { Github } from '../../entity/Github';
 import { User } from '../../entity/User';

@@ -5,6 +5,7 @@ import { KnowledgeGapsDetails } from './KnowledgeGapsDetails';
 import { KnowledgeSkillDetails } from './KnowledgeSkillDetails';
 import { MainEntity } from './MainEntity';
 import { User } from './User';
+import { UserDetails } from './UserDetails';
 
 @ObjectType()
 @Entity()
@@ -18,6 +19,11 @@ export class GrowMap extends MainEntity {
   @JoinTable({ name: 'grow_map_knowledge_gaps_details' })
   @ManyToMany(() => KnowledgeGapsDetails)
   knowledgeGapsDetails: KnowledgeGapsDetails[];
+
+  @Field(() => UserDetails)
+  @OneToOne(() => UserDetails)
+  @JoinColumn()
+  userDetails: UserDetails;
 
   @Field(() => User)
   @OneToOne(() => User)

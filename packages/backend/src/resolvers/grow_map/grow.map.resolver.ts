@@ -8,13 +8,24 @@ import {
 } from 'type-graphql';
 
 import { GrowMap } from '../../entity/GrowMap';
-import { KnowledgeGapsDetails } from '../../entity/KnowledgeGapsDetails';
-import { KnowledgeSkillDetails } from '../../entity/KnowledgeSkillDetails';
 import { MyContext } from '../../interfaces';
 import { isAuth } from '../../middlewares/isAuth';
 import { getUserFromCtxOrFail, logger } from '../../utils/globalMethods';
-import { getKnowledgeEntities } from './grow.map.utils';
+import {
+  getKnowledgeEntities,
+  saveKnowledgeGapsDetails,
+  saveKnowledgeSkillDetails,
+  saveUserDetails,
+} from './grow.map.utils';
 import { GrowMapBaseInput } from './Inputs';
+
+const relations = [
+  'github',
+  'growMap',
+  'growMap.knowledgeSkillDetails',
+  'growMap.knowledgeSkillDetails.knowledgeSkill',
+  'growMap.knowledgeSkillDetails.knowledgeMatriz',
+];
 
 @Resolver(GrowMap)
 export class GrowMapResolver {
@@ -24,13 +35,7 @@ export class GrowMapResolver {
     @Arg('data') data: GrowMapBaseInput,
     @Ctx() ctx: MyContext,
   ): Promise<GrowMap> {
-    const user = await getUserFromCtxOrFail(ctx, [
-      'github',
-      'growMap',
-      'growMap.knowledgeSkillDetails',
-      'growMap.knowledgeSkillDetails.knowledgeSkill',
-      'growMap.knowledgeSkillDetails.knowledgeMatriz',
-    ]);
+    const user = await getUserFromCtxOrFail(ctx, relations);
 
     if (user.growMap) {
       logger.info(`${user.github.name} already have a growMap, skipping.`);
@@ -43,56 +48,24 @@ export class GrowMapResolver {
 
     const growMap = await GrowMap.create();
 
-    const knowledgeSkillDetails: KnowledgeSkillDetails[] = [];
-    const knowledgeGapsDetails: KnowledgeGapsDetails[] = [];
+    const knowledgeGapsDetails = await saveKnowledgeGapsDetails(
+      knowledgeSkills,
+      data,
+    );
 
-    for (const {
-      isMentor,
-      knowledgeMatrizId,
-      knowledgeSkillId,
-    } of data.knowledgeSkillDetails) {
-      const knowledgeSkillDetail = await KnowledgeSkillDetails.create({
-        isMentor,
-      }).save();
+    const knowledgeSkillDetails = await saveKnowledgeSkillDetails(
+      knowledgeMatrizes,
+      knowledgeSkills,
+      data,
+    );
 
-      const knowledgeSkill = knowledgeSkills.find(
-        ({ id }) => id === knowledgeSkillId,
-      );
-
-      const knowledgeMatriz = knowledgeMatrizes.find(
-        ({ id }) => id === knowledgeMatrizId,
-      );
-
-      if (knowledgeSkill && knowledgeMatriz) {
-        knowledgeSkillDetail.knowledgeSkill = knowledgeSkill;
-        knowledgeSkillDetail.knowledgeMatriz = knowledgeMatriz;
-      }
-
-      await knowledgeSkillDetail.save();
-
-      knowledgeSkillDetails.push(knowledgeSkillDetail);
-    }
-
-    for (const { knowledgeSkillId } of data.knowledgeGapsDetails) {
-      const knowledgeGapsDetail = await KnowledgeGapsDetails.create().save();
-
-      const knowledgeSkill = knowledgeSkills.find(
-        ({ id }) => id === knowledgeSkillId,
-      );
-
-      if (knowledgeSkill) {
-        knowledgeGapsDetail.knowledgeSkill = knowledgeSkill;
-      }
-
-      await knowledgeGapsDetail.save();
-
-      knowledgeGapsDetails.push(knowledgeGapsDetail);
-    }
+    const userDetails = await saveUserDetails(data);
 
     user.growMap = growMap;
 
     growMap.knowledgeSkillDetails = knowledgeSkillDetails;
     growMap.knowledgeGapsDetails = knowledgeGapsDetails;
+    growMap.userDetails = userDetails;
     growMap.user = user;
 
     await growMap.save();
@@ -105,6 +78,11 @@ export class GrowMapResolver {
   async getAllGrowMaps(): Promise<GrowMap[]> {
     const GrowMaps = await GrowMap.find({
       relations: [
+        'userDetails',
+        'userDetails.role',
+        'userDetails.teams',
+        'knowledgeGapsDetails',
+        'knowledgeGapsDetails.knowledgeSkill',
         'knowledgeSkillDetails',
         'knowledgeSkillDetails.knowledgeSkill',
         'knowledgeSkillDetails.knowledgeMatriz',
