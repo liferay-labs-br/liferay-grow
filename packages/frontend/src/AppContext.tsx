@@ -2,10 +2,12 @@ import { createContext, Dispatch } from 'react';
 
 import { portalReducer, portalState } from './reducers/PortalReducer';
 import { userReducer, userState } from './reducers/UserReducer';
+import { welcomeReducer, welcomeState } from './reducers/WelcomeReducer';
 
 const initialState = {
   portal: portalState,
   user: userState,
+  welcome: welcomeState,
 };
 
 const AppContext = createContext<{
@@ -22,6 +24,7 @@ const mainReducer = (
 ): InitialStateAppContextType => ({
   portal: portalReducer(portal, action),
   user: userReducer(user, action),
+  welcome: welcomeReducer(welcome, action),
 });
 
 export { mainReducer, initialState };
