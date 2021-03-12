@@ -6,8 +6,18 @@ import React from 'react';
 import useLang from '../../hooks/useLang';
 
 const steps = [
-  { name: 'skill-and-gaps', path: '/profile', symbol: 'books' },
-  { name: 'teams', path: '/profile/teams', symbol: 'users' },
+  {
+    name: 'knowledge-areas',
+    path: '/profile',
+    pathDynamic: '/profile/:user',
+    symbol: 'books',
+  },
+  {
+    name: 'teams',
+    path: '/profile/teams',
+    pathDynamic: '/profile/:user/teams',
+    symbol: 'users',
+  },
 ];
 
 interface ISidebarItemProps extends React.HTMLAttributes<HTMLElement> {
@@ -36,12 +46,25 @@ const ProfileSidebar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const router = useRouter();
   const i18n = useLang();
 
+  const login = router.query.login;
+
+  const dynamicSteps = steps.map((step) => {
+    if (login) {
+      return {
+        ...step,
+        path: step.pathDynamic.replace(':user', login as string),
+      };
+    }
+
+    return step;
+  });
+
   return (
     <div className="profile__sidebar">
       <div className="profile__sidebar__list">
-        {steps.map(({ name, path, symbol }) => (
+        {dynamicSteps.map(({ name, path, symbol }) => (
           <SidebarItem
-            active={path === router.pathname}
+            active={path === router.asPath}
             key={path}
             symbol={symbol}
             onClick={() => router.push(path)}

@@ -1,3 +1,51 @@
+type Github = {
+  name: string;
+  accountId: number;
+  avatar_url: string;
+  bio: string;
+  company: string;
+  created_at: string;
+  email: string;
+  id: number;
+  location: string;
+  login: string;
+};
+
+type BasicQuery = {
+  id: string;
+  name: string;
+};
+
+type UserDetails = {
+  id: string;
+  role: BasicQuery;
+  teams: BasicQuery[];
+};
+
+type KnowledgeSkillDetails = {
+  id: string;
+  knowledgeSkill: BasicQuery;
+  knowledgeMatriz: BasicQuery;
+};
+
+type KnowledgeGapsDetails = {
+  id: string;
+  knowledgeSkill: BasicQuery;
+};
+
+type GrowMap = {
+  id: string;
+  userDetails: UserDetails;
+  knowledgeSkillDetails: KnowledgeSkillDetails[];
+  knowledgeGapsDetails: KnowledgeGapsDetails[];
+};
+
+export type Me = {
+  id: string;
+  github: Github;
+  growMap?: GrowMap;
+};
+
 type KnowledgeMatriz = {
   id: string;
   name: string;

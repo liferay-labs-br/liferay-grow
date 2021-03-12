@@ -1,20 +1,23 @@
 import { gql } from '@apollo/client';
 
-import { GITHUB_FRAGMENT, GROW_MAP_FRAGMENT } from './fragments';
+import { ME_FRAGMENT } from './fragments';
 
 export const getMe = gql`
-  ${GITHUB_FRAGMENT}
-  ${GROW_MAP_FRAGMENT}
+  ${ME_FRAGMENT}
 
-  query {
+  query me {
     me {
-      id
-      github {
-        ...GithubFields
-      }
-      growMap {
-        ...GrowMapFields
-      }
+      ...MeFragment
+    }
+  }
+`;
+
+export const getUserByLogin = gql`
+  ${ME_FRAGMENT}
+
+  query getUserByLogin($login: String!) {
+    getUserByLogin(login: $login) {
+      ...MeFragment
     }
   }
 `;

@@ -1,28 +1,26 @@
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
-import React, { useContext } from 'react';
+import React from 'react';
 
-import AppContext from '../../AppContext';
+import { Me } from '../../types';
 import ProfileHeader from './ProfileHeader';
 import ProfileSidebar from './ProfileSidebar';
 
-export const ProfileWrapper: React.FC<React.HTMLAttributes<HTMLElement>> = ({
-  children,
-}) => {
+type IProfileWrapper = {
+  me: Me;
+};
+
+export const ProfileWrapper: React.FC<IProfileWrapper> = ({ children, me }) => {
   const {
-    state: {
-      user: {
-        loggedUser: { avatar_url, location, name },
-      },
-    },
-  } = useContext(AppContext);
+    github: { avatar_url, location, name },
+  } = me;
 
   return (
     <>
       <ProfileHeader
         name={name}
         avatar={avatar_url}
-        role="teste"
+        role={me.growMap?.userDetails?.role?.name}
         location={location}
       />
 
