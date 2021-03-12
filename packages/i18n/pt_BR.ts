@@ -7,10 +7,13 @@ export default {
   'get-started': 'Comece agora',
   'i-feel-comfortable-with-being-a-mentor':
     'Me sinto confortável em ser mentor.',
+  'knowledge-areas': ' Áreas de conhecimento',
   'knowledge-gaps': 'Knowledge Gaps',
+  logout: 'Sair',
   'more-skills': 'Mais habilidades',
   'no-results-for-x': `Sem resultados para "{0}"`,
   'personal-details': 'Informações pessoais',
+  profile: 'Perfil',
   role: 'Função / Papel',
   'sign-in-with-github': 'Entre com Github',
   'skill-and-gaps': 'Habilidades e Gaps',
