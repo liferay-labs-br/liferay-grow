@@ -1,6 +1,5 @@
 import ClayButton from '@clayui/button';
 import ClayLayout from '@clayui/layout';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 import SEO from '../../components/meta';
@@ -8,10 +7,12 @@ import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
 import Layout from './_layout';
 
+const GITHUB_OAUTH = 'https://github.com/login/oauth/authorize';
+const GITHUB_SIGNUP = 'https://github.com/join';
+const SCOPE = 'users';
+
 const onAuthGithub = () => {
   const { NEXT_PUBLIC_GITHUB_CLIENT_ID } = process.env;
-  const GITHUB_OAUTH = 'https://github.com/login/oauth/authorize';
-  const SCOPE = 'users';
 
   window.open(
     `${GITHUB_OAUTH}?client_id=${NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=${SCOPE}`,
@@ -21,13 +22,12 @@ const onAuthGithub = () => {
 
 const Auth = (): React.ReactElement => {
   const i18n = useLang();
-  const router = useRouter();
 
   return (
     <Layout>
       <SEO title={i18n.sub('app-title-x', 'Auth')} />
       <h1>
-        Engineering <br /> Grow Together
+        {i18n.get('engineering')} <br /> Grow Together
       </h1>
       <ClayLayout.Row className="mt-5">
         <ClayLayout.Col xl={12}>
@@ -38,13 +38,14 @@ const Auth = (): React.ReactElement => {
       </ClayLayout.Row>
       <ClayLayout.Row className="signin__navigation_buttons">
         <ClayLayout.Col>
-          <ClayButton
-            onClick={() => router.push('/auth/signup')}
-            displayType="unstyled"
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={GITHUB_SIGNUP}
             className="btn-link"
           >
             {i18n.get('dont-have-a-github-account')}
-          </ClayButton>
+          </a>
         </ClayLayout.Col>
       </ClayLayout.Row>
     </Layout>

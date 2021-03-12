@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import AppContext from '../../AppContext';
+import LoadingWrapper from '../../components/loading';
 import SEO from '../../components/meta';
 import { authGithub } from '../../graphql/mutations';
 import withPublic from '../../hocs/withPublic';
@@ -49,7 +50,7 @@ const AuthMiddleware = (): React.ReactElement => {
       <SEO title={i18n.sub('app-title-x', 'Auth Middleware')} />
 
       {loading ? (
-        <div>{`${i18n.get('wait')}...`}</div>
+        <LoadingWrapper />
       ) : (
         <div>{`${i18n.get('redirecting')}...`}</div>
       )}
