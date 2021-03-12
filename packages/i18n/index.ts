@@ -5,10 +5,10 @@ const defaultLanguage = 'en_US';
 
 export const languages = {
   en_US,
-  pt_BR
+  pt_BR,
 };
 
 export default {
   availableLanguages: ['en_US', 'pt_BR'],
-  defaultLanguage
+  defaultLanguage,
 };
