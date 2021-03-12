@@ -1,6 +1,17 @@
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import React from 'react';
 
-export default function LoadingWrapper() {
-  return <ClayLoadingIndicator />;
-}
+type ILoadingWrapperProps = {
+  text?: string;
+};
+
+const LoadingWrapper: React.FC<ILoadingWrapperProps> = ({ text }) => {
+  return (
+    <>
+      <ClayLoadingIndicator />
+      {text}
+    </>
+  );
+};
+
+export default LoadingWrapper;

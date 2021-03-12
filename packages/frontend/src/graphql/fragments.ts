@@ -38,7 +38,7 @@ const USER_DETAILS_FRAGMENT = gql`
   }
 `;
 
-export const GITHUB_FRAGMENT = gql`
+const GITHUB_FRAGMENT = gql`
   fragment GithubFields on Github {
     id
     accountId
@@ -52,7 +52,7 @@ export const GITHUB_FRAGMENT = gql`
   }
 `;
 
-export const GROW_MAP_FRAGMENT = gql`
+const GROW_MAP_FRAGMENT = gql`
   ${USER_DETAILS_FRAGMENT}
   ${KNOWLEDGE_SKILLS_DETAILS_FRAGMENT}
   ${KNOWLEDGE_GAPS_DETAILS_FRAGMENT}
@@ -67,6 +67,21 @@ export const GROW_MAP_FRAGMENT = gql`
     }
     knowledgeGapsDetails {
       ...KnowledgeGapsDetailsFragment
+    }
+  }
+`;
+
+export const ME_FRAGMENT = gql`
+  ${GITHUB_FRAGMENT}
+  ${GROW_MAP_FRAGMENT}
+
+  fragment MeFragment on User {
+    id
+    github {
+      ...GithubFields
+    }
+    growMap {
+      ...GrowMapFields
     }
   }
 `;
