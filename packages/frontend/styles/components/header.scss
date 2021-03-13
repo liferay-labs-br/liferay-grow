@@ -1,0 +1,33 @@
+
+.header {
+    display: flex;
+    background-color: white;
+    padding: 10px 40px;
+
+    border: 1px solid #E7E7ED;
+    box-sizing: border-box;
+    border-radius: 4px;
+    
+    .header__avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        margin-right: 20px;
+    }
+
+    &__info {
+        flex: 1;
+        font-size: 0.875rem;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        &--title {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1.5rem;
+            line-height: 150%;
+        }
+    }
+}
