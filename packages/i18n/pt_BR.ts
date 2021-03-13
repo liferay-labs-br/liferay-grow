@@ -22,4 +22,5 @@ export default {
   teams: 'Times',
   'terms-of-use': 'Termos de uso | Políticas de privacidade',
   'welcome-x': 'Bem vindo, {0}',
+  'x-members': '{0} Membros',
 };
