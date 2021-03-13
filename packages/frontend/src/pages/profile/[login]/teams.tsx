@@ -17,9 +17,7 @@ const TeamByLogin = () => {
       query={getUserByLogin}
       options={{ variables: { login } }}
     >
-      {({ getUserByLogin }: { getUserByLogin: Me }) => (
-        <TeamTemplate me={getUserByLogin} />
-      )}
+      {({ user }: { user: Me }) => <TeamTemplate me={user} />}
     </WrappedSafeComponent>
   );
 };

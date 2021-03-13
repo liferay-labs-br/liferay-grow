@@ -5,7 +5,12 @@ import { UserTemplate } from '../_template';
 import WrappedSafeComponent from '../../../components/WrappedSafeComponent';
 import { getUserByLogin } from '../../../graphql/queries';
 import withAuth from '../../../hocs/withAuth';
-import { Me } from '../../../types';
+import { KnowledgeMatriz, Me } from '../../../types';
+
+type RequestProps = {
+  allKnowledgeMatriz: KnowledgeMatriz[];
+  user: Me;
+};
 
 const UserByLogin = () => {
   const {
@@ -17,8 +22,8 @@ const UserByLogin = () => {
       query={getUserByLogin}
       options={{ variables: { login } }}
     >
-      {({ getUserByLogin }: { getUserByLogin: Me }) => (
-        <UserTemplate me={getUserByLogin} />
+      {({ allKnowledgeMatriz, user }: RequestProps) => (
+        <UserTemplate me={user} allKnowledgeMatriz={allKnowledgeMatriz} />
       )}
     </WrappedSafeComponent>
   );
