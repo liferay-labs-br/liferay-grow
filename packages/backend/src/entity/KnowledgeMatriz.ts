@@ -14,4 +14,8 @@ export class KnowledgeMatriz extends MainEntity {
   @Field()
   @Column()
   description: string;
+
+  @Field()
+  @Column()
+  matrizLevel: number;
 }
