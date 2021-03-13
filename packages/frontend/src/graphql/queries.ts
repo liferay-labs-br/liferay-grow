@@ -1,13 +1,22 @@
 import { gql } from '@apollo/client';
 
-import { ME_FRAGMENT } from './fragments';
+import {
+  KNOWLEDGE_MATRIZ_FRAGMENT,
+  ME_FRAGMENT,
+  PAGINATION_FRAGMENT,
+} from './fragments';
 
 export const getMe = gql`
   ${ME_FRAGMENT}
+  ${KNOWLEDGE_MATRIZ_FRAGMENT}
 
-  query me {
+  query {
     me {
       ...MeFragment
+    }
+
+    allKnowledgeMatriz: getAllKnowledgeMatriz {
+      ...KnowledgeMatrizFragment
     }
   }
 `;
@@ -16,7 +25,7 @@ export const getUserByLogin = gql`
   ${ME_FRAGMENT}
 
   query getUserByLogin($login: String!) {
-    getUserByLogin(login: $login) {
+    user: getUserByLogin(login: $login) {
       ...MeFragment
     }
   }
@@ -50,28 +59,22 @@ export const allKnowledgeSkills = gql`
 `;
 
 export const allKnowledgeMatriz = gql`
+  ${KNOWLEDGE_MATRIZ_FRAGMENT}
+
   query {
     matriz: getAllKnowledgeMatriz {
-      id
-      name
+      ...KnowledgeMatrizFragment
     }
   }
 `;
 
 export const allKnowledgeSkillsPaginate = gql`
+  ${PAGINATION_FRAGMENT}
+
   query($data: PaginateFilterInputKnowledgeSkill!) {
     skillsPaginate: getAllKnowledgeSkillPaginate(data: $data) {
       pagination {
-        currentPage
-        endIndex
-        endPage
-        pageSize
-        pages
-        startIndex
-        startPage
-        totalItems
-        totalPages
-        totalPages
+        ...PaginationFragment
       }
       rows {
         id

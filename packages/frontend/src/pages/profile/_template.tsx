@@ -6,10 +6,15 @@ import SEO from '../../components/meta';
 import Profile, { ProfileWrapper } from '../../components/profile';
 import ProfilePanel from '../../components/profile/ProfilePanel';
 import useLang from '../../hooks/useLang';
-import { Me } from '../../types';
+import { KnowledgeMatriz, Me } from '../../types';
+
+function getPercentOf(partialValue, totalValue) {
+  return ((100 * partialValue) / totalValue).toFixed(1);
+}
 
 type ITemplateProps = {
   me: Me;
+  allKnowledgeMatriz?: KnowledgeMatriz[];
 };
 
 const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
@@ -21,13 +26,15 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
       <ProfileWrapper me={me}>
         {me.growMap ? (
           <ProfilePanel title={i18n.get('teams')}>
-            {me.growMap.userDetails?.teams?.map(({ id, name }) => (
+            {me.growMap.userDetails?.teams?.map(({ id, members, name }) => (
               <ProfilePanel.Item key={id}>
                 <ProfilePanel.Title className="title">
                   {name}
                 </ProfilePanel.Title>
                 <ProfilePanel.Body>
-                  <span>21 Members</span>
+                  <span>
+                    {i18n.sub('x-members', members.length.toString())}
+                  </span>
                 </ProfilePanel.Body>
               </ProfilePanel.Item>
             ))}
@@ -40,7 +47,7 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
   );
 };
 
-const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
+const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
   const i18n = useLang();
 
   return (
@@ -59,7 +66,12 @@ const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
                     <ProfilePanel.Body>
                       <span>{knowledgeMatriz.name}</span>
                     </ProfilePanel.Body>
-                    <ClayProgressBar value={100} />
+                    <ClayProgressBar
+                      value={getPercentOf(
+                        knowledgeMatriz.matrizLevel,
+                        allKnowledgeMatriz.length,
+                      )}
+                    />
                   </ProfilePanel.Item>
                 ),
               )}

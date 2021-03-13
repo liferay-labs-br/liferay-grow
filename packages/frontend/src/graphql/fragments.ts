@@ -1,5 +1,19 @@
 import { gql } from '@apollo/client';
 
+const GITHUB_FRAGMENT = gql`
+  fragment GithubFields on Github {
+    id
+    accountId
+    login
+    avatar_url
+    email
+    name
+    company
+    location
+    bio
+  }
+`;
+
 const KNOWLEDGE_SKILLS_DETAILS_FRAGMENT = gql`
   fragment KnowledgeSkillsDetailsFragment on KnowledgeSkillDetails {
     id
@@ -10,6 +24,7 @@ const KNOWLEDGE_SKILLS_DETAILS_FRAGMENT = gql`
     knowledgeMatriz {
       id
       name
+      matrizLevel
     }
   }
 `;
@@ -34,21 +49,10 @@ const USER_DETAILS_FRAGMENT = gql`
     teams {
       id
       name
+      members {
+        id
+      }
     }
-  }
-`;
-
-const GITHUB_FRAGMENT = gql`
-  fragment GithubFields on Github {
-    id
-    accountId
-    login
-    avatar_url
-    email
-    name
-    company
-    location
-    bio
   }
 `;
 
@@ -71,6 +75,14 @@ const GROW_MAP_FRAGMENT = gql`
   }
 `;
 
+export const KNOWLEDGE_MATRIZ_FRAGMENT = gql`
+  fragment KnowledgeMatrizFragment on KnowledgeMatriz {
+    id
+    name
+    matrizLevel
+  }
+`;
+
 export const ME_FRAGMENT = gql`
   ${GITHUB_FRAGMENT}
   ${GROW_MAP_FRAGMENT}
@@ -83,5 +95,20 @@ export const ME_FRAGMENT = gql`
     growMap {
       ...GrowMapFields
     }
+  }
+`;
+
+export const PAGINATION_FRAGMENT = gql`
+  fragment PaginationFragment on Pagination {
+    currentPage
+    endIndex
+    endPage
+    pageSize
+    pages
+    startIndex
+    startPage
+    totalItems
+    totalPages
+    totalPages
   }
 `;

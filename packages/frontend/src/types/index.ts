@@ -1,3 +1,8 @@
+type BasicQuery = {
+  id: string;
+  name: string;
+};
+
 type Github = {
   name: string;
   accountId: number;
@@ -11,21 +16,26 @@ type Github = {
   login: string;
 };
 
-type BasicQuery = {
-  id: string;
-  name: string;
-};
+interface Team extends BasicQuery {
+  members: Me[];
+}
 
 type UserDetails = {
   id: string;
   role: BasicQuery;
-  teams: BasicQuery[];
+  teams: Team[];
+};
+
+export type KnowledgeMatriz = {
+  id: string;
+  name: string;
+  matrizLevel?: number;
 };
 
 type KnowledgeSkillDetails = {
   id: string;
   knowledgeSkill: BasicQuery;
-  knowledgeMatriz: BasicQuery;
+  knowledgeMatriz: KnowledgeMatriz;
 };
 
 type KnowledgeGapsDetails = {
@@ -44,11 +54,6 @@ export type Me = {
   id: string;
   github: Github;
   growMap?: GrowMap;
-};
-
-type KnowledgeMatriz = {
-  id: string;
-  name: string;
 };
 
 type Variables = {
