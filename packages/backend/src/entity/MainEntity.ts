@@ -14,9 +14,9 @@ export class MainEntity extends BaseEntity {
 
   @Field()
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @Field()
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

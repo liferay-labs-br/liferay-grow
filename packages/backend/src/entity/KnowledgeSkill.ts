@@ -14,7 +14,7 @@ export class KnowledgeSkill extends MainEntity {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  created_by: string;
+  createdBy: string;
 
   @Field(() => KnowledgeArea, { nullable: true })
   @ManyToOne(() => KnowledgeArea, (area) => area.skills)

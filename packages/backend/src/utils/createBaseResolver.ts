@@ -11,7 +11,7 @@ import {
   UseMiddleware,
 } from 'type-graphql';
 
-import { MyContext, PaginateObject, PaginationQL } from '../interfaces';
+import { MyContext, Pagination, PaginationQL } from '../interfaces';
 import { isAuth } from '../middlewares/isAuth';
 import { applyFilters, paginate } from '../utils/globalMethods';
 
@@ -30,8 +30,8 @@ export function createBaseResolver<classType extends ClassType>(
 ): any {
   @ObjectType(`PaginateObject${suffix}`)
   class PaginateObjectType {
-    @Field(() => PaginateObject)
-    pagination: PaginateObject;
+    @Field(() => Pagination)
+    pagination: Pagination;
 
     @Field(() => [entity])
     rows: classType[];

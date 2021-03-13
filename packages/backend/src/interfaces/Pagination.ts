@@ -1,7 +1,7 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
 
 @ObjectType()
-export class PaginateObject {
+export class Pagination {
   @Field()
   currentPage: number;
 
