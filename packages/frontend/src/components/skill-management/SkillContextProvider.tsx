@@ -1,67 +1,37 @@
 import React, { useEffect, useReducer } from 'react';
 
 import { initializeApollo } from '../../graphql/nextApollo';
-import {
-  allKnowledgeMatriz,
-  allKnowledgeSkillsPaginate,
-} from '../../graphql/queries';
-import useDebounce from '../../hooks/useDebounce';
-import { Types } from '../../types';
+import { allKnowledgeData } from '../../graphql/queries';
+import { SkillManagement, Types } from '../../types';
 import SkillContext, { initialState, mainReducer } from './SkillContext';
 
-const DEBOUNCE_TIMER = 200;
+type AppProvider = {
+  defaultState?: SkillManagement;
+};
 
-const AppProvider: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+const AppProvider: React.FC<AppProvider> = ({
   children,
+  defaultState = {},
 }) => {
   const client = initializeApollo();
-  const [state, dispatch] = useReducer(mainReducer, initialState);
-  const debouncedValue = useDebounce(state.search, DEBOUNCE_TIMER);
+  const [state, dispatch] = useReducer(mainReducer, {
+    ...initialState,
+    ...defaultState,
+  });
 
-  const fetchKnowledgeSkillsPaginate = async () => {
+  const fetchKnowledgeData = async () => {
     const { data } = await client.query({
-      query: allKnowledgeSkillsPaginate,
-      variables: { data: state.variables },
+      query: allKnowledgeData,
     });
 
     dispatch({
-      payload: {
-        pagination: data.skillsPaginate.pagination,
-        skills: data.skillsPaginate.rows,
-      },
-      type: Types.EDIT_SKILLS,
-    });
-  };
-
-  const fetchKnowledgeMatriz = async () => {
-    const { data } = await client.query({
-      query: allKnowledgeMatriz,
-    });
-
-    dispatch({
-      payload: data.matriz,
-      type: Types.EDIT_KNOWLEDGE_MATRIZ,
+      payload: data,
+      type: Types.EDIT_KNOWLEDGE_DATA,
     });
   };
 
   useEffect(() => {
-    dispatch({
-      payload: {
-        ...state.variables,
-        search: {
-          name: `${debouncedValue}%`,
-        },
-      },
-      type: Types.EDIT_VARIABLES,
-    });
-  }, [debouncedValue]);
-
-  useEffect(() => {
-    fetchKnowledgeSkillsPaginate();
-  }, [state.variables]);
-
-  useEffect(() => {
-    fetchKnowledgeMatriz();
+    fetchKnowledgeData();
   }, []);
 
   return (

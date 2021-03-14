@@ -20,6 +20,7 @@ interface ISkillListProps extends React.HTMLAttributes<HTMLElement> {
 
 interface ISkillFooterProps extends React.HTMLAttributes<HTMLElement> {
   filteredSkills: Skill[];
+  moreSkills: boolean;
   handleMoreSkills: () => void;
 }
 
@@ -88,14 +89,9 @@ const SkillResults: React.FC<ISkillResultsFooter> = ({ filteredSkills }) => {
 const SkillFooter: React.FC<ISkillFooterProps> = ({
   filteredSkills,
   handleMoreSkills,
+  moreSkills,
 }) => {
   const i18n = useLang();
-
-  const {
-    state: { pagination },
-  } = useContext(SkillContext);
-
-  const moreSkills = pagination?.currentPage < pagination?.totalPages;
 
   if (filteredSkills.length > 0 && moreSkills) {
     return (

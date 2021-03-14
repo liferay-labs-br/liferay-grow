@@ -1,5 +1,6 @@
 import { createContext, Dispatch } from 'react';
 
+import { Action, SkillManagement } from '../../types';
 import { SkillManagementReducer, SkillManagementState } from './SkillReducer';
 
 type InitialStateSkillManagementType = SkillManagement;

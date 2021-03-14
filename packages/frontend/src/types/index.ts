@@ -32,6 +32,12 @@ export type KnowledgeMatriz = {
   matrizLevel?: number;
 };
 
+export type KnowledgeArea = {
+  id: string;
+  name: string;
+  skills: Skill[];
+};
+
 type KnowledgeSkillDetails = {
   id: string;
   knowledgeSkill: BasicQuery;
@@ -56,26 +62,16 @@ export type Me = {
   growMap?: GrowMap;
 };
 
-type Variables = {
-  pageSize: number;
-  pageIndex: number;
-  search?: {
-    name: string;
-  };
-};
-
 export enum Languages {
   pt_BR = 'pt_BR',
   en_US = 'en_US',
 }
 
 export enum Types {
-  EDIT_KNOWLEDGE_MATRIZ = 'EDIT_KNOWLEDGE_MATRIZ',
   EDIT_LANGUAGE = 'EDIT_LANGUAGE',
+  EDIT_KNOWLEDGE_DATA = 'EDIT_KNOWLEDGE_DATA',
   EDIT_SEARCH = 'EDIT_SEARCH',
   EDIT_SELECTED_SKILLS = 'EDIT_SELECTED_SKILLS',
-  EDIT_SKILLS = 'EDIT_SKILLS',
-  EDIT_VARIABLES = 'EDIT_VARIABLES',
   SET_GET_STARTED_DATA = 'SET_GET_STARTED_DATA',
   SET_KNOWLEDGE_GAPS_DATA = 'SET_KNOWLEDGE_GAPS_DATA',
   SET_LOGGED_USER = 'SET_LOGGED_USER',
@@ -108,20 +104,18 @@ export type ActionMap<M extends { [index: string]: any }> = {
 export type ActionsPayload = {
   [Types.EDIT_LANGUAGE]: Languages;
   [Types.EDIT_SEARCH]: string;
-  [Types.EDIT_SKILLS]: {
-    pagination: any;
-    skills: Skill[];
+  [Types.EDIT_SELECTED_SKILLS]: SelectedSkills[];
+  [Types.EDIT_KNOWLEDGE_DATA]: {
+    area: KnowledgeArea[];
+    matriz: KnowledgeMatriz[];
   };
-  [Types.EDIT_VARIABLES]: Variables;
-  [Types.EDIT_SELECTED_SKILLS]: Skill[];
-  [Types.EDIT_KNOWLEDGE_MATRIZ]: KnowledgeMatriz[];
   [Types.SET_LOGGED_USER]: {
     token: string;
   };
   [Types.SET_LOGOUT]: string;
   [Types.SET_GET_STARTED_DATA]: string;
-  [Types.SET_SKILLS_DATA]: string;
-  [Types.SET_KNOWLEDGE_GAPS_DATA]: string;
+  [Types.SET_SKILLS_DATA]: SelectedSkills[];
+  [Types.SET_KNOWLEDGE_GAPS_DATA]: SelectedSkills[];
   [Types.UPDATE_STEP]: {
     checked: boolean;
     value: string;
@@ -151,13 +145,18 @@ export type Skill = {
   name: string;
 };
 
+export type SelectedSkills = {
+  knowledgeSkillId: string;
+  knowledgeMatrizId?: string;
+  isMentor?: boolean;
+};
+
 export type SkillManagement = {
-  search: string;
-  selectedSkills: Skill[];
-  skills: Skill[];
-  pagination: any;
-  variables: Variables;
-  knowledgeMatriz: KnowledgeMatriz[];
+  search?: string;
+  knowledgeMatrizLevelAllowed?: boolean;
+  selectedSkills?: SelectedSkills[];
+  knowledgeArea?: KnowledgeArea[];
+  knowledgeMatriz?: KnowledgeMatriz[];
 };
 
 export type User = {
@@ -189,4 +188,9 @@ export type Steps = {
 
 export type Welcome = {
   steps: Steps;
+  data: {
+    knowledgeSkillDetails: SelectedSkills[];
+    knowledgeGapsDetails: SelectedSkills[];
+    userDetails?: UserDetails | null;
+  };
 };

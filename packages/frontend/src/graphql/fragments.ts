@@ -83,6 +83,17 @@ export const KNOWLEDGE_MATRIZ_FRAGMENT = gql`
   }
 `;
 
+export const KNOWLEDGE_AREA_FRAGMENT = gql`
+  fragment KnowledgeAreaFragment on KnowledgeArea {
+    id
+    name
+    skills {
+      id
+      name
+    }
+  }
+`;
+
 export const ME_FRAGMENT = gql`
   ${GITHUB_FRAGMENT}
   ${GROW_MAP_FRAGMENT}
