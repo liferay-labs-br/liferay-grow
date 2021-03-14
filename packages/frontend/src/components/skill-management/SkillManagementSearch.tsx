@@ -21,7 +21,7 @@ const SkillManagementSearch: React.FC<any> = () => {
   };
 
   return (
-    <ClayInput.Group>
+    <ClayInput.Group className="mt-2">
       <ClayInput.GroupItem>
         <ClayInput
           aria-label="Search"

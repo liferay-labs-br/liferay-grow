@@ -3,12 +3,11 @@ import { ActionMap, ActionsPayload, SkillManagement, Types } from '../../types';
 type SkillManagementActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
 export const SkillManagementState: SkillManagement = {
+  knowledgeArea: [],
   knowledgeMatriz: [],
-  pagination: null,
+  knowledgeMatrizLevelAllowed: true,
   search: '',
   selectedSkills: [],
-  skills: [],
-  variables: { pageIndex: 1, pageSize: 9 },
 };
 
 export const SkillManagementReducer = (
@@ -23,23 +22,6 @@ export const SkillManagementReducer = (
       };
     }
 
-    case Types.EDIT_SKILLS: {
-      const { pagination, skills } = action.payload;
-
-      return {
-        ...state,
-        pagination,
-        skills,
-      };
-    }
-
-    case Types.EDIT_VARIABLES: {
-      return {
-        ...state,
-        variables: action.payload,
-      };
-    }
-
     case Types.EDIT_SELECTED_SKILLS: {
       return {
         ...state,
@@ -47,10 +29,11 @@ export const SkillManagementReducer = (
       };
     }
 
-    case Types.EDIT_KNOWLEDGE_MATRIZ: {
+    case Types.EDIT_KNOWLEDGE_DATA: {
       return {
         ...state,
-        knowledgeMatriz: action.payload,
+        knowledgeArea: action.payload.area,
+        knowledgeMatriz: action.payload.matriz,
       };
     }
 

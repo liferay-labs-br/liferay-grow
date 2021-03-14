@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 
 import {
+  KNOWLEDGE_AREA_FRAGMENT,
   KNOWLEDGE_MATRIZ_FRAGMENT,
   ME_FRAGMENT,
   PAGINATION_FRAGMENT,
@@ -58,12 +59,17 @@ export const allKnowledgeSkills = gql`
   }
 `;
 
-export const allKnowledgeMatriz = gql`
+export const allKnowledgeData = gql`
   ${KNOWLEDGE_MATRIZ_FRAGMENT}
+  ${KNOWLEDGE_AREA_FRAGMENT}
 
   query {
     matriz: getAllKnowledgeMatriz {
       ...KnowledgeMatrizFragment
+    }
+
+    area: getAllKnowledgeArea {
+      ...KnowledgeAreaFragment
     }
   }
 `;
