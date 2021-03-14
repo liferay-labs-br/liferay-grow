@@ -4,7 +4,7 @@ import { Column, Entity, Index } from 'typeorm';
 import { MainEntity } from './MainEntity';
 
 @ObjectType()
-@Entity({ orderBy: { name: 'ASC' } })
+@Entity({ orderBy: { matrizLevel: 'ASC' } })
 export class KnowledgeMatriz extends MainEntity {
   @Field()
   @Column()
