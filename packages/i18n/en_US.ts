@@ -1,10 +1,13 @@
 export default {
   'add-more-skills': 'Add More Skills',
+  'all-x': 'All ({0})',
   'app-title': 'Liferay Grow',
   'app-title-x': 'Grow Together - {0}',
+  'application-submitted-successfully': 'Application submitted successfully!',
   copyright: 'Copyright 2021. All Rights Reserverd.',
   'dont-have-a-github-account': "Don't have a Github account?",
   'get-started': 'Get Started',
+  'go-to-home': 'Go to home',
   'i-feel-comfortable-with-being-a-mentor':
     'I feel comfortable with being a mentor.',
   'knowledge-areas': 'Knowledge Areas',
@@ -21,6 +24,8 @@ export default {
   team: 'Team',
   teams: 'Teams',
   'terms-of-use': 'Terms of Use | Privacy Policies',
+  'thanks-for-helping-us-to-know-you-better':
+    'Thanks for helping us to know you better.',
   'welcome-x': 'Welcome, {0}',
   'x-members': '{0} Members',
 };
