@@ -8,14 +8,17 @@ const STEPS: Steps = [
   { checked: false, value: 'knowledge-gaps' },
 ];
 
-export const welcomeState = {
+export const welcomeState: Welcome = {
+  data: {
+    knowledgeGapsDetails: [],
+    knowledgeSkillDetails: [],
+    userDetails: {},
+  },
   steps: STEPS,
 };
 
 export const welcomeReducer = (
-  state: {
-    steps: Steps;
-  },
+  state: Welcome,
   action: WelcomeActions,
 ): Welcome => {
   switch (action.type) {
@@ -23,10 +26,22 @@ export const welcomeReducer = (
       return state;
     }
     case Types.SET_SKILLS_DATA: {
-      return state;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          knowledgeSkillDetails: action.payload,
+        },
+      };
     }
     case Types.SET_KNOWLEDGE_GAPS_DATA: {
-      return state;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          knowledgeGapsDetails: action.payload,
+        },
+      };
     }
     case Types.UPDATE_STEP: {
       const { checked, value } = action.payload;
