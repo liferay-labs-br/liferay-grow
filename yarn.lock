@@ -147,6 +147,21 @@
   resolved "https://registry.yarnpkg.com/@clayui/css/-/css-3.24.1.tgz#bed6d735647957533c1427e1b5f003b17092491f"
   integrity sha512-KeYuGC2MXIMR96J9/5kgYY7HggED4d4AGlg8gy7OvO2TCPRczTigCZAIH+PKphZmgFN9ODOFVKWUkeHdNjnlsQ==
 
+"@clayui/drop-down@^3.25.1":
+  version "3.25.1"
+  resolved "https://registry.yarnpkg.com/@clayui/drop-down/-/drop-down-3.25.1.tgz#33cf55885de9982ea10321fb96c1ade71cbcf239"
+  integrity sha512-teIMLEvs8CZY7oYwJuaTsUQIu7/veyqDhMqhi0oYxk0mwTkstJZEsAbyQCX50veXu11armincjxjqo/fcn3eMQ==
+  dependencies:
+    "@clayui/button" "^3.6.0"
+    "@clayui/form" "^3.14.4"
+    "@clayui/icon" "^3.1.0"
+    "@clayui/link" "^3.2.0"
+    "@clayui/shared" "^3.5.1"
+    classnames "^2.2.6"
+    dom-align "^1.10.2"
+    react-transition-group "^4.4.1"
+    warning "^4.0.3"
+
 "@clayui/drop-down@^3.9.1":
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/@clayui/drop-down/-/drop-down-3.9.1.tgz#7ec57df2bc408e1458df15dfff6f7a7fb2043c79"
@@ -211,6 +226,13 @@
   dependencies:
     classnames "^2.2.6"
 
+"@clayui/loading-indicator@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@clayui/loading-indicator/-/loading-indicator-3.2.0.tgz#7a5565c5543b345d9e57d8b94b72b7ba83c4667f"
+  integrity sha512-c0R4NEa+5gITbsAgf3IxP6O4TjMzaWCT7rv3N4EFWT23lbChRFE/XCq5utXbQIM1M6b+1lYX2qoqsn9o4+63SA==
+  dependencies:
+    classnames "^2.2.6"
+
 "@clayui/management-toolbar@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@clayui/management-toolbar/-/management-toolbar-3.3.0.tgz#bedf513b56e5b5756e0287149c1cd90f8b8f3043"
@@ -266,6 +288,15 @@
     classnames "^2.2.6"
     react-transition-group "^4.4.1"
 
+"@clayui/progress-bar@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@clayui/progress-bar/-/progress-bar-3.2.0.tgz#9f8a54ca76cb2c3fa78b9e3f7fe4bd39628b8018"
+  integrity sha512-gUY42pM2WCi3f0d2WXx73W3W5Qyv03twZFe8ctBo9rNcBruaKxTsmmtYSGY2DPQmG0UVkeANVbBByBmAuQTSTw==
+  dependencies:
+    "@clayui/icon" "^3.1.0"
+    classnames "^2.2.6"
+    warning "^4.0.3"
+
 "@clayui/shared@^3.5.1":
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/@clayui/shared/-/shared-3.5.1.tgz#6daee67b300f346381dd126472802f0a83472c4c"
@@ -286,6 +317,14 @@
   resolved "https://registry.yarnpkg.com/@clayui/table/-/table-3.1.0.tgz#584629c6d945c0fff45900a387a528985c33a94e"
   integrity sha512-SmN/A36uOS9nCYxRmZe8LgaprGDI7RoPgcsmlj48LBL1cBga+gtGM55Z5yq1ewHIiz0GTJW88OsPuTKO+oFNRg==
   dependencies:
+    classnames "^2.2.6"
+
+"@clayui/tabs@^3.3.5":
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/@clayui/tabs/-/tabs-3.3.5.tgz#3a5812327359e73230c5bc8098513760117eedfd"
+  integrity sha512-+lQuloC1X89QXjmroobTWgW+9IaQv0W7wvYZcdamWSYGA5IAC5YFXtZ2bukehiwq4CkdGkVgIYX60ap2eZZuzQ==
+  dependencies:
+    "@clayui/shared" "^3.5.1"
     classnames "^2.2.6"
 
 "@clayui/tooltip@^3.4.5":
