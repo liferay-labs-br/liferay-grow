@@ -1,0 +1,12 @@
+.panel {
+    .panel-collapse {
+        color: $black;
+    }
+    &--title {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    &--body {
+        font-size: 0.875rem;
+    }
+}
