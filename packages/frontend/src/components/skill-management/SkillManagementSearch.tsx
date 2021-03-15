@@ -26,7 +26,7 @@ const SkillManagementSearch: React.FC<any> = () => {
         <ClayInput
           aria-label="Search"
           className="form-control input-group-inset input-group-inset-after"
-          placeholder={i18n.get('skills-details')}
+          placeholder={i18n.get('search-skills')}
           type="text"
           value={search}
           onChange={(e) => editSearch(e.target.value)}

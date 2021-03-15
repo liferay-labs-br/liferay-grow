@@ -155,6 +155,7 @@ export type SkillManagement = {
   search?: string;
   knowledgeMatrizLevelAllowed?: boolean;
   selectedSkills?: SelectedSkills[];
+  unavailableKnowledgeSkills?: SelectedSkills[];
   knowledgeArea?: KnowledgeArea[];
   knowledgeMatriz?: KnowledgeMatriz[];
 };

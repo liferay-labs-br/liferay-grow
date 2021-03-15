@@ -8,6 +8,7 @@ export const SkillManagementState: SkillManagement = {
   knowledgeMatrizLevelAllowed: true,
   search: '',
   selectedSkills: [],
+  unavailableKnowledgeSkills: [],
 };
 
 export const SkillManagementReducer = (
@@ -30,9 +31,18 @@ export const SkillManagementReducer = (
     }
 
     case Types.EDIT_KNOWLEDGE_DATA: {
+      const unavailableKnowledgeSkillsIds = state.unavailableKnowledgeSkills.map(
+        ({ knowledgeSkillId }) => knowledgeSkillId,
+      );
+
       return {
         ...state,
-        knowledgeArea: action.payload.area,
+        knowledgeArea: action.payload.area.map((area) => ({
+          ...area,
+          skills: [...area.skills].filter(
+            ({ id }) => !unavailableKnowledgeSkillsIds.includes(id),
+          ),
+        })),
         knowledgeMatriz: action.payload.matriz,
       };
     }
