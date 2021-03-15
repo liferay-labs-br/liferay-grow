@@ -12,8 +12,7 @@
     "scripts": {
       "format": "eslint packages/**/src/* --ext .ts --fix --no-error-on-unmatched-pattern",
       "dev:server": "yarn workspace @monorepo/backend dev",
-      "dev:frontend": "yarn workspace @monorepo/frontend dev",
-      "test": "jest"
+      "dev:frontend": "yarn workspace @monorepo/frontend dev"
     },
     "workspaces": {
       "packages": [
