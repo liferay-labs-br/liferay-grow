@@ -3,7 +3,7 @@ import ClayLayout from '@clayui/layout';
 import ClayPanel from '@clayui/panel';
 import React from 'react';
 
-const ProfilePanelItem: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+const PanelItem: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
   return (
@@ -13,23 +13,23 @@ const ProfilePanelItem: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   );
 };
 
-const ProfilePanelTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+const PanelTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
-  return <p className="profile__panel--title">{children}</p>;
+  return <p className="panel--title">{children}</p>;
 };
 
-const ProfilePanelBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+const PanelBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
-  return <div className="profile__panel--body">{children}</div>;
+  return <div className="panel--body">{children}</div>;
 };
 
-interface IProfilePanelProps {
+interface IPanelProps {
   title: string;
 }
 
-const ProfilePanel: React.FC<IProfilePanelProps> & {
+const Panel: React.FC<IPanelProps> & {
   Body: React.ElementType;
   Item: React.ElementType;
   Title: React.ElementType;
@@ -40,7 +40,7 @@ const ProfilePanel: React.FC<IProfilePanelProps> & {
       defaultExpanded
       displayTitle={title}
       displayType="secondary"
-      className="profile__panel"
+      className="panel"
       showCollapseIcon
     >
       <ClayPanel.Body>
@@ -50,8 +50,8 @@ const ProfilePanel: React.FC<IProfilePanelProps> & {
   );
 };
 
-ProfilePanel.Body = ProfilePanelBody;
-ProfilePanel.Item = ProfilePanelItem;
-ProfilePanel.Title = ProfilePanelTitle;
+Panel.Body = PanelBody;
+Panel.Item = PanelItem;
+Panel.Title = PanelTitle;
 
-export default ProfilePanel;
+export default Panel;
