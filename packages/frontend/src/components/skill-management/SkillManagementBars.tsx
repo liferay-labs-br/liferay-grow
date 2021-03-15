@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
 import { Skill } from '../../types';
-import LoadingWrapper from '../loading';
 import SkillContext from './SkillContext';
 
 interface ISkillInfoProps extends React.HTMLAttributes<HTMLElement> {
@@ -44,23 +43,13 @@ const SkillInfo: React.FC<ISkillInfoProps> = ({ onClick, skill }) => (
   </ClayButton>
 );
 
-const SkillList: React.FC<ISkillListProps> = ({
-  filteredSkills,
-  loading,
-  onClick,
-}) => {
-  if (loading) {
-    return <LoadingWrapper />;
-  }
-
-  return (
-    <>
-      {filteredSkills.map((skill) => (
-        <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
-      ))}
-    </>
-  );
-};
+const SkillList: React.FC<ISkillListProps> = ({ filteredSkills, onClick }) => (
+  <>
+    {filteredSkills.map((skill) => (
+      <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
+    ))}
+  </>
+);
 
 const SkillResults: React.FC<ISkillResultsFooter> = ({ filteredSkills }) => {
   const i18n = useLang();

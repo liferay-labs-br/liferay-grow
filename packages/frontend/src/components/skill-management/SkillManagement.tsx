@@ -18,11 +18,11 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const {
     dispatch,
     state: {
-      knowledgeArea = [],
-      knowledgeMatrizLevelAllowed,
+      knowledgeArea,
       knowledgeMatriz,
-      selectedSkills,
+      knowledgeMatrizLevelAllowed,
       search,
+      selectedSkills,
     },
   } = useContext(SkillContext);
 
@@ -80,7 +80,7 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
     setPageSize(pageSize);
   };
 
-  const handleClickTab = (tab) => {
+  const handleClickTab = (tab: { id: string }) => {
     setSelectedTab(tab.id);
     setPageSize(DEFAULT_PAGE_SIZE);
   };

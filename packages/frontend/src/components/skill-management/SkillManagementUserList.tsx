@@ -1,7 +1,7 @@
 import { ClayButtonWithIcon } from '@clayui/button';
 import ClayForm, { ClayCheckbox, ClayInput, ClaySelect } from '@clayui/form';
 import ClayLayout from '@clayui/layout';
-import React, { useContext } from 'react';
+import React, { Dispatch, useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
 import { SelectedSkills, Types } from '../../types';
@@ -9,10 +9,17 @@ import SkillContext from './SkillContext';
 
 const SkillMatrizThreshold = 4;
 
-const dispatchChangeOnRow = ({ dispatch, selectedSkills }) => (
-  { target: { name, value } },
-  skill: SelectedSkills,
-) => {
+type SkillForm = {
+  skill: SelectedSkills;
+};
+
+const dispatchChangeOnRow = ({
+  dispatch,
+  selectedSkills,
+}: {
+  dispatch: Dispatch<any>;
+  selectedSkills: SelectedSkills[];
+}) => ({ target: { name, value } }, skill: SelectedSkills) => {
   const updatedSelectedSkill = selectedSkills.map((selectedSkill) => {
     if (selectedSkill.knowledgeSkillId === skill.knowledgeSkillId) {
       return {
@@ -30,16 +37,20 @@ const dispatchChangeOnRow = ({ dispatch, selectedSkills }) => (
   });
 };
 
-const SkillNameForm = ({ name }) => (
-  <ClayLayout.Col>
-    <ClayForm.Group>
-      <label htmlFor="basicInputText">Name</label>
-      <ClayInput readOnly value={name} type="text" />
-    </ClayForm.Group>
-  </ClayLayout.Col>
-);
+const SkillNameForm = ({ name }: { name: string }) => {
+  const i18n = useLang();
 
-const SkillMatrizForm = ({ skill }) => {
+  return (
+    <ClayLayout.Col>
+      <ClayForm.Group>
+        <label>{i18n.get('skill')}</label>
+        <ClayInput readOnly value={name} type="text" />
+      </ClayForm.Group>
+    </ClayLayout.Col>
+  );
+};
+
+const SkillMatrizForm: React.FC<SkillForm> = ({ skill }) => {
   const i18n = useLang();
 
   const {
@@ -47,16 +58,16 @@ const SkillMatrizForm = ({ skill }) => {
     state: { knowledgeMatriz, knowledgeMatrizLevelAllowed, selectedSkills },
   } = useContext(SkillContext);
 
+  const onChangeRow = dispatchChangeOnRow({ dispatch, selectedSkills });
+
   if (!knowledgeMatrizLevelAllowed) {
     return null;
   }
 
-  const onChangeRow = dispatchChangeOnRow({ dispatch, selectedSkills });
-
   return (
     <ClayLayout.Col size={5}>
       <ClayForm.Group>
-        <label htmlFor="basicInputText">{i18n.get('level')}</label>
+        <label>{i18n.get('level')}</label>
         <ClaySelect
           value={skill.knowledgeMatrizId}
           name="knowledgeMatrizId"
@@ -71,7 +82,7 @@ const SkillMatrizForm = ({ skill }) => {
   );
 };
 
-const SkillRemove = ({ skill }) => {
+const SkillRemove: React.FC<SkillForm> = ({ skill }) => {
   const {
     dispatch,
     state: { selectedSkills },
@@ -100,7 +111,7 @@ const SkillRemove = ({ skill }) => {
   );
 };
 
-const SkillMentor = ({ skill }) => {
+const SkillMentor: React.FC<SkillForm> = ({ skill }) => {
   const i18n = useLang();
 
   const {
@@ -147,13 +158,13 @@ SkillForm.SkillMatriz = SkillMatrizForm;
 SkillForm.SkillRemove = SkillRemove;
 SkillForm.SkillMentor = SkillMentor;
 
-const SkillList: React.FC<any> = () => {
+const SkillList: React.FC = () => {
   const {
     state: { selectedSkills },
   } = useContext(SkillContext);
 
   if (!selectedSkills.length) {
-    return <></>;
+    return null;
   }
 
   return (
