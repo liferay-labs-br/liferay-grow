@@ -48,9 +48,14 @@ const allOffice = `
   getAllOffice {
     id
     name
+    city
+    country
     teams {
       id
       name
+      members {
+        id
+      }
     }
   }
 `;
@@ -108,5 +113,11 @@ export const getAllTeam = gql`
       id
       name
     }
+  }
+`;
+
+export const getAllOffice = gql`
+  query {
+    offices: ${allOffice}
   }
 `;
