@@ -9,10 +9,16 @@ import SkillManagement from '../../components/skill-management/SkillManagement';
 import WelcomeContent from '../../components/welcome/WelcomeContent';
 import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
-import { Types } from '../../types';
+import { Types, SelectedSkills, KnowledgeGapsDetails } from '../../types';
+import ROUTES from '../../utils/routes';
 
 const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
-  const { dispatch: dispatchApp } = useContext(AppContext);
+  const {
+    dispatch: dispatchApp,
+    state: {
+      welcome: { growMap },
+    },
+  } = useContext(AppContext);
   const {
     state: { selectedSkills },
   } = useContext(SkillContext);
@@ -22,15 +28,18 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
   const saveData = () => {
     dispatchApp({
-      payload: selectedSkills,
-      type: Types.SET_KNOWLEDGE_GAPS_DATA,
+      payload: {
+        ...growMap,
+        knowledgeGapsDetails: selectedSkills,
+      },
+      type: Types.UPDATE_GROW_MAP,
     });
   };
 
   const onClickPrev = () => {
     saveData();
 
-    router.push('skills-details');
+    router.push(ROUTES.SKILLS_DETAILS);
   };
 
   const onClickNext = () => {
@@ -41,7 +50,7 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
     saveData();
 
-    router.push('success-page');
+    router.push(ROUTES.SUCCESS_PAGE);
   };
 
   return (
@@ -71,7 +80,7 @@ const SkillsDetailsWrapper = () => {
   const {
     state: {
       welcome: {
-        data: { knowledgeGapsDetails, knowledgeSkillDetails },
+        growMap: { knowledgeGapsDetails, knowledgeSkillDetails },
       },
     },
   } = useContext(AppContext);

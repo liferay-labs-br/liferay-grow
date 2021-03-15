@@ -6,14 +6,14 @@ $primary-l3: #f0f5ff !default;
 $success: #287d3c !default;
 $secondary: #6b6c7e !default;
 
-
-@import './components/skills/skill.scss';
-@import './components/panel.scss';
-@import './components/sidebar.scss';
-@import './components/welcome.scss';
-@import './components/profile.scss';
 @import './components/header.scss';
 @import './components/page.scss';
+@import './components/panel.scss';
+@import './components/profile.scss';
+@import './components/custom-select.scss';
+@import './components/sidebar.scss';
+@import './components/skill.scss';
+@import './components/welcome.scss';
 
 @import './pages/sign-in.scss';
 @import './pages/welcome.scss';

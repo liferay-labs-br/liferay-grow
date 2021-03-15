@@ -3,28 +3,28 @@ import ClayIcon from '@clayui/icon';
 import React, { useContext } from 'react';
 
 import useLang from '../../hooks/useLang';
-import { Skill } from '../../types';
+import { BasicQuery } from '../../types';
 import SkillContext from './SkillContext';
 
 interface ISkillInfoProps extends React.HTMLAttributes<HTMLElement> {
   onClick: any;
-  skill: Skill;
+  skill: BasicQuery;
 }
 
 interface ISkillListProps extends React.HTMLAttributes<HTMLElement> {
   onClick: any;
-  filteredSkills: Skill[];
+  filteredSkills: BasicQuery[];
   loading?: boolean;
 }
 
 interface ISkillFooterProps extends React.HTMLAttributes<HTMLElement> {
-  filteredSkills: Skill[];
+  filteredSkills: BasicQuery[];
   moreSkills: boolean;
   handleMoreSkills: () => void;
 }
 
 interface ISkillResultsFooter extends React.HTMLAttributes<HTMLElement> {
-  filteredSkills: Skill[];
+  filteredSkills: BasicQuery[];
 }
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {

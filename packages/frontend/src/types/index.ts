@@ -1,4 +1,4 @@
-type BasicQuery = {
+export type BasicQuery = {
   id: string;
   name: string;
 };
@@ -16,41 +16,36 @@ type Github = {
   login: string;
 };
 
-interface Team extends BasicQuery {
-  members: Me[];
-}
-
-type UserDetails = {
+export type UserDetails = {
   id: string;
   role: BasicQuery;
-  teams: Team[];
+  teams: BasicQuery[];
 };
 
-export type KnowledgeMatriz = {
-  id: string;
-  name: string;
+export interface KnowledgeMatriz extends BasicQuery {
   matrizLevel?: number;
-};
+}
 
-export type KnowledgeArea = {
-  id: string;
-  name: string;
-  skills: Skill[];
-};
+export interface KnowledgeArea extends BasicQuery {
+  skills: BasicQuery[];
+}
 
-type KnowledgeSkillDetails = {
+export type KnowledgeSkillDetails = {
   id: string;
-  knowledgeSkill: BasicQuery;
+  knowledgeSkillId: string;
+  knowledgeMatrizId?: string;
   knowledgeMatriz: KnowledgeMatriz;
+  knowledgeSkill: BasicQuery;
 };
 
-type KnowledgeGapsDetails = {
+export type KnowledgeGapsDetails = {
   id: string;
+  knowledgeSkillId: string;
   knowledgeSkill: BasicQuery;
 };
 
 type GrowMap = {
-  id: string;
+  id?: string;
   userDetails: UserDetails;
   knowledgeSkillDetails: KnowledgeSkillDetails[];
   knowledgeGapsDetails: KnowledgeGapsDetails[];
@@ -78,6 +73,7 @@ export enum Types {
   SET_LOGOUT = 'SET_LOGOUT',
   SET_SKILLS_DATA = 'SET_SKILLS_DATA',
   UPDATE_STEP = 'UPDATE_STEP',
+  UPDATE_GROW_MAP = 'UPDATE_GROW_MAP',
 }
 
 export interface IWrappedComponentProps
@@ -113,27 +109,17 @@ export type ActionsPayload = {
     token: string;
   };
   [Types.SET_LOGOUT]: string;
-  [Types.SET_GET_STARTED_DATA]: string;
-  [Types.SET_SKILLS_DATA]: SelectedSkills[];
-  [Types.SET_KNOWLEDGE_GAPS_DATA]: SelectedSkills[];
   [Types.UPDATE_STEP]: {
     checked: boolean;
     value: string;
   };
+  [Types.UPDATE_GROW_MAP]: GrowMap;
 };
 
 export type allOffice = {
   id: string;
   name: string;
-  teams: {
-    id: string;
-    name: string;
-  }[];
-}[];
-
-export type allRole = {
-  id: string;
-  name: string;
+  teams: BasicQuery[];
 }[];
 
 export type Portal = {
@@ -146,6 +132,7 @@ export type Skill = {
 };
 
 export type SelectedSkills = {
+  id: string;
   knowledgeSkillId: string;
   knowledgeMatrizId?: string;
   isMentor?: boolean;
@@ -189,9 +176,5 @@ export type Steps = {
 
 export type Welcome = {
   steps: Steps;
-  data: {
-    knowledgeSkillDetails: SelectedSkills[];
-    knowledgeGapsDetails: SelectedSkills[];
-    userDetails?: UserDetails | null;
-  };
+  growMap: GrowMap;
 };
