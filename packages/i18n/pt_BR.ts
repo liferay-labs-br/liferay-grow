@@ -18,6 +18,7 @@ export default {
   'personal-details': 'Informações pessoais',
   profile: 'Perfil',
   role: 'Função / Papel',
+  'search-skills': 'Procure habilidades',
   'sign-in-with-github': 'Entre com Github',
   'skill-and-gaps': 'Habilidades e Gaps',
   'skills-details': 'Habilidades',
