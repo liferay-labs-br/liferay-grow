@@ -3,8 +3,8 @@ import React from 'react';
 
 import EmptyState from '../../components/empty-state';
 import SEO from '../../components/meta';
+import Panel from '../../components/panel';
 import Profile, { ProfileWrapper } from '../../components/profile';
-import ProfilePanel from '../../components/profile/ProfilePanel';
 import useLang from '../../hooks/useLang';
 import { KnowledgeMatriz, Me } from '../../types';
 
@@ -25,20 +25,18 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
       <SEO title={i18n.sub('app-title-x', 'Team')} />
       <ProfileWrapper me={me}>
         {me.growMap ? (
-          <ProfilePanel title={i18n.get('teams')}>
+          <Panel title={i18n.get('teams')}>
             {me.growMap.userDetails?.teams?.map(({ id, members, name }) => (
-              <ProfilePanel.Item key={id}>
-                <ProfilePanel.Title className="title">
-                  {name}
-                </ProfilePanel.Title>
-                <ProfilePanel.Body>
+              <Panel.Item key={id}>
+                <Panel.Title className="title">{name}</Panel.Title>
+                <Panel.Body>
                   <span>
                     {i18n.sub('x-members', members.length.toString())}
                   </span>
-                </ProfilePanel.Body>
-              </ProfilePanel.Item>
+                </Panel.Body>
+              </Panel.Item>
             ))}
-          </ProfilePanel>
+          </Panel>
         ) : (
           <EmptyState />
         )}
@@ -56,37 +54,33 @@ const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
       <ProfileWrapper me={me}>
         {me.growMap ? (
           <>
-            <ProfilePanel title={i18n.get('skills-details')}>
+            <Panel title={i18n.get('skills-details')}>
               {me.growMap.knowledgeSkillDetails?.map(
                 ({ id, knowledgeMatriz, knowledgeSkill }) => (
-                  <ProfilePanel.Item key={id}>
-                    <ProfilePanel.Title>
-                      {knowledgeSkill.name}
-                    </ProfilePanel.Title>
-                    <ProfilePanel.Body>
+                  <Panel.Item key={id}>
+                    <Panel.Title>{knowledgeSkill.name}</Panel.Title>
+                    <Panel.Body>
                       <span>{knowledgeMatriz.name}</span>
-                    </ProfilePanel.Body>
+                    </Panel.Body>
                     <ClayProgressBar
                       value={getPercentOf(
                         knowledgeMatriz.matrizLevel,
                         allKnowledgeMatriz.length,
                       )}
                     />
-                  </ProfilePanel.Item>
+                  </Panel.Item>
                 ),
               )}
-            </ProfilePanel>
-            <ProfilePanel title={i18n.get('knowledge-gaps')}>
+            </Panel>
+            <Panel title={i18n.get('knowledge-gaps')}>
               {me.growMap.knowledgeGapsDetails?.map(
                 ({ id, knowledgeSkill }) => (
-                  <ProfilePanel.Item key={id}>
-                    <ProfilePanel.Title>
-                      {knowledgeSkill.name}
-                    </ProfilePanel.Title>
-                  </ProfilePanel.Item>
+                  <Panel.Item key={id}>
+                    <Panel.Title>{knowledgeSkill.name}</Panel.Title>
+                  </Panel.Item>
                 ),
               )}
-            </ProfilePanel>
+            </Panel>
           </>
         ) : (
           <EmptyState />
