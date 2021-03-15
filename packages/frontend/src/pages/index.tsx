@@ -1,13 +1,9 @@
 import React from 'react';
 
-import SEO from '../components/meta';
-import withAuth from '../hocs/withAuth';
-import useLang from '../hooks/useLang';
+import Layout from './_template';
 
 const Index = () => {
-  const i18n = useLang();
-
-  return <SEO title={i18n.sub('app-title-x', 'Dashboard')} />;
+  return <Layout>a</Layout>;
 };
 
-export default withAuth(Index);
+export default Index;
