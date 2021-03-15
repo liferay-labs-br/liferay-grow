@@ -9,7 +9,7 @@ import useLang from '../../hooks/useLang';
 import { KnowledgeMatriz, Me } from '../../types';
 
 function getPercentOf(partialValue, totalValue) {
-  return ((100 * partialValue) / totalValue).toFixed(1);
+  return Number(((100 * partialValue) / totalValue).toFixed(1));
 }
 
 type ITemplateProps = {

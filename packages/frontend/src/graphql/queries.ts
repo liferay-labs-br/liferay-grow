@@ -24,10 +24,15 @@ export const getMe = gql`
 
 export const getUserByLogin = gql`
   ${ME_FRAGMENT}
+  ${KNOWLEDGE_MATRIZ_FRAGMENT}
 
-  query getUserByLogin($login: String!) {
+  query($login: String!) {
     user: getUserByLogin(login: $login) {
       ...MeFragment
+    }
+
+    allKnowledgeMatriz: getAllKnowledgeMatriz {
+      ...KnowledgeMatrizFragment
     }
   }
 `;
