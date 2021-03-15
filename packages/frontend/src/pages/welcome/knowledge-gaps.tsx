@@ -60,7 +60,7 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
         </ClayButton>
 
         <ClayButton disabled={!selectedSkills.length} onClick={onClickNext}>
-          {i18n.get('next')}
+          {i18n.get('submit')}
         </ClayButton>
       </WelcomeContent.Footer>
     </WelcomeContent>
@@ -71,7 +71,7 @@ const SkillsDetailsWrapper = () => {
   const {
     state: {
       welcome: {
-        data: { knowledgeGapsDetails },
+        data: { knowledgeGapsDetails, knowledgeSkillDetails },
       },
     },
   } = useContext(AppContext);
@@ -81,6 +81,7 @@ const SkillsDetailsWrapper = () => {
       defaultState={{
         knowledgeMatrizLevelAllowed: false,
         selectedSkills: knowledgeGapsDetails,
+        unavailableKnowledgeSkills: knowledgeSkillDetails,
       }}
     >
       <SkillDetails />

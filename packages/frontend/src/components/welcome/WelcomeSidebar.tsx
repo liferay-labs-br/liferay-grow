@@ -16,10 +16,8 @@ const SidebarItem: React.FC<ISidebarItemProps> = ({
   active,
   checked,
   children,
-  onClick,
 }) => (
   <li
-    onClick={onClick}
     className={classNames('welcome__sidebar--item', {
       'welcome__sidebar--active': active,
       'welcome__sidebar--checked': checked,
@@ -52,7 +50,6 @@ const WelcomeSidebar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
             active={value === currentStep}
             checked={checked}
             key={value}
-            onClick={() => router.push(value)}
           >
             {i18n.get(value)}
           </SidebarItem>
