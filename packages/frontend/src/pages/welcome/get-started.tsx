@@ -28,12 +28,12 @@ import ROUTES from '../../utils/routes';
  */
 
 interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
-  offices: allOffice;
+  offices: allOffice[];
   roles: BasicQuery[];
 }
 
 interface IGetStartedBodyProps extends React.HTMLAttributes<HTMLElement> {
-  offices: allOffice;
+  offices: allOffice[];
   roles: BasicQuery[];
   selectedRole: BasicQuery;
   selectedTeams: BasicQuery[];
