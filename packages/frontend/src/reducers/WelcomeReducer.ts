@@ -1,4 +1,14 @@
-import { ActionMap, ActionsPayload, Steps, Types, Welcome } from '../types';
+import {
+  ActionMap,
+  ActionsPayload,
+  BasicQuery,
+  KnowledgeGapsDetails,
+  KnowledgeSkillDetails,
+  Steps,
+  Types,
+  UserDetails,
+  Welcome,
+} from '../types';
 
 type WelcomeActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
@@ -10,9 +20,15 @@ const STEPS: Steps = [
 
 export const welcomeState: Welcome = {
   data: {
-    knowledgeGapsDetails: [],
-    knowledgeSkillDetails: [],
-    userDetails: {},
+    knowledgeGapsDetails: [] as KnowledgeGapsDetails[],
+    knowledgeSkillDetails: [] as KnowledgeSkillDetails[],
+    userDetails: {
+      role: {
+        id: '',
+        name: '',
+      },
+      teams: [] as BasicQuery[],
+    } as UserDetails,
   },
   steps: STEPS,
 };
@@ -22,25 +38,10 @@ export const welcomeReducer = (
   action: WelcomeActions,
 ): Welcome => {
   switch (action.type) {
-    case Types.SET_GET_STARTED_DATA: {
-      return state;
-    }
-    case Types.SET_SKILLS_DATA: {
+    case Types.UPDATE_DATA: {
       return {
         ...state,
-        data: {
-          ...state.data,
-          knowledgeSkillDetails: action.payload,
-        },
-      };
-    }
-    case Types.SET_KNOWLEDGE_GAPS_DATA: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          knowledgeGapsDetails: action.payload,
-        },
+        data: action.payload,
       };
     }
     case Types.UPDATE_STEP: {

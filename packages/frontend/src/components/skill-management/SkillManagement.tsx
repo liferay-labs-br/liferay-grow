@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useState } from 'react';
 
 import DropDownTabs from '../../components/drop-down/DropDownTabs';
 import useLang from '../../hooks/useLang';
-import { Skill, Types } from '../../types';
+import { BasicQuery, Types } from '../../types';
 import SkillContext from './SkillContext';
 import SkillManagementBars from './SkillManagementBars';
 import SkillManagementSearch from './SkillManagementSearch';
@@ -58,7 +58,7 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
     return [filteredSkills, paginatedSkills];
   }, [knowledgeArea, selectedTab, selectedSkills, search, pageSize]);
 
-  const handleClickSkill = (skill: Skill) => {
+  const handleClickSkill = (skill: BasicQuery) => {
     let skillPayload: any = {
       knowledgeSkillId: skill.id,
       name: skill.name,

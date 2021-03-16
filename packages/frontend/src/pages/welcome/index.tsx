@@ -5,6 +5,7 @@ import React from 'react';
 import SEO from '../../components/meta';
 import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
+import ROUTES from '../../utils/routes';
 
 const Welcome: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const router = useRouter();
@@ -25,12 +26,15 @@ const Welcome: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
         </p>
 
         <div className="welcome__box--buttons">
-          <ClayButton displayType="secondary" onClick={() => router.push('/')}>
+          <ClayButton
+            displayType="secondary"
+            onClick={() => router.push(ROUTES.HOME)}
+          >
             Skip it
           </ClayButton>
 
           <ClayButton
-            onClick={() => router.push('/welcome/get-started')}
+            onClick={() => router.push(ROUTES.GET_STARTED)}
             className="ml-3"
           >
             Continue

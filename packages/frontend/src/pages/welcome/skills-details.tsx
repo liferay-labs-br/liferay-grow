@@ -10,9 +10,23 @@ import WelcomeContent from '../../components/welcome/WelcomeContent';
 import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
 import { Types } from '../../types';
+import ROUTES from '../../utils/routes';
+
+/**
+ * Skills Details page must have these implemented functions
+ * saveData: () => void;
+ * onClickNextPage: () => void;
+ * onClickPrevPage: () => void;
+ * isEnableToNextPage: () => boolean;
+ */
 
 const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
-  const { dispatch: dispatchApp } = useContext(AppContext);
+  const {
+    dispatch: dispatchApp,
+    state: {
+      welcome: { data },
+    },
+  } = useContext(AppContext);
   const {
     state: { selectedSkills },
   } = useContext(SkillContext);
@@ -20,28 +34,35 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
   const router = useRouter();
 
+  const isEnableToNextPage = () => {
+    return !!selectedSkills.length;
+  };
+
   const saveData = () => {
     dispatchApp({
-      payload: selectedSkills,
-      type: Types.SET_SKILLS_DATA,
+      payload: {
+        ...data,
+        knowledgeSkillDetails: selectedSkills,
+      },
+      type: Types.UPDATE_DATA,
     });
   };
 
-  const onClickPrev = () => {
+  const onClickPrevPage = () => {
     saveData();
 
-    router.push('get-started');
+    router.push(ROUTES.GET_STARTED);
   };
 
-  const onClickNext = () => {
+  const onClickNextPage = () => {
     dispatchApp({
-      payload: { checked: true, value: 'skills-details' },
+      payload: { checked: isEnableToNextPage(), value: 'skills-details' },
       type: Types.UPDATE_STEP,
     });
 
     saveData();
 
-    router.push('knowledge-gaps');
+    router.push(ROUTES.KNOWLEDGE_GAPS);
   };
 
   return (
@@ -54,12 +75,12 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
         <ClayButton
           displayType="secondary"
           className="mr-2"
-          onClick={onClickPrev}
+          onClick={onClickPrevPage}
         >
           {i18n.get('prev')}
         </ClayButton>
 
-        <ClayButton disabled={!selectedSkills.length} onClick={onClickNext}>
+        <ClayButton disabled={!isEnableToNextPage()} onClick={onClickNextPage}>
           {i18n.get('next')}
         </ClayButton>
       </WelcomeContent.Footer>

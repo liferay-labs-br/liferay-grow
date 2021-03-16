@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import ClayButton from '@clayui/button';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
@@ -7,30 +8,63 @@ import SkillContext from '../../components/skill-management/SkillContext';
 import SkillContextProvider from '../../components/skill-management/SkillContextProvider';
 import SkillManagement from '../../components/skill-management/SkillManagement';
 import WelcomeContent from '../../components/welcome/WelcomeContent';
+import { CreateGrowMapMutation } from '../../graphql/mutations';
 import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
-import { Types } from '../../types';
+import { GrowMap, GrowMapMutationData, Types } from '../../types';
+import ROUTES from '../../utils/routes';
+
+const normalizeGrowMapData = (data: GrowMap): GrowMapMutationData => {
+  const normalizedData = {
+    knowledgeGapsDetails: data.knowledgeGapsDetails.map(
+      ({ knowledgeSkillId }) => ({ knowledgeSkillId }),
+    ),
+    knowledgeSkillDetails: data.knowledgeSkillDetails.map(
+      ({ isMentor, knowledgeMatrizId, knowledgeSkillId }) => ({
+        isMentor,
+        knowledgeMatrizId,
+        knowledgeSkillId,
+      }),
+    ),
+    userDetails: {
+      roleId: data.userDetails.role.id,
+      teamsId: data.userDetails.teams.map(({ id }) => id),
+    },
+  };
+
+  return normalizedData;
+};
 
 const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
-  const { dispatch: dispatchApp } = useContext(AppContext);
+  const {
+    dispatch: dispatchApp,
+    state: {
+      welcome: { data },
+    },
+  } = useContext(AppContext);
   const {
     state: { selectedSkills },
   } = useContext(SkillContext);
+
+  const [onCreateGrowMap, { loading }] = useMutation(CreateGrowMapMutation);
 
   const i18n = useLang();
   const router = useRouter();
 
   const saveData = () => {
     dispatchApp({
-      payload: selectedSkills,
-      type: Types.SET_KNOWLEDGE_GAPS_DATA,
+      payload: {
+        ...data,
+        knowledgeGapsDetails: selectedSkills,
+      },
+      type: Types.UPDATE_DATA,
     });
   };
 
   const onClickPrev = () => {
     saveData();
 
-    router.push('skills-details');
+    router.push(ROUTES.SKILLS_DETAILS);
   };
 
   const onClickNext = () => {
@@ -41,7 +75,20 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
     saveData();
 
-    router.push('success-page');
+    // Make GrowMapMutation
+
+    onCreateGrowMap({
+      variables: {
+        data: normalizeGrowMapData({
+          ...data,
+          knowledgeGapsDetails: selectedSkills,
+        } as GrowMap),
+      },
+    });
+
+    if (!loading) {
+      router.push(ROUTES.SUCCESS_PAGE);
+    }
   };
 
   return (

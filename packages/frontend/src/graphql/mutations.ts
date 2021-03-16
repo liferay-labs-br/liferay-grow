@@ -11,3 +11,11 @@ export const RecoveryMutation = gql`
     forgotPassword(email: $email)
   }
 `;
+
+export const CreateGrowMapMutation = gql`
+  mutation CreateGrowMap($data: GrowMapBaseInput!) {
+    createGrowMap(data: $data) {
+      id
+    }
+  }
+`;

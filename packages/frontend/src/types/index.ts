@@ -1,4 +1,4 @@
-type BasicQuery = {
+export type BasicQuery = {
   id: string;
   name: string;
 };
@@ -16,44 +16,55 @@ type Github = {
   login: string;
 };
 
-interface Team extends BasicQuery {
-  members: Me[];
+export type UserDetails = {
+  id?: string;
+  role: BasicQuery;
+  teams: BasicQuery[];
+};
+
+export interface KnowledgeMatriz extends BasicQuery {
+  matrizLevel?: number;
 }
 
-type UserDetails = {
-  id: string;
-  role: BasicQuery;
-  teams: Team[];
-};
+export interface KnowledgeArea extends BasicQuery {
+  skills: BasicQuery[];
+}
 
-export type KnowledgeMatriz = {
+export type KnowledgeSkillDetails = {
   id: string;
-  name: string;
-  matrizLevel?: number;
-};
-
-export type KnowledgeArea = {
-  id: string;
-  name: string;
-  skills: Skill[];
-};
-
-type KnowledgeSkillDetails = {
-  id: string;
-  knowledgeSkill: BasicQuery;
+  knowledgeSkillId: string;
+  knowledgeMatrizId?: string;
   knowledgeMatriz: KnowledgeMatriz;
+  knowledgeSkill: BasicQuery;
+  isMentor?: boolean;
 };
 
-type KnowledgeGapsDetails = {
+export type KnowledgeGapsDetails = {
   id: string;
+  knowledgeSkillId: string;
   knowledgeSkill: BasicQuery;
 };
 
-type GrowMap = {
-  id: string;
+export type GrowMap = {
+  id?: string;
   userDetails: UserDetails;
   knowledgeSkillDetails: KnowledgeSkillDetails[];
   knowledgeGapsDetails: KnowledgeGapsDetails[];
+};
+
+export type GrowMapMutationData = {
+  knowledgeGapsDetails: {
+    knowledgeSkillId: string;
+  }[];
+  knowledgeSkillDetails: {
+    knowledgeSkillId: string;
+    knowledgeMatrizId: string;
+    isMentor: boolean;
+  }[];
+  userDetails: {
+    roleId: string;
+    teamsId: string[];
+  };
 };
 
 export type Me = {
@@ -78,6 +89,7 @@ export enum Types {
   SET_LOGOUT = 'SET_LOGOUT',
   SET_SKILLS_DATA = 'SET_SKILLS_DATA',
   UPDATE_STEP = 'UPDATE_STEP',
+  UPDATE_DATA = 'UPDATE_DATA',
 }
 
 export interface IWrappedComponentProps
@@ -113,27 +125,17 @@ export type ActionsPayload = {
     token: string;
   };
   [Types.SET_LOGOUT]: string;
-  [Types.SET_GET_STARTED_DATA]: string;
-  [Types.SET_SKILLS_DATA]: SelectedSkills[];
-  [Types.SET_KNOWLEDGE_GAPS_DATA]: SelectedSkills[];
   [Types.UPDATE_STEP]: {
     checked: boolean;
     value: string;
   };
+  [Types.UPDATE_DATA]: GrowMap;
 };
 
 export type allOffice = {
   id: string;
   name: string;
-  teams: {
-    id: string;
-    name: string;
-  }[];
-}[];
-
-export type allRole = {
-  id: string;
-  name: string;
+  teams: BasicQuery[];
 }[];
 
 export type Portal = {
@@ -146,6 +148,7 @@ export type Skill = {
 };
 
 export type SelectedSkills = {
+  id: string;
   knowledgeSkillId: string;
   knowledgeMatrizId?: string;
   isMentor?: boolean;
@@ -189,9 +192,5 @@ export type Steps = {
 
 export type Welcome = {
   steps: Steps;
-  data: {
-    knowledgeSkillDetails: SelectedSkills[];
-    knowledgeGapsDetails: SelectedSkills[];
-    userDetails?: UserDetails | null;
-  };
+  data: GrowMap;
 };
