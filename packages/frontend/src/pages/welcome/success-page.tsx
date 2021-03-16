@@ -5,6 +5,7 @@ import React from 'react';
 import WelcomeContent from '../../components/welcome/WelcomeContent';
 import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
+import ROUTES from '../../utils/routes';
 
 const KnowledgeGaps: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
@@ -22,7 +23,7 @@ const KnowledgeGaps: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
         <ClayButton
           displayType="secondary"
           className="mr-2"
-          onClick={() => router.push('/')}
+          onClick={() => router.push(ROUTES.HOME)}
         >
           {i18n.get('go-to-home')}
         </ClayButton>

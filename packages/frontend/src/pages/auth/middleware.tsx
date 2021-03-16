@@ -10,6 +10,7 @@ import { authGithub } from '../../graphql/mutations';
 import withPublic from '../../hocs/withPublic';
 import useLang from '../../hooks/useLang';
 import { Types } from '../../types';
+import ROUTES from '../../utils/routes';
 import { parseJwt } from '../../utils/util';
 import Layout from './_layout';
 
@@ -35,9 +36,9 @@ const AuthMiddleware = (): React.ReactElement => {
 
       toast.info(i18n.sub('welcome-x', token?.name));
 
-      router.push(token?.user?.growMap ? '/' : '/welcome');
+      router.push(token?.user?.growMap ? ROUTES.HOME : ROUTES.WELCOME);
     } else {
-      router.push('/auth');
+      router.push(ROUTES.AUTH);
     }
   };
 
