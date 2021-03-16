@@ -22,9 +22,9 @@ class App {
   }
 
   private async initializeApollo(): Promise<void> {
-    const { APP_NAME, ENVIRONMENT, RUN_PLAYGROUND = true } = process.env;
+    const { APP_NAME, NODE_ENV, RUN_PLAYGROUND = true } = process.env;
 
-    logger.debug(`${APP_NAME} environment: ${ENVIRONMENT}`);
+    logger.debug(`${APP_NAME} environment: ${NODE_ENV}`);
 
     const apolloServerConfig: Config = {
       cacheControl: { defaultMaxAge: 30 },
@@ -39,12 +39,12 @@ class App {
         return error;
       },
       playground: RUN_PLAYGROUND
-        ? { title: APP_NAME, workspaceName: ENVIRONMENT }
+        ? { title: APP_NAME, workspaceName: NODE_ENV }
         : false,
       schema: await createSchema(),
     };
 
-    if (ENVIRONMENT === 'production') {
+    if (NODE_ENV === 'production') {
       apolloServerConfig.introspection = true;
     }
     const apolloServer = new ApolloServer(apolloServerConfig);
@@ -86,10 +86,10 @@ class App {
   }
 
   public listen(): void {
-    const { APP_NAME, PORT = 3333 } = process.env;
+    const { APP_NAME, HTTP_PORT = 3333 } = process.env;
 
-    this.express.listen(PORT, () => {
-      logger.debug(`${APP_NAME} listening on the port ${PORT}`);
+    this.express.listen(HTTP_PORT, () => {
+      logger.debug(`${APP_NAME} listening on the port ${HTTP_PORT}`);
     });
   }
 }
