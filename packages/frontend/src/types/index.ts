@@ -132,11 +132,19 @@ export type ActionsPayload = {
   [Types.UPDATE_DATA]: GrowMap;
 };
 
+type Team = {
+  id: string;
+  name: string;
+  members: Me[];
+};
+
 export type allOffice = {
   id: string;
   name: string;
-  teams: BasicQuery[];
-}[];
+  city: string;
+  country: string;
+  teams: Team[];
+};
 
 export type Portal = {
   languageId: Languages;

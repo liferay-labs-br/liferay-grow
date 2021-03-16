@@ -6,42 +6,54 @@ import Panel from '../components/panel';
 import WrappedSafeComponent from '../components/WrappedSafeComponent';
 import { getAllOffice } from '../graphql/queries';
 import useLang from '../hooks/useLang';
+import { allOffice } from '../types';
 import Layout from './_template';
 
-const Teams: React.FC = () => {
+type TeamsProps = {
+  offices: allOffice[];
+};
+
+const Teams: React.FC<TeamsProps> = ({ offices }) => {
+  const i18n = useLang();
+
+  return (
+    <>
+      {offices.map(({ city, country, id, name, teams }) => (
+        <ClayLayout.Col key={id}>
+          <Panel
+            title={`${name} - ${city} / ${country}`}
+            displayType="unstyled"
+          >
+            {teams.map((team) => (
+              <Panel.Item key={team.id}>
+                <Panel.Title className="title">{team.name}</Panel.Title>
+                <Panel.Body>
+                  <span>
+                    {i18n.sub('x-members', team.members.length.toString())}
+                  </span>
+                </Panel.Body>
+              </Panel.Item>
+            ))}
+          </Panel>
+        </ClayLayout.Col>
+      ))}
+    </>
+  );
+};
+
+const TeamsWrapper: React.FC = () => {
   const i18n = useLang();
 
   return (
     <Layout>
       <Meta title={i18n.sub('app-title-x', 'teams')}></Meta>
-      <h1 className="ml-3">Teams</h1>
-      <div className="mt-4">
-        <WrappedSafeComponent query={getAllOffice}>
-          {({ offices }) =>
-            offices.map(({ city, country, id, name, teams }) => (
-              <ClayLayout.Col size={12} key={id}>
-                <Panel title={`${name} - ${city} / ${country}`}>
-                  {teams.map((team) => (
-                    <Panel.Item key={team.id}>
-                      <Panel.Title className="title">{team.name}</Panel.Title>
-                      <Panel.Body>
-                        <span>
-                          {i18n.sub(
-                            'x-members',
-                            team.members.length.toString(),
-                          )}
-                        </span>
-                      </Panel.Body>
-                    </Panel.Item>
-                  ))}
-                </Panel>
-              </ClayLayout.Col>
-            ))
-          }
-        </WrappedSafeComponent>
-      </div>
+      <h1 className="ml-3 mb-4">{i18n.get('teams')}</h1>
+
+      <WrappedSafeComponent query={getAllOffice}>
+        {({ offices }) => <Teams offices={offices} />}
+      </WrappedSafeComponent>
     </Layout>
   );
 };
 
-export default Teams;
+export default TeamsWrapper;
