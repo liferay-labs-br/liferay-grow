@@ -7,5 +7,10 @@ module.exports = withImages({
         alias: {
             '@': path.join(__dirname, 'src')
         }
+    },
+    i18n: {
+        locales: ['en-US', 'pt-BR'],
+        defaultLocale: 'en-US',
+        localeDetection: true,
     }
 })
