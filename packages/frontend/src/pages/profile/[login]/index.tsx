@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { UserTemplate } from '@/components/templates/ProfileTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getUserByLogin } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
-import { UserTemplate } from '@/pages/profile/_template';
 import { KnowledgeMatriz, Me } from '@/types';
 
 type RequestProps = {

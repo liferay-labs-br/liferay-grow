@@ -17,7 +17,7 @@ const steps = [
   },
 ];
 
-const IndexLayout: React.FC = ({ children }) => {
+const HomeTemplate: React.FC = ({ children }) => {
   return (
     <ClayLayout.ContainerFluid>
       <ClayLayout.Row className="mt-4">
@@ -34,4 +34,4 @@ const IndexLayout: React.FC = ({ children }) => {
   );
 };
 
-export default IndexLayout;
+export default HomeTemplate;

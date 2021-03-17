@@ -3,12 +3,11 @@ import React from 'react';
 
 import Meta from '@/components/meta';
 import Panel from '@/components/panel';
+import HomeTemplate from '@/components/templates/HomeTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getAllOffice } from '@/graphql/queries';
 import useLang from '@/hooks/useLang';
 import { allOffice } from '@/types';
-
-import Layout from './_template';
 
 type TeamsProps = {
   offices: allOffice[];
@@ -46,14 +45,14 @@ const TeamsWrapper: React.FC = () => {
   const i18n = useLang();
 
   return (
-    <Layout>
+    <HomeTemplate>
       <Meta title={i18n.sub('app-title-x', 'teams')}></Meta>
       <h1 className="ml-3 mb-4">{i18n.get('teams')}</h1>
 
       <WrappedSafeComponent query={getAllOffice}>
         {({ offices }) => <Teams offices={offices} />}
       </WrappedSafeComponent>
-    </Layout>
+    </HomeTemplate>
   );
 };
 
