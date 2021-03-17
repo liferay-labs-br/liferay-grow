@@ -2,9 +2,10 @@ import ClayButton from '@clayui/button';
 import ClayLayout from '@clayui/layout';
 import React from 'react';
 
-import SEO from '../../components/meta';
-import withPublic from '../../hocs/withPublic';
-import useLang from '../../hooks/useLang';
+import SEO from '@/components/meta';
+import withPublic from '@/hocs/withPublic';
+import useLang from '@/hooks/useLang';
+
 import Layout from './_layout';
 
 const GITHUB_OAUTH = 'https://github.com/login/oauth/authorize';

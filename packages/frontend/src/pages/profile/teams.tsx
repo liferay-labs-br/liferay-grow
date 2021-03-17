@@ -1,10 +1,10 @@
 import React from 'react';
 
-import WrappedSafeComponent from '../../components/WrappedSafeComponent';
-import { getMe } from '../../graphql/queries';
-import withAuth from '../../hocs/withAuth';
-import { Me } from '../../types';
-import { TeamTemplate } from './_template';
+import WrappedSafeComponent from '@/components/WrappedSafeComponent';
+import { getMe } from '@/graphql/queries';
+import withAuth from '@/hocs/withAuth';
+import { TeamTemplate } from '@/pages/profile/_template';
+import { Me } from '@/types';
 
 const Teams = () => (
   <WrappedSafeComponent query={getMe}>

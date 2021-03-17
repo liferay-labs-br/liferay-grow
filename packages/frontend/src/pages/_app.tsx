@@ -8,11 +8,11 @@ import { AppProps } from 'next/app';
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import AppContext from '../AppContext';
-import AppContextProvider from '../AppContextProvider';
-import spritemap from '../assets/spritemap.svg';
-import Layout from '../components/layout';
-import { useApollo } from '../graphql/nextApollo';
+import AppContext from '@/AppContext';
+import AppContextProvider from '@/AppContextProvider';
+import spritemap from '@/assets/spritemap.svg';
+import Layout from '@/components/layout';
+import { useApollo } from '@/graphql/nextApollo';
 
 const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
   const apolloClient = useApollo(pageProps.initialApolloState);

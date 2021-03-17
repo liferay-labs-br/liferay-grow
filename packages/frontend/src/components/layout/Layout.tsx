@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavigationBar from '../navigation-bar';
+import NavigationBar from '@/components/navigation-bar';
 
 const Layout: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children }) => {
   return (

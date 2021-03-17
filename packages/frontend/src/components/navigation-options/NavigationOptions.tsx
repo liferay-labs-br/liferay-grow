@@ -2,9 +2,9 @@ import ClayDropDown from '@clayui/drop-down';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 
-import AppContext from '../../AppContext';
-import useLang from '../../hooks/useLang';
-import { Types } from '../../types';
+import AppContext from '@/AppContext';
+import useLang from '@/hooks/useLang';
+import { Types } from '@/types';
 
 const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const [active, setActive] = useState(false);

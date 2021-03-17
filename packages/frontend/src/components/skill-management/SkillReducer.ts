@@ -1,4 +1,4 @@
-import { ActionMap, ActionsPayload, SkillManagement, Types } from '../../types';
+import { ActionMap, ActionsPayload, SkillManagement, Types } from '@/types';
 
 type SkillManagementActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 

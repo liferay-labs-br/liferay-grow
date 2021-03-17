@@ -3,8 +3,9 @@ import ClayForm, { ClayCheckbox, ClayInput, ClaySelect } from '@clayui/form';
 import ClayLayout from '@clayui/layout';
 import React, { Dispatch, useContext } from 'react';
 
-import useLang from '../../hooks/useLang';
-import { SelectedSkills, Types } from '../../types';
+import useLang from '@/hooks/useLang';
+import { SelectedSkills, Types } from '@/types';
+
 import SkillContext from './SkillContext';
 
 const SkillMatrizThreshold = 4;

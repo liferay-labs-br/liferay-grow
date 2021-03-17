@@ -3,15 +3,16 @@ import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import AppContext from '../../AppContext';
-import LoadingWrapper from '../../components/loading';
-import SEO from '../../components/meta';
-import { authGithub } from '../../graphql/mutations';
-import withPublic from '../../hocs/withPublic';
-import useLang from '../../hooks/useLang';
-import { Types } from '../../types';
-import ROUTES from '../../utils/routes';
-import { parseJwt } from '../../utils/util';
+import AppContext from '@/AppContext';
+import LoadingWrapper from '@/components/loading';
+import SEO from '@/components/meta';
+import { authGithub } from '@/graphql/mutations';
+import withPublic from '@/hocs/withPublic';
+import useLang from '@/hooks/useLang';
+import { Types } from '@/types';
+import ROUTES from '@/utils/routes';
+import { parseJwt } from '@/utils/util';
+
 import Layout from './_layout';
 
 const AuthMiddleware = (): React.ReactElement => {

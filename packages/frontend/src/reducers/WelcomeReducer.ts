@@ -8,7 +8,7 @@ import {
   Types,
   UserDetails,
   Welcome,
-} from '../types';
+} from '@/types';
 
 type WelcomeActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 

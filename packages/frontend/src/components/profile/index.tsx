@@ -3,9 +3,9 @@ import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Me } from '../../types';
-import Header from '../header';
-import Sidebar from '../sidebar';
+import Header from '@/components/header';
+import Sidebar from '@/components/sidebar';
+import { Me } from '@/types';
 
 const steps = [
   {

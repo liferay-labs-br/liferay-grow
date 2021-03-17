@@ -2,8 +2,9 @@ import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import React, { useContext } from 'react';
 
-import useLang from '../../hooks/useLang';
-import { BasicQuery } from '../../types';
+import useLang from '@/hooks/useLang';
+import { BasicQuery } from '@/types';
+
 import SkillContext from './SkillContext';
 
 interface ISkillInfoProps extends React.HTMLAttributes<HTMLElement> {

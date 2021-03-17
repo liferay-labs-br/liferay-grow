@@ -1,8 +1,8 @@
 import { languages } from '@monorepo/i18n';
 import { useContext } from 'react';
 
-import AppContext from '../AppContext';
-import { DEFAULT_LANGUAGE_ID } from '../reducers/PortalReducer';
+import AppContext from '@/AppContext';
+import { DEFAULT_LANGUAGE_ID } from '@/reducers/PortalReducer';
 
 const getKeyValue = (obj: Record<string, string> = {}) => (key: string) =>
   obj[key];

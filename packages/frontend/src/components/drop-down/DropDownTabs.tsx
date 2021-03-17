@@ -3,7 +3,7 @@ import ClayIcon from '@clayui/icon';
 import ClayTabs from '@clayui/tabs';
 import React, { useState } from 'react';
 
-import useLang from '../../hooks/useLang';
+import useLang from '@/hooks/useLang';
 
 type Tab = {
   disabled?: boolean;

@@ -1,8 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 
-import { initializeApollo } from '../../graphql/nextApollo';
-import { allKnowledgeData } from '../../graphql/queries';
-import { SkillManagement, Types } from '../../types';
+import { initializeApollo } from '@/graphql/nextApollo';
+import { allKnowledgeData } from '@/graphql/queries';
+import { SkillManagement, Types } from '@/types';
+
 import SkillContext, { initialState, mainReducer } from './SkillContext';
 
 type AppProvider = {

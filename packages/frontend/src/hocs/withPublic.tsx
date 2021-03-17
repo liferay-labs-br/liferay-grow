@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { IWrappedComponentProps } from '../types';
-import { parseCookies } from '../utils/cookie';
-import { keys, redirect } from '../utils/util';
+import { IWrappedComponentProps } from '@/types';
+import { parseCookies } from '@/utils/cookie';
+import { keys, redirect } from '@/utils/util';
 
 const withPublic = (
   Component: React.ComponentType<IWrappedComponentProps>,

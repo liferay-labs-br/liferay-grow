@@ -1,6 +1,6 @@
-import { ActionMap, ActionsPayload, Types, User } from '../types';
-import { delToken, getToken, setToken } from '../utils/cookie';
-import { parseJwt } from '../utils/util';
+import { ActionMap, ActionsPayload, Types, User } from '@/types';
+import { delToken, getToken, setToken } from '@/utils/cookie';
+import { parseJwt } from '@/utils/util';
 
 type UserActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 

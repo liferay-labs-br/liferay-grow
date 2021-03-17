@@ -3,8 +3,9 @@ import ClayNavigationBar from '@clayui/navigation-bar';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import useLang from '../../hooks/useLang';
-import ROUTES from '../../utils/routes';
+import useLang from '@/hooks/useLang';
+import ROUTES from '@/utils/routes';
+
 import NavigationOptions from '../navigation-options';
 
 const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {

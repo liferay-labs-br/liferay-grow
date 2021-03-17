@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { TeamTemplate } from '../_template';
-import WrappedSafeComponent from '../../../components/WrappedSafeComponent';
-import { getUserByLogin } from '../../../graphql/queries';
-import withAuth from '../../../hocs/withAuth';
-import { Me } from '../../../types';
+import WrappedSafeComponent from '@/components/WrappedSafeComponent';
+import { getUserByLogin } from '@/graphql/queries';
+import withAuth from '@/hocs/withAuth';
+import { TeamTemplate } from '@/pages/profile/_template';
+import { Me } from '@/types';
 
 const TeamByLogin = () => {
   const {

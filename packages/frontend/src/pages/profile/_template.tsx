@@ -1,12 +1,12 @@
 import ClayProgressBar from '@clayui/progress-bar';
 import React from 'react';
 
-import EmptyState from '../../components/empty-state';
-import SEO from '../../components/meta';
-import Panel from '../../components/panel';
-import Profile, { ProfileWrapper } from '../../components/profile';
-import useLang from '../../hooks/useLang';
-import { KnowledgeMatriz, Me } from '../../types';
+import EmptyState from '@/components/empty-state';
+import SEO from '@/components/meta';
+import Panel from '@/components/panel';
+import Profile, { ProfileWrapper } from '@/components/profile';
+import useLang from '@/hooks/useLang';
+import { KnowledgeMatriz, Me } from '@/types';
 
 function getPercentOf(partialValue, totalValue) {
   return Number(((100 * partialValue) / totalValue).toFixed(1));

@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 
-import AppContext from '../../AppContext';
-import useLang from '../../hooks/useLang';
+import AppContext from '@/AppContext';
+import useLang from '@/hooks/useLang';
+
 import { getCurrentStep } from './utils';
 
 interface ISidebarItemProps extends React.HTMLAttributes<HTMLElement> {

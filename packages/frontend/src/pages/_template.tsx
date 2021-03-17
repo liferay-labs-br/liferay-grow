@@ -2,7 +2,7 @@ import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
 import React from 'react';
 
-import Sidebar from '../components/sidebar/Sidebar';
+import Sidebar from '@/components/sidebar/Sidebar';
 
 const steps = [
   {

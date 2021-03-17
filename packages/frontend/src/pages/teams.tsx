@@ -1,12 +1,13 @@
 import ClayLayout from '@clayui/layout';
 import React from 'react';
 
-import Meta from '../components/meta';
-import Panel from '../components/panel';
-import WrappedSafeComponent from '../components/WrappedSafeComponent';
-import { getAllOffice } from '../graphql/queries';
-import useLang from '../hooks/useLang';
-import { allOffice } from '../types';
+import Meta from '@/components/meta';
+import Panel from '@/components/panel';
+import WrappedSafeComponent from '@/components/WrappedSafeComponent';
+import { getAllOffice } from '@/graphql/queries';
+import useLang from '@/hooks/useLang';
+import { allOffice } from '@/types';
+
 import Layout from './_template';
 
 type TeamsProps = {
