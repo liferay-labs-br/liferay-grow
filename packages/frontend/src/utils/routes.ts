@@ -1,5 +1,6 @@
 function buildRoutes(config, routes = {}, prefix = '') {
-  for (const [key, pathOrConfig] of Object.entries(config)) {
+  for (const entry of Object.entries(config)) {
+    const [key, pathOrConfig]: [string, any] = entry;
     if (typeof pathOrConfig === 'string') {
       routes[key] = prefix + pathOrConfig;
     } else {
