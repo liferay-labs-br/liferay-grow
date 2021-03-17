@@ -73,13 +73,7 @@ export type Me = {
   growMap?: GrowMap;
 };
 
-export enum Languages {
-  pt_BR = 'pt_BR',
-  en_US = 'en_US',
-}
-
 export enum Types {
-  EDIT_LANGUAGE = 'EDIT_LANGUAGE',
   EDIT_KNOWLEDGE_DATA = 'EDIT_KNOWLEDGE_DATA',
   EDIT_SEARCH = 'EDIT_SEARCH',
   EDIT_SELECTED_SKILLS = 'EDIT_SELECTED_SKILLS',
@@ -114,7 +108,6 @@ export type ActionMap<M extends { [index: string]: any }> = {
 };
 
 export type ActionsPayload = {
-  [Types.EDIT_LANGUAGE]: Languages;
   [Types.EDIT_SEARCH]: string;
   [Types.EDIT_SELECTED_SKILLS]: SelectedSkills[];
   [Types.EDIT_KNOWLEDGE_DATA]: {
@@ -144,10 +137,6 @@ export type allOffice = {
   city: string;
   country: string;
   teams: Team[];
-};
-
-export type Portal = {
-  languageId: Languages;
 };
 
 export type Skill = {
