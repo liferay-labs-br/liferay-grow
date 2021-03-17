@@ -1,8 +1,6 @@
-import { languages } from '@monorepo/i18n';
-import { useContext } from 'react';
+import { useRouter } from 'next/router';
 
-import AppContext from '@/AppContext';
-import { DEFAULT_LANGUAGE_ID } from '@/reducers/PortalReducer';
+import { languages } from '@/i18n';
 
 const getKeyValue = (obj: Record<string, string> = {}) => (key: string) =>
   obj[key];
@@ -16,14 +14,10 @@ interface Translation {
 }
 
 const useLang = (): Translation => {
-  const {
-    state: {
-      portal: { languageId = DEFAULT_LANGUAGE_ID },
-    },
-  } = useContext(AppContext);
+  const { locale } = useRouter();
 
   const translate = (word: string) => {
-    return getKeyValue(languages[languageId])(word) || capitalize(word);
+    return getKeyValue(languages[locale])(word) || capitalize(word);
   };
 
   return {

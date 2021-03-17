@@ -23,12 +23,12 @@ const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
 
       <AppContextProvider>
         <AppContext.Consumer>
-          {({ state }) => {
-            const token = state.user.token;
-            const language = state.portal.languageId;
-
+          {({
+            state: {
+              user: { token },
+            },
+          }) => {
             apolloClient.link.options.headers.Authorization = `Bearer ${token}`;
-            apolloClient.link.options.headers['Accept-Language'] = language;
 
             return (
               <ApolloProvider
