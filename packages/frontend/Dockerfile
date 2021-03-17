@@ -3,8 +3,13 @@ from node:12-alpine
 WORKDIR /app
 
 COPY ./package.json .
-COPY ./public . 
-COPY ./src .
+COPY ./public ./public 
+COPY ./styles ./styles 
+COPY ./src ./src
+COPY ./next.config.js .
+COPY ./tsconfig.json .
+COPY ./.babelrc .
+COPY ./next-env.d.ts .
 
 RUN yarn install
 
