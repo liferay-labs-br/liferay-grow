@@ -19,7 +19,7 @@ const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
     if (error) {
       console.error(error); // eslint-disable-line no-console
 
-      return <div>error</div>;
+      return <div>Sorry, an error occurred.</div>;
     }
 
     if (loading) {
