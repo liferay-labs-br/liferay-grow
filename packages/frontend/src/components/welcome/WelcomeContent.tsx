@@ -2,8 +2,9 @@ import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import useLang from '../../hooks/useLang';
-import SEO from '../meta';
+import SEO from '@/components/meta/Meta';
+import useLang from '@/hooks/useLang';
+
 import { getCurrentStep } from './utils';
 import WelcomeHeader from './WelcomeHeader';
 import WelcomeSidebar from './WelcomeSidebar';

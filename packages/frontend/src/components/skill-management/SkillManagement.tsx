@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useState } from 'react';
 
-import DropDownTabs from '../../components/drop-down/DropDownTabs';
-import useLang from '../../hooks/useLang';
-import { BasicQuery, Types } from '../../types';
+import DropDownTabs from '@/components/drop-down/DropDownTabs';
+import useLang from '@/hooks/useLang';
+import { BasicQuery, Types } from '@/types';
+
 import SkillContext from './SkillContext';
 import SkillManagementBars from './SkillManagementBars';
 import SkillManagementSearch from './SkillManagementSearch';

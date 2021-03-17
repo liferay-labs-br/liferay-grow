@@ -1,9 +1,10 @@
 import React from 'react';
 
-import WrappedSafeComponent from '../../components/WrappedSafeComponent';
-import { getMe } from '../../graphql/queries';
-import withAuth from '../../hocs/withAuth';
-import { KnowledgeMatriz, Me } from '../../types';
+import WrappedSafeComponent from '@/components/WrappedSafeComponent';
+import { getMe } from '@/graphql/queries';
+import withAuth from '@/hocs/withAuth';
+import { KnowledgeMatriz, Me } from '@/types';
+
 import { UserTemplate } from './_template';
 
 type RequestProps = {

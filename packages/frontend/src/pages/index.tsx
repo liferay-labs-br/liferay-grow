@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Meta from '../components/meta';
-import useLang from '../hooks/useLang';
+import Meta from '@/components/meta';
+import useLang from '@/hooks/useLang';
+
 import Layout from './_template';
 
 const Index: React.FC = () => {

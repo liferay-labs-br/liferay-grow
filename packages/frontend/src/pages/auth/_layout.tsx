@@ -1,7 +1,7 @@
 import ClayLayout from '@clayui/layout';
 import React from 'react';
 
-import useLang from '../../hooks/useLang';
+import useLang from '@/hooks/useLang';
 
 interface Layout {
   children: React.ReactElement;

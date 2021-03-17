@@ -1,4 +1,4 @@
-import { ActionMap, ActionsPayload, Languages, Portal, Types } from '../types';
+import { ActionMap, ActionsPayload, Languages, Portal, Types } from '@/types';
 
 type PortalActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 

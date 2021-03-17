@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { UserTemplate } from '../_template';
-import WrappedSafeComponent from '../../../components/WrappedSafeComponent';
-import { getUserByLogin } from '../../../graphql/queries';
-import withAuth from '../../../hocs/withAuth';
-import { KnowledgeMatriz, Me } from '../../../types';
+import WrappedSafeComponent from '@/components/WrappedSafeComponent';
+import { getUserByLogin } from '@/graphql/queries';
+import withAuth from '@/hocs/withAuth';
+import { UserTemplate } from '@/pages/profile/_template';
+import { KnowledgeMatriz, Me } from '@/types';
 
 type RequestProps = {
   allKnowledgeMatriz: KnowledgeMatriz[];

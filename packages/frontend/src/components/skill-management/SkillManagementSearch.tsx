@@ -2,8 +2,9 @@ import { ClayButtonWithIcon } from '@clayui/button';
 import { ClayInput } from '@clayui/form';
 import React, { useContext } from 'react';
 
-import useLang from '../../hooks/useLang';
-import { Types } from '../../types';
+import useLang from '@/hooks/useLang';
+import { Types } from '@/types';
+
 import SkillContext from './SkillContext';
 
 const SkillManagementSearch: React.FC<any> = () => {
