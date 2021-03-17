@@ -1,7 +1,7 @@
 import { ClayButtonWithIcon } from '@clayui/button';
 import ClayForm, { ClayCheckbox, ClayInput, ClaySelect } from '@clayui/form';
 import ClayLayout from '@clayui/layout';
-import React, { Dispatch, useContext } from 'react';
+import React, { Dispatch, useCallback, useContext } from 'react';
 
 import useLang from '@/hooks/useLang';
 import { SelectedSkills, Types } from '@/types';
@@ -161,8 +161,15 @@ SkillForm.SkillMentor = SkillMentor;
 
 const SkillList: React.FC = () => {
   const {
-    state: { selectedSkills },
+    state: { knowledgeArea, selectedSkills },
   } = useContext(SkillContext);
+
+  const allSkills = knowledgeArea.map(({ skills }) => skills).flat();
+
+  const getSkillNameById = useCallback(
+    (skillId) => allSkills.find((skill) => skill.id === skillId)?.name,
+    [allSkills],
+  );
 
   if (!selectedSkills.length) {
     return null;
@@ -173,7 +180,9 @@ const SkillList: React.FC = () => {
       {selectedSkills.map((skill) => (
         <div key={skill.knowledgeSkillId} className="skill-list__item">
           <ClayLayout.Row>
-            <SkillForm.SkillName name={skill.name} />
+            <SkillForm.SkillName
+              name={getSkillNameById(skill.knowledgeSkillId)}
+            />
             <SkillForm.SkillMatriz skill={skill} />
             <SkillForm.SkillRemove skill={skill} />
           </ClayLayout.Row>

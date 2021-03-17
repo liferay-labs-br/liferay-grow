@@ -19,7 +19,7 @@ type Github = {
 export type UserDetails = {
   id?: string;
   role: BasicQuery;
-  teams: BasicQuery[];
+  teams: Team[];
 };
 
 export interface KnowledgeMatriz extends BasicQuery {
