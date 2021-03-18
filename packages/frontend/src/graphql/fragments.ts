@@ -1,5 +1,19 @@
 import { gql } from '@apollo/client';
 
+export const PAGINATION_FRAGMENT = gql`
+  fragment PaginationFragment on Pagination {
+    currentPage
+    endIndex
+    endPage
+    pageSize
+    pages
+    startIndex
+    startPage
+    totalItems
+    totalPages
+  }
+`;
+
 const GITHUB_FRAGMENT = gql`
   fragment GithubFields on Github {
     id
@@ -40,6 +54,8 @@ const KNOWLEDGE_GAPS_DETAILS_FRAGMENT = gql`
 `;
 
 const USER_DETAILS_FRAGMENT = gql`
+  ${PAGINATION_FRAGMENT}
+
   fragment UserDetailsFragment on UserDetails {
     id
     role {
@@ -50,7 +66,9 @@ const USER_DETAILS_FRAGMENT = gql`
       id
       name
       members {
-        id
+        pagination {
+          ...PaginationFragment
+        }
       }
     }
   }
@@ -94,6 +112,24 @@ export const KNOWLEDGE_AREA_FRAGMENT = gql`
   }
 `;
 
+export const TEAM_FRAGMENT = gql`
+  fragment TeamFragment on Team {
+    id
+    name
+  }
+`;
+
+export const OFFICE_FRAGMENT = gql`
+  fragment OfficeFragment on Office {
+    id
+    name
+    city
+    state
+    address
+    country
+  }
+`;
+
 export const ME_FRAGMENT = gql`
   ${GITHUB_FRAGMENT}
   ${GROW_MAP_FRAGMENT}
@@ -106,20 +142,5 @@ export const ME_FRAGMENT = gql`
     growMap {
       ...GrowMapFields
     }
-  }
-`;
-
-export const PAGINATION_FRAGMENT = gql`
-  fragment PaginationFragment on Pagination {
-    currentPage
-    endIndex
-    endPage
-    pageSize
-    pages
-    startIndex
-    startPage
-    totalItems
-    totalPages
-    totalPages
   }
 `;

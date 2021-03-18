@@ -24,16 +24,20 @@ const Teams: React.FC<TeamsProps> = ({ offices }) => {
             title={`${name} - ${city} / ${country}`}
             displayType="unstyled"
           >
-            {teams.map((team) => (
-              <Panel.Item key={team.id}>
-                <Panel.Title className="title">{team.name}</Panel.Title>
-                <Panel.Body>
-                  <span>
-                    {i18n.sub('x-members', team.members.length.toString())}
-                  </span>
-                </Panel.Body>
-              </Panel.Item>
-            ))}
+            {teams.map((team) => {
+              const membersCount = String(
+                team.members?.pagination?.totalItems || 0,
+              );
+
+              return (
+                <Panel.Item key={team.id}>
+                  <Panel.Title className="title">{team.name}</Panel.Title>
+                  <Panel.Body>
+                    <span>{i18n.sub('x-members', membersCount)}</span>
+                  </Panel.Body>
+                </Panel.Item>
+              );
+            })}
           </Panel>
         </ClayLayout.Col>
       ))}

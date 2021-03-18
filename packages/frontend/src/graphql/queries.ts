@@ -4,7 +4,9 @@ import {
   KNOWLEDGE_AREA_FRAGMENT,
   KNOWLEDGE_MATRIZ_FRAGMENT,
   ME_FRAGMENT,
+  OFFICE_FRAGMENT,
   PAGINATION_FRAGMENT,
+  TEAM_FRAGMENT,
 } from './fragments';
 
 export const getMe = gql`
@@ -53,9 +55,6 @@ const allOffice = `
     teams {
       id
       name
-      members {
-        id
-      }
     }
   }
 `;
@@ -117,7 +116,21 @@ export const getAllTeam = gql`
 `;
 
 export const getAllOffice = gql`
+  ${OFFICE_FRAGMENT}
+  ${TEAM_FRAGMENT}
+  ${PAGINATION_FRAGMENT}
+
   query {
-    offices: ${allOffice}
+    offices: getAllOffice {
+      ...OfficeFragment
+      teams {
+        ...TeamFragment
+        members {
+          pagination {
+            ...PaginationFragment
+          }
+        }
+      }
+    }
   }
 `;

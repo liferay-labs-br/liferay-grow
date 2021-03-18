@@ -1,6 +1,11 @@
-import { Field, ObjectType } from 'type-graphql';
-import { Column, Entity, getManager, Index, ManyToOne } from 'typeorm';
+import { Arg, Field, ObjectType } from 'type-graphql';
+import { Column, Entity, getManager, In, Index, ManyToOne } from 'typeorm';
 
+import {
+  UserPaginationInput,
+  UserPaginationObject,
+} from '../resolvers/user/Inputs';
+import { paginate } from '../utils/globalMethods';
 import { GrowMap } from './GrowMap';
 import { MainEntity } from './MainEntity';
 import { Office } from './Office';
@@ -20,10 +25,11 @@ export class Team extends MainEntity {
   })
   office: Office;
 
-  @Field(() => [User])
-  async members(): Promise<User[]> {
+  @Field(() => UserPaginationObject, { nullable: true })
+  async members(
+    @Arg('data', { nullable: true }) data?: UserPaginationInput,
+  ): Promise<UserPaginationObject | null> {
     const manager = getManager();
-    const relations = ['user', 'user.github'];
 
     const userDetailsTeams = await manager
       .createQueryBuilder('user_details_teams', 'udt')
@@ -33,18 +39,36 @@ export class Team extends MainEntity {
     const [userDetailTeam] = userDetailsTeams;
 
     if (!userDetailTeam) {
-      return [];
+      return null;
     }
 
     const { udt_userDetailsId } = userDetailTeam;
 
     const growMap = await GrowMap.find({
-      relations: relations,
+      relations: ['user'],
       where: { userDetails: udt_userDetailsId },
     });
 
-    const users = growMap.map(({ user }) => user);
+    const where = { id: In(growMap.map(({ user }) => user.id)) };
 
-    return users;
+    const { pageIndex = 1, pageSize = 20 } = data || {};
+
+    const [, totalCount] = await User.findAndCount({
+      where,
+    });
+
+    const pagination = paginate(totalCount, pageIndex, pageSize);
+
+    const rows = await User.find({
+      relations: ['github'],
+      skip: pagination.startIndex,
+      take: pagination.pageSize,
+      where,
+    });
+
+    return {
+      pagination,
+      rows,
+    };
   }
 }

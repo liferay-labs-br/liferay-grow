@@ -128,7 +128,10 @@ export type ActionsPayload = {
 type Team = {
   id: string;
   name: string;
-  members: Me[];
+  members: {
+    pagination: Pagination;
+    rows: Me[];
+  };
 };
 
 export type allOffice = {
@@ -156,6 +159,7 @@ export type SkillManagement = {
   knowledgeMatrizLevelAllowed?: boolean;
   selectedSkills?: SelectedSkills[];
   unavailableKnowledgeSkills?: SelectedSkills[];
+  knowledgeSkills?: Skill[];
   knowledgeArea?: KnowledgeArea[];
   knowledgeMatriz?: KnowledgeMatriz[];
 };
@@ -190,4 +194,16 @@ export type Steps = {
 export type Welcome = {
   steps: Steps;
   data: GrowMap;
+};
+
+export type Pagination = {
+  currentPage: number;
+  endIndex: number;
+  endPage: number;
+  pageSize: number;
+  pages: number[];
+  startIndex: number;
+  startPage: number;
+  totalItems: number;
+  totalPages: number;
 };
