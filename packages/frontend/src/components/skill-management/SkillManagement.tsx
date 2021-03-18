@@ -22,6 +22,7 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
       knowledgeArea,
       knowledgeMatriz,
       knowledgeMatrizLevelAllowed,
+      knowledgeSkills,
       search,
       selectedSkills,
     },
@@ -31,12 +32,10 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
     ({ matrizLevel }) => matrizLevel === 1,
   );
 
-  const allSkills = knowledgeArea.map(({ skills }) => skills).flat();
-
   const getKnowledgeSkills = useCallback(() => {
     let skills = [];
     if (selectedTab === 'all') {
-      skills = allSkills;
+      skills = knowledgeSkills;
     } else {
       skills = knowledgeArea
         .filter(({ id }) => selectedTab === id)
@@ -57,7 +56,14 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
     const paginatedSkills = filteredSkills.slice(0, pageSize);
 
     return [filteredSkills, paginatedSkills];
-  }, [knowledgeArea, selectedTab, selectedSkills, search, pageSize]);
+  }, [
+    knowledgeArea,
+    knowledgeSkills,
+    selectedTab,
+    selectedSkills,
+    search,
+    pageSize,
+  ]);
 
   const handleClickSkill = (skill: BasicQuery) => {
     let skillPayload: any = {
@@ -87,7 +93,7 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   };
 
   const tabs = [
-    { id: 'all', label: i18n.sub('all-x', allSkills.length.toString()) },
+    { id: 'all', label: i18n.sub('all-x', knowledgeSkills.length.toString()) },
     ...knowledgeArea.map((area) => ({ id: area.id, label: area.name })),
   ];
 

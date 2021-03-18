@@ -84,7 +84,7 @@ const ClayDropDownWithTabs: React.FC<ClayDropDownWithTabsProps> = ({
                 }}
                 onClick={() => setActiveTabKeyValue(4)}
               >
-                {i18n.get('more')}
+                {i18n.get('other')}
                 <ClayIcon symbol="caret-bottom" />
               </ClayTabs.Item>
             }

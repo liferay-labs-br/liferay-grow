@@ -1,4 +1,10 @@
-import { ActionMap, ActionsPayload, SkillManagement, Types } from '@/types';
+import {
+  ActionMap,
+  ActionsPayload,
+  KnowledgeArea,
+  SkillManagement,
+  Types,
+} from '@/types';
 
 type SkillManagementActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
@@ -6,6 +12,7 @@ export const SkillManagementState: SkillManagement = {
   knowledgeArea: [],
   knowledgeMatriz: [],
   knowledgeMatrizLevelAllowed: true,
+  knowledgeSkills: [],
   search: '',
   selectedSkills: [],
   unavailableKnowledgeSkills: [],
@@ -35,15 +42,22 @@ export const SkillManagementReducer = (
         ({ knowledgeSkillId }) => knowledgeSkillId,
       );
 
-      return {
-        ...state,
-        knowledgeArea: action.payload.area.map((area) => ({
+      const knowledgeArea: KnowledgeArea[] = action.payload.area.map(
+        (area) => ({
           ...area,
           skills: [...area.skills].filter(
             ({ id }) => !unavailableKnowledgeSkillsIds.includes(id),
           ),
-        })),
+        }),
+      );
+
+      const knowledgeSkills = knowledgeArea.map(({ skills }) => skills).flat();
+
+      return {
+        ...state,
+        knowledgeArea,
         knowledgeMatriz: action.payload.matriz,
+        knowledgeSkills,
       };
     }
 

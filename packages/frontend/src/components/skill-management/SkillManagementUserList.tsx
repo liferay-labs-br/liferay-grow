@@ -161,14 +161,12 @@ SkillForm.SkillMentor = SkillMentor;
 
 const SkillList: React.FC = () => {
   const {
-    state: { knowledgeArea, selectedSkills },
+    state: { knowledgeSkills, selectedSkills },
   } = useContext(SkillContext);
 
-  const allSkills = knowledgeArea.map(({ skills }) => skills).flat();
-
   const getSkillNameById = useCallback(
-    (skillId) => allSkills.find((skill) => skill.id === skillId)?.name,
-    [allSkills],
+    (skillId) => knowledgeSkills.find((skill) => skill.id === skillId)?.name,
+    [knowledgeSkills],
   );
 
   if (!selectedSkills.length) {

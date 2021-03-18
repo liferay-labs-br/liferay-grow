@@ -33,7 +33,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       'sidebar__list--active': active,
     })}
   >
-    <ClayIcon fontSize={active ? 22 : 16} symbol={symbol} className="mr-4" />
+    <ClayIcon fontSize={active ? 18 : 16} symbol={symbol} className="mr-4" />
     <span>{children}</span>
   </div>
 );
