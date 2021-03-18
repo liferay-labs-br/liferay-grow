@@ -22,20 +22,22 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
 
   return (
     <Profile>
-      <SEO title={i18n.sub('app-title-x', 'Team')} />
+      <SEO title={i18n.sub('app-title-x', 'teams')} />
       <ProfileWrapper me={me}>
         {me.growMap ? (
           <Panel title={i18n.get('teams')}>
-            {me.growMap.userDetails?.teams?.map(({ id, members, name }) => (
-              <Panel.Item key={id}>
-                <Panel.Title className="title">{name}</Panel.Title>
-                <Panel.Body>
-                  <span>
-                    {i18n.sub('x-members', members.length.toString())}
-                  </span>
-                </Panel.Body>
-              </Panel.Item>
-            ))}
+            {me.growMap.userDetails?.teams?.map(({ id, members, name }) => {
+              const membersCount = String(members?.pagination?.totalItems || 0);
+
+              return (
+                <Panel.Item key={id}>
+                  <Panel.Title className="title">{name}</Panel.Title>
+                  <Panel.Body>
+                    <span>{i18n.sub('x-members', membersCount)}</span>
+                  </Panel.Body>
+                </Panel.Item>
+              );
+            })}
           </Panel>
         ) : (
           <EmptyState />
@@ -50,7 +52,7 @@ const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
 
   return (
     <Profile>
-      <SEO title={i18n.sub('app-title-x', 'Profile')} />
+      <SEO title={i18n.sub('app-title-x', 'profile')} />
       <ProfileWrapper me={me}>
         {me.growMap ? (
           <>

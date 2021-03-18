@@ -17,12 +17,13 @@ const Welcome: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
       <div className="welcome__box">
         <h1 className="welcome__box--title">
-          Welcome to the Engineering team program, Grow Together
+          {i18n.get('welcome-to-the-engineering-team-program-grow-together')}
         </h1>
 
         <p className="welcome__box--description">
-          To start, help us to get to know you better. Please fill out in the
-          form with your skills and gaps.
+          {i18n.get(
+            'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps',
+          )}
         </p>
 
         <div className="welcome__box--buttons">
@@ -30,14 +31,14 @@ const Welcome: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
             displayType="secondary"
             onClick={() => router.push(ROUTES.HOME)}
           >
-            Skip it
+            {i18n.get('skip-it')}
           </ClayButton>
 
           <ClayButton
             onClick={() => router.push(ROUTES.GET_STARTED)}
             className="ml-3"
           >
-            Continue
+            {i18n.get('continue')}
           </ClayButton>
         </div>
       </div>
