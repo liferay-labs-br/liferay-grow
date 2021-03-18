@@ -1,6 +1,7 @@
 import { getRepository, MigrationInterface, QueryRunner } from 'typeorm';
 
 import KnowledgeAreaSeed from '../seed/knowledge.area.seed';
+import { slugify } from '../utils/globalMethods';
 
 export class SeedKnowledgeArea1614781963810 implements MigrationInterface {
   public async up(): Promise<void> {
@@ -16,8 +17,9 @@ export class SeedKnowledgeArea1614781963810 implements MigrationInterface {
         skillPromises.push(
           getRepository('knowledge_skill').save({
             area,
-            created_by: 'SYSTEM',
+            createdBy: 'SYSTEM',
             name: skill,
+            slug: slugify(skill),
           }),
         );
       }
