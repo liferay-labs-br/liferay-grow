@@ -8,12 +8,15 @@ import ClayManagementToolbar, {
 } from '@clayui/management-toolbar';
 import React, { useState } from 'react';
 
+import useLang from '@/hooks/useLang';
+
 interface IManagementToolbarProps extends React.HTMLAttributes<HTMLElement> {
   searchText?: string;
   orderBy?: boolean;
   listType?: string;
   info?: boolean;
   addButton?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  searchOnChange: (value: string) => void;
 }
 
 const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
@@ -21,8 +24,11 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
   info,
   listType,
   orderBy,
+  searchOnChange,
   searchText,
 }) => {
+  const i18n = useLang();
+
   const filterItems = [
     { label: 'Filter Action 1', onClick: () => alert('Filter clicked') },
     { label: 'Filter Action 2', onClick: () => alert('Filter clicked') },
@@ -30,24 +36,25 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
 
   const viewTypes = [
     {
-      label: 'List',
+      label: i18n.get('list'),
       onClick: () => alert('Show view list'),
       symbolLeft: 'list',
     },
     {
       active: true,
-      label: 'Table',
+      label: i18n.get('table'),
       onClick: () => alert('Show view table'),
       symbolLeft: 'table',
     },
     {
-      label: 'Card',
+      label: i18n.get('card'),
       onClick: () => alert('Show view card'),
       symbolLeft: 'cards2',
     },
   ];
 
   const [searchMobile, setSearchMobile] = useState(false);
+  const [search, setSearch] = useState('');
 
   const viewTypeActive = viewTypes.find((type) => type.active);
 
@@ -61,7 +68,7 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
               <ClayButton className="nav-link" displayType="unstyled">
                 <span className="navbar-breakpoint-down-d-none">
                   <span className="navbar-text-truncate">
-                    {'Filter and Order'}
+                    {i18n.get('filter-and-order')}
                   </span>
 
                   <ClayIcon
@@ -94,7 +101,12 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
               <ClayInput
                 aria-label="Search"
                 className="form-control input-group-inset input-group-inset-after"
-                defaultValue="Red"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  searchOnChange(e.target.value);
+                }}
                 type="text"
               />
               <ClayInput.GroupInsetItem after tag="span">
@@ -171,7 +183,7 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
             <span className="component-text text-truncate-inline">
               <span className="text-truncate">
                 {'2 results for "'}
-                <strong>{'Red'}</strong>
+                <strong>{search}</strong>
                 {'"'}
               </span>
             </span>
@@ -181,7 +193,7 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
               className="component-label tbar-label"
               displayType="unstyled"
             >
-              {'Filter'}
+              {i18n.get('filter')}
             </ClayLabel>
           </ClayResultsBar.Item>
           <ClayResultsBar.Item>
@@ -189,7 +201,7 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
               className="component-link tbar-link"
               displayType="unstyled"
             >
-              {'Clear'}
+              {i18n.get('clear')}
             </ClayButton>
           </ClayResultsBar.Item>
         </ClayResultsBar>

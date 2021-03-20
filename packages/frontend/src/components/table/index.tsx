@@ -6,7 +6,7 @@ import DropDown from './DropDown';
 interface ITable {
   borderless?: boolean;
   className?: string;
-  actions: any[];
+  actions?: any[];
   columns: any[];
   items: any[];
 }
@@ -40,9 +40,11 @@ const TableComponent = ({
                 </ClayTable.Cell>
               );
             })}
-            <ClayTable.Cell style={{ textAlign: 'right' }}>
-              <DropDown actions={actions} item={item} />
-            </ClayTable.Cell>
+            {actions && (
+              <ClayTable.Cell style={{ textAlign: 'right' }}>
+                <DropDown actions={actions} item={item} />
+              </ClayTable.Cell>
+            )}
           </ClayTable.Row>
         ))}
       </ClayTable.Body>
