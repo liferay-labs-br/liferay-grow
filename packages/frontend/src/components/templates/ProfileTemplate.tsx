@@ -30,7 +30,7 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
               const membersCount = String(members?.pagination?.totalItems || 0);
 
               return (
-                <Panel.Item key={id}>
+                <Panel.Item key={id} href={`/team/${id}`}>
                   <Panel.Title className="title">{name}</Panel.Title>
                   <Panel.Body>
                     <span>{i18n.sub('x-members', membersCount)}</span>

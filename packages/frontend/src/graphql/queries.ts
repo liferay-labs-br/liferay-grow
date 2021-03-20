@@ -106,6 +106,41 @@ export const getStarted = gql`
   }
 `;
 
+export const getTeam = gql`
+  query($team: String!) {
+    getTeam(id: $team) {
+      id
+      name
+      members {
+        pagination {
+          totalItems
+        }
+      }
+      office {
+        city
+        country
+      }
+    }
+  }
+`;
+
+export const getMembersTeam = gql`
+  query($team: String!) {
+    getTeam(id: $team) {
+      members {
+        rows {
+          id
+          github {
+            name
+            avatar_url
+            email
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const getAllTeam = gql`
   query {
     teams: getAllTeam {

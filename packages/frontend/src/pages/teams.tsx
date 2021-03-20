@@ -30,7 +30,7 @@ const Teams: React.FC<TeamsProps> = ({ offices }) => {
               );
 
               return (
-                <Panel.Item key={team.id}>
+                <Panel.Item key={team.id} href={`/team/${team.id}`}>
                   <Panel.Title className="title">{team.name}</Panel.Title>
                   <Panel.Body>
                     <span>{i18n.sub('x-members', membersCount)}</span>

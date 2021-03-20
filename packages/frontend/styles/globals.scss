@@ -1,10 +1,11 @@
 
-$black: #000;
+$black: #000 !default;
 $primary: #0b5fff !default;
 $primary-l2: #b3cdff !default;
 $primary-l3: #f0f5ff !default;
 $success: #287d3c !default;
 $secondary: #6b6c7e !default;
+$white: #fff !default;
 
 @import './components/header.scss';
 @import './components/page.scss';
@@ -16,6 +17,7 @@ $secondary: #6b6c7e !default;
 @import './components/welcome.scss';
 
 @import './pages/sign-in.scss';
+@import './pages/team.scss';
 @import './pages/welcome.scss';
 
 html,

@@ -1,0 +1,28 @@
+.team {
+    &__header {
+        background-color: $white;
+        :first-child {
+            max-width: 1010px;
+            margin: auto;
+        }
+    }
+    &__body {
+        max-width: 932px;
+        border-radius: 4px;
+        padding: 24px;
+        margin: 24px auto;
+        background-color: $white;
+    }
+    &__members {
+        &--avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            margin-right: 8px;
+        }
+    }
+
+    .container-fluid {
+        max-width: 954px;
+    }
+}
