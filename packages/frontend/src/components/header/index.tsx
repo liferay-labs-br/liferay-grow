@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 const HeaderAvatar: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
@@ -22,12 +23,24 @@ const HeaderInfo: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   return <div className="header__info">{children}</div>;
 };
 
-const Header: React.FC & {
+type IHeader = {
+  border?: boolean;
+};
+
+const Header: React.FC<IHeader> & {
   Avatar: React.ElementType;
   Info: React.ElementType;
   Title: React.ElementType;
-} = ({ children }) => {
-  return <div className="header">{children}</div>;
+} = ({ border = true, children }) => {
+  return (
+    <div
+      className={classNames('header', {
+        'header--border': border,
+      })}
+    >
+      {children}
+    </div>
+  );
 };
 
 Header.Info = HeaderInfo;
