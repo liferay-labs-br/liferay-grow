@@ -1,16 +1,32 @@
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
 import ClayPanel from '@clayui/panel';
+import classNames from 'classnames';
+import Link from 'next/link';
 import React from 'react';
 
-const PanelItem: React.FC<React.HTMLAttributes<HTMLElement>> = ({
-  children,
-}) => {
-  return (
+type IPanelItem = {
+  href?: string;
+};
+
+const PanelItem: React.FC<IPanelItem> = ({ children, href }) => {
+  const PanelItem = (
     <ClayLayout.Col size={4} className="d-flex">
-      <ClayCard className="p-2 flex-grow-1">{children}</ClayCard>
+      <ClayCard
+        className={classNames('p-2 flex-grow-1', {
+          'profile__panel--link': href,
+        })}
+      >
+        {children}
+      </ClayCard>
     </ClayLayout.Col>
   );
+
+  if (href) {
+    return <Link href={href}>{PanelItem}</Link>;
+  }
+
+  return PanelItem;
 };
 
 const PanelTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
