@@ -1,10 +1,13 @@
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
+import ClayLayout from '@clayui/layout';
+import ClayProgressBar from '@clayui/progress-bar';
 import React, { useContext } from 'react';
 
 import useLang from '@/hooks/useLang';
 import { BasicQuery } from '@/types';
 
+import Panel from '../panel';
 import SkillContext from './SkillContext';
 
 interface ISkillInfoProps extends React.HTMLAttributes<HTMLElement> {
@@ -16,6 +19,7 @@ interface ISkillListProps extends React.HTMLAttributes<HTMLElement> {
   onClick: any;
   filteredSkills: BasicQuery[];
   loading?: boolean;
+  visualization?: 'card' | 'panel';
 }
 
 interface ISkillFooterProps extends React.HTMLAttributes<HTMLElement> {
@@ -27,6 +31,20 @@ interface ISkillFooterProps extends React.HTMLAttributes<HTMLElement> {
 interface ISkillResultsFooter extends React.HTMLAttributes<HTMLElement> {
   filteredSkills: BasicQuery[];
 }
+
+const SkillPanel = ({ onClick, skill }) => (
+  <Panel.Item>
+    <Panel.Title>
+      <div className="link" onClick={() => onClick(skill)}>
+        {skill.name}
+      </div>
+    </Panel.Title>
+    <Panel.Body>
+      <span>{skill.name}</span>
+    </Panel.Body>
+    <ClayProgressBar value={50} />
+  </Panel.Item>
+);
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   Footer: React.ElementType;
@@ -44,11 +62,26 @@ const SkillInfo: React.FC<ISkillInfoProps> = ({ onClick, skill }) => (
   </ClayButton>
 );
 
-const SkillList: React.FC<ISkillListProps> = ({ filteredSkills, onClick }) => (
+const SkillList: React.FC<ISkillListProps> = ({
+  filteredSkills,
+  onClick,
+  visualization,
+}) => (
   <>
-    {filteredSkills.map((skill) => (
-      <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
-    ))}
+    {visualization === 'panel' ? (
+      <ClayLayout.Row>
+        {filteredSkills.map((skill) => (
+          <SkillPanel key={skill.id} skill={skill} onClick={onClick} />
+        ))}
+        <ClayLayout.Col></ClayLayout.Col>
+      </ClayLayout.Row>
+    ) : (
+      <>
+        {filteredSkills.map((skill) => (
+          <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
+        ))}
+      </>
+    )}
   </>
 );
 
