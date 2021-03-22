@@ -1,11 +1,20 @@
 import { Arg, Field, ObjectType } from 'type-graphql';
-import { Column, Entity, getManager, In, Index, ManyToOne } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  getManager,
+  In,
+  Index,
+  ManyToOne,
+} from 'typeorm';
 
 import {
   UserPaginationInput,
   UserPaginationObject,
 } from '../resolvers/user/Inputs';
-import { paginate } from '../utils/globalMethods';
+import { paginate, slugify } from '../utils/globalMethods';
 import { GrowMap } from './GrowMap';
 import { MainEntity } from './MainEntity';
 import { Office } from './Office';
@@ -18,6 +27,10 @@ export class Team extends MainEntity {
   @Column()
   @Index({ unique: true })
   name: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  slug: string;
 
   @Field(() => Office, { nullable: true })
   @ManyToOne(() => Office, (office) => office.teams, {
@@ -36,17 +49,17 @@ export class Team extends MainEntity {
       .where('udt.teamId = :teamId', { teamId: this.id })
       .execute();
 
-    const [userDetailTeam] = userDetailsTeams;
-
-    if (!userDetailTeam) {
+    if (!userDetailsTeams.length) {
       return null;
     }
 
-    const { udt_userDetailsId } = userDetailTeam;
+    const userDetailsIds = userDetailsTeams.map(
+      ({ udt_userDetailsId }: any) => udt_userDetailsId,
+    );
 
     const growMap = await GrowMap.find({
       relations: ['user'],
-      where: { userDetails: udt_userDetailsId },
+      where: { userDetails: In(userDetailsIds) },
     });
 
     const where = { id: In(growMap.map(({ user }) => user.id)) };
@@ -60,7 +73,12 @@ export class Team extends MainEntity {
     const pagination = paginate(totalCount, pageIndex, pageSize);
 
     const rows = await User.find({
-      relations: ['github'],
+      relations: [
+        'github',
+        'growMap',
+        'growMap.userDetails',
+        'growMap.userDetails.role',
+      ],
       skip: pagination.startIndex,
       take: pagination.pageSize,
       where,
@@ -70,5 +88,15 @@ export class Team extends MainEntity {
       pagination,
       rows,
     };
+  }
+
+  @BeforeInsert()
+  addSlug(): void {
+    this.slug = slugify(this.name);
+  }
+
+  @BeforeUpdate()
+  updateSlug(): void {
+    this.slug = slugify(this.name);
   }
 }

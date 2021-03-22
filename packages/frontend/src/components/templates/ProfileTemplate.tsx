@@ -26,18 +26,22 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
       <ProfileWrapper me={me}>
         {me.growMap ? (
           <Panel title={i18n.get('teams')}>
-            {me.growMap.userDetails?.teams?.map(({ id, members, name }) => {
-              const membersCount = String(members?.pagination?.totalItems || 0);
+            {me.growMap.userDetails?.teams?.map(
+              ({ id, members, name, slug }) => {
+                const membersCount = String(
+                  members?.pagination?.totalItems || 0,
+                );
 
-              return (
-                <Panel.Item key={id} href={`/team/${id}`}>
-                  <Panel.Title className="title">{name}</Panel.Title>
-                  <Panel.Body>
-                    <span>{i18n.sub('x-members', membersCount)}</span>
-                  </Panel.Body>
-                </Panel.Item>
-              );
-            })}
+                return (
+                  <Panel.Item key={id} href={`/team/${slug}`}>
+                    <Panel.Title className="title">{name}</Panel.Title>
+                    <Panel.Body>
+                      <span>{i18n.sub('x-members', membersCount)}</span>
+                    </Panel.Body>
+                  </Panel.Item>
+                );
+              },
+            )}
           </Panel>
         ) : (
           <EmptyState />
