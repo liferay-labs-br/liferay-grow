@@ -21,6 +21,15 @@ class UpdateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
 @InputType()
 class FilterKnowledgeSkillInput extends KnowledgeSkillBaseInput {}
 
+@InputType()
+export class UserKnowledgeSkillInput {
+  @Field({ nullable: true })
+  isMentor?: boolean;
+
+  @Field({ nullable: true })
+  matrizId?: string;
+}
+
 export default {
   create: CreateKnowledgeSkillInput,
   filter: FilterKnowledgeSkillInput,

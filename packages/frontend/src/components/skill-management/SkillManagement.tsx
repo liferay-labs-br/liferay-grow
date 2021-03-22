@@ -1,69 +1,34 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import DropDownTabs from '@/components/drop-down/DropDownTabs';
-import useLang from '@/hooks/useLang';
 import { BasicQuery, Types } from '@/types';
 
 import SkillContext from './SkillContext';
 import SkillManagementBars from './SkillManagementBars';
 import SkillManagementSearch from './SkillManagementSearch';
 import SkillManagementUserList from './SkillManagementUserList';
-
-const DEFAULT_PAGE_SIZE = 9;
+import useSkillManagement from './useSkillManagement';
 
 const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
-  const i18n = useLang();
-  const [selectedTab, setSelectedTab] = useState('all');
-  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const {
+    fns: { handleClickTab, setPageSize },
+    state: {
+      DEFAULT_PAGE_SIZE,
+      filteredSkills,
+      pageSize,
+      paginatedSkills,
+      tabs,
+    },
+  } = useSkillManagement();
 
   const {
     dispatch,
-    state: {
-      knowledgeArea,
-      knowledgeMatriz,
-      knowledgeMatrizLevelAllowed,
-      knowledgeSkills,
-      search,
-      selectedSkills,
-    },
+    state: { knowledgeMatriz, knowledgeMatrizLevelAllowed, selectedSkills },
   } = useContext(SkillContext);
 
   const firstMatriz = knowledgeMatriz.find(
     ({ matrizLevel }) => matrizLevel === 1,
   );
-
-  const getKnowledgeSkills = useCallback(() => {
-    let skills = [];
-    if (selectedTab === 'all') {
-      skills = knowledgeSkills;
-    } else {
-      skills = knowledgeArea
-        .filter(({ id }) => selectedTab === id)
-        .map(({ skills }) => skills)
-        .flat();
-    }
-
-    const filteredSkills = skills
-      .filter(
-        ({ id }) =>
-          !selectedSkills.find((selected) => selected.knowledgeSkillId === id),
-      )
-      .filter((skill) =>
-        skill.name.toLowerCase().includes(search.toLocaleLowerCase()),
-      )
-      .sort((a, b) => a.name.localeCompare(b.name));
-
-    const paginatedSkills = filteredSkills.slice(0, pageSize);
-
-    return [filteredSkills, paginatedSkills];
-  }, [
-    knowledgeArea,
-    knowledgeSkills,
-    selectedTab,
-    selectedSkills,
-    search,
-    pageSize,
-  ]);
 
   const handleClickSkill = (skill: BasicQuery) => {
     let skillPayload: any = {
@@ -86,18 +51,6 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
     setPageSize(pageSize);
   };
-
-  const handleClickTab = (tab: { id: string }) => {
-    setSelectedTab(tab.id);
-    setPageSize(DEFAULT_PAGE_SIZE);
-  };
-
-  const tabs = [
-    { id: 'all', label: i18n.sub('all-x', knowledgeSkills.length.toString()) },
-    ...knowledgeArea.map((area) => ({ id: area.id, label: area.name })),
-  ];
-
-  const [filteredSkills, paginatedSkills] = getKnowledgeSkills();
 
   return (
     <div className="skill-management">
