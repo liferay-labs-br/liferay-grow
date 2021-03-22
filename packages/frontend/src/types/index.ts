@@ -128,6 +128,7 @@ export type ActionsPayload = {
 type Team = {
   id: string;
   name: string;
+  slug: string;
   members: {
     pagination: Pagination;
     rows: Me[];
@@ -145,6 +146,7 @@ export type allOffice = {
 export type Skill = {
   id: string;
   name: string;
+  slug?: string;
 };
 
 export type SelectedSkills = {

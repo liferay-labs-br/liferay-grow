@@ -5,8 +5,6 @@ import React from 'react';
 import TeamTemplate from '@/components/templates/TeamTemplate';
 import useLang from '@/hooks/useLang';
 
-// import { Container } from './styles';
-
 const Team: React.FC = () => {
   const i18n = useLang();
 

@@ -65,6 +65,7 @@ const USER_DETAILS_FRAGMENT = gql`
     teams {
       id
       name
+      slug
       members {
         pagination {
           ...PaginationFragment
@@ -108,6 +109,7 @@ export const KNOWLEDGE_AREA_FRAGMENT = gql`
     skills {
       id
       name
+      slug
     }
   }
 `;
@@ -116,6 +118,7 @@ export const TEAM_FRAGMENT = gql`
   fragment TeamFragment on Team {
     id
     name
+    slug
   }
 `;
 

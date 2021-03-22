@@ -2,8 +2,8 @@ import { Field, InputType } from 'type-graphql';
 
 @InputType()
 class TeamBaseInput {
-  @Field()
-  name: string;
+  @Field({ nullable: true })
+  name?: string;
 }
 
 @InputType()
@@ -19,7 +19,10 @@ class UpdateTeamInput extends TeamBaseInput {
 }
 
 @InputType()
-class FilterTeamInput extends TeamBaseInput {}
+class FilterTeamInput extends TeamBaseInput {
+  @Field()
+  slug: string;
+}
 
 export default {
   create: CreateTeamInput,

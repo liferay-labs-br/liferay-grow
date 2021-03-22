@@ -1,6 +1,7 @@
 import { getRepository, MigrationInterface, QueryRunner } from 'typeorm';
 
 import OfficeSeed from '../seed/office.seed';
+import { slugify } from '../utils/globalMethods';
 
 export class SeedOffice1614781968294 implements MigrationInterface {
   public async up(): Promise<void> {
@@ -14,6 +15,7 @@ export class SeedOffice1614781968294 implements MigrationInterface {
           getRepository('team').save({
             ...team,
             office,
+            slug: slugify(team.name),
           }),
         );
       }
