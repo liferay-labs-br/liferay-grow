@@ -1,4 +1,3 @@
-import { gql } from 'apollo-server-express';
 import { EntityOptions, Like } from 'typeorm';
 
 import { User } from '../entity/User';
@@ -22,33 +21,7 @@ export const applyFilters = (where: any = {}): any => {
   return data;
 };
 
-/**
- *
- * @param graphqlQuery GQL Request
- * @returns A string with the operation name
- */
-
-export function getGraphqlOperation(graphqlQuery: any): string {
-  try {
-    const GQL = gql`
-      ${graphqlQuery}
-    `;
-    const operations = GQL.definitions.map(
-      (query: any) =>
-        `${query.operation} ${
-          query.name
-            ? query.name.value
-            : query.selectionSet.selections[0].name.value
-        }`,
-    );
-    return `[${operations.join(', ')}]`;
-  } catch (e) {
-    logger.error(`Error in getGraphqlOperation, reason: ${e.message}`);
-    return 'Unknown';
-  }
-}
-
-export function paginate(
+export const paginate = (
   totalItems: number,
   currentPage = 1,
   pageSize = 10,
@@ -63,7 +36,7 @@ export function paginate(
   startPage: number;
   totalItems: number;
   totalPages: number;
-} {
+} => {
   // calculate total pages
   const totalPages = Math.ceil(totalItems / pageSize);
 
@@ -119,7 +92,7 @@ export function paginate(
     totalItems,
     totalPages,
   };
-}
+};
 
 export const getLoggedUserFromCtx = (ctx: MyContext): any => {
   const loggedUser: any = ctx.req.headers.loggedUser || {};
@@ -144,7 +117,7 @@ export const getUserFromCtxOrFail = async (
   }
 };
 
-export function slugify(str: string): string {
+export const slugify = (str: string): string => {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
 
@@ -161,7 +134,7 @@ export function slugify(str: string): string {
     .replace(/-+/g, '-'); // collapse dashes
 
   return str;
-}
+};
 
 export async function execMiddleware(
   entity: EntityOptions,
