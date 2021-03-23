@@ -4,6 +4,7 @@ export default {
   'app-title': 'Liferay Grow',
   'app-title-x': 'Grow Together - {0}',
   'application-submitted-successfully': 'Application submitted successfully!',
+  'choose-an-option': 'Choose an option',
   continue: 'Continue',
   copyright: 'Copyright 2021. All Rights Reserverd.',
   'dont-have-a-github-account': "Don't have a Github account?",
