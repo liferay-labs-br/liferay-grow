@@ -1,45 +1,50 @@
 import { ClayPaginationBarWithBasicItems } from '@clayui/pagination-bar';
 import React from 'react';
 
-import spritemap from '@/assets/spritemap.svg';
+import { Pagination } from '@/types';
 
+import EmptyState, { EmptyStateProps } from '../empty-state/EmptyState';
 import ManagementToolbar from '../management-toolbar';
 import TableComponent from '../table';
 
 type IListView = {
+  pagination: Pagination;
   columns: any[];
   items: any[];
   orderBy?: boolean;
-  activeDelta: number;
-  activePage: number;
-  totalItems: number;
+  emptyState?: EmptyStateProps;
   searchOnChange: (value: string) => void;
 };
 
 const ListView: React.FC<IListView> = ({
-  activeDelta,
-  activePage,
   columns,
+  emptyState,
   items,
   orderBy,
+  pagination,
   searchOnChange,
-  totalItems,
 }) => {
-  return (
-    <>
-      <ManagementToolbar orderBy={orderBy} searchOnChange={searchOnChange} />
-      <TableComponent columns={columns} items={items} />
-      <ClayPaginationBarWithBasicItems
-        spritemap={spritemap}
-        activeDelta={activeDelta}
-        activePage={activePage}
-        ellipsisBuffer={3}
-        onPageChange={(page) => console.log(page)}
-        onDeltaChange={(pageSize) => console.log(pageSize)}
-        totalItems={totalItems}
-      />
-    </>
-  );
+  const { currentPage, totalItems = 0 } = pagination || {};
+
+  if (totalItems) {
+    return (
+      <>
+        <ManagementToolbar orderBy={orderBy} searchOnChange={searchOnChange} />
+        <TableComponent columns={columns} items={items} />
+        <ClayPaginationBarWithBasicItems
+          activeDelta={1}
+          activePage={currentPage}
+          spritemap={null}
+          ellipsisBuffer={3}
+          onPageChange={(page) => console.log(page)}
+          onDeltaChange={(pageSize) => console.log(pageSize)}
+          totalItems={totalItems}
+        />
+      </>
+    );
+  }
+
+  return <EmptyState {...emptyState} />;
 };
 
 export default ListView;
