@@ -1,12 +1,12 @@
 import ClayEmptyState from '@clayui/empty-state';
 import React from 'react';
 
-interface IEmptyState extends React.HTMLAttributes<HTMLElement> {
+export type EmptyStateProps = {
   description?: string;
   title?: string;
-}
+};
 
-const EmptyState: React.FC<IEmptyState> = ({
+const EmptyState: React.FC<EmptyStateProps> = ({
   children,
   description,
   title,
