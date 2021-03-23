@@ -2,13 +2,7 @@ import ClayButton from '@clayui/button';
 import ClayDropDown, { Align } from '@clayui/drop-down';
 import ClayForm, { ClayCheckbox, ClaySelect } from '@clayui/form';
 import { useRouter } from 'next/router';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 
 import AppContext from '../../AppContext';
 import CustomSelect from '../../components/CustomSelect';
@@ -27,6 +21,11 @@ import ROUTES from '../../utils/routes';
  * isEnableToNextPage: () => boolean;
  */
 
+type SelectedRole = {
+  id?: string;
+  name?: string;
+};
+
 interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
   offices: allOffice[];
   roles: BasicQuery[];
@@ -35,7 +34,7 @@ interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
 interface IGetStartedBodyProps extends React.HTMLAttributes<HTMLElement> {
   offices: allOffice[];
   roles: BasicQuery[];
-  selectedRole: BasicQuery;
+  selectedRole: SelectedRole;
   selectedTeams: BasicQuery[];
   setSelectedRole: Dispatch<SetStateAction<BasicQuery>>;
   setSelectedTeams: Dispatch<SetStateAction<BasicQuery[]>>;
@@ -75,7 +74,11 @@ const GetStartedBody: React.FC<IGetStartedBodyProps> = ({
           onActiveChange={(newVal) => setActive(newVal)}
           trigger={
             <CustomSelect
-              value={selectedTeams.map(({ name }) => name).join(', ')}
+              value={
+                selectedTeams.length
+                  ? selectedTeams.map(({ name }) => name).join(', ')
+                  : i18n.get('choose-an-option')
+              }
             />
           }
         >
@@ -112,6 +115,7 @@ const GetStartedBody: React.FC<IGetStartedBodyProps> = ({
             });
           }}
         >
+          <option value="">{i18n.get('choose-an-option')}</option>
           {roles.map((roles) => (
             <ClaySelect.Option
               label={roles.name}
@@ -136,30 +140,22 @@ const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles }) => {
     },
   } = useContext(AppContext);
   const { role, teams } = data.userDetails;
-  const [selectedRole, setSelectedRole] = useState<BasicQuery>(() => {
+  const [selectedRole, setSelectedRole] = useState<SelectedRole>(() => {
     if (!role.id) {
-      const { id, name } = roles[0];
-
-      return { id, name };
+      return {};
     }
 
     return role;
   });
+
   const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(teams);
 
   const i18n = useLang();
   const router = useRouter();
 
   const isEnableToNextPage = () => {
-    return selectedRole && !!selectedTeams.length;
+    return selectedRole.id && !!selectedTeams.length;
   };
-
-  useEffect(() => {
-    dispatch({
-      payload: { checked: isEnableToNextPage(), value: 'get-started' },
-      type: Types.UPDATE_STEP,
-    });
-  }, [selectedRole, selectedTeams]);
 
   const saveData = () => {
     dispatch({
@@ -176,6 +172,11 @@ const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles }) => {
 
   const onClickNextPage = () => {
     saveData();
+
+    dispatch({
+      payload: { checked: isEnableToNextPage(), value: 'get-started' },
+      type: Types.UPDATE_STEP,
+    });
 
     router.push(ROUTES.SKILLS_DETAILS);
   };
