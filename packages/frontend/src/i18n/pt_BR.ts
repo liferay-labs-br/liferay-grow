@@ -15,6 +15,8 @@ export default {
   'knowledge-gaps': 'Knowledge Gaps',
   level: 'Nível',
   logout: 'Sair',
+  member: 'Membro',
+  members: 'Membros',
   'more-skills': 'Mais habilidades',
   next: 'Próximo',
   'no-results-for-x': `Sem resultados para "{0}"`,
@@ -30,11 +32,13 @@ export default {
   'skills-details': 'Habilidades',
   'skip-it': 'Pular',
   submit: 'Finalizar',
+  summary: 'Sumário',
   team: 'Time',
   teams: 'Times',
   'terms-of-use': 'Termos de uso | Políticas de privacidade',
   'thanks-for-helping-us-to-know-you-better':
     'Obrigado por nos ajudar, a conhece-lo melhor.',
+  'there-are-no-entries-yet': 'Ainda não há entradas.',
   'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `
   Para começar, ajude-nos a conhecê-lo melhor. Por favor, preencha o formulário com suas habilidades e lacunas.`,
   welcome: 'Bem Vindo',

@@ -15,6 +15,8 @@ export default {
   'knowledge-gaps': 'Knowledge Gaps',
   level: 'Level',
   logout: 'Logout',
+  member: 'Member',
+  members: 'Members',
   'more-skills': 'More Skills',
   next: 'Next',
   'no-results-for-x': `No results for "{0}"`,
@@ -34,6 +36,7 @@ export default {
   'terms-of-use': 'Terms of Use | Privacy Policies',
   'thanks-for-helping-us-to-know-you-better':
     'Thanks for helping us to know you better.',
+  'there-are-no-entries-yet': 'There are no entries yet.',
   'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `To start, help us to get to know you better. Please fill out in the
   form with your skills and gaps.`,
   'welcome-to-the-engineering-team-program-grow-together':
