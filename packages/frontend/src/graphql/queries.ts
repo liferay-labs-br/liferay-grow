@@ -106,19 +106,37 @@ export const getStarted = gql`
   }
 `;
 
-export const getTeam = gql`
-  query($team: String!) {
-    getTeam(id: $team) {
+export const getTeamBySlug = gql`
+  ${PAGINATION_FRAGMENT}
+
+  query($slug: String!) {
+    getTeamBySlug(slug: $slug) {
       id
       name
-      members {
-        pagination {
-          totalItems
-        }
-      }
       office {
         city
         country
+      }
+      members {
+        pagination {
+          ...PaginationFragment
+        }
+        rows {
+          id
+          github {
+            name
+            avatar_url
+            email
+            login
+          }
+          growMap {
+            userDetails {
+              role {
+                name
+              }
+            }
+          }
+        }
       }
     }
   }

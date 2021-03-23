@@ -3,10 +3,11 @@ import React from 'react';
 
 import ListView from '@/components/list-view';
 import TeamTemplate from '@/components/templates/TeamTemplate';
-import WrappedSafeComponent from '@/components/WrappedSafeComponent';
-import { getTeamByProperty } from '@/graphql/queries';
+import useLang from '@/hooks/useLang';
 
 const Members: React.FC = () => {
+  const i18n = useLang();
+
   const {
     push,
     query: { team },
@@ -51,29 +52,28 @@ const Members: React.FC = () => {
   }
 
   return (
-    <WrappedSafeComponent
-      query={getTeamByProperty}
-      options={{ variables: { data: { slug: team } } }}
-    >
-      {({ getTeamByProperty: { members } }) => {
-        const rows = members?.rows ? members.rows : [];
-        const pagination = members?.pagination;
+    <div className="team__members">
+      <TeamTemplate page="members">
+        {({ getTeamBySlug: { members } }) => {
+          const rows = members?.rows ? members.rows : [];
+          const pagination = members?.pagination;
 
-        return (
-          <div className="team__members">
-            <TeamTemplate>
-              <ListView
-                columns={columns}
-                items={rows}
-                pagination={pagination}
-                searchOnChange={(value) => console.log(value)}
-                orderBy
-              />
-            </TeamTemplate>
-          </div>
-        );
-      }}
-    </WrappedSafeComponent>
+          return (
+            <ListView
+              columns={columns}
+              items={rows}
+              pagination={pagination}
+              searchOnChange={(value) => console.log(value)}
+              orderBy
+              emptyState={{
+                description: '',
+                title: i18n.get('there-are-no-entries-yet'),
+              }}
+            />
+          );
+        }}
+      </TeamTemplate>
+    </div>
   );
 };
 

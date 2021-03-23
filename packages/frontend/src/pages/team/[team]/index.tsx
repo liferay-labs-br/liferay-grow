@@ -9,7 +9,7 @@ const Team: React.FC = () => {
   const i18n = useLang();
 
   return (
-    <TeamTemplate>
+    <TeamTemplate page="summary">
       <h1 className="mb-4">Knowledge Areas</h1>
       <ClayInput.Group>
         <ClayInput.GroupItem>
