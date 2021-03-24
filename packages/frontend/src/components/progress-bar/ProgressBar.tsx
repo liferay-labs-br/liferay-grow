@@ -1,5 +1,4 @@
 import ClayProgressBar from '@clayui/progress-bar';
-import classNames from 'classnames';
 import React from 'react';
 
 type IProgressBar = {
@@ -7,12 +6,7 @@ type IProgressBar = {
 };
 
 const ProgressBar: React.FC<IProgressBar> = ({ value }) => {
-  return (
-    <ClayProgressBar
-      className={classNames('component-progress-bar')}
-      value={value}
-    />
-  );
+  return <ClayProgressBar className="component-progress-bar" value={value} />;
 };
 
 export default ProgressBar;
