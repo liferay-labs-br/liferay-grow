@@ -12,12 +12,12 @@ import { UserDetails } from './UserDetails';
 export class GrowMap extends MainEntity {
   @Field(() => [KnowledgeSkillDetails], { nullable: true })
   @JoinTable({ name: 'grow_map_knowledge_skill_details' })
-  @ManyToMany(() => KnowledgeSkillDetails)
+  @ManyToMany(() => KnowledgeSkillDetails, { onDelete: 'CASCADE' })
   knowledgeSkillDetails: KnowledgeSkillDetails[];
 
   @Field(() => [KnowledgeGapsDetails], { nullable: true })
   @JoinTable({ name: 'grow_map_knowledge_gaps_details' })
-  @ManyToMany(() => KnowledgeGapsDetails)
+  @ManyToMany(() => KnowledgeGapsDetails, { onDelete: 'CASCADE' })
   knowledgeGapsDetails: KnowledgeGapsDetails[];
 
   @Field(() => UserDetails)
