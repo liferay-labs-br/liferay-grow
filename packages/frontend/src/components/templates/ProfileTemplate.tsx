@@ -1,4 +1,3 @@
-import ClayProgressBar from '@clayui/progress-bar';
 import React from 'react';
 
 import EmptyState from '@/components/empty-state';
@@ -7,6 +6,8 @@ import Panel from '@/components/panel';
 import Profile, { ProfileWrapper } from '@/components/profile';
 import useLang from '@/hooks/useLang';
 import { KnowledgeMatriz, Me } from '@/types';
+
+import ProgressBar from '../progress-bar/ProgressBar';
 
 function getPercentOf(partialValue, totalValue) {
   return Number(((100 * partialValue) / totalValue).toFixed(1));
@@ -68,7 +69,7 @@ const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
                     <Panel.Body>
                       <span>{knowledgeMatriz.name}</span>
                     </Panel.Body>
-                    <ClayProgressBar
+                    <ProgressBar
                       value={getPercentOf(
                         knowledgeMatriz.matrizLevel,
                         allKnowledgeMatriz.length,
