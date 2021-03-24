@@ -6,12 +6,6 @@ export const authGithub = gql`
   }
 `;
 
-export const RecoveryMutation = gql`
-  mutation ForgotPassword($email: String!) {
-    forgotPassword(email: $email)
-  }
-`;
-
 export const CreateGrowMapMutation = gql`
   mutation CreateGrowMap($data: GrowMapBaseInput!) {
     createGrowMap(data: $data) {
