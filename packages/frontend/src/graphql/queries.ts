@@ -64,6 +64,7 @@ export const allKnowledgeSkills = gql`
     skills: getAllKnowledgeSkill {
       id
       name
+      slug
     }
   }
 `;
@@ -94,6 +95,27 @@ export const allKnowledgeSkillsPaginate = gql`
       rows {
         id
         name
+      }
+    }
+  }
+`;
+
+export const knowledgeSkillBySlug = gql`
+  query knowledgeSkillBySlug($slug: String!) {
+    getKnowledgeSkillBySlug(slug: $slug) {
+      id
+      name
+      area {
+        name
+      }
+      userSkills(data: { isMentor: true }) {
+        id
+        github {
+          avatar_url
+          id
+          name
+          login
+        }
       }
     }
   }

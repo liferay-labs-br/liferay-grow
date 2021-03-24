@@ -56,10 +56,10 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
 
         return (
           <>
-            <Meta title={`${name} - ${i18n.get(page)}`}></Meta>
+            <Meta title={`${name} - ${i18n.get(page)}`} />
             <div className="team">
               <div className="team__header">
-                <Header border={false}>
+                <Header border={false} centralized>
                   <Header.Info>
                     <Header.Title>{name}</Header.Title>
                     <p>{`${totalItems || 0} ${

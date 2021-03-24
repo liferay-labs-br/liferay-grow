@@ -11,7 +11,8 @@ export default {
   'go-to-home': 'Ir para o início',
   'i-feel-comfortable-with-being-a-mentor':
     'Me sinto confortável em ser mentor.',
-  'knowledge-areas': ' Áreas de conhecimento',
+  'knowledge-areas': 'Áreas de conhecimento',
+  'knowledge-detail': 'Knowledge Detail',
   'knowledge-gaps': 'Knowledge Gaps',
   level: 'Nível',
   logout: 'Sair',

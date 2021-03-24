@@ -28,8 +28,8 @@ const KnowledgeAreaManagement: React.FC<
     },
   } = useSkillManagement();
 
-  const handleClickSkill = (skill: Skill) => {
-    router.push(`/skill/${skill.slug}`);
+  const handleClickSkill = ({ slug }: Skill) => {
+    router.push(`/skill/${slug}`);
   };
 
   return (
