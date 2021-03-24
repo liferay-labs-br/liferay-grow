@@ -13,3 +13,15 @@ export const CreateGrowMapMutation = gql`
     }
   }
 `;
+
+export const UpdateGrowMapGapsDetails = gql`
+  mutation UpdateGrowMapGapsDetails($data: GrowMapSkillGapsInput!) {
+    updateGrowMapGapsDetails(data: $data)
+  }
+`;
+
+export const UpdateGrowMapSkillDetails = gql`
+  mutation UpdateGrowMapSkillDetails($data: GrowMapSkillDetailsInput!) {
+    updateGrowMapSkillDetails(data: $data)
+  }
+`;
