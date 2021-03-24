@@ -150,7 +150,7 @@ export type Skill = {
 };
 
 export type SelectedSkills = {
-  id: string;
+  id?: string;
   knowledgeSkillId: string;
   knowledgeMatrizId?: string;
   isMentor?: boolean;

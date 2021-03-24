@@ -31,6 +31,7 @@ const GITHUB_FRAGMENT = gql`
 const KNOWLEDGE_SKILLS_DETAILS_FRAGMENT = gql`
   fragment KnowledgeSkillsDetailsFragment on KnowledgeSkillDetails {
     id
+    isMentor
     knowledgeSkill {
       id
       name
