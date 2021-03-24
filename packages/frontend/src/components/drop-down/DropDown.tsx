@@ -10,11 +10,11 @@ const { ItemList } = ClayDropDown;
 
 interface IDropDown extends React.HTMLAttributes<HTMLElement> {
   actions: any[];
-  item: any;
+  item?: any;
   noActionsMessage?: string;
 }
 
-const Component: React.FC<IDropDown> = ({
+const DropDown: React.FC<IDropDown> = ({
   actions = [],
   item,
   noActionsMessage,
@@ -66,4 +66,4 @@ const Component: React.FC<IDropDown> = ({
   );
 };
 
-export default Component;
+export default DropDown;

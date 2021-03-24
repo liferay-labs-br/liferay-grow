@@ -1,7 +1,7 @@
 import ClayTable from '@clayui/table';
 import React from 'react';
 
-import DropDown from './DropDown';
+import DropDown from '@/components/drop-down/DropDown';
 
 interface ITable {
   borderless?: boolean;
