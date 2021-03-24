@@ -8,7 +8,7 @@ import { Me } from '@/types';
 
 const Teams = () => (
   <WrappedSafeComponent query={getMe}>
-    {({ me }: { me: Me }) => <TeamTemplate me={me} />}
+    {({ me }: { me: Me }) => <TeamTemplate me={me} showDropDownActions />}
   </WrappedSafeComponent>
 );
 
