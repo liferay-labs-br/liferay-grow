@@ -34,10 +34,8 @@ interface ISkillResultsFooter extends React.HTMLAttributes<HTMLElement> {
 
 const SkillPanel = ({ onClick, skill }) => (
   <Panel.Item>
-    <Panel.Title>
-      <div className="link" onClick={() => onClick(skill)}>
-        {skill.name}
-      </div>
+    <Panel.Title className="link" onClick={() => onClick(skill)}>
+      {skill.name}
     </Panel.Title>
     <Panel.Body>
       <span>{skill.name}</span>

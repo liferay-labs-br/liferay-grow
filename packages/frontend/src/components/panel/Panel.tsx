@@ -31,8 +31,14 @@ const PanelItem: React.FC<IPanelItem> = ({ children, href }) => {
 
 const PanelTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
+  className,
+  ...otherProps
 }) => {
-  return <p className="panel--title">{children}</p>;
+  return (
+    <p {...otherProps} className={classNames('panel--title', className)}>
+      {children}
+    </p>
+  );
 };
 
 const PanelBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
