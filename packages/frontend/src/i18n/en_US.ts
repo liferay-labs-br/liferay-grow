@@ -1,6 +1,7 @@
 export default {
   'add-more-skills': 'Add More Skills',
   'all-x': 'All ({0})',
+  'an-unexpected-error-occurred': 'An unexpected error ocurred',
   'app-title': 'Liferay Grow',
   'app-title-x': 'Grow Together - {0}',
   'application-submitted-successfully': 'Application submitted successfully!',
@@ -8,6 +9,7 @@ export default {
   continue: 'Continue',
   copyright: 'Copyright 2021. All Rights Reserverd.',
   'dont-have-a-github-account': "Don't have a Github account?",
+  'edit-knowledge-areas': 'Edit Knowledge Areas',
   'get-started': 'Get Started',
   'go-to-home': 'Go to home',
   'i-feel-comfortable-with-being-a-mentor':
@@ -45,4 +47,5 @@ export default {
     'Welcome to the Engineering team program, Grow Together',
   'welcome-x': 'Welcome, {0}',
   'x-members': '{0} Members',
+  'your-request-completed-successfully': 'Your request completed successfully',
 };

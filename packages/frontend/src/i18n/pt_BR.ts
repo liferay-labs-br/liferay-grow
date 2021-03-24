@@ -1,6 +1,7 @@
 export default {
   'add-more-skills': 'Adicione como habilidade',
   'all-x': 'Todos ({0})',
+  'an-unexpected-error-occurred': 'Um erro inexperado aconteceu !',
   'app-title': 'Liferay Grow',
   'app-title-x': 'Grow Together - {0}',
   'application-submitted-successfully': 'Formulário submetido com sucesso!',
@@ -8,6 +9,7 @@ export default {
   continue: 'Prosseguir',
   copyright: 'Copyright 2021. Todos os direitos reservados.',
   'dont-have-a-github-account': 'Não tem uma conta do Github?',
+  'edit-knowledge-areas': 'Editar Áreas de Conhecimento',
   'get-started': 'Comece agora',
   'go-to-home': 'Ir para o início',
   'i-feel-comfortable-with-being-a-mentor':
@@ -48,4 +50,6 @@ export default {
     'Bem-vindo ao programa da equipe de engenharia, Grow Together',
   'welcome-x': 'Bem vindo, {0}',
   'x-members': '{0} Membros',
+  'your-request-completed-successfully':
+    'Sua solicitação foi completada com sucesso',
 };
