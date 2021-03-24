@@ -45,7 +45,7 @@ const SkillNameForm = ({ name }: { name: string }) => {
     <ClayLayout.Col>
       <ClayForm.Group>
         <label>{i18n.get('skill')}</label>
-        <ClayInput readOnly value={name} type="text" />
+        <ClayInput readOnly value={name || ''} type="text" />
       </ClayForm.Group>
     </ClayLayout.Col>
   );
