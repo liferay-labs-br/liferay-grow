@@ -17,11 +17,17 @@ import {
   saveKnowledgeSkillDetails,
   saveUserDetails,
 } from './grow.map.utils';
-import { GrowMapBaseInput } from './Inputs';
+import {
+  GrowMapBaseInput,
+  GrowMapSkillDetailsInput,
+  GrowMapSkillGapsInput,
+} from './Inputs';
 
 const relations = [
   'github',
   'growMap',
+  'growMap.knowledgeGapsDetails',
+  'growMap.knowledgeGapsDetails.knowledgeSkill',
   'growMap.knowledgeSkillDetails',
   'growMap.knowledgeSkillDetails.knowledgeSkill',
   'growMap.knowledgeSkillDetails.knowledgeMatriz',
@@ -50,13 +56,13 @@ export class GrowMapResolver {
 
     const knowledgeGapsDetails = await saveKnowledgeGapsDetails(
       knowledgeSkills,
-      data,
+      data.knowledgeGapsDetails,
     );
 
     const knowledgeSkillDetails = await saveKnowledgeSkillDetails(
       knowledgeMatrizes,
       knowledgeSkills,
-      data,
+      data.knowledgeSkillDetails,
     );
 
     const userDetails = await saveUserDetails(data);
@@ -72,6 +78,119 @@ export class GrowMapResolver {
     await user.save();
 
     return growMap;
+  }
+
+  @Mutation(() => Boolean, { name: 'updateGrowMapSkillDetails' })
+  @UseMiddleware(isAuth)
+  async updateGrowMapSkillDetails(
+    @Arg('data') data: GrowMapSkillDetailsInput,
+    @Ctx() ctx: MyContext,
+  ): Promise<boolean> {
+    const user = await getUserFromCtxOrFail(ctx, relations);
+
+    if (!user.growMap) {
+      throw new Error('Grow Map not exists');
+    }
+
+    const knowledgeSkillsGrow = user.growMap.knowledgeSkillDetails;
+    const { knowledgeSkillDetails = [] } = data;
+    const { knowledgeMatrizes, knowledgeSkills } = await getKnowledgeEntities(
+      data,
+    );
+
+    for (const knowledgeSkillDetail of knowledgeSkillsGrow) {
+      const knowledgeSkill = knowledgeSkillDetails.find(
+        ({ knowledgeSkillId }) =>
+          knowledgeSkillId === knowledgeSkillDetail.knowledgeSkill.id,
+      );
+
+      if (knowledgeSkill) {
+        knowledgeSkillDetail.isMentor = knowledgeSkill.isMentor;
+
+        const knowledgeMatriz = knowledgeMatrizes.find(
+          ({ id }) => id === knowledgeSkill.knowledgeMatrizId,
+        );
+
+        if (knowledgeMatriz) {
+          knowledgeSkillDetail.knowledgeMatriz = knowledgeMatriz;
+        }
+
+        await knowledgeSkillDetail.save();
+      } else {
+        await knowledgeSkillDetail.remove();
+      }
+    }
+
+    const knowledgeSkillsToAdd = knowledgeSkillDetails.filter(
+      ({ knowledgeSkillId }) =>
+        !knowledgeSkillsGrow.find(
+          (skill) => skill.knowledgeSkill.id === knowledgeSkillId,
+        ),
+    );
+
+    const newKnowledgeSkillDetails = await saveKnowledgeSkillDetails(
+      knowledgeMatrizes,
+      knowledgeSkills,
+      knowledgeSkillsToAdd,
+    );
+
+    user.growMap.knowledgeSkillDetails = [
+      ...user.growMap.knowledgeSkillDetails,
+      ...newKnowledgeSkillDetails,
+    ];
+
+    await user.growMap.save();
+
+    return true;
+  }
+
+  @Mutation(() => Boolean, { name: 'updateGrowMapGapsDetails' })
+  @UseMiddleware(isAuth)
+  async updateGrowMapGapsDetails(
+    @Arg('data') data: GrowMapSkillGapsInput,
+    @Ctx() ctx: MyContext,
+  ): Promise<boolean> {
+    const user = await getUserFromCtxOrFail(ctx, relations);
+
+    if (!user.growMap) {
+      throw new Error('Grow Map not exists');
+    }
+
+    const knowledgeGapsGrow = user.growMap.knowledgeGapsDetails;
+    const { knowledgeGapsDetails = [] } = data;
+    const { knowledgeSkills } = await getKnowledgeEntities(data);
+
+    for (const knowledgeGapDetail of knowledgeGapsGrow) {
+      const knowledgeSkill = knowledgeGapsDetails.find(
+        ({ knowledgeSkillId }) =>
+          knowledgeSkillId === knowledgeGapDetail.knowledgeSkill.id,
+      );
+
+      if (!knowledgeSkill) {
+        await knowledgeGapDetail.remove();
+      }
+    }
+
+    const knowledgeGapsToAdd = knowledgeGapsDetails.filter(
+      ({ knowledgeSkillId }) =>
+        !knowledgeGapsGrow.find(
+          (skill) => skill.knowledgeSkill.id === knowledgeSkillId,
+        ),
+    );
+
+    const newKnowledgeGapsDetails = await saveKnowledgeGapsDetails(
+      knowledgeSkills,
+      knowledgeGapsToAdd,
+    );
+
+    user.growMap.knowledgeGapsDetails = [
+      ...user.growMap.knowledgeGapsDetails,
+      ...newKnowledgeGapsDetails,
+    ];
+
+    await user.growMap.save();
+
+    return true;
   }
 
   @Query(() => [GrowMap], { name: 'getAllGrowMaps' })

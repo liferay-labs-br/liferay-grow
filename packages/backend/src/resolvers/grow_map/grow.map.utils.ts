@@ -5,6 +5,8 @@ import { KnowledgeSkillDetails } from '../../entity/KnowledgeSkillDetails';
 import { Role } from '../../entity/Role';
 import { Team } from '../../entity/Team';
 import { UserDetails } from '../../entity/UserDetails';
+import { KnowledgeGapsDetailBaseInput } from '../knowledge_gaps_detail/Inputs';
+import { KnowledgeSkillDetailBaseInput } from '../knowledge_skill_detail/Inputs';
 import { GrowMapBaseInput } from './Inputs';
 
 const getKnowledgeSkills = ({
@@ -14,9 +16,12 @@ const getKnowledgeSkills = ({
 }) => knowledgeSkillId;
 
 export const getKnowledgeEntities = async ({
-  knowledgeGapsDetails,
-  knowledgeSkillDetails,
-}: GrowMapBaseInput): Promise<{
+  knowledgeGapsDetails = [],
+  knowledgeSkillDetails = [],
+}: {
+  knowledgeGapsDetails?: KnowledgeGapsDetailBaseInput[];
+  knowledgeSkillDetails?: KnowledgeSkillDetailBaseInput[];
+}): Promise<{
   knowledgeMatrizes: KnowledgeMatriz[];
   knowledgeSkills: KnowledgeSkill[];
 }> => {
@@ -45,7 +50,7 @@ export const getKnowledgeEntities = async ({
 export const saveKnowledgeSkillDetails = async (
   knowledgeMatrizes: KnowledgeMatriz[],
   knowledgeSkills: KnowledgeSkill[],
-  data: GrowMapBaseInput,
+  knowledgeInput: KnowledgeSkillDetailBaseInput[],
 ): Promise<KnowledgeSkillDetails[]> => {
   const knowledgeSkillDetails = [];
 
@@ -53,7 +58,7 @@ export const saveKnowledgeSkillDetails = async (
     isMentor,
     knowledgeMatrizId,
     knowledgeSkillId,
-  } of data.knowledgeSkillDetails) {
+  } of knowledgeInput) {
     const knowledgeSkillDetail = await KnowledgeSkillDetails.create({
       isMentor,
     }).save();
@@ -81,11 +86,11 @@ export const saveKnowledgeSkillDetails = async (
 
 export const saveKnowledgeGapsDetails = async (
   knowledgeSkills: KnowledgeSkill[],
-  data: GrowMapBaseInput,
+  knowledgeInput: KnowledgeGapsDetailBaseInput[],
 ): Promise<KnowledgeGapsDetails[]> => {
   const knowledgeGapsDetails: KnowledgeGapsDetails[] = [];
 
-  for (const { knowledgeSkillId } of data.knowledgeGapsDetails) {
+  for (const { knowledgeSkillId } of knowledgeInput) {
     const knowledgeGapsDetail = await KnowledgeGapsDetails.create().save();
 
     const knowledgeSkill = knowledgeSkills.find(

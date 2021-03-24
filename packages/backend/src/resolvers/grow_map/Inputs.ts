@@ -17,3 +17,17 @@ export class GrowMapBaseInput {
   @Field()
   userDetails: UserDetailBaseInput;
 }
+
+@InputType()
+export class GrowMapSkillDetailsInput {
+  @Field(() => [KnowledgeSkillDetailBaseInput], { defaultValue: [] })
+  knowledgeSkillDetails?: KnowledgeSkillDetailBaseInput[];
+}
+
+@InputType()
+export class GrowMapSkillGapsInput {
+  @Field(() => [KnowledgeGapsDetailBaseInput], {
+    defaultValue: [],
+  })
+  knowledgeGapsDetails: KnowledgeGapsDetailBaseInput[];
+}
