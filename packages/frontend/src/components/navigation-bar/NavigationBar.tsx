@@ -13,11 +13,7 @@ const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const router = useRouter();
 
   return (
-    <ClayNavigationBar
-      className="NavigationBar"
-      triggerLabel="Liferay"
-      style={{ borderBottom: '1px solid #F1F2F5', margin: 'auto', padding: 15 }}
-    >
+    <ClayNavigationBar className="NavigationBar" triggerLabel="Liferay">
       <ClayNavigationBar.Item className="item" active>
         <>
           <ClayButtonWithIcon
@@ -35,6 +31,7 @@ const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
           </ClayButton>
         </>
       </ClayNavigationBar.Item>
+
       <NavigationOptions />
     </ClayNavigationBar>
   );
