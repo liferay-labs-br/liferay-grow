@@ -16,84 +16,96 @@ function getPercentOf(partialValue, totalValue) {
 type ITemplateProps = {
   me: Me;
   allKnowledgeMatriz?: KnowledgeMatriz[];
+  showDropDownActions?: boolean;
+  title?: string;
 };
 
-const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
+const Template: React.FC<ITemplateProps> = ({
+  children,
+  me,
+  showDropDownActions,
+  title,
+}) => (
+  <Profile>
+    <SEO title={title} />
+    <ProfileWrapper me={me} showDropDownActions={showDropDownActions}>
+      {me.growMap ? children : <EmptyState />}
+    </ProfileWrapper>
+  </Profile>
+);
+
+const TeamTemplate: React.FC<ITemplateProps> = ({
+  me,
+  showDropDownActions,
+}) => {
   const i18n = useLang();
 
   return (
-    <Profile>
-      <SEO title={i18n.sub('app-title-x', 'teams')} />
-      <ProfileWrapper me={me}>
-        {me.growMap ? (
-          <Panel title={i18n.get('teams')}>
-            {me.growMap.userDetails?.teams?.map(
-              ({ id, members, name, slug }) => {
-                const membersCount = String(
-                  members?.pagination?.totalItems || 0,
-                );
-
-                return (
-                  <Panel.Item key={id} href={`/team/${slug}`}>
-                    <Panel.Title className="title">{name}</Panel.Title>
-                    <Panel.Body>
-                      <span>{i18n.sub('x-members', membersCount)}</span>
-                    </Panel.Body>
-                  </Panel.Item>
-                );
-              },
-            )}
-          </Panel>
-        ) : (
-          <EmptyState />
-        )}
-      </ProfileWrapper>
-    </Profile>
+    <Template
+      me={me}
+      title={i18n.sub('app-title-x', 'teams')}
+      showDropDownActions={showDropDownActions}
+    >
+      <Panel title={i18n.get('teams')}>
+        {me.growMap.userDetails?.teams?.map(({ id, members, name, slug }) => (
+          <Panel.Item key={id} href={`/team/${slug}`}>
+            <Panel.Title className="title">{name}</Panel.Title>
+            <Panel.Body>
+              <span>
+                {i18n.sub(
+                  'x-members',
+                  String(members?.pagination?.totalItems || 0),
+                )}
+              </span>
+            </Panel.Body>
+          </Panel.Item>
+        ))}
+      </Panel>
+    </Template>
   );
 };
 
-const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
+const UserTemplate: React.FC<ITemplateProps> = ({
+  allKnowledgeMatriz,
+  me,
+  showDropDownActions,
+}) => {
   const i18n = useLang();
 
   return (
-    <Profile>
-      <SEO title={i18n.sub('app-title-x', 'profile')} />
-      <ProfileWrapper me={me}>
-        {me.growMap ? (
-          <>
-            <Panel title={i18n.get('skills-details')}>
-              {me.growMap.knowledgeSkillDetails?.map(
-                ({ id, knowledgeMatriz, knowledgeSkill }) => (
-                  <Panel.Item key={id}>
-                    <Panel.Title>{knowledgeSkill.name}</Panel.Title>
-                    <Panel.Body>
-                      <span>{knowledgeMatriz.name}</span>
-                    </Panel.Body>
-                    <ProgressBar
-                      value={getPercentOf(
-                        knowledgeMatriz.matrizLevel,
-                        allKnowledgeMatriz.length,
-                      )}
-                    />
-                  </Panel.Item>
-                ),
-              )}
-            </Panel>
-            <Panel title={i18n.get('knowledge-gaps')}>
-              {me.growMap.knowledgeGapsDetails?.map(
-                ({ id, knowledgeSkill }) => (
-                  <Panel.Item key={id}>
-                    <Panel.Title>{knowledgeSkill.name}</Panel.Title>
-                  </Panel.Item>
-                ),
-              )}
-            </Panel>
-          </>
-        ) : (
-          <EmptyState />
-        )}
-      </ProfileWrapper>
-    </Profile>
+    <Template
+      me={me}
+      showDropDownActions={showDropDownActions}
+      title={i18n.sub('app-title-x', 'profile')}
+    >
+      <>
+        <Panel title={i18n.get('skills-details')}>
+          {me.growMap.knowledgeSkillDetails?.map(
+            ({ id, knowledgeMatriz, knowledgeSkill }) => (
+              <Panel.Item key={id}>
+                <Panel.Title>{knowledgeSkill.name}</Panel.Title>
+                <Panel.Body>
+                  <span>{knowledgeMatriz.name}</span>
+                </Panel.Body>
+                <ProgressBar
+                  value={getPercentOf(
+                    knowledgeMatriz.matrizLevel,
+                    allKnowledgeMatriz.length,
+                  )}
+                />
+              </Panel.Item>
+            ),
+          )}
+        </Panel>
+        <Panel title={i18n.get('knowledge-gaps')}>
+          {me.growMap.knowledgeGapsDetails?.map(({ id, knowledgeSkill }) => (
+            <Panel.Item key={id}>
+              <Panel.Title>{knowledgeSkill.name}</Panel.Title>
+            </Panel.Item>
+          ))}
+        </Panel>
+      </>
+    </Template>
   );
 };
 

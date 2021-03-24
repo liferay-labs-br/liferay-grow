@@ -3,11 +3,13 @@ import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import DropDown from '@/components/drop-down/DropDown';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
+import useLang from '@/hooks/useLang';
 import { Me } from '@/types';
 
-const steps = [
+const defaultSteps = [
   {
     name: 'knowledge-areas',
     path: '/profile',
@@ -24,14 +26,22 @@ const steps = [
 
 type IProfileWrapper = {
   me: Me;
+  steps?: Array<any>;
+  showDropDownActions?: boolean;
 };
 
-export const ProfileWrapper: React.FC<IProfileWrapper> = ({ children, me }) => {
+export const ProfileWrapper: React.FC<IProfileWrapper> = ({
+  children,
+  steps = defaultSteps,
+  me,
+  showDropDownActions,
+}) => {
   const {
     github: { avatar_url, location, name },
   } = me;
 
   const router = useRouter();
+  const i18n = useLang();
 
   const login = router.query.login;
 
@@ -55,6 +65,18 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({ children, me }) => {
           <p>{me.growMap?.userDetails?.role?.name}</p>
           <p>{location}</p>
         </Header.Info>
+        {showDropDownActions && (
+          <div className="mt-2">
+            <DropDown
+              actions={[
+                {
+                  action: () => router.push('/profile/skill-details'),
+                  name: i18n.get('edit-knowledge-areas'),
+                },
+              ]}
+            />
+          </div>
+        )}
       </Header>
 
       <ClayLayout.Row className="mt-4">
