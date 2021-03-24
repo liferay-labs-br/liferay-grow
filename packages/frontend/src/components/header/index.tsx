@@ -23,22 +23,27 @@ const HeaderInfo: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   return <div className="header__info">{children}</div>;
 };
 
-type IHeader = {
+interface IHeaderProps extends React.HTMLAttributes<HTMLElement> {
   border?: boolean;
-};
+  centralized?: boolean;
+}
 
-const Header: React.FC<IHeader> & {
+const Header: React.FC<IHeaderProps> & {
   Avatar: React.ElementType;
   Info: React.ElementType;
   Title: React.ElementType;
-} = ({ border = true, children }) => {
+} = ({ border = true, centralized = false, children }) => {
   return (
     <div
       className={classNames('header', {
         'header--border': border,
       })}
     >
-      {children}
+      {centralized ? (
+        <div className="container-fluid container-fluid-max-lg">{children}</div>
+      ) : (
+        children
+      )}
     </div>
   );
 };
