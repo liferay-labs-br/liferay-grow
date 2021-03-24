@@ -12,6 +12,7 @@ export default {
   'i-feel-comfortable-with-being-a-mentor':
     'I feel comfortable with being a mentor.',
   'knowledge-areas': 'Knowledge Areas',
+  'knowledge-detail': 'Knowledge Detail',
   'knowledge-gaps': 'Knowledge Gaps',
   level: 'Level',
   logout: 'Logout',

@@ -16,6 +16,7 @@ function buildRoutes(config, routes = {}, prefix = '') {
 const ROUTES: any = buildRoutes({
   AUTH: '/auth',
   HOME: '/',
+  PROFILE: '/profile',
   WELCOME: {
     path: '/welcome',
     routes: {

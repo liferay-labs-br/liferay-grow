@@ -50,7 +50,7 @@ const TeamsWrapper: React.FC = () => {
 
   return (
     <HomeTemplate>
-      <Meta title={i18n.sub('app-title-x', 'teams')}></Meta>
+      <Meta title={i18n.sub('app-title-x', 'teams')} />
       <h1 className="ml-3 mb-4">{i18n.get('teams')}</h1>
 
       <WrappedSafeComponent query={getAllOffice}>
