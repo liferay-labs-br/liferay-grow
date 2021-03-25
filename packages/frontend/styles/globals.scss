@@ -7,6 +7,9 @@ $success: #287d3c !default;
 $secondary: #6b6c7e !default;
 $white: #fff !default;
 
+$fontFamilySansSerif: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
 @import './components/header.scss';
 @import './components/page.scss';
 @import './components/panel.scss';
@@ -15,6 +18,7 @@ $white: #fff !default;
 @import './components/custom-select.scss';
 @import './components/sidebar.scss';
 @import './components/skill.scss';
+@import './components/summary-chart.scss';
 @import './components/welcome.scss';
 
 @import './pages/sign-in.scss';
@@ -25,8 +29,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $fontFamilySansSerif;
   background-color: #f1f2f5;
 }
 
@@ -63,4 +66,10 @@ body {
 
 .text-black {
   color: black;
+}
+
+.legend-text {
+  color: $secondary;
+  font-family: $fontFamilySansSerif;
+  font-size: 14px;
 }

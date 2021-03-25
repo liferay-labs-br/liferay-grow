@@ -3,17 +3,17 @@ export type BasicQuery = {
   name: string;
 };
 
-type Github = {
-  name: string;
-  accountId: number;
-  avatar_url: string;
-  bio: string;
-  company: string;
-  created_at: string;
-  email: string;
-  id: number;
-  location: string;
-  login: string;
+export type Github = {
+  name?: string;
+  accountId?: number;
+  avatar_url?: string;
+  bio?: string;
+  company?: string;
+  created_at?: string;
+  email?: string;
+  id?: number;
+  location?: string;
+  login?: string;
 };
 
 export type UserDetails = {
