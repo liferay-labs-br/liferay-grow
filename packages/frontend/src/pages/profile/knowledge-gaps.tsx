@@ -13,6 +13,7 @@ import { KnowledgeMatriz, Me, SelectedSkills } from '@/types';
 type RequestProps = {
   allKnowledgeMatriz: KnowledgeMatriz[];
   me: Me;
+  refetch: () => void;
 };
 
 const ProfileKnowledgeGaps = () => {
@@ -20,7 +21,7 @@ const ProfileKnowledgeGaps = () => {
 
   const [onUpdateGrowMapGaps] = useMutation(UpdateGrowMapGapsDetails);
 
-  const onSave = async (selectedSkills: SelectedSkills[]) => {
+  const onSave = async (selectedSkills: SelectedSkills[], refetch) => {
     const knowledgeGapsDetails = selectedSkills.map(({ knowledgeSkillId }) => ({
       knowledgeSkillId,
     }));
@@ -34,6 +35,7 @@ const ProfileKnowledgeGaps = () => {
         },
       });
 
+      refetch();
       toast.info(i18n.get('your-request-completed-successfully'));
     } catch (error) {
       toast.error(i18n.get('an-unexpected-error-occurred'));
@@ -42,7 +44,7 @@ const ProfileKnowledgeGaps = () => {
 
   return (
     <WrappedSafeComponent query={getMe}>
-      {({ me }: RequestProps) => {
+      {({ me, refetch }: RequestProps) => {
         const knowledgeGapsDetails = me.growMap?.knowledgeGapsDetails || [];
         const knowledgeSkillDetails = me.growMap?.knowledgeSkillDetails || [];
 
@@ -68,7 +70,7 @@ const ProfileKnowledgeGaps = () => {
               selectedSkills: selectedSkills,
               unavailableKnowledgeSkills: knowledgeSkills,
             }}
-            onSave={onSave}
+            onSave={(skills) => onSave(skills, refetch)}
           />
         );
       }}
