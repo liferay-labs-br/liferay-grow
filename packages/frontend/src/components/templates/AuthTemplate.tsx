@@ -3,13 +3,12 @@ import React from 'react';
 
 import useLang from '@/hooks/useLang';
 
-interface Layout {
+interface AuthProps {
   children: React.ReactElement;
-  title: string;
   className?: string;
 }
 
-const Layout: React.FC = ({ children, className }: Layout) => {
+const AuthTemplate: React.FC = ({ children, className }: AuthProps) => {
   const i18n = useLang();
   return (
     <div className={`sign__in ${className}`}>
@@ -38,4 +37,4 @@ const Layout: React.FC = ({ children, className }: Layout) => {
   );
 };
 
-export default Layout;
+export default AuthTemplate;
