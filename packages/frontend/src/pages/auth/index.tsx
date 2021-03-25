@@ -3,29 +3,28 @@ import ClayLayout from '@clayui/layout';
 import React from 'react';
 
 import SEO from '@/components/meta';
+import AuthTemplate from '@/components/templates/AuthTemplate';
 import withPublic from '@/hocs/withPublic';
 import useLang from '@/hooks/useLang';
-
-import Layout from './_layout';
 
 const GITHUB_OAUTH = 'https://github.com/login/oauth/authorize';
 const GITHUB_SIGNUP = 'https://github.com/join';
 const SCOPE = 'users';
 
 const onAuthGithub = () => {
-  const { NEXT_PUBLIC_GITHUB_CLIENT_ID } = process.env;
+  const urlParams = new URLSearchParams();
 
-  window.open(
-    `${GITHUB_OAUTH}?client_id=${NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=${SCOPE}`,
-    '_self',
-  );
+  urlParams.append('client_id', process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID);
+  urlParams.append('scope', SCOPE);
+
+  window.open(`${GITHUB_OAUTH}?${urlParams.toString()}`, '_self');
 };
 
 const Auth = (): React.ReactElement => {
   const i18n = useLang();
 
   return (
-    <Layout>
+    <AuthTemplate>
       <SEO title={i18n.sub('app-title-x', 'Auth')} />
       <h1>
         {i18n.get('engineering')} <br /> Grow Together
@@ -49,7 +48,7 @@ const Auth = (): React.ReactElement => {
           </a>
         </ClayLayout.Col>
       </ClayLayout.Row>
-    </Layout>
+    </AuthTemplate>
   );
 };
 

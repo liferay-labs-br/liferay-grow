@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import AppContext from '@/AppContext';
 import LoadingWrapper from '@/components/loading';
 import SEO from '@/components/meta';
+import AuthTemplate from '@/components/templates/AuthTemplate';
 import { authGithub } from '@/graphql/mutations';
 import withPublic from '@/hocs/withPublic';
 import useLang from '@/hooks/useLang';
@@ -13,9 +14,7 @@ import { Types } from '@/types';
 import ROUTES from '@/utils/routes';
 import { parseJwt } from '@/utils/util';
 
-import Layout from './_layout';
-
-const AuthMiddleware = (): React.ReactElement => {
+const AuthMiddleware: React.FC = () => {
   const router = useRouter();
   const i18n = useLang();
 
@@ -23,8 +22,8 @@ const AuthMiddleware = (): React.ReactElement => {
   const { dispatch } = useContext(AppContext);
 
   const fetchUserGithub = async () => {
-    const urlQuery = new URLSearchParams(location.search);
-    const code = urlQuery.get('code');
+    const urlParams = new URLSearchParams(location.search);
+    const code = urlParams.get('code');
 
     if (code) {
       const {
@@ -33,11 +32,11 @@ const AuthMiddleware = (): React.ReactElement => {
 
       dispatch({ payload: { token: bearer }, type: Types.SET_LOGGED_USER });
 
-      const token = parseJwt(bearer);
+      const decodedToken = parseJwt(bearer);
 
-      toast.info(i18n.sub('welcome-x', token?.name));
+      toast.info(i18n.sub('welcome-x', decodedToken?.name));
 
-      router.push(token?.user?.growMap ? ROUTES.HOME : ROUTES.WELCOME);
+      router.push(decodedToken?.user?.growMap ? ROUTES.HOME : ROUTES.WELCOME);
     } else {
       router.push(ROUTES.AUTH);
     }
@@ -48,7 +47,7 @@ const AuthMiddleware = (): React.ReactElement => {
   }, []);
 
   return (
-    <Layout>
+    <AuthTemplate>
       <SEO title={i18n.sub('app-title-x', 'Auth Middleware')} />
 
       {loading ? (
@@ -56,7 +55,7 @@ const AuthMiddleware = (): React.ReactElement => {
       ) : (
         <div>{`${i18n.get('redirecting')}...`}</div>
       )}
-    </Layout>
+    </AuthTemplate>
   );
 };
 
