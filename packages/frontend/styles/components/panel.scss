@@ -9,4 +9,35 @@
     &--body {
         font-size: 0.875rem;
     }
+
+    &--progress-bar {
+        margin-top: 5px;
+    
+        .blue .progress-bar {
+            background-color: $blue;
+        }
+        .orange .progress-bar {
+            background-color: $orange;
+        }
+        .red .progress-bar {
+            background-color: $red;
+        }
+        .teal .progress-bar {
+            background-color: $teal;
+        }
+        .pink .progress-bar {
+            background-color: $pink;
+        }
+        .green .progress-bar {
+            background-color: $green;
+        }
+        .purple .progress-bar {
+            background-color: $purple;
+        }
+    
+        .progress-group-addon {
+            display: none;
+        }
+    }
+    
 }

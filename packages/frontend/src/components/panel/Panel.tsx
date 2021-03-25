@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
+import ProgressBar from './ProgressBar';
+
 type IPanelItem = {
   href?: string;
 };
@@ -56,6 +58,7 @@ const Panel: React.FC<IPanelProps> & {
   Body: React.ElementType;
   Item: React.ElementType;
   Title: React.ElementType;
+  ProgressBar: React.ElementType;
 } = ({ children, displayType = 'secondary', title }) => {
   return (
     <ClayPanel
@@ -76,5 +79,6 @@ const Panel: React.FC<IPanelProps> & {
 Panel.Body = PanelBody;
 Panel.Item = PanelItem;
 Panel.Title = PanelTitle;
+Panel.ProgressBar = ProgressBar;
 
 export default Panel;

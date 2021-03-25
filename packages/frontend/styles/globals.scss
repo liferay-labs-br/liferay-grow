@@ -6,6 +6,13 @@ $primary-l3: #f0f5ff !default;
 $success: #287d3c !default;
 $secondary: #6b6c7e !default;
 $white: #fff !default;
+$blue: #4b9fff !default;
+$orange: #ffb46e !default;
+$red: #ff5f5f !default;
+$teal: #50d2a0 !default;
+$pink: #ff73c3 !default;
+$green: #9be169 !default;
+$purple: #af78ff !default;
 
 $fontFamilySansSerif: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -14,7 +21,6 @@ Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 @import './components/page.scss';
 @import './components/panel.scss';
 @import './components/profile.scss';
-@import './components/progress-bar.scss';
 @import './components/custom-select.scss';
 @import './components/sidebar.scss';
 @import './components/skill.scss';
