@@ -1,4 +1,4 @@
-from node:12-alpine
+FROM node:12-alpine
 
 WORKDIR /app
 
@@ -10,6 +10,7 @@ COPY ./next.config.js .
 COPY ./tsconfig.json .
 COPY ./.babelrc .
 COPY ./next-env.d.ts .
+COPY ./.env .
 
 RUN yarn install
 

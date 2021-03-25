@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY ./package.json .
 COPY ./tsconfig.json .
-COPY ./scripts ./scripts
 COPY ./src ./src
 
 RUN yarn install

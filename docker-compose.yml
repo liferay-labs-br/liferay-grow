@@ -41,12 +41,10 @@ services:
   web:
     build: ./packages/frontend
     container_name: liferay-grow-frontend
-    environment: 
-      NEXT_PUBLIC_GITHUB_CLIENT_ID: ${CLIENT_ID}
-      NEXT_PUBLIC_BASE_URL: http://localhost:3000
     ports:
       - '3000:3000'
     depends_on: 
       - api
+      - mysql
 volumes: 
   liferay-grow-db:
