@@ -27,14 +27,12 @@ const defaultSteps = [
 type IProfileWrapper = {
   me: Me;
   steps?: Array<any>;
-  showDropDownActions?: boolean;
 };
 
 export const ProfileWrapper: React.FC<IProfileWrapper> = ({
   children,
   steps = defaultSteps,
   me,
-  showDropDownActions,
 }) => {
   const {
     github: { avatar_url, location, name },
@@ -65,7 +63,7 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
           <p>{me.growMap?.userDetails?.role?.name}</p>
           <p>{location}</p>
         </Header.Info>
-        {showDropDownActions && (
+        {me.growMap && (
           <div className="mt-2">
             <DropDown
               actions={[

@@ -36,9 +36,11 @@ const AuthMiddleware: React.FC = () => {
 
       toast.info(i18n.sub('welcome-x', decodedToken?.name));
 
-      router.push(decodedToken?.user?.growMap ? ROUTES.HOME : ROUTES.WELCOME);
+      router.replace(
+        decodedToken?.user?.growMap ? ROUTES.HOME : ROUTES.WELCOME,
+      );
     } else {
-      router.push(ROUTES.AUTH);
+      router.replace(ROUTES.AUTH);
     }
   };
 

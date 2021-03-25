@@ -14,11 +14,7 @@ type RequestProps = {
 const Profile = () => (
   <WrappedSafeComponent query={getMe}>
     {({ allKnowledgeMatriz, me }: RequestProps) => (
-      <UserTemplate
-        allKnowledgeMatriz={allKnowledgeMatriz}
-        me={me}
-        showDropDownActions
-      />
+      <UserTemplate allKnowledgeMatriz={allKnowledgeMatriz} me={me} />
     )}
   </WrappedSafeComponent>
 );

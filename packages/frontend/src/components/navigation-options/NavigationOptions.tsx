@@ -27,7 +27,8 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
   const onLogout = () => {
     dispatch({ payload: null, type: Types.SET_LOGOUT });
-    redirectTo('/auth');
+    setActive(false);
+    router.replace('/auth');
   };
 
   if (avatar_url) {
@@ -37,7 +38,7 @@ const UserAvatar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
           <img
             className="user-avatar"
             src={avatar_url}
-            alt={`User ${name} profile image`}
+            alt={i18n.sub('user-x-profile-image', name)}
           />
         }
         active={active}
