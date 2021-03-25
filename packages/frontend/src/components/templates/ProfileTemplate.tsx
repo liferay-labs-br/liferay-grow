@@ -10,8 +10,6 @@ import useLang from '@/hooks/useLang';
 import { KnowledgeMatriz, Me } from '@/types';
 import ROUTES from '@/utils/routes';
 
-import ProgressBar from '../progress-bar/ProgressBar';
-
 function getPercentOf(partialValue, totalValue) {
   return Number(((100 * partialValue) / totalValue).toFixed(1));
 }
@@ -75,7 +73,7 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
   );
 };
 
-const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
+const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
   const i18n = useLang();
 
   return (
@@ -89,12 +87,7 @@ const UserTemplate: React.FC<ITemplateProps> = ({ allKnowledgeMatriz, me }) => {
                 <Panel.Body>
                   <span>{knowledgeMatriz.name}</span>
                 </Panel.Body>
-                <ProgressBar
-                  value={getPercentOf(
-                    knowledgeMatriz.matrizLevel,
-                    allKnowledgeMatriz.length,
-                  )}
-                />
+                <Panel.ProgressBar partialValue={knowledgeMatriz.matrizLevel} />
               </Panel.Item>
             ),
           )}
