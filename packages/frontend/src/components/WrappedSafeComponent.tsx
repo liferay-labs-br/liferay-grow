@@ -13,7 +13,12 @@ const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
   options,
   query,
 }) => {
-  const { data, error, loading } = useQuery(query, options);
+  const { data, error, loading, refetch } = useQuery(query, options);
+
+  const response = {
+    ...data,
+    refetch,
+  };
 
   try {
     if (error) {
@@ -29,7 +34,7 @@ const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
     console.error(error); // eslint-disable-line no-console
   }
 
-  return children(data);
+  return children(response);
 };
 
 export default WrappedSafeComponent;
