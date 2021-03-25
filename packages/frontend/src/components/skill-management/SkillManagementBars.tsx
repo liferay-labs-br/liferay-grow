@@ -1,7 +1,6 @@
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import ClayLayout from '@clayui/layout';
-import ClayProgressBar from '@clayui/progress-bar';
 import React, { useContext } from 'react';
 
 import useLang from '@/hooks/useLang';
@@ -40,7 +39,7 @@ const SkillPanel = ({ onClick, skill }) => (
     <Panel.Body>
       <span>{skill.name}</span>
     </Panel.Body>
-    <ClayProgressBar value={50} />
+    <Panel.ProgressBar partialValue={1} />
   </Panel.Item>
 );
 
