@@ -1,3 +1,5 @@
+import ClayButton from '@clayui/button';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import EmptyState from '@/components/empty-state';
@@ -6,6 +8,7 @@ import Panel from '@/components/panel';
 import Profile, { ProfileWrapper } from '@/components/profile';
 import useLang from '@/hooks/useLang';
 import { KnowledgeMatriz, Me } from '@/types';
+import ROUTES from '@/utils/routes';
 
 import ProgressBar from '../progress-bar/ProgressBar';
 
@@ -20,11 +23,29 @@ type ITemplateProps = {
 };
 
 const Template: React.FC<ITemplateProps> = ({ children, me, title }) => {
+  const i18n = useLang();
+  const router = useRouter();
+
   return (
     <Profile>
       <SEO title={title} />
       <ProfileWrapper me={me}>
-        {me.growMap ? children : <EmptyState />}
+        {me.growMap ? (
+          children
+        ) : (
+          <EmptyState
+            description={i18n.get(
+              'you-must-create-knowledge-areas-and-knowledge-gaps',
+            )}
+          >
+            <ClayButton
+              onClick={() => router.push(ROUTES.WELCOME)}
+              displayType="secondary"
+            >
+              {i18n.get('create-knowledge-area')}
+            </ClayButton>
+          </EmptyState>
+        )}
       </ProfileWrapper>
     </Profile>
   );

@@ -8,6 +8,7 @@ export default {
   'choose-an-option': 'Selecione uma opção',
   continue: 'Prosseguir',
   copyright: 'Copyright 2021. Todos os direitos reservados.',
+  'create-knowledge-area': 'Criar Áreas de Conhecimento',
   'dont-have-a-github-account': 'Não tem uma conta do Github?',
   'edit-knowledge-areas': 'Editar Áreas de Conhecimento',
   'get-started': 'Comece agora',
@@ -45,12 +46,15 @@ export default {
   'there-are-no-entries-yet': 'Ainda não há entradas.',
   'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `
   Para começar, ajude-nos a conhecê-lo melhor. Por favor, preencha o formulário com suas habilidades e lacunas.`,
+  'user-x-profile-image': 'Usuário {0} Imagem de Perfil',
   welcome: 'Bem Vindo',
   'welcome-to-the-engineering-team-program-grow-together':
     'Bem-vindo ao programa da equipe de engenharia, Grow Together',
   'welcome-x': 'Bem vindo, {0}',
   'x-member': '{0} Member',
   'x-members': '{0} Members',
+  'you-must-create-knowledge-areas-and-knowledge-gaps':
+    'Você deve criar as áreas de conhecimentos',
   'your-request-completed-successfully':
     'Sua solicitação foi completada com sucesso',
 };
