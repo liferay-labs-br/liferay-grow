@@ -6,7 +6,26 @@ import SkillContext from './SkillContext';
 
 const DEFAULT_PAGE_SIZE = 9;
 
-const useSkillManagement = () => {
+type Tab = {
+  id: string;
+  label: string;
+};
+
+type UseSkillManagementResponse = {
+  fns: {
+    handleClickTab: (tab: Tab) => void;
+    setPageSize: (pageSize: number) => void;
+  };
+  state: {
+    DEFAULT_PAGE_SIZE: number;
+    filteredSkills: any[];
+    pageSize: number;
+    paginatedSkills: any[];
+    tabs: Tab[];
+  };
+};
+
+const useSkillManagement = (): UseSkillManagementResponse => {
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [selectedTab, setSelectedTab] = useState('all');
   const i18n = useLang();

@@ -12,7 +12,6 @@ import NavigationTabBar from '../navigation-tab-bar';
 export type Tab = {
   label: string;
   path: string;
-  children: React.ReactNode;
 };
 
 type TeamTeplateProps = {
@@ -69,7 +68,7 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
                   </Header.Info>
                 </Header>
               </div>
-              <NavigationTabBar tabs={tabs} />
+              <NavigationTabBar tabs={tabs}></NavigationTabBar>
               <div className="team__body">
                 {typeof children === 'function'
                   ? children({ getTeamBySlug })
