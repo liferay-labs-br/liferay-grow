@@ -51,13 +51,10 @@ export class KnowledgeSkill extends MainEntity {
         'gmksd.knowledgeSkillDetailsId = ksd.id',
       )
       .innerJoinAndSelect('grow_map', 'gm', 'gm.id = gmksd.growMapId')
-      .where('ksd.knowledgeSkillId = :id', { id: this.id });
-
-    if (data?.isMentor) {
-      knowledgeSkillDetailsQuery = knowledgeSkillDetailsQuery.andWhere(
-        'ksd.isMentor = 1',
-      );
-    }
+      .where('ksd.knowledgeSkillId = :id', { id: this.id })
+      .andWhere('ksd.isMentor = :isMentor', {
+        isMentor: data?.isMentor ? 1 : 0,
+      });
 
     if (data?.matrizId) {
       knowledgeSkillDetailsQuery = knowledgeSkillDetailsQuery.andWhere(

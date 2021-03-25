@@ -46,6 +46,7 @@ export default {
   'welcome-to-the-engineering-team-program-grow-together':
     'Welcome to the Engineering team program, Grow Together',
   'welcome-x': 'Welcome, {0}',
+  'x-member': '{0} Member',
   'x-members': '{0} Members',
   'your-request-completed-successfully': 'Your request completed successfully',
 };
