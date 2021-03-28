@@ -6,15 +6,33 @@ export default [
     name: 'Frontend',
   },
   {
-    name: 'Quality Assurance',
+    name: 'Project Manager',
   },
   {
-    name: 'Project Management',
+    name: 'Product Designer',
   },
   {
-    name: 'Product Owner',
+    name: 'Business Analyst',
   },
   {
-    name: 'Product Design',
+    name: 'Technical Writer',
+  },
+  {
+    name: 'Product Manager',
+  },
+  {
+    name: 'Release Manager',
+  },
+  {
+    name: 'Director',
+  },
+  {
+    name: 'Team Lead',
+  },
+  {
+    name: 'Program Manager',
+  },
+  {
+    name: 'QA Engineer',
   },
 ];
