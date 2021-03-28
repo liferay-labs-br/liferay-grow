@@ -1,4 +1,16 @@
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
+
+@ObjectType()
+export class KnowledgeMatrizAverage {
+  @Field()
+  id: string;
+
+  @Field()
+  name: string;
+
+  @Field()
+  matrizLevelAvg: string;
+}
 
 @InputType()
 class KnowledgeMatrizBaseInput {

@@ -1,6 +1,6 @@
 import { getManager } from 'typeorm';
 
-import { KnowledgeMatrizAverage } from '../resolvers/team/Inputs';
+import { KnowledgeMatrizAverage } from '../resolvers/knowledge_matriz/Inputs';
 
 export const getKnowledgeMatrizAverage = async ({
   skillId,

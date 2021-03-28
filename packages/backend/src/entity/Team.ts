@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { KnowledgeMatrizAverage } from '../resolvers/team/Inputs';
+import { KnowledgeMatrizAverage } from '../resolvers/knowledge_matriz/Inputs';
 import { getUserDetailsIdsByTeam } from '../resolvers/team/team.utils';
 import {
   UserPaginationInput,

@@ -9,8 +9,10 @@ import {
   ManyToOne,
 } from 'typeorm';
 
+import { KnowledgeMatrizAverage } from '../resolvers/knowledge_matriz/Inputs';
 import { UserKnowledgeSkillInput } from '../resolvers/knowledge_skill/Inputs';
 import { slugify } from '../utils/globalMethods';
+import { getKnowledgeMatrizAverage } from '../utils/queries';
 import { KnowledgeArea } from './KnowledgeArea';
 import { MainEntity } from './MainEntity';
 import { User } from './User';
@@ -36,6 +38,16 @@ export class KnowledgeSkill extends MainEntity {
   @Field(() => KnowledgeArea, { nullable: true })
   @ManyToOne(() => KnowledgeArea, (area) => area.skills)
   area: KnowledgeArea;
+
+  @BeforeInsert()
+  addSlug(): void {
+    this.slug = slugify(this.name);
+  }
+
+  @BeforeUpdate()
+  updateSlug(): void {
+    this.slug = slugify(this.name);
+  }
 
   @Field(() => [User])
   async userSkills(
@@ -102,13 +114,12 @@ export class KnowledgeSkill extends MainEntity {
     return users;
   }
 
-  @BeforeInsert()
-  addSlug(): void {
-    this.slug = slugify(this.name);
-  }
+  @Field(() => [KnowledgeMatrizAverage])
+  async knowledgeMatrizAverage(): Promise<KnowledgeMatrizAverage[]> {
+    const knowledgeMatrizAverage = await getKnowledgeMatrizAverage({
+      skillId: this.id,
+    });
 
-  @BeforeUpdate()
-  updateSlug(): void {
-    this.slug = slugify(this.name);
+    return knowledgeMatrizAverage;
   }
 }
