@@ -111,6 +111,11 @@ export const KNOWLEDGE_AREA_FRAGMENT = gql`
       id
       name
       slug
+      knowledgeMatrizAverage {
+        id
+        name
+        matrizLevelAvg
+      }
     }
   }
 `;

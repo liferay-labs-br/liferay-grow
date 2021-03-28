@@ -141,12 +141,31 @@ export const getTeamBySlug = gql`
   ${PAGINATION_FRAGMENT}
 
   query($slug: String!) {
+    getAllKnowledgeMatriz {
+      id
+      name
+      matrizLevel
+    }
+
     getTeamBySlug(slug: $slug) {
       id
       name
       office {
         city
         country
+      }
+      knowledgeMatrizAverage {
+        id
+        matrizLevelAvg
+      }
+      knowledgeArea {
+        id
+        name
+        skills {
+          id
+          name
+          slug
+        }
       }
       members {
         pagination {
