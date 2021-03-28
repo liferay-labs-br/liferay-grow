@@ -8,13 +8,15 @@ import SkillContext, { initialState, mainReducer } from './SkillContext';
 
 type AppProvider = {
   defaultState?: SkillManagement;
+  fetchData?: boolean;
 };
 
 const AppProvider: React.FC<AppProvider> = ({
   children,
+  fetchData = true,
   defaultState = {},
 }) => {
-  const client = initializeApollo();
+  const client = initializeApollo(null, true);
   const [state, dispatch] = useReducer(mainReducer, {
     ...initialState,
     ...defaultState,
@@ -32,7 +34,9 @@ const AppProvider: React.FC<AppProvider> = ({
   };
 
   useEffect(() => {
-    fetchKnowledgeData();
+    if (fetchData) {
+      fetchKnowledgeData();
+    }
   }, []);
 
   return (
