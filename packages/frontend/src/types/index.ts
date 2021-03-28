@@ -27,7 +27,7 @@ export interface KnowledgeMatriz extends BasicQuery {
 }
 
 export interface KnowledgeArea extends BasicQuery {
-  skills: BasicQuery[];
+  skills: Skill[];
 }
 
 export type KnowledgeSkillDetails = {

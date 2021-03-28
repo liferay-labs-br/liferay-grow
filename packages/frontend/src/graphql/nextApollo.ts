@@ -31,10 +31,7 @@ function createApolloClient() {
   });
 }
 
-export function initializeApollo(
-  initialState = null,
-  createNew = false,
-): ApolloClient<any> {
+export function initializeApollo(initialState = null, createNew = false) {
   if (createNew) {
     const client = createApolloClient();
 
@@ -60,7 +57,7 @@ export function initializeApollo(
   return _apolloClient;
 }
 
-export function useApollo(initialState): ApolloClient<any> {
+export function useApollo(initialState) {
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
 
   return store;

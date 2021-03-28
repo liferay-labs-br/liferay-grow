@@ -31,11 +31,7 @@ const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
             apolloClient.link.options.headers.Authorization = `Bearer ${token}`;
 
             return (
-              <ApolloProvider
-                client={{
-                  ...apolloClient,
-                }}
-              >
+              <ApolloProvider client={apolloClient}>
                 <Layout>
                   <Component {...pageProps} />
                 </Layout>
