@@ -44,7 +44,7 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
       query={getTeamBySlug}
       options={{ variables: { slug: team } }}
     >
-      {({ getTeamBySlug }) => {
+      {({ getAllKnowledgeMatriz, getTeamBySlug }) => {
         const {
           members,
           name,
@@ -71,7 +71,7 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
               <NavigationTabBar tabs={tabs}></NavigationTabBar>
               <div className="team__body">
                 {typeof children === 'function'
-                  ? children({ getTeamBySlug })
+                  ? children({ getAllKnowledgeMatriz, getTeamBySlug })
                   : children}
               </div>
             </div>

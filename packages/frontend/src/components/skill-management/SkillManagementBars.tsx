@@ -3,50 +3,47 @@ import ClayIcon from '@clayui/icon';
 import ClayLayout from '@clayui/layout';
 import React, { useContext } from 'react';
 
+import Panel from '@/components/panel';
 import useLang from '@/hooks/useLang';
-import { BasicQuery } from '@/types';
+import { KnowledgeMatriz, KnowledgeMatrizAverage, Skill } from '@/types';
 
-import Panel from '../panel';
 import SkillContext from './SkillContext';
 
-interface ISkillInfoProps extends React.HTMLAttributes<HTMLElement> {
-  onClick: any;
-  skill: BasicQuery;
-}
+type ISkillInfoProps = {
+  onClick: (skill: Skill) => void;
+  skill: Skill;
+};
 
-interface ISkillListProps extends React.HTMLAttributes<HTMLElement> {
-  onClick: any;
-  filteredSkills: BasicQuery[];
+type SkillListProps = {
+  onClick: (skill: Skill) => void;
+  filteredSkills: Skill[];
   loading?: boolean;
   visualization?: 'card' | 'panel';
-}
+};
 
-interface ISkillFooterProps extends React.HTMLAttributes<HTMLElement> {
-  filteredSkills: BasicQuery[];
+type SkillFooterProps = {
+  filteredSkills: Skill[];
   moreSkills: boolean;
   handleMoreSkills: () => void;
-}
+};
 
-interface ISkillResultsFooter extends React.HTMLAttributes<HTMLElement> {
-  filteredSkills: BasicQuery[];
-}
+type SkillResultsFooter = {
+  filteredSkills: Skill[];
+  showAdd?: boolean;
+};
 
-const SkillPanel = ({ onClick, skill }) => (
-  <Panel.Item>
-    <Panel.Title className="link" onClick={() => onClick(skill)}>
-      {skill.name}
-    </Panel.Title>
-    <Panel.Body>
-      <span>{skill.name}</span>
-    </Panel.Body>
-    <Panel.ProgressBar partialValue={1} />
-  </Panel.Item>
-);
+type SkillListWithAverageProps = {
+  handleClickSkill: (skill: Skill) => void;
+  knowledgeMatriz: KnowledgeMatriz[];
+  knowledgeMatrizAverage: KnowledgeMatrizAverage[];
+  skills: Skill[];
+};
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   Footer: React.ElementType;
   List: React.ElementType;
   Results: React.ElementType;
+  ListAverage: React.ElementType;
 } = ({ children }) => <div className="mt-3">{children}</div>;
 
 const SkillInfo: React.FC<ISkillInfoProps> = ({ onClick, skill }) => (
@@ -59,30 +56,18 @@ const SkillInfo: React.FC<ISkillInfoProps> = ({ onClick, skill }) => (
   </ClayButton>
 );
 
-const SkillList: React.FC<ISkillListProps> = ({
-  filteredSkills,
-  onClick,
-  visualization,
-}) => (
+const SkillList: React.FC<SkillListProps> = ({ filteredSkills, onClick }) => (
   <>
-    {visualization === 'panel' ? (
-      <ClayLayout.Row>
-        {filteredSkills.map((skill) => (
-          <SkillPanel key={skill.id} skill={skill} onClick={onClick} />
-        ))}
-        <ClayLayout.Col></ClayLayout.Col>
-      </ClayLayout.Row>
-    ) : (
-      <>
-        {filteredSkills.map((skill) => (
-          <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
-        ))}
-      </>
-    )}
+    {filteredSkills.map((skill) => (
+      <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
+    ))}
   </>
 );
 
-const SkillResults: React.FC<ISkillResultsFooter> = ({ filteredSkills }) => {
+const SkillResults: React.FC<SkillResultsFooter> = ({
+  filteredSkills,
+  showAdd = true,
+}) => {
   const i18n = useLang();
 
   const {
@@ -94,19 +79,21 @@ const SkillResults: React.FC<ISkillResultsFooter> = ({ filteredSkills }) => {
       {filteredSkills.length === 0 && search && (
         <div className="d-flex align-items-center">
           <span>{i18n.sub('no-results-for-x', search)}</span>
-          <ClayButton
-            displayType="link"
-            className="skill-management__btn-add-skill"
-          >
-            {i18n.get('add-more-skills')}
-          </ClayButton>
+          {showAdd && (
+            <ClayButton
+              displayType="link"
+              className="skill-management__btn-add-skill"
+            >
+              {i18n.get('add-more-skills')}
+            </ClayButton>
+          )}
         </div>
       )}
     </>
   );
 };
 
-const SkillFooter: React.FC<ISkillFooterProps> = ({
+const SkillFooter: React.FC<SkillFooterProps> = ({
   filteredSkills,
   handleMoreSkills,
   moreSkills,
@@ -128,8 +115,55 @@ const SkillFooter: React.FC<ISkillFooterProps> = ({
   return null;
 };
 
+const SkillListWithAverage: React.FC<SkillListWithAverageProps> = ({
+  handleClickSkill,
+  knowledgeMatriz,
+  knowledgeMatrizAverage,
+  skills,
+}) => {
+  const getAverage = ({ id }) => {
+    const matrizAverage = knowledgeMatrizAverage.find(
+      (matriz) => matriz.id === id,
+    );
+
+    const matrizLevelAvg = Math.ceil(
+      Number(matrizAverage?.matrizLevelAvg) || 1,
+    );
+
+    const matrizName = knowledgeMatriz.find(
+      ({ matrizLevel }) => matrizLevel === matrizLevelAvg,
+    )?.name;
+
+    return [matrizLevelAvg, matrizName];
+  };
+
+  return (
+    <ClayLayout.Row>
+      {skills.map((skill, index) => {
+        const [matrizLevelAvg, matrizName] = getAverage(skill);
+
+        return (
+          <Panel.Item key={index}>
+            <Panel.Title
+              className="link"
+              onClick={() => handleClickSkill(skill)}
+            >
+              {skill.name}
+            </Panel.Title>
+            <Panel.Body>
+              <span>{matrizName}</span>
+            </Panel.Body>
+            <Panel.ProgressBar partialValue={matrizLevelAvg} />
+          </Panel.Item>
+        );
+      })}
+    </ClayLayout.Row>
+  );
+};
+
 SkillComponent.List = SkillList;
 SkillComponent.Results = SkillResults;
 SkillComponent.Footer = SkillFooter;
+SkillComponent.ListAverage = SkillListWithAverage;
 
 export default SkillComponent;

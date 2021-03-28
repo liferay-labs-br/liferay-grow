@@ -31,19 +31,19 @@ const Members: React.FC = () => {
           </strong>
         </span>
       ),
-      value: 'Member',
+      value: i18n.get('member'),
     },
     {
       key: 'role',
       render: (_, member) => (
         <span>{member.growMap.userDetails.role.name}</span>
       ),
-      value: 'Role',
+      value: i18n.get('role'),
     },
     {
       key: 'email',
       render: (_, member) => <span>{member.github.email}</span>,
-      value: 'Emal',
+      value: i18n.get('email'),
     },
   ];
 
@@ -66,8 +66,7 @@ const Members: React.FC = () => {
               searchOnChange={(value) => console.log(value)}
               orderBy
               emptyState={{
-                description: '',
-                title: i18n.get('there-are-no-entries-yet'),
+                description: i18n.get('there-are-no-members-yet'),
               }}
             />
           );

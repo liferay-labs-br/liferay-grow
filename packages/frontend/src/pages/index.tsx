@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import DropDownTabs from '@/components/drop-down/DropDownTabs';
 import Meta from '@/components/meta';
+import SkillContext from '@/components/skill-management/SkillContext';
 import SkillContextProvider from '@/components/skill-management/SkillContextProvider';
 import SkillManagementBars from '@/components/skill-management/SkillManagementBars';
 import SkillManagementSearch from '@/components/skill-management/SkillManagementSearch';
@@ -16,6 +17,9 @@ const KnowledgeAreaManagement: React.FC<
   React.HTMLAttributes<HTMLElement>
 > = () => {
   const router = useRouter();
+  const {
+    state: { knowledgeMatriz, knowledgeSkills },
+  } = useContext(SkillContext);
 
   const {
     fns: { handleClickTab, setPageSize },
@@ -28,6 +32,10 @@ const KnowledgeAreaManagement: React.FC<
     },
   } = useSkillManagement();
 
+  const knowledgeMatrizAverages = knowledgeSkills
+    .map(({ knowledgeMatrizAverage }) => knowledgeMatrizAverage)
+    .flat();
+
   const handleClickSkill = ({ slug }: Skill) => {
     router.push(`/skill/${slug}`);
   };
@@ -38,10 +46,11 @@ const KnowledgeAreaManagement: React.FC<
 
       <SkillManagementBars>
         <DropDownTabs tabs={tabs} onClick={handleClickTab} offset={5}>
-          <SkillManagementBars.List
-            visualization="panel"
-            filteredSkills={paginatedSkills}
-            onClick={handleClickSkill}
+          <SkillManagementBars.ListAverage
+            skills={paginatedSkills}
+            knowledgeMatriz={knowledgeMatriz}
+            knowledgeMatrizAverage={knowledgeMatrizAverages}
+            handleClickSkill={handleClickSkill}
           />
         </DropDownTabs>
         <SkillManagementBars.Results filteredSkills={paginatedSkills} />

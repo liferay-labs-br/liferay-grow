@@ -1,139 +1,105 @@
-import { ClayButtonWithIcon } from '@clayui/button';
-import { ClayInput } from '@clayui/form';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import DropDownTabs from '@/components/drop-down/DropDownTabs';
-import Panel from '@/components/panel';
+import EmptyState from '@/components/empty-state';
+import Meta from '@/components/meta';
+import SkillContextProvider from '@/components/skill-management/SkillContextProvider';
+import SkillManagementBars from '@/components/skill-management/SkillManagementBars';
+import SkillManagementSearch from '@/components/skill-management/SkillManagementSearch';
+import useSkillManagement from '@/components/skill-management/useSkillManagement';
 import TeamTemplate from '@/components/templates/TeamTemplate';
+import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
+import { KnowledgeMatriz, Skill } from '@/types';
 
-const Team: React.FC = () => {
+type TeamSummaryManagementProps = {
+  knowledgeMatrizAverage: null | any[];
+  knowledgeMatriz: KnowledgeMatriz[];
+};
+
+const TeamSummaryManagement: React.FC<TeamSummaryManagementProps> = ({
+  knowledgeMatriz,
+  knowledgeMatrizAverage,
+}) => {
+  const router = useRouter();
+
+  const {
+    fns: { handleClickTab, setPageSize },
+    state: {
+      DEFAULT_PAGE_SIZE,
+      filteredSkills,
+      pageSize,
+      paginatedSkills,
+      tabs,
+    },
+  } = useSkillManagement();
+
+  const handleClickSkill = ({ slug }: Skill) => {
+    router.push(`/skill/${slug}`);
+  };
+
+  return (
+    <div className="skill-management">
+      <SkillManagementSearch />
+
+      <SkillManagementBars>
+        <DropDownTabs tabs={tabs} onClick={handleClickTab} offset={5}>
+          <SkillManagementBars.ListAverage
+            skills={paginatedSkills}
+            knowledgeMatriz={knowledgeMatriz}
+            knowledgeMatrizAverage={knowledgeMatrizAverage}
+            handleClickSkill={handleClickSkill}
+          />
+        </DropDownTabs>
+        <SkillManagementBars.Results
+          filteredSkills={paginatedSkills}
+          showAdd={false}
+        />
+        <SkillManagementBars.Footer
+          moreSkills={filteredSkills.length > paginatedSkills.length}
+          filteredSkills={paginatedSkills}
+          handleMoreSkills={() => setPageSize(pageSize + DEFAULT_PAGE_SIZE)}
+        />
+      </SkillManagementBars>
+    </div>
+  );
+};
+
+const TeamSummary: React.FC = () => {
   const i18n = useLang();
-
-  const tabs = [
-    { id: '1', label: 'All (63)' },
-    { id: '2', label: 'frontend' },
-    { id: '3', label: 'backend' },
-    { id: '4', label: 'common skills' },
-    { id: '5', label: 'communication' },
-  ];
-
-  const skills = [
-    {
-      knowledgeMatriz: {
-        name: 'Beginner',
-        partialValue: 1,
-      },
-      knowledgeSkill: {
-        id: '1',
-        name: 'Java 8',
-      },
-    },
-    {
-      knowledgeMatriz: {
-        name: 'Apprentice',
-        partialValue: 2,
-      },
-      knowledgeSkill: {
-        id: '2',
-        name: 'Angular',
-      },
-    },
-    {
-      knowledgeMatriz: {
-        name: 'Practitioner',
-        partialValue: 3,
-      },
-      knowledgeSkill: {
-        id: '3',
-        name: 'Javascript',
-      },
-    },
-    {
-      knowledgeMatriz: {
-        name: 'Professional',
-        partialValue: 4,
-      },
-      knowledgeSkill: {
-        id: '4',
-        name: 'Typescript',
-      },
-    },
-    {
-      knowledgeMatriz: {
-        name: 'Teacher',
-        partialValue: 5,
-      },
-      knowledgeSkill: {
-        id: '5',
-        name: 'Flutter',
-      },
-    },
-    {
-      knowledgeMatriz: {
-        name: 'Leader',
-        partialValue: 6,
-      },
-      knowledgeSkill: {
-        id: '6',
-        name: 'Dart',
-      },
-    },
-    {
-      knowledgeMatriz: {
-        name: 'Master',
-        partialValue: 7,
-      },
-      knowledgeSkill: {
-        id: '6',
-        name: 'Django',
-      },
-    },
-  ];
 
   return (
     <TeamTemplate page="summary">
-      <h1 className="mb-4">Knowledge Areas</h1>
-      <div>
-        <ClayInput.Group>
-          <ClayInput.GroupItem>
-            <ClayInput
-              aria-label="Search"
-              className="form-control input-group-inset input-group-inset-after"
-              placeholder={i18n.get('search-skills')}
-              type="text"
-            />
-            <ClayInput.GroupInsetItem after tag="span">
-              <ClayButtonWithIcon
-                displayType="unstyled"
-                symbol={'search'}
-                type="button"
-              />
-            </ClayInput.GroupInsetItem>
-          </ClayInput.GroupItem>
-        </ClayInput.Group>
-        <DropDownTabs
-          tabs={tabs}
-          onClick={(value) => console.log(value)}
-          offset={5}
+      {({
+        getAllKnowledgeMatriz,
+        getTeamBySlug: { knowledgeArea, knowledgeMatrizAverage },
+      }) => (
+        <SkillContextProvider
+          fetchData={false}
+          defaultState={{
+            knowledgeArea,
+            knowledgeSkills: knowledgeArea.map(({ skills }) => skills).flat(),
+          }}
         >
-          <div className="d-flex row">
-            {skills.map(({ knowledgeMatriz, knowledgeSkill }) => (
-              <Panel.Item key={knowledgeSkill.id}>
-                <Panel.Title>{knowledgeSkill.name}</Panel.Title>
-                <Panel.Body>
-                  <span>{knowledgeMatriz.name}</span>
-                </Panel.Body>
-                <Panel.ProgressBar
-                  partialValue={knowledgeMatriz.partialValue}
-                />
-              </Panel.Item>
-            ))}
-          </div>
-        </DropDownTabs>
-      </div>
+          <Meta title={i18n.sub('app-title-x', 'knowledge-areas')} />
+          {knowledgeArea.length ? (
+            <>
+              <h1>{i18n.get('knowledge-areas')}</h1>
+              <TeamSummaryManagement
+                knowledgeMatriz={getAllKnowledgeMatriz}
+                knowledgeMatrizAverage={knowledgeMatrizAverage}
+              />
+            </>
+          ) : (
+            <EmptyState
+              description={i18n.get('there-are-no-knowledge-area-yet')}
+            />
+          )}
+        </SkillContextProvider>
+      )}
     </TeamTemplate>
   );
 };
 
-export default Team;
+export default withAuth(TeamSummary);
