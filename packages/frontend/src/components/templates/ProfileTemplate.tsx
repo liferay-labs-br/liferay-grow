@@ -1,7 +1,8 @@
 import ClayButton from '@clayui/button';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 
+import AppContext from '@/AppContext';
 import EmptyState from '@/components/empty-state';
 import SEO from '@/components/meta';
 import Panel from '@/components/panel';
@@ -23,6 +24,13 @@ type ITemplateProps = {
 const Template: React.FC<ITemplateProps> = ({ children, me, title }) => {
   const i18n = useLang();
   const router = useRouter();
+  const {
+    state: {
+      user: { loggedUser },
+    },
+  } = useContext(AppContext);
+
+  const belongsToMe = me.id === loggedUser.user.id;
 
   return (
     <Profile>
@@ -32,16 +40,21 @@ const Template: React.FC<ITemplateProps> = ({ children, me, title }) => {
           children
         ) : (
           <EmptyState
+            title={i18n.get('no-results-found')}
             description={i18n.get(
-              'you-must-create-knowledge-areas-and-knowledge-gaps',
+              belongsToMe
+                ? 'you-must-create-knowledge-areas-and-knowledge-gaps'
+                : 'there-are-no-entries-yet',
             )}
           >
-            <ClayButton
-              onClick={() => router.push(ROUTES.WELCOME)}
-              displayType="secondary"
-            >
-              {i18n.get('create-knowledge-area')}
-            </ClayButton>
+            {belongsToMe && (
+              <ClayButton
+                onClick={() => router.push(ROUTES.WELCOME)}
+                displayType="secondary"
+              >
+                {i18n.get('create-knowledge-area')}
+              </ClayButton>
+            )}
           </EmptyState>
         )}
       </ProfileWrapper>
