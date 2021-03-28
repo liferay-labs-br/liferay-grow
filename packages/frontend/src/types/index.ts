@@ -143,10 +143,17 @@ export type allOffice = {
   teams: Team[];
 };
 
+export type KnowledgeMatrizAverage = {
+  id: string;
+  name: string;
+  matrizLevelAvg: string;
+};
+
 export type Skill = {
   id: string;
   name: string;
   slug?: string;
+  knowledgeMatrizAverage: KnowledgeMatrizAverage[];
 };
 
 export type SelectedSkills = {
