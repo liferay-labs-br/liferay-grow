@@ -2,7 +2,7 @@ export default {
   'add-more-skills': 'Adicione como habilidade',
   'all-x': 'Todos ({0})',
   'an-unexpected-error-occurred': 'Um erro inexperado aconteceu !',
-  'app-title': 'Liferay Grow',
+  'app-title': 'Grow Together',
   'app-title-x': 'Grow Together - {0}',
   'application-submitted-successfully': 'Formulário submetido com sucesso!',
   cancel: 'Cancelar',
@@ -52,11 +52,11 @@ export default {
   'there-are-no-entries-yet': 'Ainda não há entradas.',
   'there-are-no-knowledge-area-yet': 'Ainda não há áreas de conhecimento.',
   'there-are-no-members-yet': 'Ainda não há membros.',
-  'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `
+  'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `
   Para começar, ajude-nos a conhecê-lo melhor. Por favor, preencha o formulário com suas habilidades e lacunas.`,
   'user-x-profile-image': 'Usuário {0} Imagem de Perfil',
   welcome: 'Bem Vindo',
-  'welcome-to-the-engineering-team-program-grow-together':
+  'welcome-to-the-engineering-grow-together-program':
     'Bem-vindo ao programa da equipe de engenharia, Grow Together',
   'welcome-x': 'Bem vindo, {0}',
   'x-member': '{0} Member',

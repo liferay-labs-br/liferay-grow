@@ -2,7 +2,7 @@ export default {
   'add-more-skills': 'Add More Skills',
   'all-x': 'All ({0})',
   'an-unexpected-error-occurred': 'An unexpected error ocurred',
-  'app-title': 'Liferay Grow',
+  'app-title': 'Grow Together',
   'app-title-x': 'Grow Together - {0}',
   'application-submitted-successfully': 'Application submitted successfully!',
   cancel: 'Cancel',
@@ -50,11 +50,11 @@ export default {
   'there-are-no-entries-yet': 'There are no entries yet.',
   'there-are-no-knowledge-area-yet': 'There are no knowledge areas yet.',
   'there-are-no-members-yet': 'There are no members yet.',
-  'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `To start, help us to get to know you better. Please fill out in the
+  'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `To start, help us to get to known you better. Please fill out in the
   form with your skills and gaps.`,
   'user-x-profile-image': 'User {0} Profile image',
-  'welcome-to-the-engineering-team-program-grow-together':
-    'Welcome to the Engineering team program, Grow Together',
+  'welcome-to-the-engineering-grow-together-program':
+    'Welcome to the Engineering Grow Together Program!',
   'welcome-x': 'Welcome, {0}',
   'x-member': '{0} Member',
   'x-members': '{0} Members',
