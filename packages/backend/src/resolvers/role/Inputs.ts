@@ -7,16 +7,10 @@ class RoleBaseInput {
 }
 
 @InputType()
-class CreateRoleInput extends RoleBaseInput {
-  @Field({ nullable: true })
-  office?: string;
-}
+class CreateRoleInput extends RoleBaseInput {}
 
 @InputType()
-class UpdateRoleInput extends RoleBaseInput {
-  @Field({ nullable: true })
-  office?: string;
-}
+class UpdateRoleInput extends RoleBaseInput {}
 
 @InputType()
 class FilterRoleInput extends RoleBaseInput {}
