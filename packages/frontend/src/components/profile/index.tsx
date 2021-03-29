@@ -1,8 +1,9 @@
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 
+import AppContext from '@/AppContext';
 import DropDown from '@/components/drop-down/DropDown';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
@@ -38,6 +39,14 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
     github: { avatar_url, location, name },
   } = me;
 
+  const {
+    state: {
+      user: { loggedUser },
+    },
+  } = useContext(AppContext);
+
+  const belongsToMe = me.id === loggedUser.user.id;
+
   const router = useRouter();
   const i18n = useLang();
 
@@ -63,7 +72,7 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
           <p>{me.growMap?.userDetails?.role?.name}</p>
           <p>{location}</p>
         </Header.Info>
-        {me.growMap && (
+        {me.growMap && belongsToMe && (
           <div className="mt-2">
             <DropDown
               actions={[
