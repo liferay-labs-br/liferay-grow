@@ -36,7 +36,7 @@ const Members: React.FC = () => {
     {
       key: 'role',
       render: (_, member) => (
-        <span>{member.growMap.userDetails.role.name}</span>
+        <span>{member.growMap?.userDetails?.role?.name}</span>
       ),
       value: i18n.get('role'),
     },

@@ -10,9 +10,11 @@ export const getAllPagination = async (
   pagination: Pagination;
   rows: any[];
 }> => {
-  const { pageIndex = 1, pageSize = 20, search } = where;
+  const { pageIndex = 1, pageSize = 20, ...search } = where;
 
-  const totalCount = await entity.count({ where });
+  const filter = applyFilters(search);
+
+  const totalCount = await entity.count({ where: filter });
 
   const pagination = paginate(totalCount, search ? 1 : pageIndex, pageSize);
 
@@ -20,7 +22,7 @@ export const getAllPagination = async (
     relations,
     skip: pagination.startIndex,
     take: pagination.pageSize,
-    where: applyFilters(search),
+    where: filter,
   });
 
   return {
