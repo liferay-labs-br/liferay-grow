@@ -188,6 +188,10 @@ const SkillDetailWrapper: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
     query: { slug },
   } = useRouter();
 
+  if (!slug) {
+    return null;
+  }
+
   return (
     <WrappedSafeComponent
       query={knowledgeSkillBySlug}
