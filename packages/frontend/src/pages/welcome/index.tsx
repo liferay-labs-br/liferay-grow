@@ -17,12 +17,12 @@ const Welcome: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
       <div className="welcome__box">
         <h1 className="welcome__box--title">
-          {i18n.get('welcome-to-the-engineering-team-program-grow-together')}
+          {i18n.get('welcome-to-the-engineering-grow-together-program')}
         </h1>
 
         <p className="welcome__box--description">
           {i18n.get(
-            'to-start-help-us-to-get-to-know-you-better-please-fill-out-in-form-with-your-skills-and-gaps',
+            'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps',
           )}
         </p>
 
