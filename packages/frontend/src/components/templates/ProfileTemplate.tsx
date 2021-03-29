@@ -11,10 +11,6 @@ import useLang from '@/hooks/useLang';
 import { KnowledgeMatriz, Me } from '@/types';
 import ROUTES from '@/utils/routes';
 
-function getPercentOf(partialValue, totalValue) {
-  return Number(((100 * partialValue) / totalValue).toFixed(1));
-}
-
 type ITemplateProps = {
   me: Me;
   allKnowledgeMatriz?: KnowledgeMatriz[];
