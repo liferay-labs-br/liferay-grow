@@ -65,25 +65,23 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
 
   return (
     <>
-      <Header>
+      <Header
+        actions={
+          me.growMap &&
+          belongsToMe && [
+            {
+              action: () => router.push('/profile/skill-details'),
+              name: i18n.get('edit-knowledge-areas'),
+            },
+          ]
+        }
+      >
         <Header.Avatar draggable={false} src={avatar_url} />
         <Header.Info>
           <Header.Title>{name}</Header.Title>
           <p>{me.growMap?.userDetails?.role?.name}</p>
           <p>{location}</p>
         </Header.Info>
-        {me.growMap && belongsToMe && (
-          <div className="mt-2">
-            <DropDown
-              actions={[
-                {
-                  action: () => router.push('/profile/skill-details'),
-                  name: i18n.get('edit-knowledge-areas'),
-                },
-              ]}
-            />
-          </div>
-        )}
       </Header>
 
       <ClayLayout.Row className="mt-4">
