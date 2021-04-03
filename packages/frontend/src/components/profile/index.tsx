@@ -45,7 +45,7 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
     },
   } = useContext(AppContext);
 
-  const belongsToMe = me.id === loggedUser.user.id;
+  const belongsToMe = me.id === loggedUser?.user?.id;
 
   const router = useRouter();
   const i18n = useLang();
