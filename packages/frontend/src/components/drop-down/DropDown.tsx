@@ -47,7 +47,7 @@ const DropDown: React.FC<IDropDown> = ({
   return (
     <ClayDropDown
       active={active}
-      alignmentPosition={Align.RightCenter}
+      alignmentPosition={Align.BottomRight}
       className="dropdown-action"
       onActiveChange={(newVal) => setActive(newVal)}
       trigger={DropdownButton}

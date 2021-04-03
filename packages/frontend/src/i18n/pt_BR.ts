@@ -1,5 +1,6 @@
 export default {
   'add-more-skills': 'Adicione como habilidade',
+  alert: 'Alerta',
   'all-x': 'Todos ({0})',
   'an-unexpected-error-occurred': 'Um erro inexperado aconteceu !',
   'app-title': 'Grow Together',
@@ -12,6 +13,9 @@ export default {
   'create-knowledge-area': 'Criar Áreas de Conhecimento',
   'dont-have-a-github-account': 'Não tem uma conta do Github?',
   'edit-knowledge-areas': 'Editar Áreas de Conhecimento',
+  export: 'Exportar',
+  'export-as-csv': 'Exportar como CSV',
+  'file-extension': 'Extensão do arquivo',
   'filter-and-order': 'Filtrar e ordenar',
   'get-started': 'Comece agora',
   'go-to-home': 'Ir para o início',
@@ -49,9 +53,14 @@ export default {
   'terms-of-use': 'Termos de uso | Políticas de privacidade',
   'thanks-for-helping-us-to-know-you-better':
     'Obrigado por nos ajudar, a conhece-lo melhor.',
+
+  'the-export-includes-data-from-all-fields-and-form-versions-all-the-information-regarding-date-and-time-are-only-exported-in-gmt-0':
+    'A exportação inclui dados de todos os campos e versões do formulário. Todas as informações de data e hora são exportadas somente em GMT (UTC ± 0).',
   'there-are-no-entries-yet': 'Ainda não há entradas.',
   'there-are-no-knowledge-area-yet': 'Ainda não há áreas de conhecimento.',
   'there-are-no-members-yet': 'Ainda não há membros.',
+  'this-csv-file-contains-user-supplied-inputs-apening-a-csv-file-in-a-spreadsheet-program-may-be-dangerous':
+    'Este arquivo CSV contém entradas fornecidas pelo usuário. Abrir um arquivo CSV em um programa de planilha pode ser perigoso.',
   'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `
   Para começar, ajude-nos a conhecê-lo melhor. Por favor, preencha o formulário com suas habilidades e lacunas.`,
   'user-x-profile-image': 'Usuário {0} Imagem de Perfil',

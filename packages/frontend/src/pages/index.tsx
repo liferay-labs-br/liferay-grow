@@ -1,8 +1,14 @@
+import ClayAlert from '@clayui/alert';
+import ClayButton from '@clayui/button';
+import ClayForm, { ClaySelect } from '@clayui/form';
+import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
+import DropDown from '@/components/drop-down/DropDown';
 import DropDownTabs from '@/components/drop-down/DropDownTabs';
 import Meta from '@/components/meta';
+import Modal from '@/components/modal';
 import SkillContext from '@/components/skill-management/SkillContext';
 import SkillContextProvider from '@/components/skill-management/SkillContextProvider';
 import SkillManagementBars from '@/components/skill-management/SkillManagementBars';
@@ -64,18 +70,96 @@ const KnowledgeAreaManagement: React.FC<
   );
 };
 
-const KnowledgeArea: React.FC = () => {
+const KnowledgeAreaHeader: React.FC = () => {
   const i18n = useLang();
+  const [visible, setVisible] = useState(false);
+  const [extension, setExtension] = useState('csv');
+  const options = [
+    {
+      label: 'CSV',
+      value: 'csv',
+    },
+  ];
 
   return (
-    <SkillContextProvider>
-      <HomeTemplate>
-        <Meta title={i18n.sub('app-title-x', 'knowledge-areas')} />
-        <h1>{i18n.get('knowledge-areas')}</h1>
-        <KnowledgeAreaManagement />
-      </HomeTemplate>
-    </SkillContextProvider>
+    <>
+      <Meta title={i18n.sub('app-title-x', 'knowledge-areas')} />
+      <div className="d-flex">
+        <h1 className="flex-grow-1">{i18n.get('knowledge-areas')}</h1>
+        <DropDown
+          actions={[
+            {
+              action: () => setVisible(true),
+              name: i18n.get('export-as-csv'),
+            },
+          ]}
+        />
+      </div>
+      <Modal
+        visible={visible}
+        toggle={() => setVisible(false)}
+        title={i18n.get('export-as-csv')}
+        last={
+          <>
+            <ClayButton
+              className="mr-3"
+              displayType="secondary"
+              onClick={() => setVisible(false)}
+            >
+              {i18n.get('cancel')}
+            </ClayButton>
+            <ClayButton
+              displayType="primary"
+              onClick={() => console.log(extension)}
+            >
+              {i18n.get('export')}
+            </ClayButton>
+          </>
+        }
+      >
+        <>
+          <ClayAlert displayType="warning" title={i18n.get('alert')}>
+            {i18n.get(
+              'this-csv-file-contains-user-supplied-inputs-apening-a-csv-file-in-a-spreadsheet-program-may-be-dangerous',
+            )}
+          </ClayAlert>
+          <ClayLayout.Col>
+            <ClayForm.Group>
+              <label>{i18n.get('file-extension')}</label>
+              <ClaySelect
+                aria-label="Select Label"
+                id="mySelectId"
+                value={extension}
+                onChange={(e) => setExtension(e.target.value)}
+              >
+                {options.map((item) => (
+                  <ClaySelect.Option
+                    key={item.value}
+                    label={item.label}
+                    value={item.value}
+                  />
+                ))}
+              </ClaySelect>
+              <span className="home--help-text">
+                {i18n.get(
+                  'the-export-includes-data-from-all-fields-and-form-versions-all-the-information-regarding-date-and-time-are-only-exported-in-gmt-0',
+                )}
+              </span>
+            </ClayForm.Group>
+          </ClayLayout.Col>
+        </>
+      </Modal>
+    </>
   );
 };
+
+const KnowledgeArea: React.FC = () => (
+  <SkillContextProvider>
+    <HomeTemplate>
+      <KnowledgeAreaHeader />
+      <KnowledgeAreaManagement />
+    </HomeTemplate>
+  </SkillContextProvider>
+);
 
 export default withAuth(KnowledgeArea);
