@@ -1,7 +1,7 @@
 import ClayAlert from '@clayui/alert';
 import ClayButton from '@clayui/button';
 import ClayForm, { ClaySelect } from '@clayui/form';
-import ClayLayout from '@clayui/layout';
+import { useModal } from '@clayui/modal';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 
@@ -59,7 +59,10 @@ const KnowledgeAreaManagement: React.FC<
             handleClickSkill={handleClickSkill}
           />
         </DropDownTabs>
-        <SkillManagementBars.Results filteredSkills={paginatedSkills} />
+        <SkillManagementBars.Results
+          filteredSkills={paginatedSkills}
+          showAdd={false}
+        />
         <SkillManagementBars.Footer
           moreSkills={filteredSkills.length > paginatedSkills.length}
           filteredSkills={paginatedSkills}
@@ -81,6 +84,10 @@ const KnowledgeAreaHeader: React.FC = () => {
     },
   ];
 
+  const { observer, onClose } = useModal({
+    onClose: () => setVisible(!visible),
+  });
+
   return (
     <>
       <Meta title={i18n.sub('app-title-x', 'knowledge-areas')} />
@@ -97,14 +104,14 @@ const KnowledgeAreaHeader: React.FC = () => {
       </div>
       <Modal
         visible={visible}
-        toggle={() => setVisible(false)}
+        observer={observer}
         title={i18n.get('export-as-csv')}
         last={
           <>
             <ClayButton
               className="mr-3"
               displayType="secondary"
-              onClick={() => setVisible(false)}
+              onClick={onClose}
             >
               {i18n.get('cancel')}
             </ClayButton>
@@ -123,30 +130,28 @@ const KnowledgeAreaHeader: React.FC = () => {
               'this-csv-file-contains-user-supplied-inputs-apening-a-csv-file-in-a-spreadsheet-program-may-be-dangerous',
             )}
           </ClayAlert>
-          <ClayLayout.Col>
-            <ClayForm.Group>
-              <label>{i18n.get('file-extension')}</label>
-              <ClaySelect
-                aria-label="Select Label"
-                id="mySelectId"
-                value={extension}
-                onChange={(e) => setExtension(e.target.value)}
-              >
-                {options.map((item) => (
-                  <ClaySelect.Option
-                    key={item.value}
-                    label={item.label}
-                    value={item.value}
-                  />
-                ))}
-              </ClaySelect>
-              <span className="home--help-text">
-                {i18n.get(
-                  'the-export-includes-data-from-all-fields-and-form-versions-all-the-information-regarding-date-and-time-are-only-exported-in-gmt-0',
-                )}
-              </span>
-            </ClayForm.Group>
-          </ClayLayout.Col>
+          <ClayForm.Group>
+            <label>{i18n.get('file-extension')}</label>
+            <ClaySelect
+              aria-label="Select Label"
+              id="mySelectId"
+              value={extension}
+              onChange={(e) => setExtension(e.target.value)}
+            >
+              {options.map((item) => (
+                <ClaySelect.Option
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
+                />
+              ))}
+            </ClaySelect>
+            <span className="home--help-text">
+              {i18n.get(
+                'the-export-includes-data-from-all-fields-and-form-versions-all-the-information-regarding-date-and-time-are-only-exported-in-gmt-0',
+              )}
+            </span>
+          </ClayForm.Group>
         </>
       </Modal>
     </>
