@@ -25,3 +25,13 @@ export const UpdateGrowMapSkillDetails = gql`
     updateGrowMapSkillDetails(data: $data)
   }
 `;
+
+export const CreateKnowledgeSkill = gql`
+  mutation CreateKnowledgeSkill($data: CreateKnowledgeSkillInput!) {
+    createKnowledgeSkill(data: $data) {
+      id
+      name
+      slug
+    }
+  }
+`;

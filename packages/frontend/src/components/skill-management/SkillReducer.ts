@@ -56,7 +56,7 @@ export const SkillManagementReducer = (
       return {
         ...state,
         knowledgeArea,
-        knowledgeMatriz: action.payload.matriz,
+        knowledgeMatriz: action.payload.matriz || state.knowledgeMatriz,
         knowledgeSkills,
       };
     }

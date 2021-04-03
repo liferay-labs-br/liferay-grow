@@ -1,4 +1,4 @@
-import ClayModal, { useModal } from '@clayui/modal';
+import ClayModal from '@clayui/modal';
 import React, { ReactElement } from 'react';
 
 type Size = 'full-screen' | 'lg' | 'sm';
@@ -8,7 +8,7 @@ interface IModalProps extends React.HTMLAttributes<HTMLElement> {
   last?: ReactElement;
   size?: Size;
   title?: string;
-  toggle: () => void;
+  observer: any;
   visible: boolean;
 }
 
@@ -16,15 +16,11 @@ const Modal: React.FC<IModalProps> = ({
   children,
   first,
   last,
+  observer,
   size,
   title,
-  toggle,
   visible,
 }) => {
-  const { observer } = useModal({
-    onClose: toggle,
-  });
-
   if (!visible) {
     return null;
   }
