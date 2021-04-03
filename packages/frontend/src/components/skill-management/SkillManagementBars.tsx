@@ -1,12 +1,18 @@
+import { useMutation } from '@apollo/client';
 import ClayButton from '@clayui/button';
+import ClayForm, { ClayInput, ClaySelect } from '@clayui/form';
 import ClayIcon from '@clayui/icon';
 import ClayLayout from '@clayui/layout';
-import React, { useContext } from 'react';
+import { useModal } from '@clayui/modal';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Panel from '@/components/panel';
+import { CreateKnowledgeSkill } from '@/graphql/mutations';
 import useLang from '@/hooks/useLang';
-import { KnowledgeMatriz, KnowledgeMatrizAverage, Skill } from '@/types';
+import { KnowledgeMatriz, KnowledgeMatrizAverage, Skill, Types } from '@/types';
 
+import Modal from '../modal';
 import SkillContext from './SkillContext';
 
 type ISkillInfoProps = {
@@ -37,6 +43,137 @@ type SkillListWithAverageProps = {
   knowledgeMatriz: KnowledgeMatriz[];
   knowledgeMatrizAverage: KnowledgeMatrizAverage[];
   skills: Skill[];
+};
+
+const AddMoreSkillsComponent = () => {
+  const i18n = useLang();
+
+  const {
+    dispatch,
+    state: { knowledgeArea, search },
+  } = useContext(SkillContext);
+
+  const [onCreateKnowledgeSkill] = useMutation(CreateKnowledgeSkill);
+
+  const [knowledgeSkill, setKnowledgeSkill] = useState({
+    area: '',
+    name: search,
+  });
+
+  const [visible, setVisible] = useState(false);
+
+  const onToggle = () => {
+    if (!visible) {
+      setKnowledgeSkill({
+        ...knowledgeSkill,
+        name: search,
+      });
+    }
+
+    setVisible(!visible);
+  };
+
+  const { observer, onClose } = useModal({
+    onClose: onToggle,
+  });
+
+  const onChange = ({ target: { name, value } }) => {
+    setKnowledgeSkill({
+      ...knowledgeSkill,
+      [name]: value,
+    });
+  };
+
+  const onSubmit = async () => {
+    if (knowledgeSkill.name && knowledgeSkill.area) {
+      const { data } = await onCreateKnowledgeSkill({
+        variables: {
+          data: knowledgeSkill,
+        },
+      });
+
+      const { id } = data?.createKnowledgeSkill || {};
+
+      if (id) {
+        const newKnowledgeAreas = knowledgeArea.map((area) => ({
+          ...area,
+          skills:
+            area.id === knowledgeSkill.area
+              ? [...area.skills, { id, name: knowledgeSkill.name }]
+              : area.skills,
+        }));
+
+        toast.info(i18n.get('your-request-completed-successfully'));
+
+        dispatch({
+          payload: {
+            area: newKnowledgeAreas,
+          },
+          type: Types.EDIT_KNOWLEDGE_DATA,
+        });
+
+        onClose();
+      }
+    }
+  };
+
+  return (
+    <>
+      <ClayButton
+        onClick={onToggle}
+        displayType="link"
+        className="skill-management__btn-add-skill"
+      >
+        {i18n.get('add-new-skill')}
+      </ClayButton>
+
+      <Modal
+        last={
+          <>
+            <ClayButton
+              className="mr-3"
+              displayType="secondary"
+              onClick={onToggle}
+            >
+              {i18n.get('cancel')}
+            </ClayButton>
+            <ClayButton
+              onClick={onSubmit}
+              disabled={!knowledgeSkill.name || !knowledgeSkill.area}
+              displayType="primary"
+            >
+              {i18n.get('save')}
+            </ClayButton>
+          </>
+        }
+        title={i18n.get('add-new-skill')}
+        observer={observer}
+        visible={visible}
+      >
+        <ClayForm.Group>
+          <label>{i18n.get('skill-name')}</label>
+          <ClayInput
+            name="name"
+            onChange={onChange}
+            value={knowledgeSkill.name}
+          />
+        </ClayForm.Group>
+        <ClayForm.Group>
+          <label>{i18n.get('category')}</label>
+          <ClaySelect
+            name="area"
+            onChange={onChange}
+            value={knowledgeSkill.area}
+          >
+            <ClaySelect.Option label={i18n.get('choose-an-option')} value="" />
+            {knowledgeArea.map(({ id, name }) => (
+              <ClaySelect.Option key={id} label={name} value={id} />
+            ))}
+          </ClaySelect>
+        </ClayForm.Group>
+      </Modal>
+    </>
+  );
 };
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
@@ -71,25 +208,20 @@ const SkillResults: React.FC<SkillResultsFooter> = ({
   const i18n = useLang();
 
   const {
-    state: { search },
+    state: { knowledgeSkills, search },
   } = useContext(SkillContext);
 
+  const skillExist = knowledgeSkills.find(
+    ({ name }) => name.toLowerCase() === search.toLowerCase(),
+  );
+
   return (
-    <>
-      {filteredSkills.length === 0 && search && (
-        <div className="d-flex align-items-center">
-          <span>{i18n.sub('no-results-for-x', search)}</span>
-          {showAdd && (
-            <ClayButton
-              displayType="link"
-              className="skill-management__btn-add-skill"
-            >
-              {i18n.get('add-more-skills')}
-            </ClayButton>
-          )}
-        </div>
+    <div className="d-flex align-items-center">
+      {filteredSkills.length === 0 && search && !skillExist && (
+        <span>{i18n.sub('no-results-for-x', search)}</span>
       )}
-    </>
+      {showAdd && !skillExist && <AddMoreSkillsComponent />}
+    </div>
   );
 };
 
