@@ -1,5 +1,6 @@
 export default {
   'add-more-skills': 'Add More Skills',
+  'add-new-skill': 'Add New Skill',
   alert: 'Alert',
   'all-x': 'All ({0})',
   'an-unexpected-error-occurred': 'An unexpected error ocurred',
@@ -7,7 +8,7 @@ export default {
   'app-title-x': 'Grow Together - {0}',
   'application-submitted-successfully': 'Application submitted successfully!',
   cancel: 'Cancel',
-  'choose-an-option': 'Choose an option',
+  'choose-an-option': 'Choose an Option',
   continue: 'Continue',
   copyright: 'Copyright 2021. All Rights Reserverd.',
   'create-knowledge-area': 'Create Knowledge Areas',
@@ -44,6 +45,7 @@ export default {
   'sign-in-with-github': 'Sign in with Github',
   skill: 'Skill',
   'skill-and-gaps': 'Skills and Gaps',
+  'skill-name': 'Skill Name',
   'skills-details': 'Skills Details',
   'skip-it': 'Skip it',
   team: 'Team',

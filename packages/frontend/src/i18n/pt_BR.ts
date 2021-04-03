@@ -1,5 +1,6 @@
 export default {
   'add-more-skills': 'Adicione como habilidade',
+  'add-new-skill': 'Adicionar nova habilidade',
   alert: 'Alerta',
   'all-x': 'Todos ({0})',
   'an-unexpected-error-occurred': 'Um erro inexperado aconteceu !',
@@ -44,6 +45,7 @@ export default {
   'sign-in-with-github': 'Entre com Github',
   skill: 'Habilidade',
   'skill-and-gaps': 'Habilidades e Gaps',
+  'skill-name': 'Nome da Habilidade',
   'skills-details': 'Habilidades',
   'skip-it': 'Pular',
   submit: 'Finalizar',
@@ -53,7 +55,6 @@ export default {
   'terms-of-use': 'Termos de uso | Políticas de privacidade',
   'thanks-for-helping-us-to-know-you-better':
     'Obrigado por nos ajudar, a conhece-lo melhor.',
-
   'the-export-includes-data-from-all-fields-and-form-versions-all-the-information-regarding-date-and-time-are-only-exported-in-gmt-0':
     'A exportação inclui dados de todos os campos e versões do formulário. Todas as informações de data e hora são exportadas somente em GMT (UTC ± 0).',
   'there-are-no-entries-yet': 'Ainda não há entradas.',
