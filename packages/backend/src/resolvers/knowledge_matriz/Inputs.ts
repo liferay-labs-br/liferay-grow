@@ -12,6 +12,15 @@ export class KnowledgeMatrizAverage {
   matrizLevelAvg: string;
 }
 
+@ObjectType()
+export class KnowledgeSkillSummary {
+  @Field()
+  name: string;
+
+  @Field()
+  value: number;
+}
+
 @InputType()
 class KnowledgeMatrizBaseInput {
   @Field()
