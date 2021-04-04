@@ -21,6 +21,10 @@ export function parseJwt(token: string): any {
   return JSON.parse(jsonPayload);
 }
 
+export function flat(arr: any[]): any[] {
+  return arr.reduce((acc, curr) => acc.concat(curr), []);
+}
+
 export const keys = {
   token: 'liferay-grow-token',
 };

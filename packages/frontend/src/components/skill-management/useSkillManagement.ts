@@ -1,6 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
 
 import useLang from '@/hooks/useLang';
+import { flat } from '@/utils/util';
 
 import SkillContext from './SkillContext';
 
@@ -44,10 +45,11 @@ const useSkillManagement = (): UseSkillManagementResponse => {
     if (selectedTab === 'all') {
       skills = knowledgeSkills;
     } else {
-      skills = knowledgeArea
-        .filter(({ id }) => selectedTab === id)
-        .map(({ skills }) => skills)
-        .flat();
+      skills = flat(
+        knowledgeArea
+          .filter(({ id }) => selectedTab === id)
+          .map(({ skills }) => skills),
+      );
     }
 
     const filteredSkills = skills

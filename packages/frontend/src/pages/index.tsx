@@ -19,6 +19,7 @@ import HomeTemplate from '@/components/templates/HomeTemplate';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
 import { Skill } from '@/types';
+import { flat } from '@/utils/util';
 
 import { baseURL } from '../graphql/nextApollo';
 
@@ -41,9 +42,9 @@ const KnowledgeAreaManagement: React.FC<
     },
   } = useSkillManagement();
 
-  const knowledgeMatrizAverages = knowledgeSkills
-    .map(({ knowledgeMatrizAverage }) => knowledgeMatrizAverage)
-    .flat();
+  const knowledgeMatrizAverages = flat(
+    knowledgeSkills.map(({ knowledgeMatrizAverage }) => knowledgeMatrizAverage),
+  );
 
   const handleClickSkill = ({ slug }: Skill) => {
     router.push(`/skill/${slug}`);
