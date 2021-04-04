@@ -73,21 +73,37 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
   KnowledgeSkillGap[]
 > => {
   const baseQuery = `
-  SELECT ks.name as skill, g.name as userName, level, isMentor, r.name as rule, g.email, g.location FROM
-    (SELECT ksd.knowledgeSkillId, gmksd.growMapId, km.name as level, ksd.isMentor FROM knowledge_skill_details ksd
-    INNER JOIN grow_map_knowledge_skill_details gmksd ON ksd.id = gmksd.knowledgeSkillDetailsId
-    INNER JOIN knowledge_matriz km ON ksd.knowledgeMatrizId = km.id
-      UNION 
-    SELECT kgd.knowledgeSkillId, gmkgd.growMapId, 'Gap' as level, 0 as isMentor FROM knowledge_gaps_details kgd
-	  INNER JOIN grow_map_knowledge_gaps_details gmkgd ON kgd.id = gmkgd.knowledgeGapsDetailsId) 
-  AS ksgd
-    INNER JOIN knowledge_skill ks ON ksgd.knowledgeSkillId = ks.id
-    INNER JOIN grow_map gm ON ksgd.growMapId = gm.id
-    INNER JOIN user u ON gm.userId = u.id
-    INNER JOIN user_details ud ON gm.userDetailsId = ud.id
-    INNER JOIN role as r ON ud.roleId = r.id
-    INNER JOIN github g ON g.userId = u.id
-    ORDER BY ks.name`;
+  SELECT ks.name AS Skill,
+       g.name AS Member,
+       LEVEL AS 'Knowledge Level',
+                CASE isMentor
+                    WHEN 0 THEN 'No'
+                    WHEN 1 THEN 'Yes'
+                END AS Mentor,
+                r.name AS Role,
+                g.email AS Email,
+                g.location AS Location
+  FROM
+    (SELECT ksd.knowledgeSkillId,
+          gmksd.growMapId,
+          km.name AS LEVEL,
+          ksd.isMentor
+   FROM knowledge_skill_details ksd
+   INNER JOIN grow_map_knowledge_skill_details gmksd ON ksd.id = gmksd.knowledgeSkillDetailsId
+   INNER JOIN knowledge_matriz km ON ksd.knowledgeMatrizId = km.id
+   UNION SELECT kgd.knowledgeSkillId,
+                gmkgd.growMapId,
+                'Gap' AS LEVEL,
+                0 AS isMentor
+   FROM knowledge_gaps_details kgd
+   INNER JOIN grow_map_knowledge_gaps_details gmkgd ON kgd.id = gmkgd.knowledgeGapsDetailsId) AS ksgd
+   INNER JOIN knowledge_skill ks ON ksgd.knowledgeSkillId = ks.id
+   INNER JOIN grow_map gm ON ksgd.growMapId = gm.id
+   INNER JOIN user u ON gm.userId = u.id
+   INNER JOIN user_details ud ON gm.userDetailsId = ud.id
+   INNER JOIN role AS r ON ud.roleId = r.id
+   INNER JOIN github g ON g.userId = u.id
+   ORDER BY ks.name`.trim();
 
   const manager = getManager();
 
