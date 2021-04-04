@@ -15,17 +15,21 @@ import { Github } from '@/types';
 import { COLORS } from '@/utils/constans';
 import ROUTES from '@/utils/routes';
 
-interface ISkillDetailMentorsPanelProps
-  extends React.HTMLAttributes<HTMLElement> {
+type Summary = {
+  name: string;
+  value: number;
+};
+
+type SkillDetailMentorsPanelProps = {
   area: {
     name: string;
   };
   mentoringMembers: {
     github: Github;
   }[];
-}
+};
 
-const SkillDetailMentorsPanel: React.FC<ISkillDetailMentorsPanelProps> = ({
+const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
   area,
   mentoringMembers,
 }) => {
@@ -67,63 +71,26 @@ const SkillDetailMentorsPanel: React.FC<ISkillDetailMentorsPanelProps> = ({
 };
 
 interface ISkillDetailSummaryProps extends React.HTMLAttributes<HTMLElement> {
-  summary: {
-    columns: string | number[];
-    type: string;
-  };
+  summary: Summary[];
 }
 
 const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({ summary }) => {
   const i18n = useLang();
-  const data = [
-    {
-      name: 'Beginner',
-      value: 2400,
-    },
-    {
-      name: 'Apprentice',
-      value: 4567,
-    },
-    {
-      name: 'Praticioner',
-      value: 1398,
-    },
-    {
-      name: 'Professional',
-      value: 9800,
-    },
-    {
-      name: 'Teacher',
-      value: 3908,
-    },
-    {
-      name: 'Leader',
-      value: 4800,
-    },
-    {
-      name: 'Master',
-      value: 1000,
-    },
-    {
-      name: 'With Knowledge Gap',
-      value: 2400,
-    },
-  ];
 
   return (
     <Panel displayType="unstyled" title={i18n.get('summary')}>
       <PieChart className="summary-chart" width={420} height={280}>
         <Pie
-          data={data}
+          data={summary}
           dataKey="value"
           nameKey="name"
           cx="50%"
           cy="50%"
           innerRadius={70}
           outerRadius={120}
-          paddingAngle={2}
+          paddingAngle={0}
         >
-          {data.map((entry, index) => (
+          {summary.map((entry, index) => (
             <Cell key={index} fill={COLORS[index]} />
           ))}
         </Pie>
@@ -149,6 +116,8 @@ const SkillDetail = ({
 }) => {
   const i18n = useLang();
   const totalMembers = mentoringMembers.length + otherMembers.length;
+
+  console.log(summary);
 
   return (
     <>
