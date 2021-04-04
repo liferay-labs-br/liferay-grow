@@ -12,6 +12,7 @@ import TeamTemplate from '@/components/templates/TeamTemplate';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
 import { KnowledgeMatriz, Skill } from '@/types';
+import { flat } from '@/utils/util';
 
 type TeamSummaryManagementProps = {
   knowledgeMatrizAverage: null | any[];
@@ -79,7 +80,7 @@ const TeamSummary: React.FC = () => {
           fetchData={false}
           defaultState={{
             knowledgeArea,
-            knowledgeSkills: knowledgeArea.map(({ skills }) => skills).flat(),
+            knowledgeSkills: flat(knowledgeArea.map(({ skills }) => skills)),
           }}
         >
           <Meta title={i18n.sub('app-title-x', 'knowledge-areas')} />
