@@ -108,6 +108,10 @@ export const knowledgeSkillBySlug = gql`
       area {
         name
       }
+      summary {
+        name
+        value
+      }
       mentoringMembers: userSkills(data: { isMentor: true }) {
         id
         github {
