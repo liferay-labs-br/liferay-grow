@@ -2,13 +2,17 @@ import 'reflect-metadata';
 
 import { ApolloServer, Config } from 'apollo-server-express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { config } from 'dotenv';
 import Express from 'express';
+import * as fs from 'fs';
 import helmet from 'helmet';
 
+import { exportCSV } from './exportFile';
 import createSchema from './utils/createSchema';
 import { logger } from './utils/globalMethods';
 import { createTypeormConn } from './utils/typeORMConn';
+
 class App {
   public express: Express.Application;
 
@@ -19,6 +23,7 @@ class App {
     this.initializeMiddlewares();
     this.initializeControllers();
     this.initializeApollo();
+    this.initializeExportFile();
   }
 
   private async initializeApollo(): Promise<void> {
@@ -59,6 +64,23 @@ class App {
     this.express.get('/', (_, res) => res.json({ message: 'Hi!' }));
   }
 
+  private initializeExportFile(): void {
+    this.express.get('/csv/export', cors(), async (_, res) => {
+      if (!fs.existsSync('temp')) {
+        fs.mkdirSync('temp');
+      }
+      const path = '/data.csv';
+      const ws = fs.createWriteStream(`temp/data.csv`);
+
+      const file = await exportCSV();
+      file
+        .on('finish', function () {
+          res.json({ path });
+        })
+        .pipe(ws);
+    });
+  }
+
   private async initializeDatabase(): Promise<void> {
     try {
       const conn = await createTypeormConn();
@@ -83,6 +105,7 @@ class App {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(helmet({ contentSecurityPolicy: false }));
+    this.express.use(Express.static('temp'));
   }
 
   public listen(): void {
