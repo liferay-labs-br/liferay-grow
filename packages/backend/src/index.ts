@@ -5,10 +5,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { config } from 'dotenv';
 import Express from 'express';
-import * as fs from 'fs';
 import helmet from 'helmet';
 
-import { exportCSV } from './exportFile';
+import { Reports } from './controller/Reports';
 import createSchema from './utils/createSchema';
 import { logger } from './utils/globalMethods';
 import { createTypeormConn } from './utils/typeORMConn';
@@ -23,7 +22,6 @@ class App {
     this.initializeMiddlewares();
     this.initializeControllers();
     this.initializeApollo();
-    this.initializeExportFile();
   }
 
   private async initializeApollo(): Promise<void> {
@@ -61,24 +59,14 @@ class App {
   }
 
   private initializeControllers(): void {
-    this.express.get('/', (_, res) => res.json({ message: 'Hi!' }));
-  }
+    const ReportController = new Reports();
 
-  private initializeExportFile(): void {
-    this.express.get('/csv/export', cors(), async (_, res) => {
-      if (!fs.existsSync('temp')) {
-        fs.mkdirSync('temp');
-      }
-      const path = '/data.csv';
-      const ws = fs.createWriteStream(`temp/data.csv`);
-
-      const file = await exportCSV();
-      file
-        .on('finish', function () {
-          res.json({ path });
-        })
-        .pipe(ws);
-    });
+    this.express.get('/', (_, res) => res.json({ message: 'Liferay Grow' }));
+    this.express.get(
+      '/csv/export',
+      cors(),
+      ReportController.getKnowledgeSkillAndGapsCSV.bind(ReportController),
+    );
   }
 
   private async initializeDatabase(): Promise<void> {
