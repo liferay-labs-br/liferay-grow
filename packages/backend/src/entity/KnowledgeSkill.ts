@@ -9,11 +9,18 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { KnowledgeMatrizAverage } from '../resolvers/knowledge_matriz/Inputs';
+import {
+  KnowledgeMatrizAverage,
+  KnowledgeSkillSummary,
+} from '../resolvers/knowledge_matriz/Inputs';
 import { UserKnowledgeSkillInput } from '../resolvers/knowledge_skill/Inputs';
 import { slugify } from '../utils/globalMethods';
-import { getKnowledgeMatrizAverage } from '../utils/queries';
+import {
+  getKnowledgeMatrizAverage,
+  getKnowledgeSummaryCount,
+} from '../utils/queries';
 import { KnowledgeArea } from './KnowledgeArea';
+import { KnowledgeMatriz } from './KnowledgeMatriz';
 import { MainEntity } from './MainEntity';
 import { User } from './User';
 
@@ -121,5 +128,43 @@ export class KnowledgeSkill extends MainEntity {
     });
 
     return knowledgeMatrizAverage;
+  }
+
+  @Field(() => [KnowledgeSkillSummary])
+  async summary(): Promise<KnowledgeSkillSummary[]> {
+    const [knowledgeMatrizes, [matrizCount, [gapsCount]]] = await Promise.all([
+      KnowledgeMatriz.find(),
+      getKnowledgeSummaryCount(this.id),
+    ]);
+
+    const skillSummary: KnowledgeSkillSummary[] = [
+      {
+        name: 'With Knowledge Gap',
+        value: Number(gapsCount.total),
+      },
+      ...matrizCount.map(({ name, total }: any) => ({
+        name,
+        value: Number(total),
+      })),
+    ];
+
+    for (const knowledgeMatriz of knowledgeMatrizes) {
+      const skillExistInSummary = skillSummary.find(
+        ({ name }) => name === knowledgeMatriz.name,
+      );
+
+      if (!skillExistInSummary) {
+        skillSummary.push({
+          name: knowledgeMatriz.name,
+          value: 0,
+        });
+      }
+    }
+
+    const skillSummarySorted = skillSummary.sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
+
+    return skillSummarySorted;
   }
 }
