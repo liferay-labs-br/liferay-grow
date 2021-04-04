@@ -4,6 +4,7 @@ import ClayForm, { ClaySelect } from '@clayui/form';
 import { useModal } from '@clayui/modal';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import DropDown from '@/components/drop-down/DropDown';
 import DropDownTabs from '@/components/drop-down/DropDownTabs';
@@ -18,6 +19,8 @@ import HomeTemplate from '@/components/templates/HomeTemplate';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
 import { Skill } from '@/types';
+
+import { baseURL } from '../graphql/nextApollo';
 
 const KnowledgeAreaManagement: React.FC<
   React.HTMLAttributes<HTMLElement>
@@ -88,6 +91,24 @@ const KnowledgeAreaHeader: React.FC = () => {
     onClose: () => setVisible(!visible),
   });
 
+  const downlaodFile = () => {
+    fetch(`${baseURL}/${extension}/export`)
+      .then((response) => response.json())
+      .then((res) => {
+        const url = baseURL + res.path;
+        console.log(url);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        toast.success(i18n.get('your-request-completed-successfully'));
+      })
+      .catch(() => toast.error(i18n.get('an-unexpected-error-occurred')))
+      .finally(() => setVisible(false));
+  };
+
   return (
     <>
       <Meta title={i18n.sub('app-title-x', 'knowledge-areas')} />
@@ -115,10 +136,7 @@ const KnowledgeAreaHeader: React.FC = () => {
             >
               {i18n.get('cancel')}
             </ClayButton>
-            <ClayButton
-              displayType="primary"
-              onClick={() => console.log(extension)}
-            >
+            <ClayButton displayType="primary" onClick={downlaodFile}>
               {i18n.get('export')}
             </ClayButton>
           </>

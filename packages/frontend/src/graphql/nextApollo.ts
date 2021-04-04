@@ -4,7 +4,8 @@ import { useMemo } from 'react';
 
 let apolloClient;
 
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3333';
+export const baseURL =
+  process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3333';
 
 function createApolloClient() {
   return new ApolloClient({
