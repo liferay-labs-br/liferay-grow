@@ -4,10 +4,10 @@ services:
     image: mysql:5.7
     container_name: mysql
     environment:
+      MYSQL_DATABASE: liferay-grow
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: root
-      MYSQL_DATABASE: liferay-grow
     volumes:
       - liferay-grow-db:/var/lib/mysql
     ports:
@@ -17,6 +17,12 @@ services:
     build: ./packages/backend
     container_name: liferay-grow-api
     environment: 
+      APP_NAME: Liferay Grow
+      HTTP_PORT: 3333
+      GITHUB_CLIENT_ID: ${CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${CLIENT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      NODE_ENV: production
       TYPEORM_CONNECTION: mysql
       TYPEORM_HOST: mysql
       TYPEORM_USERNAME: root
@@ -27,13 +33,8 @@ services:
       TYPEORM_LOGGING: "false"
       TYPEORM_ENTITIES: dist/src/entity/*.js
       TYPEORM_MIGRATIONS: dist/src/migration/*.js
-      HTTP_PORT: 3333
-      APP_NAME: Liferay Grow
-      NODE_ENV: development
       AUTH_MIDDLEWARE_ENABLED: "true"
-      GITHUB_CLIENT_ID: ${CLIENT_ID}
-      GITHUB_CLIENT_SECRET: ${CLIENT_SECRET}
-      JWT_SECRET: ${JWT_SECRET}
+      VALIDATE_LIFERAY_ORG: "true"
     ports: 
       - '3333:3333'
     depends_on: 
