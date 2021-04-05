@@ -74,15 +74,20 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
 > => {
   const baseQuery = `
   SELECT ks.name AS Skill,
-       g.name AS Member,
-       LEVEL AS 'Knowledge Level',
-                CASE isMentor
-                    WHEN 0 THEN 'No'
-                    WHEN 1 THEN 'Yes'
-                END AS Mentor,
-                r.name AS Role,
-                g.email AS Email,
-                g.location AS Location
+      g.name AS Member,
+      LEVEL AS 'Knowledge Level',
+              CASE isMentor
+                  WHEN 0 THEN 'No'
+                  WHEN 1 THEN 'Yes'
+              END AS Mentor,
+              r.name AS Role,
+              g.email AS Email,
+              g.location AS Location,
+      (SELECT GROUP_CONCAT(t.name) teams 
+      FROM user_details_teams udt
+      INNER JOIN team t ON udt.teamId = t.id
+      GROUP BY udt.userDetailsId) AS Teams
+
   FROM
     (SELECT ksd.knowledgeSkillId,
           gmksd.growMapId,
