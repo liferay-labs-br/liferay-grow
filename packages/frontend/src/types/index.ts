@@ -35,14 +35,14 @@ export type KnowledgeSkillDetails = {
   knowledgeSkillId: string;
   knowledgeMatrizId?: string;
   knowledgeMatriz: KnowledgeMatriz;
-  knowledgeSkill: BasicQuery;
+  knowledgeSkill: Skill;
   isMentor?: boolean;
 };
 
 export type KnowledgeGapsDetails = {
   id: string;
   knowledgeSkillId: string;
-  knowledgeSkill: BasicQuery;
+  knowledgeSkill: Skill;
 };
 
 export type GrowMap = {

@@ -35,6 +35,7 @@ const KNOWLEDGE_SKILLS_DETAILS_FRAGMENT = gql`
     knowledgeSkill {
       id
       name
+      slug
     }
     knowledgeMatriz {
       id
@@ -50,6 +51,7 @@ const KNOWLEDGE_GAPS_DETAILS_FRAGMENT = gql`
     knowledgeSkill {
       id
       name
+      slug
     }
   }
 `;
