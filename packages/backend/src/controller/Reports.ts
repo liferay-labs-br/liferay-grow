@@ -5,7 +5,7 @@ import { getKnowledgeSkillsAndGaps } from '../utils/queries';
 import { CSVController } from './CSV';
 
 export class Reports extends CSVController {
-  async getKnowledgeSkillAndGapsCSV(_: Request, res: Response): Promise<any> {
+  async getKnowledgeSkillAndGapsCSV(_: Request, res: Response): Promise<void> {
     const path = '/data.csv';
 
     const knowledgeSkillsAndGaps = await getKnowledgeSkillsAndGaps();
