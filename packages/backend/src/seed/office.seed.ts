@@ -7,7 +7,7 @@ export default [
     state: 'Pernambuco',
     teams: [
       { name: 'DXP - Workflow' },
-      { name: 'DXP - App Builder' },
+      { name: 'DXP - Solutions' },
       { name: 'DXP - Forms' },
       { name: 'DXP - Data Engine' },
       { name: 'AC - Cerebro' },
@@ -24,6 +24,7 @@ export default [
       { name: 'DXP - Lima' },
       { name: 'DXP - Tango' },
       { name: 'DXP - Headless' },
+      { name: 'DXP - Frontend Infrastructure' },
     ],
   },
   {
@@ -32,7 +33,14 @@ export default [
     country: 'United States',
     name: 'Diamond Bar',
     state: 'California',
-    teams: [{ name: 'AC - Faro' }, { name: 'DXP - User & System Management' }],
+    teams: [
+      { name: 'AC - Faro' },
+      { name: 'DXP - User & System Management' },
+      { name: 'DXP - Publications' },
+      { name: 'DXP - Upgrades' },
+      { name: 'DXP - Core Infrastructure' },
+      { name: 'DXP - Search' },
+    ],
   },
   {
     address: 'Budapest, Madarász Viktor utca 47 a-b, 1138 Hungria',
