@@ -24,7 +24,12 @@ import { KnowledgeMatriz } from './KnowledgeMatriz';
 import { MainEntity } from './MainEntity';
 import { User } from './User';
 
-const relations = ['github'];
+const relations = [
+  'github',
+  'growMap',
+  'growMap.userDetails',
+  'growMap.userDetails.role',
+];
 
 @ObjectType()
 @Entity({ orderBy: { name: 'ASC' } })

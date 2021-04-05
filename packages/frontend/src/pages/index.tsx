@@ -97,7 +97,6 @@ const KnowledgeAreaHeader: React.FC = () => {
       .then((response) => response.json())
       .then((res) => {
         const url = baseURL + res.path;
-        console.log(url);
         const a = document.createElement('a');
         a.href = url;
         a.download = 'data.csv';
