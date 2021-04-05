@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
 import { ApolloServer, Config } from 'apollo-server-express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import { config } from 'dotenv';
 import Express from 'express';
@@ -90,10 +89,10 @@ class App {
   }
 
   private initializeMiddlewares(): void {
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: true }));
-    this.express.use(helmet({ contentSecurityPolicy: false }));
+    this.express.use(Express.json());
     this.express.use(Express.static('temp'));
+    this.express.use(Express.urlencoded({ extended: true }));
+    this.express.use(helmet({ contentSecurityPolicy: false }));
   }
 
   public listen(): void {
