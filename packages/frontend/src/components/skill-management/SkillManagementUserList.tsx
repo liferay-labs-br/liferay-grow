@@ -8,7 +8,7 @@ import { SelectedSkills, Types } from '@/types';
 
 import SkillContext from './SkillContext';
 
-const SkillMatrizThreshold = 4;
+const SkillMatrizThreshold = 2;
 
 type SkillForm = {
   skill: SelectedSkills;
