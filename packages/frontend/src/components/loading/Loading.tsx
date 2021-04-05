@@ -7,10 +7,10 @@ type ILoadingWrapperProps = {
 
 const LoadingWrapper: React.FC<ILoadingWrapperProps> = ({ text }) => {
   return (
-    <>
+    <div className="mt-4">
       <ClayLoadingIndicator />
       {text}
-    </>
+    </div>
   );
 };
 
