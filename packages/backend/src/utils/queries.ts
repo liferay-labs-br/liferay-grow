@@ -86,8 +86,9 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
       (SELECT GROUP_CONCAT(t.name) teams 
       FROM user_details_teams udt
       INNER JOIN team t ON udt.teamId = t.id
+      INNER JOIN grow_map on grow_map.userDetailsId = udt.userDetailsId
+      WHERE grow_map.id = gm.id
       GROUP BY udt.userDetailsId) AS Teams
-
   FROM
     (SELECT ksd.knowledgeSkillId,
           gmksd.growMapId,
@@ -98,7 +99,7 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
    INNER JOIN knowledge_matriz km ON ksd.knowledgeMatrizId = km.id
    UNION SELECT kgd.knowledgeSkillId,
                 gmkgd.growMapId,
-                'Gap' AS LEVEL,
+                'Knowledge Gap' AS LEVEL,
                 0 AS isMentor
    FROM knowledge_gaps_details kgd
    INNER JOIN grow_map_knowledge_gaps_details gmkgd ON kgd.id = gmkgd.knowledgeGapsDetailsId) AS ksgd
