@@ -3,7 +3,7 @@ import ClayLayout from '@clayui/layout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Cell, Legend, Pie, PieChart } from 'recharts';
+import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 
 import Header from '@/components/header';
 import Meta from '@/components/meta';
@@ -21,16 +21,19 @@ type Summary = {
 };
 
 type SkillDetailMentorsPanelProps = {
-  area: {
-    name: string;
-  };
   mentoringMembers: {
+    growMap?: {
+      userDetails?: {
+        role?: {
+          name: string;
+        };
+      };
+    };
     github: Github;
   }[];
 };
 
 const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
-  area,
   mentoringMembers,
 }) => {
   const i18n = useLang();
@@ -38,7 +41,7 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
   return (
     <Panel displayType="unstyled" title={i18n.get('mentors')}>
       {!!mentoringMembers.length &&
-        mentoringMembers.map(({ github }) => (
+        mentoringMembers.map(({ github, growMap }) => (
           <ClayLayout.Col key={github.id} size={3}>
             <ClayCard>
               <img
@@ -57,7 +60,7 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
                         </Link>
                       </ClayCard.Description>
                       <ClayCard.Description displayType="subtitle">
-                        {area.name}
+                        {growMap?.userDetails?.role?.name}
                       </ClayCard.Description>
                     </section>
                   </div>
@@ -77,11 +80,21 @@ interface ISkillDetailSummaryProps extends React.HTMLAttributes<HTMLElement> {
 const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({ summary }) => {
   const i18n = useLang();
 
+  // Filter Empty Results from Summary
+
+  const summaryData = summary.filter(({ value }) => value);
+
+  const getFromattedTooltip = (value: number) => {
+    const valueString = value.toString();
+
+    return i18n.sub(value > 1 ? 'x-members' : 'x-member', valueString);
+  };
+
   return (
     <Panel displayType="unstyled" title={i18n.get('summary')}>
       <PieChart className="summary-chart" width={420} height={280}>
         <Pie
-          data={summary}
+          data={summaryData}
           dataKey="value"
           nameKey="name"
           cx="50%"
@@ -90,10 +103,11 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({ summary }) => {
           outerRadius={120}
           paddingAngle={0}
         >
-          {summary.map((entry, index) => (
+          {summary.map((_, index) => (
             <Cell key={index} fill={COLORS[index]} />
           ))}
         </Pie>
+        <Tooltip formatter={getFromattedTooltip} />
         <Legend
           align="right"
           iconSize={16}
@@ -117,8 +131,6 @@ const SkillDetail = ({
   const i18n = useLang();
   const totalMembers = mentoringMembers.length + otherMembers.length;
 
-  console.log(summary);
-
   return (
     <>
       <Meta title={`${i18n.get('knowledge-detail')} - ${i18n.get(name)}`} />
@@ -138,10 +150,7 @@ const SkillDetail = ({
         <ClayLayout.Row className="mt-4">
           <ClayLayout.Col size={12}>
             <ClayCard className="p-4">
-              <SkillDetailMentorsPanel
-                area={area}
-                mentoringMembers={mentoringMembers}
-              />
+              <SkillDetailMentorsPanel mentoringMembers={mentoringMembers} />
 
               <SkillDetailSummay summary={summary} />
             </ClayCard>

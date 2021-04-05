@@ -114,6 +114,13 @@ export const knowledgeSkillBySlug = gql`
       }
       mentoringMembers: userSkills(data: { isMentor: true }) {
         id
+        growMap {
+          userDetails {
+            role {
+              name
+            }
+          }
+        }
         github {
           id
           name
