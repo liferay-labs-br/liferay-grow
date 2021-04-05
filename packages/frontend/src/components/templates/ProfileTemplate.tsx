@@ -91,7 +91,7 @@ const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
         <Panel title={i18n.get('skills-details')}>
           {me.growMap?.knowledgeSkillDetails?.map(
             ({ id, knowledgeMatriz, knowledgeSkill }) => (
-              <Panel.Item key={id}>
+              <Panel.Item key={id} href={`/skill/${knowledgeSkill.slug}`}>
                 <Panel.Title>{knowledgeSkill.name}</Panel.Title>
                 <Panel.Body>
                   <span>{knowledgeMatriz.name}</span>
@@ -103,7 +103,7 @@ const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
         </Panel>
         <Panel title={i18n.get('knowledge-gaps')}>
           {me.growMap?.knowledgeGapsDetails?.map(({ id, knowledgeSkill }) => (
-            <Panel.Item key={id}>
+            <Panel.Item key={id} href={`/skill/${knowledgeSkill.slug}`}>
               <Panel.Title>{knowledgeSkill.name}</Panel.Title>
             </Panel.Item>
           ))}
