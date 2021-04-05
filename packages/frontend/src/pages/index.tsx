@@ -92,7 +92,7 @@ const KnowledgeAreaHeader: React.FC = () => {
     onClose: () => setVisible(!visible),
   });
 
-  const downlaodFile = () => {
+  const downloadFile = () => {
     fetch(`${baseURL}/${extension}/export`)
       .then((response) => response.json())
       .then((res) => {
@@ -136,7 +136,7 @@ const KnowledgeAreaHeader: React.FC = () => {
             >
               {i18n.get('cancel')}
             </ClayButton>
-            <ClayButton displayType="primary" onClick={downlaodFile}>
+            <ClayButton displayType="primary" onClick={downloadFile}>
               {i18n.get('export')}
             </ClayButton>
           </>

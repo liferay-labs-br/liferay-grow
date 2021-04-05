@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import { initializeApollo } from '@/graphql/nextApollo';
 import { allKnowledgeData } from '@/graphql/queries';
 import { SkillManagement, Types } from '@/types';
 
+import LoadingWrapper from '../loading';
 import SkillContext, { initialState, mainReducer } from './SkillContext';
 
 type AppProvider = {
@@ -17,12 +18,14 @@ const AppProvider: React.FC<AppProvider> = ({
   defaultState = {},
 }) => {
   const client = initializeApollo(null, true);
+  const [loading, setLoading] = useState(false);
   const [state, dispatch] = useReducer(mainReducer, {
     ...initialState,
     ...defaultState,
   });
 
   const fetchKnowledgeData = async () => {
+    setLoading(true);
     const { data } = await client.query({
       query: allKnowledgeData,
     });
@@ -31,6 +34,8 @@ const AppProvider: React.FC<AppProvider> = ({
       payload: data,
       type: Types.EDIT_KNOWLEDGE_DATA,
     });
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -41,7 +46,7 @@ const AppProvider: React.FC<AppProvider> = ({
 
   return (
     <SkillContext.Provider value={{ dispatch, state }}>
-      {children}
+      {loading ? <LoadingWrapper /> : children}
     </SkillContext.Provider>
   );
 };
