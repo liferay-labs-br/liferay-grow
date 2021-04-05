@@ -19,6 +19,7 @@ export class Reports extends CSVController {
         'Role',
         'Email',
         'Location',
+        'Teams',
       ],
     });
 
