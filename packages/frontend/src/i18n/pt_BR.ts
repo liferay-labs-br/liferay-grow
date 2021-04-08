@@ -71,8 +71,8 @@ export default {
   'welcome-to-the-engineering-grow-together-program':
     'Bem-vindo ao programa da equipe de engenharia, Grow Together',
   'welcome-x': 'Bem vindo, {0}',
-  'x-member': '{0} Member',
-  'x-members': '{0} Members',
+  'x-member': '{0} Membro',
+  'x-members': '{0} Membros',
   'you-must-create-knowledge-areas-and-knowledge-gaps':
     'Você deve criar as áreas de conhecimentos',
   'your-request-completed-successfully':
