@@ -7,7 +7,7 @@ class KnowledgeSkillBaseInput {
 }
 
 @InputType()
-class CreateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
+export class CreateKnowledgeSkillInput extends KnowledgeSkillBaseInput {
   @Field({ nullable: true })
   area?: string;
 }
