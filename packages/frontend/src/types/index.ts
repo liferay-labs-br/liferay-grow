@@ -24,6 +24,7 @@ export type UserDetails = {
 
 export interface KnowledgeMatriz extends BasicQuery {
   matrizLevel?: number;
+  description?: string;
 }
 
 export interface KnowledgeArea extends BasicQuery {

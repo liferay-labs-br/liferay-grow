@@ -102,6 +102,7 @@ export const KNOWLEDGE_MATRIZ_FRAGMENT = gql`
     id
     name
     matrizLevel
+    description
   }
 `;
 
