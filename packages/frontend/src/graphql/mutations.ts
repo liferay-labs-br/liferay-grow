@@ -26,6 +26,12 @@ export const UpdateGrowMapSkillDetails = gql`
   }
 `;
 
+export const UpdateGrowMapOfficeDetails = gql`
+  mutation UpdateGrowMapOfficeDetails($data: UserDetailBaseInput!) {
+    updateGrowMapOfficeDetails(data: $data)
+  }
+`;
+
 export const CreateKnowledgeSkill = gql`
   mutation CreateKnowledgeSkill($data: CreateKnowledgeSkillInput!) {
     createKnowledgeSkill(data: $data) {

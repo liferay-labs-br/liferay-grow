@@ -2,7 +2,11 @@ import { useMutation } from '@apollo/client';
 import React from 'react';
 import { toast } from 'react-toastify';
 
-import { UserSkillTemplate } from '@/components/templates/ProfileSkillTemplate';
+import SkillContextProvider from '@/components/skill-management/SkillContextProvider';
+import {
+  SkillDetails,
+  UserSkillTemplate,
+} from '@/components/templates/ProfileSkillTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { UpdateGrowMapSkillDetails } from '@/graphql/mutations';
 import { getMe } from '@/graphql/queries';
@@ -60,12 +64,11 @@ const ProfileSkillDetails = () => {
         );
 
         return (
-          <UserSkillTemplate
-            title={i18n.get('skills-details')}
-            me={me}
-            defaultState={{ selectedSkills }}
-            onSave={(skills) => onSave(skills, refetch)}
-          />
+          <UserSkillTemplate title={i18n.get('skills-details')} me={me}>
+            <SkillContextProvider defaultState={{ selectedSkills }}>
+              <SkillDetails onSave={(skills) => onSave(skills, refetch)} />
+            </SkillContextProvider>
+          </UserSkillTemplate>
         );
       }}
     </WrappedSafeComponent>

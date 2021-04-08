@@ -2,7 +2,11 @@ import { useMutation } from '@apollo/client';
 import React from 'react';
 import { toast } from 'react-toastify';
 
-import { UserSkillTemplate } from '@/components/templates/ProfileSkillTemplate';
+import SkillContextProvider from '@/components/skill-management/SkillContextProvider';
+import {
+  SkillDetails,
+  UserSkillTemplate,
+} from '@/components/templates/ProfileSkillTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { UpdateGrowMapGapsDetails } from '@/graphql/mutations';
 import { getMe } from '@/graphql/queries';
@@ -62,16 +66,17 @@ const ProfileKnowledgeGaps = () => {
         );
 
         return (
-          <UserSkillTemplate
-            me={me}
-            title={i18n.get('knowledge-gaps')}
-            defaultState={{
-              knowledgeMatrizLevelAllowed: false,
-              selectedSkills: selectedSkills,
-              unavailableKnowledgeSkills: knowledgeSkills,
-            }}
-            onSave={(skills) => onSave(skills, refetch)}
-          />
+          <UserSkillTemplate me={me} title={i18n.get('knowledge-gaps')}>
+            <SkillContextProvider
+              defaultState={{
+                knowledgeMatrizLevelAllowed: false,
+                selectedSkills,
+                unavailableKnowledgeSkills: knowledgeSkills,
+              }}
+            >
+              <SkillDetails onSave={(skills) => onSave(skills, refetch)} />
+            </SkillContextProvider>
+          </UserSkillTemplate>
         );
       }}
     </WrappedSafeComponent>
