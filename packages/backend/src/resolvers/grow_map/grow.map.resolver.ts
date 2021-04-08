@@ -11,6 +11,7 @@ import { GrowMap } from '../../entity/GrowMap';
 import { MyContext } from '../../interfaces';
 import { isAuth } from '../../middlewares/isAuth';
 import { getUserFromCtxOrFail, logger } from '../../utils/globalMethods';
+import { UserDetailBaseInput } from '../user_details/Inputs';
 import {
   getKnowledgeEntities,
   saveKnowledgeGapsDetails,
@@ -65,7 +66,7 @@ export class GrowMapResolver {
       data.knowledgeSkillDetails,
     );
 
-    const userDetails = await saveUserDetails(data);
+    const userDetails = await saveUserDetails(data.userDetails);
 
     user.growMap = growMap;
 
@@ -189,6 +190,26 @@ export class GrowMapResolver {
     ];
 
     await user.growMap.save();
+
+    return true;
+  }
+
+  @Mutation(() => Boolean, { name: 'updateGrowMapOfficeDetails' })
+  @UseMiddleware(isAuth)
+  async updateGrowMapOfficeDetails(
+    @Arg('data') data: UserDetailBaseInput,
+    @Ctx() ctx: MyContext,
+  ): Promise<boolean> {
+    const user = await getUserFromCtxOrFail(ctx, [
+      ...relations,
+      'growMap.userDetails',
+    ]);
+
+    if (!user.growMap) {
+      throw new Error('Grow Map not exists');
+    }
+
+    await saveUserDetails(data, user.growMap.userDetails);
 
     return true;
   }

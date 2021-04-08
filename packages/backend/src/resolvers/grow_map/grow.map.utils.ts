@@ -7,7 +7,7 @@ import { Team } from '../../entity/Team';
 import { UserDetails } from '../../entity/UserDetails';
 import { KnowledgeGapsDetailBaseInput } from '../knowledge_gaps_detail/Inputs';
 import { KnowledgeSkillDetailBaseInput } from '../knowledge_skill_detail/Inputs';
-import { GrowMapBaseInput } from './Inputs';
+import { UserDetailBaseInput } from '../user_details/Inputs';
 
 const getKnowledgeSkills = ({
   knowledgeSkillId,
@@ -109,20 +109,25 @@ export const saveKnowledgeGapsDetails = async (
   return knowledgeGapsDetails;
 };
 
-export const saveUserDetails = async ({
-  userDetails: { roleId, teamsId },
-}: GrowMapBaseInput): Promise<UserDetails> => {
+export const saveUserDetails = async (
+  { roleId, teamsId }: UserDetailBaseInput,
+  _userDetails?: UserDetails,
+): Promise<UserDetails> => {
   const [role, teams] = await Promise.all([
     Role.findOne(roleId),
     Team.findByIds([...new Set(teamsId)]),
   ]);
 
-  const userDetail = await UserDetails.create();
+  let userDetails: UserDetails | undefined = _userDetails;
 
-  userDetail.role = role;
-  userDetail.teams = teams;
+  if (!userDetails) {
+    userDetails = await UserDetails.create();
+  }
 
-  await userDetail.save();
+  userDetails.role = role;
+  userDetails.teams = teams;
 
-  return userDetail;
+  await userDetails.save();
+
+  return userDetails;
 };
