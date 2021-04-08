@@ -51,6 +51,7 @@ const PanelBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
 
 interface IPanelProps {
   title: string;
+  defaultExpanded?: boolean;
   displayType?: 'secondary' | 'unstyled';
 }
 
@@ -59,11 +60,16 @@ const Panel: React.FC<IPanelProps> & {
   Item: React.ElementType;
   Title: React.ElementType;
   ProgressBar: React.ElementType;
-} = ({ children, displayType = 'secondary', title }) => {
+} = ({
+  children,
+  defaultExpanded = true,
+  displayType = 'secondary',
+  title,
+}) => {
   return (
     <ClayPanel
       collapsable
-      defaultExpanded
+      defaultExpanded={defaultExpanded}
       displayTitle={title}
       displayType={displayType}
       className="panel"

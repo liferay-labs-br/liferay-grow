@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 
+import EmptyState from '@/components/empty-state';
 import Header from '@/components/header';
 import Meta from '@/components/meta';
 import Panel from '@/components/panel';
@@ -38,9 +39,15 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
 }) => {
   const i18n = useLang();
 
+  const hasMentors = !!mentoringMembers.length;
+
   return (
-    <Panel displayType="unstyled" title={i18n.get('mentors')}>
-      {!!mentoringMembers.length &&
+    <Panel
+      displayType="unstyled"
+      title={i18n.get('mentors')}
+      defaultExpanded={hasMentors}
+    >
+      {hasMentors ? (
         mentoringMembers.map(({ github, growMap }) => (
           <ClayLayout.Col key={github.id} size={3}>
             <ClayCard>
@@ -68,7 +75,10 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
               </ClayCard.Body>
             </ClayCard>
           </ClayLayout.Col>
-        ))}
+        ))
+      ) : (
+        <EmptyState title={i18n.get('there-are-no-mentors-yet')} />
+      )}
     </Panel>
   );
 };

@@ -61,6 +61,7 @@ export default {
   'there-are-no-entries-yet': 'Ainda não há entradas.',
   'there-are-no-knowledge-area-yet': 'Ainda não há áreas de conhecimento.',
   'there-are-no-members-yet': 'Ainda não há membros.',
+  'there-are-no-mentors-yet': 'Ainda não há mentores.',
   'this-csv-file-contains-user-supplied-inputs-apening-a-csv-file-in-a-spreadsheet-program-may-be-dangerous':
     'Este arquivo CSV contém entradas fornecidas pelo usuário. Abrir um arquivo CSV em um programa de planilha pode ser perigoso.',
   'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `

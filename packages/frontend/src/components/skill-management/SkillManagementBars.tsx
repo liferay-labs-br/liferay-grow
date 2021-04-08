@@ -133,7 +133,7 @@ const AddMoreSkillsComponent = () => {
             <ClayButton
               className="mr-3"
               displayType="secondary"
-              onClick={onToggle}
+              onClick={onClose}
             >
               {i18n.get('cancel')}
             </ClayButton>
