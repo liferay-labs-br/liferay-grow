@@ -26,7 +26,7 @@ const Template: React.FC<ITemplateProps> = ({ children, me, title }) => {
     },
   } = useContext(AppContext);
 
-  const belongsToMe = me.id === loggedUser.user.id;
+  const belongsToMe = me?.id === loggedUser?.user?.id;
 
   return (
     <Profile>
