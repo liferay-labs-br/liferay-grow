@@ -4,22 +4,24 @@ import React, { useContext } from 'react';
 
 import Profile, { ProfileWrapper } from '@/components/profile';
 import SkillContext from '@/components/skill-management/SkillContext';
-import SkillContextProvider from '@/components/skill-management/SkillContextProvider';
 import SkillManagement from '@/components/skill-management/SkillManagement';
 import WelcomeContent from '@/components/welcome/WelcomeContent';
 import useLang from '@/hooks/useLang';
-import {
-  Me,
-  SelectedSkills,
-  SkillManagement as ISkillManagement,
-} from '@/types';
+import { Me, SelectedSkills } from '@/types';
 import ROUTES from '@/utils/routes';
+
+import Meta from '../meta';
 
 const userSkillsPaths = [
   {
     name: 'Profile',
     path: '/profile',
     symbol: 'user',
+  },
+  {
+    name: 'office-details',
+    path: '/profile/office-details',
+    symbol: 'document',
   },
   {
     name: 'skills-details',
@@ -34,9 +36,7 @@ const userSkillsPaths = [
 ];
 
 type ITemplateProps = {
-  defaultState: ISkillManagement;
   me: Me;
-  onSave: (skill: SelectedSkills[]) => void;
   title: string;
 };
 
@@ -78,18 +78,18 @@ const SkillDetails: React.FC<SkillDetailsProps> = ({ onSave }) => {
 };
 
 const UserSkillTemplate: React.FC<ITemplateProps> = ({
-  defaultState,
+  children,
   me,
-  onSave,
   title,
 }) => {
+  const i18n = useLang();
+
   return (
     <Profile>
+      <Meta title={i18n.sub('app-title-x', title)} />
       <ProfileWrapper steps={userSkillsPaths} me={me}>
         <h1 className="mb-4">{title}</h1>
-        <SkillContextProvider defaultState={defaultState}>
-          <SkillDetails onSave={onSave} />
-        </SkillContextProvider>
+        {children}
       </ProfileWrapper>
     </Profile>
   );

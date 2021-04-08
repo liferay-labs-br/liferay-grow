@@ -51,7 +51,7 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
           office: { city, country },
         } = getTeamBySlug;
 
-        const totalItems = members?.pagination?.totalItems;
+        const totalItems = members?.pagination?.totalItems || 0;
 
         return (
           <>
@@ -61,9 +61,12 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
                 <Header border={false} centralized>
                   <Header.Info>
                     <Header.Title>{name}</Header.Title>
-                    <p>{`${totalItems || 0} ${
-                      totalItems > 1 ? 'members' : 'member'
-                    }`}</p>
+                    <p>
+                      {i18n.sub(
+                        totalItems > 1 ? 'x-members' : 'x-member',
+                        totalItems.toString(),
+                      )}
+                    </p>
                     <p>{`${city}, ${country}`}</p>
                   </Header.Info>
                 </Header>

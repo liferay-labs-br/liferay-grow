@@ -70,8 +70,8 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
           me.growMap &&
           belongsToMe && [
             {
-              action: () => router.push('/profile/skill-details'),
-              name: i18n.get('edit-knowledge-areas'),
+              action: () => router.push('/profile/office-details'),
+              name: i18n.get('edit-profile'),
             },
           ]
         }
