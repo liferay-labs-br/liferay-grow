@@ -8,6 +8,8 @@ import ROUTES from '@/utils/routes';
 
 import NavigationOptions from '../navigation-options';
 
+const notAllowedToBack = ['/auth', '/auth/middleware'];
+
 const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   const i18n = useLang();
   const router = useRouter();
@@ -16,11 +18,13 @@ const NavigationBar: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
     <ClayNavigationBar className="NavigationBar" triggerLabel="Liferay">
       <ClayNavigationBar.Item className="item" active>
         <>
-          <ClayButtonWithIcon
-            onClick={() => router.back()}
-            displayType="unstyled"
-            symbol="angle-left"
-          />
+          {!notAllowedToBack.includes(router.pathname) && (
+            <ClayButtonWithIcon
+              onClick={() => router.back()}
+              displayType="unstyled"
+              symbol="angle-left"
+            />
+          )}
 
           <ClayButton
             onClick={() => router.push(ROUTES.HOME)}
