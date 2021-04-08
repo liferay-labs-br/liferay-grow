@@ -1,11 +1,13 @@
 import { ClayButtonWithIcon } from '@clayui/button';
-import ClayForm, { ClayCheckbox, ClayInput, ClaySelect } from '@clayui/form';
+import ClayDropDown, { Align } from '@clayui/drop-down';
+import ClayForm, { ClayCheckbox, ClayInput } from '@clayui/form';
 import ClayLayout from '@clayui/layout';
-import React, { Dispatch, useCallback, useContext } from 'react';
+import React, { Dispatch, useCallback, useContext, useState } from 'react';
 
 import useLang from '@/hooks/useLang';
 import { SelectedSkills, Types } from '@/types';
 
+import CustomSelect from '../../components/CustomSelect';
 import SkillContext from './SkillContext';
 
 const SkillMatrizThreshold = 2;
@@ -20,7 +22,7 @@ const dispatchChangeOnRow = ({
 }: {
   dispatch: Dispatch<any>;
   selectedSkills: SelectedSkills[];
-}) => ({ target: { name, value } }, skill: SelectedSkills) => {
+}) => ({ name, value }, skill: SelectedSkills) => {
   const updatedSelectedSkill = selectedSkills.map((selectedSkill) => {
     if (selectedSkill.knowledgeSkillId === skill.knowledgeSkillId) {
       return {
@@ -52,12 +54,17 @@ const SkillNameForm = ({ name }: { name: string }) => {
 };
 
 const SkillMatrizForm: React.FC<SkillForm> = ({ skill }) => {
+  const [active, setActive] = useState(false);
   const i18n = useLang();
 
   const {
     dispatch,
     state: { knowledgeMatriz, knowledgeMatrizLevelAllowed, selectedSkills },
   } = useContext(SkillContext);
+
+  const [selectedLevel, setSelectedLevel] = useState(
+    knowledgeMatriz.find(({ id }) => id === skill.knowledgeMatrizId)?.name,
+  );
 
   const onChangeRow = dispatchChangeOnRow({ dispatch, selectedSkills });
 
@@ -69,15 +76,29 @@ const SkillMatrizForm: React.FC<SkillForm> = ({ skill }) => {
     <ClayLayout.Col size={5}>
       <ClayForm.Group>
         <label>{i18n.get('level')}</label>
-        <ClaySelect
-          value={skill.knowledgeMatrizId}
-          name="knowledgeMatrizId"
-          onChange={(event) => onChangeRow(event, skill)}
+
+        <ClayDropDown
+          active={active}
+          alignmentPosition={Align.BottomLeft}
+          onActiveChange={(newVal) => setActive(newVal)}
+          trigger={<CustomSelect value={selectedLevel} />}
         >
-          {knowledgeMatriz.map(({ id, name }) => (
-            <ClaySelect.Option key={id} label={name} value={id} />
-          ))}
-        </ClaySelect>
+          <ClayDropDown.ItemList>
+            {knowledgeMatriz.map(({ description, id, name }) => (
+              <ClayDropDown.Item
+                key={id}
+                onClick={() => {
+                  onChangeRow({ name: 'knowledgeMatrizId', value: id }, skill);
+                  setSelectedLevel(name);
+                  setActive(false);
+                }}
+              >
+                <div>{name}</div>
+                <small className="text-secondary">{description}</small>
+              </ClayDropDown.Item>
+            ))}
+          </ClayDropDown.ItemList>
+        </ClayDropDown>
       </ClayForm.Group>
     </ClayLayout.Col>
   );
@@ -138,7 +159,8 @@ const SkillMentor: React.FC<SkillForm> = ({ skill }) => {
           onChange={() =>
             onChangeRow(
               {
-                target: { name: 'isMentor', value: !skill.isMentor },
+                name: 'isMentor',
+                value: !skill.isMentor,
               },
               skill,
             )
