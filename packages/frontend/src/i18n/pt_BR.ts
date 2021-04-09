@@ -46,6 +46,7 @@ export default {
   'sign-in-with-github': 'Entre com Github',
   skill: 'Habilidade',
   'skill-and-gaps': 'Habilidades e Gaps',
+  'skill-description': 'Descrição da Habilidade',
   'skill-name': 'Nome da Habilidade',
   'skills-details': 'Habilidades',
   'skip-it': 'Pular',
