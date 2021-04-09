@@ -4,6 +4,7 @@ import ClayForm, { ClayInput, ClaySelect } from '@clayui/form';
 import ClayIcon from '@clayui/icon';
 import ClayLayout from '@clayui/layout';
 import { useModal } from '@clayui/modal';
+import { ClayTooltipProvider } from '@clayui/tooltip';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -14,11 +15,6 @@ import { KnowledgeMatriz, KnowledgeMatrizAverage, Skill, Types } from '@/types';
 
 import Modal from '../modal';
 import SkillContext from './SkillContext';
-
-type ISkillInfoProps = {
-  onClick: (skill: Skill) => void;
-  skill: Skill;
-};
 
 type SkillListProps = {
   onClick: (skill: Skill) => void;
@@ -183,22 +179,26 @@ const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
   ListAverage: React.ElementType;
 } = ({ children }) => <div className="mt-3">{children}</div>;
 
-const SkillInfo: React.FC<ISkillInfoProps> = ({ onClick, skill }) => (
-  <ClayButton
-    displayType="secondary"
-    className="skill"
-    onClick={() => onClick(skill)}
-  >
-    {skill.name} <ClayIcon symbol="plus" className="ml-1" />
-  </ClayButton>
-);
-
 const SkillList: React.FC<SkillListProps> = ({ filteredSkills, onClick }) => (
-  <>
-    {filteredSkills.map((skill) => (
-      <SkillInfo key={skill.id} skill={skill} onClick={onClick} />
-    ))}
-  </>
+  <ClayTooltipProvider>
+    <div>
+      {filteredSkills.map((skill) => (
+        <ClayButton
+          key={skill.id}
+          data-tooltip-align="bottom"
+          data-tooltip-delay={200}
+          displayType="secondary"
+          title={skill.description}
+          className="skill"
+          onClick={() => onClick(skill)}
+        >
+          <span>
+            {skill.name} <ClayIcon symbol="plus" className="ml-1" />
+          </span>
+        </ClayButton>
+      ))}
+    </div>
+  </ClayTooltipProvider>
 );
 
 const SkillResults: React.FC<SkillResultsFooter> = ({
