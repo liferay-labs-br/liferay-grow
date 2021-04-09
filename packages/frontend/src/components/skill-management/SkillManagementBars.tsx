@@ -53,6 +53,7 @@ const AddMoreSkillsComponent = () => {
 
   const [knowledgeSkill, setKnowledgeSkill] = useState({
     area: '',
+    description: '',
     name: search,
   });
 
@@ -152,6 +153,14 @@ const AddMoreSkillsComponent = () => {
             name="name"
             onChange={onChange}
             value={knowledgeSkill.name}
+          />
+        </ClayForm.Group>
+        <ClayForm.Group>
+          <label>{i18n.get('skill-description')}</label>
+          <ClayInput
+            name="description"
+            onChange={onChange}
+            value={knowledgeSkill.description}
           />
         </ClayForm.Group>
         <ClayForm.Group>

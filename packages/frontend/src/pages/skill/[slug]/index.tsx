@@ -133,6 +133,7 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({ summary }) => {
 
 const SkillDetail = ({
   area,
+  description,
   mentoringMembers,
   name,
   otherMembers,
@@ -144,10 +145,10 @@ const SkillDetail = ({
   return (
     <>
       <Meta title={`${i18n.get('knowledge-detail')} - ${i18n.get(name)}`} />
-
       <Header centralized>
         <Header.Title>{name}</Header.Title>
         <Header.Info>
+          <p>{description}</p>
           {i18n.sub(
             totalMembers > 1 ? 'x-members' : 'x-member',
             String(totalMembers),
@@ -155,7 +156,6 @@ const SkillDetail = ({
         </Header.Info>
         <Header.Info>{area.name}</Header.Info>
       </Header>
-
       <ClayLayout.ContainerFluid size="lg">
         <ClayLayout.Row className="mt-4">
           <ClayLayout.Col size={12}>

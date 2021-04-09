@@ -2,21 +2,15 @@ import { Field, InputType } from 'type-graphql';
 
 @InputType()
 class TeamBaseInput {
-  @Field({ nullable: true })
-  name?: string;
+  @Field()
+  name: string;
 }
 
 @InputType()
-class CreateTeamInput extends TeamBaseInput {
-  @Field({ nullable: true })
-  office?: string;
-}
+class CreateTeamInput extends TeamBaseInput {}
 
 @InputType()
-class UpdateTeamInput extends TeamBaseInput {
-  @Field({ nullable: true })
-  office?: string;
-}
+class UpdateTeamInput extends TeamBaseInput {}
 
 @InputType()
 class FilterTeamInput extends TeamBaseInput {
