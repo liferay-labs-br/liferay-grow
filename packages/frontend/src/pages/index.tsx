@@ -106,7 +106,7 @@ const KnowledgeAreaHeader: React.FC = () => {
         toast.success(i18n.get('your-request-completed-successfully'));
       })
       .catch(() => toast.error(i18n.get('an-unexpected-error-occurred')))
-      .finally(() => setVisible(false));
+      .finally(onClose);
   };
 
   return (
