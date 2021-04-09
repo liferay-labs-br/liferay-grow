@@ -18,8 +18,9 @@ export class SeedKnowledgeArea1614781963810 implements MigrationInterface {
           getRepository('knowledge_skill').save({
             area,
             createdBy: 'SYSTEM',
-            name: skill,
-            slug: slugify(skill),
+            description: skill.description,
+            name: skill.name,
+            slug: slugify(skill.name),
           }),
         );
       }
