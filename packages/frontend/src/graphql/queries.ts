@@ -109,6 +109,7 @@ export const knowledgeSkillBySlug = gql`
     getKnowledgeSkillBySlug(slug: $slug) {
       id
       name
+      description
       area {
         name
       }
