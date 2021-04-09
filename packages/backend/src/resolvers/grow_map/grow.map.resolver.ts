@@ -219,6 +219,7 @@ export class GrowMapResolver {
     const GrowMaps = await GrowMap.find({
       relations: [
         'userDetails',
+        'userDetails.office',
         'userDetails.role',
         'userDetails.teams',
         'knowledgeGapsDetails',
