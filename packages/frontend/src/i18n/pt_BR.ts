@@ -73,6 +73,7 @@ export default {
   'welcome-x': 'Bem vindo, {0}',
   'x-member': '{0} Membro',
   'x-members': '{0} Membros',
+  'x-of-x': '{0} do {1}',
   'you-must-create-knowledge-areas-and-knowledge-gaps':
     'Você deve criar as áreas de conhecimentos',
   'your-request-completed-successfully':
