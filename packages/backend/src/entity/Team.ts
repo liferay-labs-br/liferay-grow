@@ -1,13 +1,5 @@
 import { Arg, Field, ObjectType } from 'type-graphql';
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  In,
-  Index,
-  ManyToOne,
-} from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, In, Index } from 'typeorm';
 
 import { KnowledgeMatrizAverage } from '../resolvers/knowledge_matriz/Inputs';
 import { getUserDetailsIdsByTeam } from '../resolvers/team/team.utils';
@@ -21,7 +13,6 @@ import { getKnowledgeMatrizAverage } from '../utils/queries';
 import { GrowMap } from './GrowMap';
 import { KnowledgeArea } from './KnowledgeArea';
 import { MainEntity } from './MainEntity';
-import { Office } from './Office';
 import { User } from './User';
 
 @ObjectType()
@@ -35,12 +26,6 @@ export class Team extends MainEntity {
   @Field({ nullable: true })
   @Column({ nullable: true })
   slug: string;
-
-  @Field(() => Office, { nullable: true })
-  @ManyToOne(() => Office, (office) => office.teams, {
-    cascade: ['insert', 'update'],
-  })
-  office: Office;
 
   @BeforeInsert()
   addSlug(): void {

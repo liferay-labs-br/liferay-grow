@@ -1,8 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 
 import { MainEntity } from './MainEntity';
-import { Team } from './Team';
 
 @ObjectType()
 @Entity({ orderBy: { name: 'ASC' } })
@@ -27,12 +26,4 @@ export class Office extends MainEntity {
   @Field()
   @Column()
   country: string;
-
-  @Field(() => [Team], { nullable: true })
-  @OneToMany(() => Team, (team) => team.office, {
-    cascade: true,
-    onDelete: 'CASCADE',
-    primary: true,
-  })
-  teams: Team[];
 }
