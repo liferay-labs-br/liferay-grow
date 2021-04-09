@@ -16,7 +16,7 @@ import Inputs, { CreateKnowledgeSkillInput } from './Inputs';
 
 const relations = ['area'];
 
-const BaseResolver = createBaseResolver(
+const BaseResolver = createBaseResolver<KnowledgeSkill>(
   'KnowledgeSkill',
   KnowledgeSkill,
   Inputs,
@@ -43,7 +43,7 @@ export class KnowledgeSkillResolver extends BaseResolver {
   async createKnowledgeSkill(
     @Ctx() ctx: MyContext,
     @Arg('data') data: CreateKnowledgeSkillInput,
-  ): Promise<KnowledgeSkill> {
+  ): Promise<KnowledgeSkill | Error> {
     const loggedUser = getLoggedUserFromCtx(ctx);
 
     return this.create({ ...data, createdBy: loggedUser?.login });
