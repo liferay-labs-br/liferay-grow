@@ -3,7 +3,7 @@ export default [
     address: 'R. dos Arcos, 160 - Poço da Panela, Recife - PE, 52061-180',
     city: 'Recife',
     country: 'Brazil',
-    name: 'Poço da Panela',
+    name: 'Recife',
     state: 'Pernambuco',
   },
   {

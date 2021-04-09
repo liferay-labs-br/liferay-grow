@@ -35,4 +35,7 @@ export default [
   {
     name: 'QA Engineer',
   },
+  {
+    name: 'Intern',
+  },
 ];

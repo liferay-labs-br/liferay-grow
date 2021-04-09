@@ -17,4 +17,6 @@ export default [
   { name: 'DXP - Search' },
   { name: 'DXP - Staging' },
   { name: 'DXP - Application Security' },
+  { name: 'Cross Team' },
+  { name: 'Onboarding' },
 ];
