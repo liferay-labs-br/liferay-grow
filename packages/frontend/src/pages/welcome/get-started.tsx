@@ -9,7 +9,7 @@ import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getStarted } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { allOffice, BasicQuery, Types } from '@/types';
+import { BasicQuery, Office, Team, Types } from '@/types';
 import ROUTES from '@/utils/routes';
 
 /**
@@ -25,27 +25,23 @@ type SelectedRole = {
 };
 
 interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
-  offices: allOffice[];
+  teams: Team[];
+  offices: Office[];
   roles: BasicQuery[];
 }
 
-const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles }) => {
+const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles, teams }) => {
   const {
     dispatch,
     state: {
       welcome: { data },
     },
   } = useContext(AppContext);
-  const { role, teams } = data.userDetails;
-  const [selectedRole, setSelectedRole] = useState<SelectedRole>(() => {
-    if (!role.id) {
-      return {};
-    }
+  const { office, role, teams: userTeams } = data.userDetails;
 
-    return role;
-  });
-
-  const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(teams);
+  const [selectedRole, setSelectedRole] = useState<SelectedRole>(role);
+  const [selectedOffice, setSelectedOffice] = useState<BasicQuery>(office);
+  const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(userTeams);
 
   const i18n = useLang();
   const router = useRouter();
@@ -59,6 +55,7 @@ const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles }) => {
       payload: {
         ...data,
         userDetails: {
+          office: selectedOffice,
           role: selectedRole,
           teams: selectedTeams,
         },
@@ -85,8 +82,11 @@ const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles }) => {
         <OfficeDetails
           selectedRole={selectedRole}
           selectedTeams={selectedTeams}
-          offices={offices}
+          selectedOffice={selectedOffice}
+          setSelectedOffice={setSelectedOffice}
+          teams={teams}
           roles={roles}
+          offices={offices}
           setSelectedRole={setSelectedRole}
           setSelectedTeams={setSelectedTeams}
         />

@@ -27,6 +27,7 @@ const normalizeGrowMapData = (data: GrowMap): GrowMapMutationData => {
       }),
     ),
     userDetails: {
+      officeId: data.userDetails.office.id,
       roleId: data.userDetails.role.id,
       teamsId: data.userDetails.teams.map(({ id }) => id),
     },

@@ -4,7 +4,6 @@ import {
   KNOWLEDGE_AREA_FRAGMENT,
   KNOWLEDGE_MATRIZ_FRAGMENT,
   ME_FRAGMENT,
-  OFFICE_FRAGMENT,
   PAGINATION_FRAGMENT,
   TEAM_FRAGMENT,
 } from './fragments';
@@ -52,10 +51,14 @@ const allOffice = `
     name
     city
     country
-    teams {
-      id
-      name
-    }
+  }
+`;
+
+const allTeam = `
+  getAllTeam {
+    id
+    name
+    slug
   }
 `;
 
@@ -64,6 +67,7 @@ export const allKnowledgeSkills = gql`
     skills: getAllKnowledgeSkill {
       id
       name
+      description
       slug
     }
   }
@@ -116,6 +120,9 @@ export const knowledgeSkillBySlug = gql`
         id
         growMap {
           userDetails {
+            office {
+              name
+            }
             role {
               name
             }
@@ -144,6 +151,7 @@ export const knowledgeSkillBySlug = gql`
 export const getStarted = gql`
   query {
     roles: ${allRole}
+    teams: ${allTeam}
     offices: ${allOffice}
   }
 `;
@@ -188,6 +196,9 @@ export const getTeamBySlug = gql`
           }
           growMap {
             userDetails {
+              office {
+                name
+              }
               role {
                 name
               }

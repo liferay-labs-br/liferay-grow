@@ -18,6 +18,7 @@ export type Github = {
 
 export type UserDetails = {
   id?: string;
+  office: Office;
   role: BasicQuery;
   teams: Team[];
 };
@@ -136,7 +137,7 @@ export type Team = {
   };
 };
 
-export type allOffice = {
+export type Office = {
   id: string;
   name: string;
   city: string;
@@ -152,6 +153,7 @@ export type KnowledgeMatrizAverage = {
 export type Skill = {
   id: string;
   name: string;
+  description: string;
   slug?: string;
   knowledgeMatrizAverage: KnowledgeMatrizAverage[];
 };

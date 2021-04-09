@@ -23,6 +23,10 @@ export const welcomeState: Welcome = {
     knowledgeGapsDetails: [] as KnowledgeGapsDetails[],
     knowledgeSkillDetails: [] as KnowledgeSkillDetails[],
     userDetails: {
+      office: {
+        id: '',
+        name: '',
+      },
       role: {
         id: '',
         name: '',

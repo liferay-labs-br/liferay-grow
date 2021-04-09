@@ -4,18 +4,21 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import CustomSelect from '@/components/CustomSelect';
 import useLang from '@/hooks/useLang';
-import { allOffice, BasicQuery } from '@/types';
+import { BasicQuery, Office, Team } from '@/types';
 
-type SelectedRole = {
+type BaseSelect = {
   id?: string;
   name?: string;
 };
 
 interface IOfficeDetailBodyProps extends React.HTMLAttributes<HTMLElement> {
-  offices: allOffice[];
+  teams: Team[];
+  offices: Office[];
   roles: BasicQuery[];
-  selectedRole: SelectedRole;
+  selectedOffice: BaseSelect;
+  selectedRole: BaseSelect;
   selectedTeams: BasicQuery[];
+  setSelectedOffice: Dispatch<SetStateAction<BasicQuery>>;
   setSelectedRole: Dispatch<SetStateAction<BasicQuery>>;
   setSelectedTeams: Dispatch<SetStateAction<BasicQuery[]>>;
 }
@@ -23,10 +26,13 @@ interface IOfficeDetailBodyProps extends React.HTMLAttributes<HTMLElement> {
 const OfficeDetailBody: React.FC<IOfficeDetailBodyProps> = ({
   offices,
   roles,
+  selectedOffice,
   selectedRole,
   selectedTeams,
+  setSelectedOffice,
   setSelectedRole,
   setSelectedTeams,
+  teams,
 }) => {
   const [active, setActive] = useState<boolean>(false);
   const i18n = useLang();
@@ -46,6 +52,29 @@ const OfficeDetailBody: React.FC<IOfficeDetailBodyProps> = ({
   return (
     <ClayForm>
       <ClayForm.Group>
+        <label htmlFor="office">{i18n.get('office')}</label>
+
+        <ClaySelect
+          value={selectedOffice.id}
+          onChange={({ target: { selectedOptions, value } }) => {
+            setSelectedOffice({
+              id: value,
+              name: selectedOptions[0].textContent,
+            });
+          }}
+        >
+          <option value="">{i18n.get('choose-an-option')}</option>
+          {offices.map((roles) => (
+            <ClaySelect.Option
+              label={roles.name}
+              key={roles.id}
+              value={roles.id}
+            />
+          ))}
+        </ClaySelect>
+      </ClayForm.Group>
+
+      <ClayForm.Group>
         <label htmlFor="team">{i18n.get('team')}</label>
 
         <ClayDropDown
@@ -62,25 +91,17 @@ const OfficeDetailBody: React.FC<IOfficeDetailBodyProps> = ({
             />
           }
         >
-          <ClayDropDown.ItemList>
-            {offices.map((office) => (
-              <ClayDropDown.Group header={office.name} key={office.id}>
-                {office.teams.map((team) => {
-                  return (
-                    <ClayDropDown.Item key={team.id}>
-                      <ClayCheckbox
-                        checked={
-                          !!selectedTeams.find(({ id }) => id === team.id)
-                        }
-                        label={team.name}
-                        onChange={(event) => onChangeCheckbox(event, team)}
-                      />
-                    </ClayDropDown.Item>
-                  );
-                })}
-              </ClayDropDown.Group>
-            ))}
-          </ClayDropDown.ItemList>
+          {teams.map((team) => {
+            return (
+              <ClayDropDown.Item key={team.id}>
+                <ClayCheckbox
+                  checked={!!selectedTeams.find(({ id }) => id === team.id)}
+                  label={team.name}
+                  onChange={(event) => onChangeCheckbox(event, team)}
+                />
+              </ClayDropDown.Item>
+            );
+          })}
         </ClayDropDown>
       </ClayForm.Group>
 

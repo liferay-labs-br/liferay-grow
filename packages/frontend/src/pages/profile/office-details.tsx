@@ -11,16 +11,17 @@ import { UpdateGrowMapOfficeDetails } from '@/graphql/mutations';
 import { getMe, getStarted } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { allOffice, BasicQuery, Me } from '@/types';
+import { BasicQuery, Me, Office, Team } from '@/types';
 import ROUTES from '@/utils/routes';
 
-type SelectedRole = {
+type BasicSelect = {
   id?: string;
   name?: string;
 };
 
 interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
-  offices: allOffice[];
+  teams: Team[];
+  offices: Office[];
   roles: BasicQuery[];
   refetch: () => Promise<void>;
   me?: Me;
@@ -31,28 +32,32 @@ const GetStarted: React.FC<IGetStartedProps> = ({
   offices,
   refetch,
   roles,
+  teams,
 }) => {
-  const { role, teams } = me.growMap.userDetails;
+  const { office = {}, role = {}, teams: userTeams } = me.growMap.userDetails;
+
+  console.log(me.growMap.userDetails);
 
   const [onUpdateGrowMapOffice] = useMutation(UpdateGrowMapOfficeDetails);
 
-  const [selectedRole, setSelectedRole] = useState<SelectedRole>(role);
-  const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(teams);
+  const [selectedRole, setSelectedRole] = useState<BasicSelect>(role);
+  const [selectedOffice, setSelectedOffice] = useState<BasicSelect>(office);
+  const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(userTeams);
 
   const i18n = useLang();
   const router = useRouter();
 
-  const onSave = async () => {
-    const roleId = selectedRole.id;
-    const teamsId = selectedTeams.map(({ id }) => id);
+  const canSave = selectedRole.id && selectedOffice.id && selectedTeams.length;
 
-    if (selectedRole.id && teamsId.length) {
+  const onSave = async () => {
+    if (canSave) {
       try {
         await onUpdateGrowMapOffice({
           variables: {
             data: {
-              roleId,
-              teamsId,
+              officeId: selectedOffice.id,
+              roleId: selectedRole.id,
+              teamsId: selectedTeams.map(({ id }) => id),
             },
           },
         });
@@ -72,10 +77,13 @@ const GetStarted: React.FC<IGetStartedProps> = ({
   return (
     <>
       <OfficeDetailsBody
+        selectedOffice={selectedOffice}
+        setSelectedOffice={setSelectedOffice}
         selectedRole={selectedRole}
         selectedTeams={selectedTeams}
-        offices={offices}
+        teams={teams}
         roles={roles}
+        offices={offices}
         setSelectedRole={setSelectedRole}
         setSelectedTeams={setSelectedTeams}
       />
@@ -84,7 +92,9 @@ const GetStarted: React.FC<IGetStartedProps> = ({
         {i18n.get('cancel')}
       </ClayButton>
 
-      <ClayButton onClick={onSave}>{i18n.get('save')}</ClayButton>
+      <ClayButton disabled={!canSave} onClick={onSave}>
+        {i18n.get('save')}
+      </ClayButton>
     </>
   );
 };

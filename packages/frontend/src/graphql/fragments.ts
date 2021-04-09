@@ -65,6 +65,12 @@ const USER_DETAILS_FRAGMENT = gql`
       id
       name
     }
+    office {
+      id
+      name
+      city
+      country
+    }
     teams {
       id
       name
@@ -113,6 +119,7 @@ export const KNOWLEDGE_AREA_FRAGMENT = gql`
     skills {
       id
       name
+      description
       slug
       knowledgeMatrizAverage {
         id

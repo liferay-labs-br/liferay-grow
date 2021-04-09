@@ -63,6 +63,9 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
     return step;
   });
 
+  const teamsName =
+    me.growMap?.userDetails?.teams?.map(({ name }) => name) || [];
+
   return (
     <>
       <Header
@@ -79,8 +82,21 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
         <Header.Avatar draggable={false} src={avatar_url} />
         <Header.Info>
           <Header.Title>{name}</Header.Title>
-          <p>{me.growMap?.userDetails?.role?.name}</p>
-          <p>{location}</p>
+          {me?.growMap?.userDetails && (
+            <>
+              <p>
+                {i18n.sub('x-of-x', [
+                  me.growMap?.userDetails?.role?.name,
+                  teamsName.join(', '),
+                ])}
+              </p>
+              {me.growMap?.userDetails?.office ? (
+                <p>{`${me.growMap?.userDetails.office.city} / ${me.growMap?.userDetails.office.country}`}</p>
+              ) : (
+                location
+              )}
+            </>
+          )}
         </Header.Info>
       </Header>
 
