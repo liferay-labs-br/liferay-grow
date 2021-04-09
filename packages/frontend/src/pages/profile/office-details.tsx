@@ -34,14 +34,14 @@ const GetStarted: React.FC<IGetStartedProps> = ({
   roles,
   teams,
 }) => {
-  const { office = {}, role = {}, teams: userTeams } = me.growMap.userDetails;
-
-  console.log(me.growMap.userDetails);
+  const { office, role, teams: userTeams } = me.growMap.userDetails;
 
   const [onUpdateGrowMapOffice] = useMutation(UpdateGrowMapOfficeDetails);
 
-  const [selectedRole, setSelectedRole] = useState<BasicSelect>(role);
-  const [selectedOffice, setSelectedOffice] = useState<BasicSelect>(office);
+  const [selectedRole, setSelectedRole] = useState<BasicSelect>(role || {});
+  const [selectedOffice, setSelectedOffice] = useState<BasicSelect>(
+    office || {},
+  );
   const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(userTeams);
 
   const i18n = useLang();
