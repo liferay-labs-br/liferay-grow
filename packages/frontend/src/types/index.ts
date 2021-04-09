@@ -126,7 +126,7 @@ export type ActionsPayload = {
   [Types.UPDATE_DATA]: GrowMap;
 };
 
-type Team = {
+export type Team = {
   id: string;
   name: string;
   slug: string;
@@ -141,7 +141,6 @@ export type allOffice = {
   name: string;
   city: string;
   country: string;
-  teams: Team[];
 };
 
 export type KnowledgeMatrizAverage = {

@@ -161,10 +161,6 @@ export const getTeamBySlug = gql`
     getTeamBySlug(slug: $slug) {
       id
       name
-      office {
-        city
-        country
-      }
       knowledgeMatrizAverage {
         id
         matrizLevelAvg
@@ -220,29 +216,16 @@ export const getMembersTeam = gql`
   }
 `;
 
-export const getAllTeam = gql`
-  query {
-    teams: getAllTeam {
-      id
-      name
-    }
-  }
-`;
-
-export const getAllOffice = gql`
-  ${OFFICE_FRAGMENT}
+export const getAllTeams = gql`
   ${TEAM_FRAGMENT}
   ${PAGINATION_FRAGMENT}
 
   query {
-    offices: getAllOffice {
-      ...OfficeFragment
-      teams {
-        ...TeamFragment
-        members {
-          pagination {
-            ...PaginationFragment
-          }
+    teams: getAllTeam {
+      ...TeamFragment
+      members {
+        pagination {
+          ...PaginationFragment
         }
       }
     }

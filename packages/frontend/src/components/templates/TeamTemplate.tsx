@@ -45,11 +45,7 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
       options={{ variables: { slug: team } }}
     >
       {({ getAllKnowledgeMatriz, getTeamBySlug }) => {
-        const {
-          members,
-          name,
-          office: { city, country },
-        } = getTeamBySlug;
+        const { members, name } = getTeamBySlug;
 
         const totalItems = members?.pagination?.totalItems || 0;
 
@@ -57,17 +53,14 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
           <>
             <Meta title={`${name} - ${i18n.get(page)}`} />
             <div className="team">
-              <div className="team__header">
+              <div className="team__header ml-2">
                 <Header border={false} centralized>
                   <Header.Info>
                     <Header.Title>{name}</Header.Title>
-                    <p>
-                      {i18n.sub(
-                        totalItems > 1 ? 'x-members' : 'x-member',
-                        totalItems.toString(),
-                      )}
-                    </p>
-                    <p>{`${city}, ${country}`}</p>
+                    {i18n.sub(
+                      totalItems > 1 ? 'x-members' : 'x-member',
+                      totalItems.toString(),
+                    )}
                   </Header.Info>
                 </Header>
               </div>

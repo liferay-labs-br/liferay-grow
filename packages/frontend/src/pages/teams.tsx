@@ -5,43 +5,32 @@ import Meta from '@/components/meta';
 import Panel from '@/components/panel';
 import HomeTemplate from '@/components/templates/HomeTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
-import { getAllOffice } from '@/graphql/queries';
+import { getAllTeams } from '@/graphql/queries';
 import useLang from '@/hooks/useLang';
-import { allOffice } from '@/types';
+import { Team } from '@/types';
 
 type TeamsProps = {
-  offices: allOffice[];
+  teams: Team[];
 };
 
-const Teams: React.FC<TeamsProps> = ({ offices }) => {
+const Teams: React.FC<TeamsProps> = ({ teams }) => {
   const i18n = useLang();
 
   return (
-    <>
-      {offices.map(({ city, country, id, name, teams }) => (
-        <ClayLayout.Col key={id}>
-          <Panel
-            title={`${name} - ${city} / ${country}`}
-            displayType="unstyled"
-          >
-            {teams.map((team) => {
-              const membersCount = String(
-                team.members?.pagination?.totalItems || 0,
-              );
+    <ClayLayout.Row className="mt-4">
+      {teams.map((team) => {
+        const membersCount = String(team.members?.pagination?.totalItems || 0);
 
-              return (
-                <Panel.Item key={team.id} href={`/team/${team.slug}`}>
-                  <Panel.Title className="title">{team.name}</Panel.Title>
-                  <Panel.Body>
-                    <span>{i18n.sub('x-members', membersCount)}</span>
-                  </Panel.Body>
-                </Panel.Item>
-              );
-            })}
-          </Panel>
-        </ClayLayout.Col>
-      ))}
-    </>
+        return (
+          <Panel.Item key={team.id} href={`/team/${team.slug}`}>
+            <Panel.Title className="title">{team.name}</Panel.Title>
+            <Panel.Body>
+              <span>{i18n.sub('x-members', membersCount)}</span>
+            </Panel.Body>
+          </Panel.Item>
+        );
+      })}
+    </ClayLayout.Row>
   );
 };
 
@@ -51,10 +40,10 @@ const TeamsWrapper: React.FC = () => {
   return (
     <HomeTemplate>
       <Meta title={i18n.sub('app-title-x', 'teams')} />
-      <h1 className="ml-3 mb-4">{i18n.get('teams')}</h1>
+      <h1>{i18n.get('teams')}</h1>
 
-      <WrappedSafeComponent query={getAllOffice}>
-        {({ offices }) => <Teams offices={offices} />}
+      <WrappedSafeComponent query={getAllTeams}>
+        {({ teams }) => <Teams teams={teams} />}
       </WrappedSafeComponent>
     </HomeTemplate>
   );
