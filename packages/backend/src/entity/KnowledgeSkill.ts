@@ -41,6 +41,10 @@ export class KnowledgeSkill extends MainEntity {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
+  description: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   slug: string;
 
   @Field({ nullable: true })

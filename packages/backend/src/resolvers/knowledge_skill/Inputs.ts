@@ -4,6 +4,9 @@ import { Field, InputType } from 'type-graphql';
 class KnowledgeSkillBaseInput {
   @Field()
   name: string;
+
+  @Field({ nullable: true })
+  description?: string;
 }
 
 @InputType()
