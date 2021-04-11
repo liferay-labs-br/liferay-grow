@@ -129,20 +129,20 @@ export const knowledgeSkillBySlug = gql`
             }
           }
         }
-        github {
+        profile {
           id
           name
           avatar_url
-          login
+          github_login
         }
       }
       otherMembers: userSkills {
         id
-        github {
+        profile {
           id
           name
           avatar_url
-          login
+          github_login
         }
       }
     }
@@ -189,11 +189,11 @@ export const getTeamBySlug = gql`
         }
         rows {
           id
-          github {
+          profile {
             name
             avatar_url
             email
-            login
+            github_login
           }
           growMap {
             userDetails {
@@ -217,7 +217,7 @@ export const getMembersTeam = gql`
       members {
         rows {
           id
-          github {
+          profile {
             name
             avatar_url
             email

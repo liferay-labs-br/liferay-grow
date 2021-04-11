@@ -3,17 +3,16 @@ export type BasicQuery = {
   name: string;
 };
 
-export type Github = {
+export type Profile = {
   name?: string;
-  accountId?: number;
+  github_id?: number;
   avatar_url?: string;
-  bio?: string;
   company?: string;
   created_at?: string;
   email?: string;
   id?: number;
   location?: string;
-  login?: string;
+  github_login?: string;
 };
 
 export type UserDetails = {
@@ -71,7 +70,7 @@ export type GrowMapMutationData = {
 
 export type Me = {
   id: string;
-  github: Github;
+  profile: Profile;
   growMap?: GrowMap;
 };
 
