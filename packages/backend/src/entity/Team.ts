@@ -55,7 +55,7 @@ export class Team extends MainEntity {
     const { pagination, rows } = await getAllPagination(
       User,
       { ...data, id: In(growMap.map(({ user }) => user.id)) },
-      ['github', 'growMap', 'growMap.userDetails', 'growMap.userDetails.role'],
+      ['profile', 'growMap', 'growMap.userDetails', 'growMap.userDetails.role'],
     );
 
     return {

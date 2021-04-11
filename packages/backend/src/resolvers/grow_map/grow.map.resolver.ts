@@ -25,7 +25,7 @@ import {
 } from './Inputs';
 
 const relations = [
-  'github',
+  'profile',
   'growMap',
   'growMap.knowledgeGapsDetails',
   'growMap.knowledgeGapsDetails.knowledgeSkill',
@@ -45,7 +45,7 @@ export class GrowMapResolver {
     const user = await getUserFromCtxOrFail(ctx, relations);
 
     if (user.growMap) {
-      logger.info(`${user.github.name} already have a growMap, skipping.`);
+      logger.info(`${user.profile.name} already have a growMap, skipping.`);
       return user.growMap;
     }
 
