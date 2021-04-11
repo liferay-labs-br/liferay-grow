@@ -1,11 +1,11 @@
 import jsonwebtoken from 'jsonwebtoken';
-import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Mutation, Resolver } from 'type-graphql';
 import { promisify } from 'util';
 
 import { Profile } from '../../entity/Profile';
 import { User } from '../../entity/User';
 import { logger } from '../../utils/globalMethods';
-import { belongsToLiferayOrg, getGithubUser } from './github.utils';
+import { belongsToLiferayOrg, getGithubUser } from './auth.utils';
 
 const { JWT_SECRET, VALIDATE_LIFERAY_ORG } = process.env;
 
@@ -19,14 +19,7 @@ const assignToken = async (payload: any): Promise<string> => {
 };
 
 @Resolver(Profile)
-export class GithubResolver {
-  @Query(() => [Profile], { name: 'getAllGithubs' })
-  async getAllGithubs(): Promise<Profile[]> {
-    const profiles = await Profile.find({ relations: ['user'] });
-
-    return profiles;
-  }
-
+export class AuthResolver {
   @Mutation(() => String, { name: 'authGithub' })
   async authGithub(@Arg('code') code: string): Promise<string> {
     const githubUser = await getGithubUser(code);
