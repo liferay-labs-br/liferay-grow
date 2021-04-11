@@ -2,7 +2,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { promisify } from 'util';
 
-import { Github } from '../../entity/Github';
+import { Profile } from '../../entity/Profile';
 import { User } from '../../entity/User';
 import { logger } from '../../utils/globalMethods';
 import { belongsToLiferayOrg, getGithubUser } from './github.utils';
@@ -18,13 +18,13 @@ const assignToken = async (payload: any): Promise<string> => {
   return token as string;
 };
 
-@Resolver(Github)
+@Resolver(Profile)
 export class GithubResolver {
-  @Query(() => [Github], { name: 'getAllGithubs' })
-  async getAllGithubs(): Promise<Github[]> {
-    const githubs = await Github.find({ relations: ['user'] });
+  @Query(() => [Profile], { name: 'getAllGithubs' })
+  async getAllGithubs(): Promise<Profile[]> {
+    const profiles = await Profile.find({ relations: ['user'] });
 
-    return githubs;
+    return profiles;
   }
 
   @Mutation(() => String, { name: 'authGithub' })
@@ -32,8 +32,6 @@ export class GithubResolver {
     const githubUser = await getGithubUser(code);
     const {
       avatar_url,
-      bio,
-      company,
       email,
       id: accountId,
       location,
@@ -41,10 +39,10 @@ export class GithubResolver {
       name,
     } = githubUser;
 
-    const user = await Github.findOne({
+    const user = await Profile.findOne({
       relations: ['user', 'user.growMap'],
       where: {
-        login,
+        github_login: login,
       },
     });
 
@@ -62,21 +60,19 @@ export class GithubResolver {
       }
 
       const newUser = await User.create().save();
-      const newGithub = await Github.create({
-        accountId,
+      const newProfile = await Profile.create({
         avatar_url,
-        bio,
-        company,
         email,
+        github_id: accountId,
+        github_login: login,
         location,
-        login,
         name,
         user: newUser,
       }).save();
 
-      newUser.github = newGithub;
+      newUser.profile = newProfile;
 
-      token = await assignToken(newGithub);
+      token = await assignToken(newProfile);
 
       await newUser.save();
     }

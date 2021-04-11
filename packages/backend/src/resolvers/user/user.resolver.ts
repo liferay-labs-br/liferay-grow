@@ -1,12 +1,12 @@
 import { Arg, Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
 
-import { Github } from '../../entity/Github';
+import { Profile } from '../../entity/Profile';
 import { User } from '../../entity/User';
 import { MyContext } from '../../interfaces';
 import { isAuth } from '../../middlewares/isAuth';
 
 const relations = [
-  'github',
+  'profile',
   'growMap',
   'growMap.knowledgeGapsDetails',
   'growMap.knowledgeGapsDetails.knowledgeSkill',
@@ -33,12 +33,12 @@ export class UserResolver {
   @Query(() => User, { name: 'getUserByLogin' })
   async getUserByLogin(@Arg('login') login: string): Promise<User | Error> {
     try {
-      const githubs = await Github.findOneOrFail({
+      const profile = await Profile.findOneOrFail({
         relations: ['user'],
-        where: { login },
+        where: { github_login: login },
       });
 
-      return User.findOneOrFail(githubs.user.id, { relations });
+      return User.findOneOrFail(profile.user.id, { relations });
     } catch (e) {
       throw new Error('Account not exists');
     }

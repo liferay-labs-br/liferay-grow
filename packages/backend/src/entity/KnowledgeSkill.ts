@@ -25,7 +25,7 @@ import { MainEntity } from './MainEntity';
 import { User } from './User';
 
 const relations = [
-  'github',
+  'profile',
   'growMap',
   'growMap.userDetails',
   'growMap.userDetails.role',
