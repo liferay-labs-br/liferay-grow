@@ -12,7 +12,7 @@ import Panel from '@/components/panel';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { knowledgeSkillBySlug } from '@/graphql/queries';
 import useLang from '@/hooks/useLang';
-import { Github } from '@/types';
+import { Profile } from '@/types';
 import { COLORS } from '@/utils/constans';
 import ROUTES from '@/utils/routes';
 
@@ -30,7 +30,7 @@ type SkillDetailMentorsPanelProps = {
         };
       };
     };
-    github: Github;
+    profile: Profile;
   }[];
 };
 
@@ -48,22 +48,24 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
       defaultExpanded={hasMentors}
     >
       {hasMentors ? (
-        mentoringMembers.map(({ github, growMap }) => (
-          <ClayLayout.Col key={github.id} size={3}>
+        mentoringMembers.map(({ growMap, profile }) => (
+          <ClayLayout.Col key={profile.id} size={3}>
             <ClayCard>
               <img
                 width="100%"
                 height="100%"
-                src={github.avatar_url}
-                alt={github.name}
+                src={profile.avatar_url}
+                alt={profile.name}
               />
               <ClayCard.Body>
                 <ClayCard.Row>
                   <div className="autofit-col autofit-col-expand">
                     <section className="autofit-section">
                       <ClayCard.Description displayType="title">
-                        <Link href={`${ROUTES.PROFILE}/${github.login}`}>
-                          {github.name}
+                        <Link
+                          href={`${ROUTES.PROFILE}/${profile.github_login}`}
+                        >
+                          {profile.name}
                         </Link>
                       </ClayCard.Description>
                       <ClayCard.Description displayType="subtitle">

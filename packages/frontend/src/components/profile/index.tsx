@@ -36,7 +36,7 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
   me,
 }) => {
   const {
-    github: { avatar_url, location, name },
+    profile: { avatar_url, location, name },
   } = me;
 
   const {

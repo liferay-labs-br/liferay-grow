@@ -14,17 +14,15 @@ export const PAGINATION_FRAGMENT = gql`
   }
 `;
 
-const GITHUB_FRAGMENT = gql`
-  fragment GithubFields on Github {
+const PROFILE_FRAGMENT = gql`
+  fragment ProfileFields on Profile {
     id
-    accountId
-    login
+    github_id
+    github_login
     avatar_url
     email
     name
-    company
     location
-    bio
   }
 `;
 
@@ -150,13 +148,13 @@ export const OFFICE_FRAGMENT = gql`
 `;
 
 export const ME_FRAGMENT = gql`
-  ${GITHUB_FRAGMENT}
+  ${PROFILE_FRAGMENT}
   ${GROW_MAP_FRAGMENT}
 
   fragment MeFragment on User {
     id
-    github {
-      ...GithubFields
+    profile {
+      ...ProfileFields
     }
     growMap {
       ...GrowMapFields

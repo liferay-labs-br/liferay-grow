@@ -20,14 +20,14 @@ const Members: React.FC = () => {
         <span>
           <img
             className="team__members--avatar"
-            alt={member.github.name}
-            src={member.github.avatar_url}
+            alt={member.profile.name}
+            src={member.profile.avatar_url}
           />
           <strong
             className="link"
-            onClick={() => push(`/profile/${member.github.login}`)}
+            onClick={() => push(`/profile/${member.profile.github_login}`)}
           >
-            {member.github.name}
+            {member.profile.name}
           </strong>
         </span>
       ),
@@ -42,7 +42,7 @@ const Members: React.FC = () => {
     },
     {
       key: 'email',
-      render: (_, member) => <span>{member.github.email}</span>,
+      render: (_, member) => <span>{member.profile.email}</span>,
       value: i18n.get('email'),
     },
   ];
