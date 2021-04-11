@@ -22,7 +22,7 @@ const ROUTES: any = buildRoutes({
     routes: {
       GET_STARTED: '/get-started',
       KNOWLEDGE_GAPS: '/knowledge-gaps',
-      SKILLS_DETAILS: '/skills-details',
+      SKILLS_DETAILS: '/skill-details',
       SUCCESS_PAGE: '/success-page',
     },
   },

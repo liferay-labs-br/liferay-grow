@@ -9,6 +9,7 @@ export default {
   'application-submitted-successfully': 'Formulário submetido com sucesso!',
   cancel: 'Cancelar',
   'choose-an-option': 'Selecione uma opção',
+  'click-here-to-edit-x': 'Clique aqui para editar {0}',
   continue: 'Prosseguir',
   copyright: 'Copyright 2021. Todos os direitos reservados.',
   'create-knowledge-area': 'Criar Áreas de Conhecimento',
@@ -77,6 +78,8 @@ export default {
   'x-of-x': '{0} do {1}',
   'you-must-create-knowledge-areas-and-knowledge-gaps':
     'Você deve criar as áreas de conhecimentos',
+  'you-need-to-go-through-the-profile-page':
+    'Você precisa ir através da página de perfil',
   'your-request-completed-successfully':
     'Sua solicitação foi completada com sucesso',
 };
