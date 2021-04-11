@@ -9,6 +9,7 @@ export default {
   'application-submitted-successfully': 'Application submitted successfully!',
   cancel: 'Cancel',
   'choose-an-option': 'Choose an Option',
+  'click-here-to-edit-x': 'Click Here to Edit {0}',
   continue: 'Continue',
   copyright: 'Copyright 2021. All Rights Reserverd.',
   'create-knowledge-area': 'Create Knowledge Areas',
@@ -20,6 +21,7 @@ export default {
   'filter-and-order': 'Filter and order',
   'get-started': 'Get Started',
   'go-to-home': 'Go to home',
+  'grow-map-already-exists': 'Grow Map already exists',
   'i-feel-comfortable-with-being-a-mentor':
     'I feel comfortable with being a mentor.',
   'knowledge-areas': 'Knowledge Areas',
@@ -74,5 +76,7 @@ export default {
   'x-of-x': '{0} of {1}',
   'you-must-create-knowledge-areas-and-knowledge-gaps':
     'You must create Knowledge Areas and Knowledge Gaps',
+  'you-need-to-go-through-the-profile-page':
+    'You need to go through the profile page',
   'your-request-completed-successfully': 'Your request completed successfully',
 };
