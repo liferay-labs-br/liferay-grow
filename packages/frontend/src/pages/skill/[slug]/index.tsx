@@ -95,12 +95,15 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
 };
 
 type IListMembers = {
+  onClose: () => void;
   matriz: string;
   slug: string;
 };
 
-const ListMembers: React.FC<IListMembers> = ({ matriz, slug }) => {
+const ListMembers: React.FC<IListMembers> = ({ matriz, onClose, slug }) => {
   const matrizOrGap = matriz === 'gap' ? 'userGaps' : 'userSkills';
+
+  const router = useRouter();
 
   return (
     <div className="skilldetails__listmembers">
@@ -120,9 +123,17 @@ const ListMembers: React.FC<IListMembers> = ({ matriz, slug }) => {
                   src={member.profile.avatar_url}
                   alt={member.profile.name}
                 />
-                <Link href={`${ROUTES.PROFILE}/${member.profile.github_login}`}>
-                  <span>{member.profile.name}</span>
-                </Link>
+                <span
+                  onClick={() => {
+                    onClose(); // We need to close the Modal, to avoid scroll problem
+
+                    router.push(
+                      `${ROUTES.PROFILE}/${member.profile.github_login}`,
+                    );
+                  }}
+                >
+                  {member.profile.name}
+                </span>
               </div>
             ))}
           </>
@@ -145,7 +156,7 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({
   const [visible, setVisible] = useState(false);
   const [matriz, setMatriz] = useState<Summary>({} as Summary);
 
-  const { observer } = useModal({
+  const { observer, onClose } = useModal({
     onClose: () => setVisible(!visible),
   });
 
@@ -190,7 +201,6 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({
               onClick={() => {
                 setVisible(true);
                 const matriz = summary.find(({ name }) => name === value);
-                console.log(matriz);
                 setMatriz(matriz);
               }}
             >
@@ -203,7 +213,7 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({
         />
       </PieChart>
       <Modal visible={visible} observer={observer} title={matriz.name}>
-        <ListMembers matriz={matriz.id} slug={slug} />
+        <ListMembers onClose={onClose} matriz={matriz.id} slug={slug} />
       </Modal>
     </Panel>
   );
