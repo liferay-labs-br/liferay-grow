@@ -1,0 +1,26 @@
+.skilldetails {
+    &__listmembers {
+        :first-child {
+            border-top: 1px solid $gray-300;
+        }
+        
+        &--member {
+            padding: 12px 16px;
+            border-bottom: 1px solid $gray-300;
+            
+
+
+            img {
+                width: 32px;
+                height: 32px;
+                border-radius: 16px;
+                margin-right: 8px;
+            }
+            span {
+                font-size: 0.875rem;
+                font-weight: 600;
+                cursor: pointer;
+            }
+        }
+    }
+}

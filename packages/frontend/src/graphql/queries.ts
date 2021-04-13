@@ -114,6 +114,7 @@ export const knowledgeSkillBySlug = gql`
         name
       }
       summary {
+        id
         name
         value
       }
@@ -143,6 +144,40 @@ export const knowledgeSkillBySlug = gql`
           name
           avatar_url
           github_login
+        }
+      }
+      userGaps {
+        id
+        profile {
+          id
+          name
+          avatar_url
+          github_login
+        }
+      }
+    }
+  }
+`;
+
+export const membersKnowledgeSkillBySlug = gql`
+  query($skill: String!, $matriz: String!) {
+    getKnowledgeSkillBySlug(slug: $skill) {
+      id
+      name
+      userSkills(data: { matrizId: $matriz }) {
+        id
+        profile {
+          github_login
+          name
+          avatar_url
+        }
+      }
+      userGaps {
+        id
+        profile {
+          github_login
+          name
+          avatar_url
         }
       }
     }

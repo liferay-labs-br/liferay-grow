@@ -5,6 +5,7 @@ $primary-l2: #b3cdff !default;
 $primary-l3: #f0f5ff !default;
 $success: #287d3c !default;
 $secondary: #6b6c7e !default;
+$gray-300: #e7e7ed !default;
 $white: #fff !default;
 $blue: #4b9fff !default;
 $orange: #ffb46e !default;
@@ -28,6 +29,7 @@ Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 @import './components/welcome.scss';
 
 @import './pages/sign-in.scss';
+@import './pages/skill.scss';
 @import './pages/team.scss';
 @import './pages/welcome.scss';
 @import './pages/home.scss';
