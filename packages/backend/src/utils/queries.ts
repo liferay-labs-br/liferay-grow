@@ -82,7 +82,7 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
               END AS Mentor,
               r.name AS Role,
               p.email AS Email,
-              p.location AS Location,
+              CONCAT(o.city, '/', o.country) as Location,
       (SELECT GROUP_CONCAT(t.name) teams 
       FROM user_details_teams udt
       INNER JOIN team t ON udt.teamId = t.id
@@ -109,6 +109,7 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
    INNER JOIN user_details ud ON gm.userDetailsId = ud.id
    INNER JOIN role AS r ON ud.roleId = r.id
    INNER JOIN profile p ON p.userId = u.id
+   INNER JOIN office o ON o.id = ud.officeId
    ORDER BY ks.name`.trim();
 
   const manager = getManager();

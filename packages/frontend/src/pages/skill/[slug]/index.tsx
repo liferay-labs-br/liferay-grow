@@ -59,6 +59,7 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
           <ClayLayout.Col key={profile.id} size={3}>
             <ClayCard>
               <img
+                draggable={false}
                 width="100%"
                 height="100%"
                 src={profile.avatar_url}
@@ -113,10 +114,11 @@ const ListMembers: React.FC<IListMembers> = ({ matriz, slug }) => {
                 key={member.profile.login}
               >
                 <img
+                  draggable={false}
                   src={member.profile.avatar_url}
                   alt={member.profile.name}
                 />
-                <Link href={`${ROUTES.PROFILE}/${member.profile.login}`}>
+                <Link href={`${ROUTES.PROFILE}/${member.profile.github_login}`}>
                   <span>{member.profile.name}</span>
                 </Link>
               </div>
