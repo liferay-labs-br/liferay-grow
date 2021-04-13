@@ -79,10 +79,16 @@ export class KnowledgeSkill extends MainEntity {
         'gmksd.knowledgeSkillDetailsId = ksd.id',
       )
       .innerJoinAndSelect('grow_map', 'gm', 'gm.id = gmksd.growMapId')
-      .where('ksd.knowledgeSkillId = :id', { id: this.id })
-      .andWhere('ksd.isMentor = :isMentor', {
-        isMentor: data?.isMentor ? 1 : 0,
-      });
+      .where('ksd.knowledgeSkillId = :id', { id: this.id });
+
+    if (typeof data?.isMentor === 'number') {
+      knowledgeSkillDetailsQuery = knowledgeSkillDetailsQuery.andWhere(
+        'ksd.isMentor = :isMentor',
+        {
+          isMentor: data?.isMentor ? 1 : 0,
+        },
+      );
+    }
 
     if (data?.matrizId) {
       knowledgeSkillDetailsQuery = knowledgeSkillDetailsQuery.andWhere(
@@ -148,10 +154,12 @@ export class KnowledgeSkill extends MainEntity {
 
     const skillSummary: KnowledgeSkillSummary[] = [
       {
+        id: 'gap',
         name: 'With Knowledge Gap',
         value: Number(gapsCount.total),
       },
-      ...matrizCount.map(({ name, total }: any) => ({
+      ...matrizCount.map(({ id, name, total }: any) => ({
+        id,
         name,
         value: Number(total),
       })),
@@ -164,6 +172,7 @@ export class KnowledgeSkill extends MainEntity {
 
       if (!skillExistInSummary) {
         skillSummary.push({
+          id: knowledgeMatriz.id,
           name: knowledgeMatriz.name,
           value: 0,
         });

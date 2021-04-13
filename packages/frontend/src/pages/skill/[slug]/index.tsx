@@ -1,22 +1,29 @@
+import ClayButton from '@clayui/button';
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
+import { useModal } from '@clayui/modal';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 
 import EmptyState from '@/components/empty-state';
 import Header from '@/components/header';
 import Meta from '@/components/meta';
+import Modal from '@/components/modal';
 import Panel from '@/components/panel';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
-import { knowledgeSkillBySlug } from '@/graphql/queries';
+import {
+  knowledgeSkillBySlug,
+  membersKnowledgeSkillBySlug,
+} from '@/graphql/queries';
 import useLang from '@/hooks/useLang';
 import { Profile } from '@/types';
 import { COLORS } from '@/utils/constans';
 import ROUTES from '@/utils/routes';
 
 type Summary = {
+  id: string;
   name: string;
   value: number;
 };
@@ -85,12 +92,58 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
   );
 };
 
+type IListMembers = {
+  matriz: string;
+  slug: string;
+};
+
+const ListMembers: React.FC<IListMembers> = ({ matriz, slug }) => {
+  const matrizOrGap = matriz === 'gap' ? 'userGaps' : 'userSkills';
+  return (
+    <div className="skilldetails__listmembers">
+      <WrappedSafeComponent
+        query={membersKnowledgeSkillBySlug}
+        options={{ variables: { matriz, skill: slug } }}
+      >
+        {({ getKnowledgeSkillBySlug: { [matrizOrGap]: memberList } }) => (
+          <>
+            {memberList.map((member) => (
+              <div
+                className="skilldetails__listmembers--member"
+                key={member.profile.login}
+              >
+                <img
+                  src={member.profile.avatar_url}
+                  alt={member.profile.name}
+                />
+                <Link href={`${ROUTES.PROFILE}/${member.profile.login}`}>
+                  <span>{member.profile.name}</span>
+                </Link>
+              </div>
+            ))}
+          </>
+        )}
+      </WrappedSafeComponent>
+    </div>
+  );
+};
+
 interface ISkillDetailSummaryProps extends React.HTMLAttributes<HTMLElement> {
+  slug: string;
   summary: Summary[];
 }
 
-const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({ summary }) => {
+const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({
+  slug,
+  summary,
+}) => {
   const i18n = useLang();
+  const [visible, setVisible] = useState(false);
+  const [matriz, setMatriz] = useState<Summary>({} as Summary);
+
+  const { observer } = useModal({
+    onClose: () => setVisible(!visible),
+  });
 
   // Filter Empty Results from Summary
 
@@ -116,19 +169,38 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({ summary }) => {
           paddingAngle={0}
         >
           {summary.map((_, index) => (
-            <Cell key={index} fill={COLORS[index]} />
+            <Cell
+              key={index}
+              fill={COLORS[index]}
+              onClick={() => console.log(summary)}
+            />
           ))}
         </Pie>
         <Tooltip formatter={getFromattedTooltip} />
         <Legend
           align="right"
           iconSize={16}
-          formatter={(value) => <span className="legend-text">{value}</span>}
+          formatter={(value) => (
+            <ClayButton
+              displayType="unstyled"
+              onClick={() => {
+                setVisible(true);
+                const matriz = summary.find(({ name }) => name === value);
+                console.log(matriz);
+                setMatriz(matriz);
+              }}
+            >
+              <span className="legend-text">{value}</span>
+            </ClayButton>
+          )}
           iconType="square"
           layout="vertical"
           verticalAlign="middle"
         />
       </PieChart>
+      <Modal visible={visible} observer={observer} title={matriz.name}>
+        <ListMembers matriz={matriz.id} slug={slug} />
+      </Modal>
     </Panel>
   );
 };
@@ -139,10 +211,12 @@ const SkillDetail = ({
   mentoringMembers,
   name,
   otherMembers,
+  slug,
   summary,
+  userGaps,
 }) => {
   const i18n = useLang();
-  const totalMembers = mentoringMembers.length + otherMembers.length;
+  const totalMembers = otherMembers.length + userGaps.length;
 
   return (
     <>
@@ -164,7 +238,7 @@ const SkillDetail = ({
             <ClayCard className="p-4">
               <SkillDetailMentorsPanel mentoringMembers={mentoringMembers} />
 
-              <SkillDetailSummay summary={summary} />
+              <SkillDetailSummay summary={summary} slug={slug} />
             </ClayCard>
           </ClayLayout.Col>
         </ClayLayout.Row>
@@ -183,14 +257,16 @@ const SkillDetailWrapper: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   }
 
   return (
-    <WrappedSafeComponent
-      query={knowledgeSkillBySlug}
-      options={{ variables: { slug } }}
-    >
-      {({ getKnowledgeSkillBySlug }) => (
-        <SkillDetail {...getKnowledgeSkillBySlug} />
-      )}
-    </WrappedSafeComponent>
+    <div className="skilldetails">
+      <WrappedSafeComponent
+        query={knowledgeSkillBySlug}
+        options={{ variables: { slug } }}
+      >
+        {({ getKnowledgeSkillBySlug }) => (
+          <SkillDetail {...getKnowledgeSkillBySlug} slug={slug} />
+        )}
+      </WrappedSafeComponent>
+    </div>
   );
 };
 

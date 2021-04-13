@@ -15,6 +15,9 @@ export class KnowledgeMatrizAverage {
 @ObjectType()
 export class KnowledgeSkillSummary {
   @Field()
+  id: string;
+
+  @Field()
   name: string;
 
   @Field()
