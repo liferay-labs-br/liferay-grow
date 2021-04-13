@@ -7,7 +7,7 @@ import React, { Dispatch, useCallback, useContext, useState } from 'react';
 import useLang from '@/hooks/useLang';
 import { SelectedSkills, Types } from '@/types';
 
-import CustomSelect from '../../components/CustomSelect';
+import CustomSelect from '../custom-select';
 import SkillContext from './SkillContext';
 
 const SkillMatrizThreshold = 2;
