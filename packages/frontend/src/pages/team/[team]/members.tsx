@@ -3,6 +3,7 @@ import React from 'react';
 
 import ListView from '@/components/list-view';
 import TeamTemplate from '@/components/templates/TeamTemplate';
+import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
 
 const Members: React.FC = () => {
@@ -76,4 +77,4 @@ const Members: React.FC = () => {
   );
 };
 
-export default Members;
+export default withAuth(Members);
