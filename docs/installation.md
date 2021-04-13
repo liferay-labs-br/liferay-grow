@@ -9,15 +9,14 @@ So, yarn is **required** to install and run scripts.
     1. Create a copy of .env.example in packages/frontend/.env.example to .env in this same frontend folder. and changes some environments if you need.
 3. Backend Configuration
     1. Create a copy of .env.example in *packages/backend/.env.example* to .env in this same backend folder. and changes some environments if you need.
-    2. Create a copy of ormconfig *ormconfig.example.ts* and put in the main folder (the same level from packages) with the name *ormconfig.ts*
-    3. Replace the connection with name **development** with your database credentials, like host, user and password. *note: you must create a database first.*
-    4. After setup everything, you can use: **yarn dev:server** in the main folder to run the backend.
-    5. If everything work as expected, you will see this message
+    2. Replace the connection with your database credentials, like host, user and password. *note: you must create a database first.*
+    3. After setup everything, you can use: **yarn dev:server** in the main folder to run the backend.
+    4. If everything work as expected, you will see this message
 
     ```
-    debug: TypeORM Environment: development {"timestamp":"2021-03-02T13:17:01.780Z"}
-    debug: Starting Liferay Grow Server {"timestamp":"2021-03-02T13:17:03.049Z"}
-    debug: App listening on the port 3333 {"timestamp":"2021-03-02T13:17:03.056Z"}
+        debug: TypeORM Environment: development {"timestamp":"2021-03-02T13:17:01.780Z"}
+        debug: Starting Liferay Grow Server {"timestamp":"2021-03-02T13:17:03.049Z"}
+        debug: App listening on the port 3333 {"timestamp":"2021-03-02T13:17:03.056Z"}
     ```
 
 ## :octocat: Github Oauth 
