@@ -81,7 +81,7 @@ export class KnowledgeSkill extends MainEntity {
       .innerJoinAndSelect('grow_map', 'gm', 'gm.id = gmksd.growMapId')
       .where('ksd.knowledgeSkillId = :id', { id: this.id });
 
-    if (typeof data?.isMentor === 'number') {
+    if (typeof data?.isMentor === 'boolean') {
       knowledgeSkillDetailsQuery = knowledgeSkillDetailsQuery.andWhere(
         'ksd.isMentor = :isMentor',
         {
