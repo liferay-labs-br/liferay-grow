@@ -2,7 +2,7 @@ import ClayDropDown, { Align } from '@clayui/drop-down';
 import ClayForm, { ClayCheckbox, ClaySelect } from '@clayui/form';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
-import CustomSelect from '@/components/CustomSelect';
+import CustomSelect from '@/components/custom-select';
 import useLang from '@/hooks/useLang';
 import { BasicQuery, Office, Team } from '@/types';
 
