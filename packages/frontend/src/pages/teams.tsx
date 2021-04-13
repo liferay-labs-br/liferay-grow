@@ -6,6 +6,7 @@ import Panel from '@/components/panel';
 import HomeTemplate from '@/components/templates/HomeTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getAllTeams } from '@/graphql/queries';
+import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
 import { Team } from '@/types';
 
@@ -49,4 +50,4 @@ const TeamsWrapper: React.FC = () => {
   );
 };
 
-export default TeamsWrapper;
+export default withAuth(TeamsWrapper);

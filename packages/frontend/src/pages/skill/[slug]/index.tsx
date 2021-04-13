@@ -17,6 +17,7 @@ import {
   knowledgeSkillBySlug,
   membersKnowledgeSkillBySlug,
 } from '@/graphql/queries';
+import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
 import { Profile } from '@/types';
 import { COLORS } from '@/utils/constans';
@@ -100,6 +101,7 @@ type IListMembers = {
 
 const ListMembers: React.FC<IListMembers> = ({ matriz, slug }) => {
   const matrizOrGap = matriz === 'gap' ? 'userGaps' : 'userSkills';
+
   return (
     <div className="skilldetails__listmembers">
       <WrappedSafeComponent
@@ -229,7 +231,7 @@ const SkillDetail = ({
           <p>{description}</p>
           {i18n.sub(
             totalMembers > 1 ? 'x-members' : 'x-member',
-            String(totalMembers),
+            totalMembers.toString(),
           )}
         </Header.Info>
         <Header.Info>{area.name}</Header.Info>
@@ -272,4 +274,4 @@ const SkillDetailWrapper: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   );
 };
 
-export default SkillDetailWrapper;
+export default withAuth(SkillDetailWrapper);
