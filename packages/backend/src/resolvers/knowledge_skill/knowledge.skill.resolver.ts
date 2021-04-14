@@ -46,6 +46,6 @@ export class KnowledgeSkillResolver extends BaseResolver {
   ): Promise<KnowledgeSkill | Error> {
     const loggedUser = getLoggedUserFromCtx(ctx);
 
-    return this.create({ ...data, createdBy: loggedUser?.login });
+    return this.create({ ...data, createdBy: loggedUser?.github_login });
   }
 }
