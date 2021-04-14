@@ -12,7 +12,6 @@ import useLang from '@/hooks/useLang';
 
 interface IManagementToolbarProps extends React.HTMLAttributes<HTMLElement> {
   searchText?: string;
-  orderBy?: boolean;
   listType?: string;
   info?: boolean;
   addButton?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
