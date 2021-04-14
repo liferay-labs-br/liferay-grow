@@ -10,6 +10,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "echo": "echoo",
     "test": "jest",
     "build-server": "yarn workspace @monorepo/backend build",
     "lint": "eslint packages --ext ts,tsx",
