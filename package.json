@@ -10,7 +10,9 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-      "format": "eslint packages/**/src/* --ext .ts --fix --no-error-on-unmatched-pattern",
+      "test-frontend": "yarn workspace @monorepo/frontend test",
+      "build-server": "yarn workspace @monorepo/backend build",
+      "lint": "eslint packages --ext ts,tsx",
       "dev:server": "yarn workspace @monorepo/backend dev",
       "dev:frontend": "yarn workspace @monorepo/frontend dev"
     },
