@@ -35,6 +35,7 @@ export default {
   next: 'Próximo',
   'no-results-for-x': `Sem resultados para "{0}"`,
   'no-results-found': 'Nenhum resultado encontrado',
+  office: 'Escritório',
   'office-details': 'Detalhes do Escritório',
   other: 'Outro',
   'personal-details': 'Informações pessoais',
