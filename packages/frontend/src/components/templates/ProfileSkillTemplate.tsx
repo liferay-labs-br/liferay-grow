@@ -14,7 +14,7 @@ import Meta from '../meta';
 
 const userSkillsPaths = [
   {
-    name: 'Profile',
+    name: 'profile',
     path: '/profile',
     symbol: 'user',
   },
