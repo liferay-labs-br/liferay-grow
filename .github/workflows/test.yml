@@ -24,5 +24,5 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
 
-      - name: Run Frontend Jest
-        run: yarn workspace @monorepo/frontend test
+      - name: Run Jest
+        run: yarn test
