@@ -13,6 +13,7 @@ export default {
   continue: 'Continue',
   copyright: 'Copyright 2021. All Rights Reserverd.',
   'create-knowledge-area': 'Create Knowledge Areas',
+  'description-x-x': 'Description of {0}: {1}',
   'dont-have-a-github-account': "Don't have a Github account?",
   'edit-profile': 'Edit Profile',
   export: 'Export',
