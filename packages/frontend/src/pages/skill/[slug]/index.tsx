@@ -19,13 +19,14 @@ import {
 } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { Profile } from '@/types';
+import { KnowledgeMatriz, Profile } from '@/types';
 import { COLORS } from '@/utils/constans';
 import ROUTES from '@/utils/routes';
 
 type Summary = {
   id: string;
   name: string;
+  description: string;
   value: number;
 };
 
@@ -94,14 +95,14 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
   );
 };
 
-type IListMembers = {
+type ListMembersProps = {
   onClose: () => void;
-  matriz: string;
+  matriz: KnowledgeMatriz;
   slug: string;
 };
 
-const ListMembers: React.FC<IListMembers> = ({ matriz, onClose, slug }) => {
-  const matrizOrGap = matriz === 'gap' ? 'userGaps' : 'userSkills';
+const ListMembers: React.FC<ListMembersProps> = ({ matriz, onClose, slug }) => {
+  const matrizOrGap = matriz.id === 'gap' ? 'userGaps' : 'userSkills';
 
   const router = useRouter();
 
@@ -109,14 +110,14 @@ const ListMembers: React.FC<IListMembers> = ({ matriz, onClose, slug }) => {
     <div className="skilldetails__listmembers">
       <WrappedSafeComponent
         query={membersKnowledgeSkillBySlug}
-        options={{ variables: { matriz, skill: slug } }}
+        options={{ variables: { matriz: matriz.id, skill: slug } }}
       >
         {({ getKnowledgeSkillBySlug: { [matrizOrGap]: memberList } }) => (
           <>
             {memberList.map((member) => (
               <div
                 className="skilldetails__listmembers--member"
-                key={member.profile.login}
+                key={member.profile.github_login}
               >
                 <img
                   draggable={false}
@@ -143,12 +144,12 @@ const ListMembers: React.FC<IListMembers> = ({ matriz, onClose, slug }) => {
   );
 };
 
-interface ISkillDetailSummaryProps extends React.HTMLAttributes<HTMLElement> {
+type SkillDetailSummaryProps = {
   slug: string;
   summary: Summary[];
-}
+};
 
-const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({
+const SkillDetailSummay: React.FC<SkillDetailSummaryProps> = ({
   slug,
   summary,
 }) => {
@@ -212,8 +213,17 @@ const SkillDetailSummay: React.FC<ISkillDetailSummaryProps> = ({
           verticalAlign="middle"
         />
       </PieChart>
-      <Modal visible={visible} observer={observer} title={matriz.name}>
-        <ListMembers onClose={onClose} matriz={matriz.id} slug={slug} />
+      <Modal
+        visible={visible}
+        observer={observer}
+        title={matriz.name}
+        subtitle={`${i18n.sub('description-x-x', [
+          matriz.name,
+          matriz.description,
+        ])}`}
+      >
+        <h5>{i18n.get('members')}</h5>
+        <ListMembers onClose={onClose} matriz={matriz} slug={slug} />
       </Modal>
     </Panel>
   );
