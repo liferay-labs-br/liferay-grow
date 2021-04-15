@@ -154,13 +154,13 @@ export class KnowledgeSkill extends MainEntity {
 
     const skillSummary: KnowledgeSkillSummary[] = [
       {
+        description: '',
         id: 'gap',
         name: 'With Knowledge Gap',
         value: Number(gapsCount.total),
       },
-      ...matrizCount.map(({ id, name, total }: any) => ({
-        id,
-        name,
+      ...matrizCount.map(({ total, ...knowledgeMatrizes }: any) => ({
+        ...knowledgeMatrizes,
         value: Number(total),
       })),
     ];
@@ -172,6 +172,7 @@ export class KnowledgeSkill extends MainEntity {
 
       if (!skillExistInSummary) {
         skillSummary.push({
+          description: knowledgeMatriz.description,
           id: knowledgeMatriz.id,
           name: knowledgeMatriz.name,
           value: 0,

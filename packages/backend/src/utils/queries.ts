@@ -41,7 +41,7 @@ export const getKnowledgeMatrizAverage = async ({
 export const getKnowledgeSummaryCount = (skillId: string): Promise<any[]> => {
   const manager = getManager();
 
-  const knowledgeMatrizCountQuery = `SELECT count(km.name) AS total, km.name, km.id FROM knowledge_skill_details ksd 
+  const knowledgeMatrizCountQuery = `SELECT count(km.name) AS total, km.name, km.description, km.id FROM knowledge_skill_details ksd 
   INNER JOIN grow_map_knowledge_skill_details gmksd ON ksd.id = gmksd.knowledgeSkillDetailsId
   INNER JOIN knowledge_skill ks ON ks.id = ksd.knowledgeSkillId
   INNER JOIN knowledge_matriz km ON km.id = ksd.knowledgeMatrizId
