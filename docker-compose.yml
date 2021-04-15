@@ -10,8 +10,6 @@ services:
       MYSQL_PASSWORD: root
     volumes:
       - liferay-grow-db:/var/lib/mysql
-    ports:
-      - "3306:3306"
     restart: 'always'
   api:
     build: ./packages/backend
@@ -35,15 +33,11 @@ services:
       TYPEORM_MIGRATIONS: dist/src/migration/*.js
       AUTH_MIDDLEWARE_ENABLED: "true"
       VALIDATE_LIFERAY_ORG: "true"
-    ports: 
-      - '3333:3333'
     depends_on: 
       - mysql
   web:
     build: ./packages/frontend
     container_name: liferay-grow-frontend
-    ports:
-      - '3000:3000'
     depends_on: 
       - api
       - mysql
@@ -59,5 +53,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on: 
+      - api
+      - mysql
+      - web
 volumes: 
   liferay-grow-db:
