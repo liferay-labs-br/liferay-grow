@@ -63,7 +63,6 @@ class App {
     this.express.get('/', (_, res) => res.json({ message: 'Liferay Grow' }));
     this.express.get(
       '/csv/export',
-      cors(),
       ReportController.getKnowledgeSkillAndGapsCSV.bind(ReportController),
     );
   }
@@ -91,6 +90,7 @@ class App {
   private initializeMiddlewares(): void {
     this.express.use(Express.json());
     this.express.use(Express.static('temp'));
+    this.express.use(cors());
     this.express.use(Express.urlencoded({ extended: true }));
     this.express.use(helmet({ contentSecurityPolicy: false }));
   }

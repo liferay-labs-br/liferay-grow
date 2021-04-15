@@ -8,7 +8,7 @@ COPY ./styles ./styles
 COPY ./src ./src
 COPY ./next.config.js .
 COPY ./tsconfig.json .
-COPY ./.babelrc .
+COPY ./babel-config.js .
 COPY ./next-env.d.ts .
 COPY ./.env .
 
