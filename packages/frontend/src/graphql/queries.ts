@@ -116,6 +116,7 @@ export const knowledgeSkillBySlug = gql`
       summary {
         id
         name
+        description
         value
       }
       mentoringMembers: userSkills(data: { isMentor: true }) {

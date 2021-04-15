@@ -7,6 +7,7 @@ interface IModalProps extends React.HTMLAttributes<HTMLElement> {
   first?: ReactElement;
   last?: ReactElement;
   size?: Size;
+  subtitle?: string;
   title?: string;
   observer: any;
   visible: boolean;
@@ -18,6 +19,7 @@ const Modal: React.FC<IModalProps> = ({
   last,
   observer,
   size,
+  subtitle,
   title,
   visible,
 }) => {
@@ -27,7 +29,16 @@ const Modal: React.FC<IModalProps> = ({
 
   return (
     <ClayModal observer={observer} size={size}>
-      <ClayModal.Header>{title}</ClayModal.Header>
+      <ClayModal.Header>
+        <ClayModal.Title>{title}</ClayModal.Title>
+      </ClayModal.Header>
+      {subtitle && (
+        <ClayModal.SubtitleSection>
+          <ClayModal.Subtitle className="pl-4 mt-2 pr-4 legend-text">
+            {subtitle}
+          </ClayModal.Subtitle>
+        </ClayModal.SubtitleSection>
+      )}
       <ClayModal.Body>{children}</ClayModal.Body>
       {first || (last && <ClayModal.Footer first={first} last={last} />)}
     </ClayModal>
