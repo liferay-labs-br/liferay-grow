@@ -20,6 +20,9 @@ export class KnowledgeSkillSummary {
   @Field()
   name: string;
 
+  @Field({ nullable: true })
+  description: string;
+
   @Field()
   value: number;
 }
