@@ -24,6 +24,7 @@ export default {
   'go-to-home': 'Ir para o início',
   'i-feel-comfortable-with-being-a-mentor':
     'Me sinto confortável em ser mentor.',
+  'invalid-access-token': 'Acesso do Github expirado',
   'knowledge-areas': 'Áreas de conhecimento',
   'knowledge-detail': 'Knowledge Detail',
   'knowledge-gaps': 'Knowledge Gaps',
@@ -36,12 +37,14 @@ export default {
   next: 'Próximo',
   'no-results-for-x': `Sem resultados para "{0}"`,
   'no-results-found': 'Nenhum resultado encontrado',
+  'not-a-liferay-member': 'Você não faz parte da Organização Liferay',
   office: 'Escritório',
   'office-details': 'Detalhes do Escritório',
   other: 'Outro',
   'personal-details': 'Informações pessoais',
   prev: 'Anterior',
   profile: 'Perfil',
+  'read-more-about-x': 'Leia mais sobre: "{0}"',
   role: 'Função / Papel',
   save: 'Salvar',
   search: 'Procurar',
@@ -70,6 +73,7 @@ export default {
     'Este arquivo CSV contém entradas fornecidas pelo usuário. Abrir um arquivo CSV em um programa de planilha pode ser perigoso.',
   'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `
   Para começar, ajude-nos a conhecê-lo melhor. Por favor, preencha o formulário com suas habilidades e lacunas.`,
+  'try-again': 'Tente novamente',
   'user-x-profile-image': 'Usuário {0} Imagem de Perfil',
   welcome: 'Bem Vindo',
   'welcome-to-the-engineering-grow-together-program':

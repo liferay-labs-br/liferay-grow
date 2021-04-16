@@ -25,6 +25,7 @@ export default {
   'grow-map-already-exists': 'Grow Map already exists',
   'i-feel-comfortable-with-being-a-mentor':
     'I feel comfortable with being a mentor.',
+  'invalid-access-token': 'Github access expired',
   'knowledge-areas': 'Knowledge Areas',
   'knowledge-detail': 'Knowledge Detail',
   'knowledge-gaps': 'Knowledge Gaps',
@@ -37,11 +38,13 @@ export default {
   next: 'Next',
   'no-results-for-x': `No results for "{0}"`,
   'no-results-found': 'No results found',
+  'not-a-liferay-member': "You don't belong to Liferay Organization",
   'office-details': 'Office Details',
   other: 'Other',
   'personal-details': 'Personal Details',
   prev: 'Prev',
   profile: 'Profile',
+  'read-more-about-x': 'Read more about: "{0}"',
   role: 'Role',
   save: 'Save',
   search: 'Search',
@@ -68,6 +71,7 @@ export default {
     'This CSV file contains user supplied inputs. Opening a CSV file in a spreadsheet program may be dangerous.',
   'to-start-help-us-to-get-to-known-you-better-please-fill-out-in-form-with-your-skills-and-gaps': `To start, help us to get to known you better. Please fill out in the
   form with your skills and gaps.`,
+  'try-again': 'Try again',
   'user-x-profile-image': 'User {0} Profile image',
   'welcome-to-the-engineering-grow-together-program':
     'Welcome to the Engineering Grow Together Program!',
