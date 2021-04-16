@@ -7,7 +7,7 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "declaration": false,
-
+    "types": ["jest", "node",  "@types/jest"],
     "composite": false,
     "removeComments": true,
     "noImplicitAny": true,

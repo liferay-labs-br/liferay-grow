@@ -6,6 +6,7 @@
   "author": "Keven Leone <keven.leone@liferay.com>",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "start": "node dist/src/index.js",
