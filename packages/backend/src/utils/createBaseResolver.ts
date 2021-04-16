@@ -12,7 +12,7 @@ import {
 } from 'type-graphql';
 
 import { MyContext, Pagination, PaginationQL } from '../interfaces';
-import { isAuth } from '../middlewares/isAuth';
+import AuthMiddleware from '../middlewares/AuthMiddleware';
 import { applyFilters, paginate } from './globalMethods';
 
 /**
@@ -30,7 +30,7 @@ export function createBaseResolver<Entity>(
     filter: ClassType;
   },
   relations: string[] = [],
-  middlewares: Array<MiddlewareFn<MyContext>> = [isAuth],
+  middlewares: Array<MiddlewareFn<MyContext>> = [AuthMiddleware.isAuth],
 ) {
   @ObjectType(`PaginateObject${suffix}`)
   class PaginateObjectType {

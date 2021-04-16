@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { Profile } from '../entity/Profile';
 
 export interface MyContext {
-  req: Request;
-  res: Response;
+  isAuthenticated: boolean;
+  loggedUser: Profile | null;
 }

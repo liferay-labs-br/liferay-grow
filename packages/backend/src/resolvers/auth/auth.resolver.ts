@@ -23,6 +23,7 @@ export class AuthResolver {
   @Mutation(() => String, { name: 'authGithub' })
   async authGithub(@Arg('code') code: string): Promise<string> {
     const githubUser = await getGithubUser(code);
+
     const {
       avatar_url,
       email,

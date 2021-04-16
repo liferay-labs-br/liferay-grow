@@ -9,9 +9,8 @@ import {
 
 import { KnowledgeSkill } from '../../entity/KnowledgeSkill';
 import { MyContext } from '../../interfaces';
-import { isAuth } from '../../middlewares/isAuth';
+import AuthMiddleware from '../../middlewares/AuthMiddleware';
 import { createBaseResolver } from '../../utils/createBaseResolver';
-import { getLoggedUserFromCtx } from '../../utils/globalMethods';
 import Inputs, { CreateKnowledgeSkillInput } from './Inputs';
 
 const relations = ['area'];
@@ -39,12 +38,12 @@ export class KnowledgeSkillResolver extends BaseResolver {
   }
 
   @Mutation(() => KnowledgeSkill)
-  @UseMiddleware(isAuth)
+  @UseMiddleware(AuthMiddleware.isAuth)
   async createKnowledgeSkill(
     @Ctx() ctx: MyContext,
     @Arg('data') data: CreateKnowledgeSkillInput,
   ): Promise<KnowledgeSkill | Error> {
-    const loggedUser = getLoggedUserFromCtx(ctx);
+    const loggedUser = ctx.loggedUser;
 
     return this.create({ ...data, createdBy: loggedUser?.github_login });
   }

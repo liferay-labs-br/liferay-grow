@@ -9,7 +9,7 @@ import {
 
 import { GrowMap } from '../../entity/GrowMap';
 import { MyContext } from '../../interfaces';
-import { isAuth } from '../../middlewares/isAuth';
+import AuthMiddleware from '../../middlewares/AuthMiddleware';
 import { getUserFromCtxOrFail, logger } from '../../utils/globalMethods';
 import { UserDetailBaseInput } from '../user_details/Inputs';
 import {
@@ -36,7 +36,7 @@ const relations = [
 
 @Resolver(GrowMap)
 export class GrowMapResolver {
-  @UseMiddleware(isAuth)
+  @UseMiddleware(AuthMiddleware.isAuth)
   @Mutation(() => GrowMap, { name: 'createGrowMap' })
   async createGrowMap(
     @Arg('data') data: GrowMapBaseInput,
@@ -82,7 +82,7 @@ export class GrowMapResolver {
   }
 
   @Mutation(() => Boolean, { name: 'updateGrowMapSkillDetails' })
-  @UseMiddleware(isAuth)
+  @UseMiddleware(AuthMiddleware.isAuth)
   async updateGrowMapSkillDetails(
     @Arg('data') data: GrowMapSkillDetailsInput,
     @Ctx() ctx: MyContext,
@@ -146,7 +146,7 @@ export class GrowMapResolver {
   }
 
   @Mutation(() => Boolean, { name: 'updateGrowMapGapsDetails' })
-  @UseMiddleware(isAuth)
+  @UseMiddleware(AuthMiddleware.isAuth)
   async updateGrowMapGapsDetails(
     @Arg('data') data: GrowMapSkillGapsInput,
     @Ctx() ctx: MyContext,
@@ -195,7 +195,7 @@ export class GrowMapResolver {
   }
 
   @Mutation(() => Boolean, { name: 'updateGrowMapOfficeDetails' })
-  @UseMiddleware(isAuth)
+  @UseMiddleware(AuthMiddleware.isAuth)
   async updateGrowMapOfficeDetails(
     @Arg('data') data: UserDetailBaseInput,
     @Ctx() ctx: MyContext,

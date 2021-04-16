@@ -94,23 +94,12 @@ export const paginate = (
   };
 };
 
-export const getLoggedUserFromCtx = (ctx: MyContext): any => {
-  const loggedUser: any = ctx.req.headers.loggedUser || {};
-
-  return loggedUser;
-};
-
 export const getUserFromCtxOrFail = async (
-  ctx: MyContext,
+  { loggedUser }: MyContext,
   relations: string[] = [],
 ): Promise<User> => {
-  const loggedUser = getLoggedUserFromCtx(ctx);
-  const {
-    user: { id },
-  } = loggedUser;
-
   try {
-    const user = await User.findOneOrFail(id, { relations });
+    const user = await User.findOneOrFail(loggedUser?.id, { relations });
     return user;
   } catch (e) {
     throw new Error('User not exists');

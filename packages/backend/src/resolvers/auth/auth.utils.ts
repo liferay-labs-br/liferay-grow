@@ -35,7 +35,7 @@ export const getGithubUser = async (code: string): Promise<any> => {
 
     return githubUser;
   } else {
-    throw new Error('Something went wrong');
+    throw new Error('invalid-access-token');
   }
 };
 

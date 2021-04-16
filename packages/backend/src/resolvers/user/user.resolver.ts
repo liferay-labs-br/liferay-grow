@@ -3,7 +3,7 @@ import { Arg, Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { Profile } from '../../entity/Profile';
 import { User } from '../../entity/User';
 import { MyContext } from '../../interfaces';
-import { isAuth } from '../../middlewares/isAuth';
+import AuthMiddleware from '../../middlewares/AuthMiddleware';
 
 const relations = [
   'profile',
@@ -45,14 +45,9 @@ export class UserResolver {
   }
 
   @Query(() => User, { name: 'me' })
-  @UseMiddleware(isAuth)
+  @UseMiddleware(AuthMiddleware.isAuth)
   async getMe(@Ctx() ctx: MyContext): Promise<User | undefined> {
-    const {
-      req: { headers },
-    } = ctx;
-    const { loggedUser }: any = headers;
-
-    const { id } = loggedUser?.user;
+    const { id } = ctx.loggedUser?.user || {};
 
     return User.findOneOrFail(id, { relations });
   }
