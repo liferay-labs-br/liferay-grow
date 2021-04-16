@@ -5,25 +5,28 @@ import { getKnowledgeSkillsAndGaps } from '../utils/queries';
 import { CSVController } from './CSV';
 
 export class Reports extends CSVController {
-  async getKnowledgeSkillAndGapsCSV(_: Request, res: Response): Promise<void> {
-    const path = '/data.csv';
+  private fileName = 'data.csv';
+  private headers = [
+    'Skill',
+    'Member',
+    'Knowledge Level',
+    'Mentor',
+    'Role',
+    'Email',
+    'Location',
+    'Teams',
+  ];
 
+  async getKnowledgeSkillAndGapsCSV(_: Request, res: Response): Promise<void> {
     const knowledgeSkillsAndGaps = await getKnowledgeSkillsAndGaps();
 
     const file = await csv.write(knowledgeSkillsAndGaps, {
-      headers: [
-        'Skill',
-        'Member',
-        'Knowledge Level',
-        'Mentor',
-        'Role',
-        'Email',
-        'Location',
-        'Teams',
-      ],
+      headers: this.headers,
     });
 
-    const ws = await this.getFileWS('data.csv');
+    const ws = await this.getFileWS(this.fileName);
+
+    const path = `/${this.fileName}`;
 
     file
       .on('finish', function () {

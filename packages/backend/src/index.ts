@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 
-import { ApolloServer, Config } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import { config } from 'dotenv';
 import Express from 'express';
 import helmet from 'helmet';
 
 import { Reports } from './controller/Reports';
-import createSchema from './utils/createSchema';
+import ApolloConfig from './utils/apolloConfig';
 import { logger } from './utils/globalMethods';
 import { createTypeormConn } from './utils/typeORMConn';
 
@@ -24,31 +24,8 @@ class App {
   }
 
   private async initializeApollo(): Promise<void> {
-    const { APP_NAME, NODE_ENV, RUN_PLAYGROUND = true } = process.env;
+    const apolloServerConfig = await ApolloConfig.getApolloConfig();
 
-    logger.debug(`${APP_NAME} environment: ${NODE_ENV}`);
-
-    const apolloServerConfig: Config = {
-      cacheControl: { defaultMaxAge: 30 },
-      context: ({ req, res }: any) => ({ req, res }),
-      formatError: (error) => {
-        const { message, path } = error;
-        logger.error(
-          `Message: ${message.toUpperCase()} / On Path: ${JSON.stringify(
-            path,
-          )}`,
-        );
-        return error;
-      },
-      playground: RUN_PLAYGROUND
-        ? { title: APP_NAME, workspaceName: NODE_ENV }
-        : false,
-      schema: await createSchema(),
-    };
-
-    if (NODE_ENV === 'production') {
-      apolloServerConfig.introspection = true;
-    }
     const apolloServer = new ApolloServer(apolloServerConfig);
 
     apolloServer.applyMiddleware({
@@ -88,9 +65,9 @@ class App {
   }
 
   private initializeMiddlewares(): void {
+    this.express.use(cors());
     this.express.use(Express.json());
     this.express.use(Express.static('temp'));
-    this.express.use(cors());
     this.express.use(Express.urlencoded({ extended: true }));
     this.express.use(helmet({ contentSecurityPolicy: false }));
   }
