@@ -1,4 +1,5 @@
 import ClayLayout from '@clayui/layout';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import Meta from '@/components/meta';
@@ -16,6 +17,7 @@ type TeamsProps = {
 
 const Teams: React.FC<TeamsProps> = ({ teams }) => {
   const i18n = useLang();
+  const router = useRouter();
 
   return (
     <ClayLayout.Row className="mt-4">
@@ -23,7 +25,10 @@ const Teams: React.FC<TeamsProps> = ({ teams }) => {
         const membersCount = String(team.members?.pagination?.totalItems || 0);
 
         return (
-          <Panel.Item key={team.id} href={`/team/${team.slug}`}>
+          <Panel.Item
+            key={team.id}
+            onClick={() => router.push(`/team/${team.slug}`)}
+          >
             <Panel.Title className="title">{team.name}</Panel.Title>
             <Panel.Body>
               <span>{i18n.sub('x-members', membersCount)}</span>
