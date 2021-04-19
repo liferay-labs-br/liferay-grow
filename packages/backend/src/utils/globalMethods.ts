@@ -99,7 +99,8 @@ export const getUserFromCtxOrFail = async (
   relations: string[] = [],
 ): Promise<User> => {
   try {
-    const user = await User.findOneOrFail(loggedUser?.id, { relations });
+    const user = await User.findOneOrFail(loggedUser?.user?.id, { relations });
+
     return user;
   } catch (e) {
     throw new Error('User not exists');
