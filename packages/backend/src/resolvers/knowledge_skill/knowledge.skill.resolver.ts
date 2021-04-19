@@ -1,15 +1,7 @@
-import {
-  Arg,
-  Ctx,
-  Mutation,
-  Query,
-  Resolver,
-  UseMiddleware,
-} from 'type-graphql';
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 
 import { KnowledgeSkill } from '../../entity/KnowledgeSkill';
 import { MyContext } from '../../interfaces';
-import AuthMiddleware from '../../middlewares/AuthMiddleware';
 import { createBaseResolver } from '../../utils/createBaseResolver';
 import Inputs, { CreateKnowledgeSkillInput } from './Inputs';
 
@@ -38,7 +30,7 @@ export class KnowledgeSkillResolver extends BaseResolver {
   }
 
   @Mutation(() => KnowledgeSkill)
-  @UseMiddleware(AuthMiddleware.isAuth)
+  @Authorized()
   async createKnowledgeSkill(
     @Ctx() ctx: MyContext,
     @Arg('data') data: CreateKnowledgeSkillInput,

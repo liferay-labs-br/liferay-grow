@@ -1,5 +1,6 @@
 import {
   Arg,
+  Authorized,
   ClassType,
   Field,
   InputType,
@@ -12,7 +13,6 @@ import {
 } from 'type-graphql';
 
 import { MyContext, Pagination, PaginationQL } from '../interfaces';
-import AuthMiddleware from '../middlewares/AuthMiddleware';
 import { applyFilters, paginate } from './globalMethods';
 
 /**
@@ -30,7 +30,7 @@ export function createBaseResolver<Entity>(
     filter: ClassType;
   },
   relations: string[] = [],
-  middlewares: Array<MiddlewareFn<MyContext>> = [AuthMiddleware.isAuth],
+  middlewares: Array<MiddlewareFn<MyContext>> = [],
 ) {
   @ObjectType(`PaginateObject${suffix}`)
   class PaginateObjectType {
@@ -49,12 +49,14 @@ export function createBaseResolver<Entity>(
 
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
+    @Authorized()
     @UseMiddleware(middlewares)
     @Query(() => [entity], { name: `getAll${suffix}` })
     async getAll(): Promise<Entity[]> {
       return entity.find({ relations });
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Query(() => [entity], { name: `getAll${suffix}Filter` })
     async getAllFiltered(
@@ -63,6 +65,7 @@ export function createBaseResolver<Entity>(
       return entity.find({ relations, where: data });
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Query(() => PaginateObjectType, { name: `getAll${suffix}Paginate` })
     async getAllPagination(
@@ -87,6 +90,7 @@ export function createBaseResolver<Entity>(
       };
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Query(() => entity, { name: `get${suffix}` })
     async getOne(@Arg('id', () => String) id: string): Promise<Entity | Error> {
@@ -98,6 +102,7 @@ export function createBaseResolver<Entity>(
       return content;
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Mutation(() => entity, { name: `create${suffix}` })
     async create(
@@ -108,6 +113,7 @@ export function createBaseResolver<Entity>(
       return this.getOne(id);
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Mutation(() => entity, { name: `updateBy${suffix}ID` })
     async updateByID(
@@ -119,6 +125,7 @@ export function createBaseResolver<Entity>(
       return this.getOne(id);
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Mutation(() => [entity], { name: `createMulti${suffix}` })
     async createMulti(
@@ -129,6 +136,7 @@ export function createBaseResolver<Entity>(
       return insertedData;
     }
 
+    @Authorized()
     @UseMiddleware(middlewares)
     @Mutation(() => Boolean, { name: `deleteBy${suffix}ID` })
     async deleteByID(@Arg('id', () => String) id: string): Promise<boolean> {

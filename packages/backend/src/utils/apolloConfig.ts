@@ -4,7 +4,7 @@ import { GraphQLError } from 'graphql';
 
 import { MyContext } from '../interfaces';
 import AuthMiddleware from '../middlewares/AuthMiddleware';
-import createSchema from './createSchema';
+import GraphQLSchema from './GraphQLSchema';
 import logger from './logger';
 
 class ApolloConfig {
@@ -36,16 +36,19 @@ class ApolloConfig {
       ? { title: APP_NAME, workspaceName: NODE_ENV }
       : false;
 
-    const schema = await createSchema();
+    const schema = await GraphQLSchema.getSchema();
 
     const apolloServerConfig: Config = {
       cacheControl: { defaultMaxAge: this.defaultMaxAge },
       context: this.context,
       formatError: this.formatError,
-      introspection: NODE_ENV === 'production',
       playground,
       schema,
     };
+
+    if (NODE_ENV === 'production') {
+      apolloServerConfig.introspection = true;
+    }
 
     logger.debug(`${APP_NAME} environment: ${NODE_ENV}`);
 
