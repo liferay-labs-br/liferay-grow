@@ -1,9 +1,8 @@
-import { Arg, Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
+import { Arg, Authorized, Ctx, Query, Resolver } from 'type-graphql';
 
 import { Profile } from '../../entity/Profile';
 import { User } from '../../entity/User';
 import { MyContext } from '../../interfaces';
-import AuthMiddleware from '../../middlewares/AuthMiddleware';
 
 const relations = [
   'profile',
@@ -21,6 +20,7 @@ const relations = [
 
 @Resolver(User)
 export class UserResolver {
+  @Authorized('ADMIN')
   @Query(() => [User], { name: 'getAllUsers' })
   async getAllUsers(): Promise<User[]> {
     const users = await User.find({
@@ -30,6 +30,7 @@ export class UserResolver {
     return users;
   }
 
+  @Authorized()
   @Query(() => User, { name: 'getUserByLogin' })
   async getUserByLogin(@Arg('login') login: string): Promise<User | Error> {
     try {
@@ -44,8 +45,8 @@ export class UserResolver {
     }
   }
 
+  @Authorized()
   @Query(() => User, { name: 'me' })
-  @UseMiddleware(AuthMiddleware.isAuth)
   async getMe(@Ctx() ctx: MyContext): Promise<User | undefined> {
     const { id } = ctx.loggedUser?.user || {};
 

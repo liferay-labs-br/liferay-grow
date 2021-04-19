@@ -1,15 +1,7 @@
-import {
-  Arg,
-  Ctx,
-  Mutation,
-  Query,
-  Resolver,
-  UseMiddleware,
-} from 'type-graphql';
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 
 import { GrowMap } from '../../entity/GrowMap';
 import { MyContext } from '../../interfaces';
-import AuthMiddleware from '../../middlewares/AuthMiddleware';
 import { getUserFromCtxOrFail, logger } from '../../utils/globalMethods';
 import { UserDetailBaseInput } from '../user_details/Inputs';
 import {
@@ -36,7 +28,7 @@ const relations = [
 
 @Resolver(GrowMap)
 export class GrowMapResolver {
-  @UseMiddleware(AuthMiddleware.isAuth)
+  @Authorized()
   @Mutation(() => GrowMap, { name: 'createGrowMap' })
   async createGrowMap(
     @Arg('data') data: GrowMapBaseInput,
@@ -82,7 +74,7 @@ export class GrowMapResolver {
   }
 
   @Mutation(() => Boolean, { name: 'updateGrowMapSkillDetails' })
-  @UseMiddleware(AuthMiddleware.isAuth)
+  @Authorized()
   async updateGrowMapSkillDetails(
     @Arg('data') data: GrowMapSkillDetailsInput,
     @Ctx() ctx: MyContext,
@@ -146,7 +138,7 @@ export class GrowMapResolver {
   }
 
   @Mutation(() => Boolean, { name: 'updateGrowMapGapsDetails' })
-  @UseMiddleware(AuthMiddleware.isAuth)
+  @Authorized()
   async updateGrowMapGapsDetails(
     @Arg('data') data: GrowMapSkillGapsInput,
     @Ctx() ctx: MyContext,
@@ -195,7 +187,7 @@ export class GrowMapResolver {
   }
 
   @Mutation(() => Boolean, { name: 'updateGrowMapOfficeDetails' })
-  @UseMiddleware(AuthMiddleware.isAuth)
+  @Authorized()
   async updateGrowMapOfficeDetails(
     @Arg('data') data: UserDetailBaseInput,
     @Ctx() ctx: MyContext,
