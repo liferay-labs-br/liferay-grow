@@ -7,12 +7,12 @@ import { SkillManagement, Types } from '@/types';
 import LoadingWrapper from '../loading';
 import SkillContext, { initialState, mainReducer } from './SkillContext';
 
-type AppProvider = {
+type SkillContextProvider = {
   defaultState?: SkillManagement;
   fetchData?: boolean;
 };
 
-const AppProvider: React.FC<AppProvider> = ({
+const SkillContextProvider: React.FC<SkillContextProvider> = ({
   children,
   fetchData = true,
   defaultState = {},
@@ -26,6 +26,7 @@ const AppProvider: React.FC<AppProvider> = ({
 
   const fetchKnowledgeData = async () => {
     setLoading(true);
+
     const { data } = await client.query({
       query: allKnowledgeData,
     });
@@ -51,4 +52,4 @@ const AppProvider: React.FC<AppProvider> = ({
   );
 };
 
-export default AppProvider;
+export default SkillContextProvider;

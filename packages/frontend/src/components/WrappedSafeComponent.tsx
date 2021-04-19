@@ -1,14 +1,19 @@
-import { OperationVariables, QueryHookOptions, useQuery } from '@apollo/client';
+import {
+  DocumentNode,
+  OperationVariables,
+  QueryHookOptions,
+  useQuery,
+} from '@apollo/client';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import React from 'react';
 
-interface IWrappedSafeComponentProps extends React.HTMLAttributes<HTMLElement> {
+type WrappedSafeComponentProps = {
   children: (data: any) => React.ReactElement;
   options?: QueryHookOptions<any, OperationVariables>;
-  query: any;
-}
+  query: DocumentNode;
+};
 
-const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
+const WrappedSafeComponent: React.FC<WrappedSafeComponentProps> = ({
   children,
   options,
   query,

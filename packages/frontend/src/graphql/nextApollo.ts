@@ -2,12 +2,16 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { concatPagination } from '@apollo/client/utilities';
 import { useMemo } from 'react';
 
+import { getToken } from '@/utils/cookie';
+
 let apolloClient;
 
 export const baseURL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3333';
 
 function createApolloClient() {
+  const Authorization = getToken();
+
   return new ApolloClient({
     cache: new InMemoryCache({
       typePolicies: {
@@ -20,11 +24,9 @@ function createApolloClient() {
       },
     }),
     link: new HttpLink({
-      // Server URL (must be absolute)
       credentials: 'same-origin',
-      // Additional fetch() options like `credentials` or `headers`
       headers: {
-        Authorization: '',
+        Authorization,
       },
       uri: `${baseURL}/graphql`,
     }),
@@ -58,7 +60,7 @@ export function initializeApollo(initialState = null, createNew = false) {
   return _apolloClient;
 }
 
-export function useApollo(initialState) {
+export function useApollo(initialState: any) {
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
 
   return store;
