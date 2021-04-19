@@ -27,38 +27,41 @@ export class AuthResolver {
     const {
       avatar_url,
       email,
-      id: accountId,
+      id: github_id,
       location,
-      login,
+      login: github_login,
       name,
     } = githubUser;
 
-    const user = await Profile.findOne({
+    const profile = await Profile.findOne({
       relations: ['user', 'user.growMap'],
       where: {
-        github_login: login,
+        github_login,
       },
     });
 
     let token = '';
 
-    if (user) {
-      token = await assignToken(user);
+    if (profile) {
+      token = await assignToken(profile);
     } else {
       if (VALIDATE_LIFERAY_ORG) {
-        const isLiferayMember = await belongsToLiferayOrg(login);
+        const isLiferayMember = await belongsToLiferayOrg(github_login);
 
         if (!isLiferayMember) {
+          logger.error(`${github_login} is not a liferay member`);
+
           throw new Error('not-a-liferay-member');
         }
       }
 
       const newUser = await User.create().save();
+
       const newProfile = await Profile.create({
         avatar_url,
         email,
-        github_id: accountId,
-        github_login: login,
+        github_id,
+        github_login,
         location,
         name,
         user: newUser,
@@ -71,7 +74,7 @@ export class AuthResolver {
       await newUser.save();
     }
 
-    logger.info(`Token generated for ${login}`);
+    logger.info(`Token generated for ${github_login}`);
 
     return token;
   }
