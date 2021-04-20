@@ -18,8 +18,16 @@ export type Profile = {
 export type UserDetails = {
   id?: string;
   office: Office;
+  department: BasicQuery;
   role: BasicQuery;
   teams: Team[];
+};
+
+export type GrowMapOfficeInput = {
+  officeId: string;
+  departmentId: string;
+  roleId: string;
+  teamsId: string[];
 };
 
 export interface KnowledgeMatriz extends BasicQuery {
