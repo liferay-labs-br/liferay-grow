@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as csv from 'fast-csv';
-import * as path from 'path';
 
 import { getKnowledgeSkillsAndGaps } from '../utils/queries';
 import { CSVController } from './CSV';
@@ -31,9 +30,7 @@ export class Reports extends CSVController {
     const self = this; // eslint-disable-line
 
     file.pipe(ws).on('finish', () => {
-      res.download(
-        path.resolve(__dirname, '..', '..', self.tempFolder, self.fileName),
-      );
+      res.download(`${self.tempFolder}/${self.fileName}`);
     });
   }
 }
