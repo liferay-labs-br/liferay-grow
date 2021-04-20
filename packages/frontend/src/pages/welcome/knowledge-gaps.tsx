@@ -26,7 +26,7 @@ const normalizeGrowMapData = (data: GrowMap): GrowMapMutationData => {
         knowledgeSkillId,
       }),
     ),
-    userDetails: data.userDetails,
+    userDetails: data.userDetails as any,
   };
 
   return normalizedData;
