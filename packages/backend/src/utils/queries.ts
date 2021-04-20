@@ -81,14 +81,14 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
                   WHEN 1 THEN 'Yes'
               END AS Mentor,
               r.name AS Role,
-              p.email AS Email,
               CONCAT(o.city, '/', o.country) as Location,
       (SELECT GROUP_CONCAT(t.name) teams 
       FROM user_details_teams udt
       INNER JOIN team t ON udt.teamId = t.id
       INNER JOIN grow_map on grow_map.userDetailsId = udt.userDetailsId
       WHERE grow_map.id = gm.id
-      GROUP BY udt.userDetailsId) AS Teams
+      GROUP BY udt.userDetailsId) AS Teams,
+      d.name as Department
   FROM
     (SELECT ksd.knowledgeSkillId,
           gmksd.growMapId,
@@ -110,6 +110,7 @@ export const getKnowledgeSkillsAndGaps = async (): Promise<
    INNER JOIN role AS r ON ud.roleId = r.id
    INNER JOIN profile p ON p.userId = u.id
    INNER JOIN office o ON o.id = ud.officeId
+   INNER JOIN department d ON d.id = ud.departmentId
    ORDER BY ks.name`.trim();
 
   const manager = getManager();
