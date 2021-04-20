@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { ClayPaginationBarWithBasicItems } from '@clayui/pagination-bar';
 import React from 'react';
 
@@ -7,22 +8,28 @@ import EmptyState, { EmptyStateProps } from '../empty-state/EmptyState';
 import ManagementToolbar from '../management-toolbar';
 import TableComponent from '../table';
 
+const deltas = [10, 20, 40, 50, 100].map((delta) => ({ label: delta }));
+
 type IListView = {
   pagination: Pagination;
   columns: any[];
   items: any[];
   orderBy?: boolean;
   emptyState?: EmptyStateProps;
-  searchOnChange: (value: string) => void;
+  onPageChange?: (page: number) => void;
+  onDeltaChange?: (delta: number) => void;
+  searchOnChange?: (value: string) => void;
 };
 
 const ListView: React.FC<IListView> = ({
   columns,
   emptyState,
   items,
+  onDeltaChange = () => {},
+  onPageChange = () => {},
   orderBy,
   pagination,
-  searchOnChange,
+  searchOnChange = () => {},
 }) => {
   const { currentPage, totalItems = 0 } = pagination || {};
 
@@ -32,12 +39,13 @@ const ListView: React.FC<IListView> = ({
         <ManagementToolbar orderBy={orderBy} searchOnChange={searchOnChange} />
         <TableComponent columns={columns} items={items} />
         <ClayPaginationBarWithBasicItems
-          activeDelta={1}
+          activeDelta={pagination.pageSize}
+          deltas={deltas}
           activePage={currentPage}
           spritemap={null}
           ellipsisBuffer={3}
-          onPageChange={(page) => console.log(page)}
-          onDeltaChange={(pageSize) => console.log(pageSize)}
+          onPageChange={onPageChange}
+          onDeltaChange={onDeltaChange}
           totalItems={totalItems}
         />
       </>
