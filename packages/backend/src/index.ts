@@ -67,7 +67,6 @@ class App {
   private initializeMiddlewares(): void {
     this.express.use(cors());
     this.express.use(Express.json());
-    this.express.use(Express.static('temp'));
     this.express.use(Express.urlencoded({ extended: true }));
     this.express.use(helmet({ contentSecurityPolicy: false }));
   }
