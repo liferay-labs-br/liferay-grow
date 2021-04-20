@@ -13,6 +13,7 @@ const relations = [
   'growMap.knowledgeSkillDetails.knowledgeSkill',
   'growMap.knowledgeSkillDetails.knowledgeMatriz',
   'growMap.userDetails',
+  'growMap.userDetails.department',
   'growMap.userDetails.office',
   'growMap.userDetails.role',
   'growMap.userDetails.teams',

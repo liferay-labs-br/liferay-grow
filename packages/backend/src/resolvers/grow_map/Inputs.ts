@@ -6,13 +6,13 @@ import { UserDetailBaseInput } from '../user_details/Inputs';
 
 @InputType()
 export class GrowMapBaseInput {
-  @Field(() => [KnowledgeSkillDetailBaseInput], { defaultValue: [] })
-  knowledgeSkillDetails: KnowledgeSkillDetailBaseInput[];
-
   @Field(() => [KnowledgeGapsDetailBaseInput], {
     defaultValue: [],
   })
   knowledgeGapsDetails: KnowledgeGapsDetailBaseInput[];
+
+  @Field(() => [KnowledgeSkillDetailBaseInput], { defaultValue: [] })
+  knowledgeSkillDetails: KnowledgeSkillDetailBaseInput[];
 
   @Field()
   userDetails: UserDetailBaseInput;
@@ -21,7 +21,7 @@ export class GrowMapBaseInput {
 @InputType()
 export class GrowMapSkillDetailsInput {
   @Field(() => [KnowledgeSkillDetailBaseInput], { defaultValue: [] })
-  knowledgeSkillDetails?: KnowledgeSkillDetailBaseInput[];
+  knowledgeSkillDetails: KnowledgeSkillDetailBaseInput[];
 }
 
 @InputType()
