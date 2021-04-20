@@ -26,7 +26,7 @@ export const welcomeState: Welcome = {
       officeId: '',
       roleId: '',
       teamsId: [],
-    } as GrowMapOfficeInput,
+    } as any,
   },
   steps: STEPS,
 };

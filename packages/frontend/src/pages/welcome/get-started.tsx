@@ -32,9 +32,7 @@ const GetStarted: React.FC<GetStartedProps> = ({
     },
   } = useContext(AppContext);
 
-  const [form, setForm] = useState<GrowMapOfficeInput>(
-    data.userDetails as GrowMapOfficeInput,
-  );
+  const [form, setForm] = useState<GrowMapOfficeInput>(data.userDetails as any);
 
   const i18n = useLang();
   const router = useRouter();
