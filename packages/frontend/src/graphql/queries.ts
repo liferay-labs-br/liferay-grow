@@ -62,6 +62,13 @@ const allTeam = `
   }
 `;
 
+const allDepartment = `
+  getAllDepartment {
+    id
+    name
+  }
+`;
+
 export const allKnowledgeSkills = gql`
   query {
     skills: getAllKnowledgeSkill {
@@ -189,6 +196,7 @@ export const getStarted = gql`
   query {
     roles: ${allRole}
     teams: ${allTeam}
+    departments: ${allDepartment}
     offices: ${allOffice}
   }
 `;

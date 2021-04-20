@@ -59,6 +59,10 @@ const USER_DETAILS_FRAGMENT = gql`
 
   fragment UserDetailsFragment on UserDetails {
     id
+    department {
+      id
+      name
+    }
     role {
       id
       name

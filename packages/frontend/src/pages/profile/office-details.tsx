@@ -11,54 +11,49 @@ import { UpdateGrowMapOfficeDetails } from '@/graphql/mutations';
 import { getMe, getStarted } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { BasicQuery, Me, Office, Team } from '@/types';
+import { BasicQuery, GrowMapOfficeInput, Me, Office, Team } from '@/types';
 import ROUTES from '@/utils/routes';
 
-type BasicSelect = {
-  id?: string;
-  name?: string;
-};
-
-interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
+type GetStartedProps = {
+  departments: BasicQuery[];
   teams: Team[];
   offices: Office[];
   roles: BasicQuery[];
   refetch: () => Promise<void>;
   me?: Me;
-}
+};
 
-const GetStarted: React.FC<IGetStartedProps> = ({
+const GetStarted: React.FC<GetStartedProps> = ({
+  departments,
   me,
   offices,
   refetch,
   roles,
   teams,
 }) => {
-  const { office, role, teams: userTeams } = me.growMap.userDetails;
+  const { department, office, role, teams: userTeams } = me.growMap.userDetails;
 
   const [onUpdateGrowMapOffice] = useMutation(UpdateGrowMapOfficeDetails);
 
-  const [selectedRole, setSelectedRole] = useState<BasicSelect>(role || {});
-  const [selectedOffice, setSelectedOffice] = useState<BasicSelect>(
-    office || {},
-  );
-  const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(userTeams);
+  const [form, setForm] = useState<GrowMapOfficeInput>({
+    departmentId: department?.id,
+    officeId: office?.id,
+    roleId: role?.id,
+    teamsId: userTeams.map(({ id }) => id),
+  });
 
   const i18n = useLang();
   const router = useRouter();
 
-  const canSave = selectedRole.id && selectedOffice.id && selectedTeams.length;
+  const canSave =
+    form.departmentId && form.officeId && form.roleId && form.teamsId.length;
 
   const onSave = async () => {
     if (canSave) {
       try {
         await onUpdateGrowMapOffice({
           variables: {
-            data: {
-              officeId: selectedOffice.id,
-              roleId: selectedRole.id,
-              teamsId: selectedTeams.map(({ id }) => id),
-            },
+            data: form,
           },
         });
 
@@ -77,15 +72,12 @@ const GetStarted: React.FC<IGetStartedProps> = ({
   return (
     <>
       <OfficeDetailsBody
-        selectedOffice={selectedOffice}
-        setSelectedOffice={setSelectedOffice}
-        selectedRole={selectedRole}
-        selectedTeams={selectedTeams}
+        form={form}
+        setForm={setForm}
+        departments={departments}
         teams={teams}
         roles={roles}
         offices={offices}
-        setSelectedRole={setSelectedRole}
-        setSelectedTeams={setSelectedTeams}
       />
 
       <ClayButton displayType="secondary" className="mr-2" onClick={onCancel}>
