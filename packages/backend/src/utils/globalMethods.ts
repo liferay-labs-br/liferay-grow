@@ -1,4 +1,4 @@
-import { EntityOptions, Like } from 'typeorm';
+import { Like } from 'typeorm';
 
 import { User } from '../entity/User';
 import { MyContext } from '../interfaces/MyContext';
@@ -125,13 +125,3 @@ export const slugify = (str: string): string => {
 
   return str;
 };
-
-export async function execMiddleware(
-  entity: EntityOptions,
-  data: any,
-  ...middlewares: Array<(entity: EntityOptions, data: any) => void>
-): Promise<void> {
-  for (const middleware of middlewares) {
-    await middleware(entity, data);
-  }
-}
