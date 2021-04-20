@@ -1,3 +1,4 @@
+import { Department } from '../../entity/Department';
 import { KnowledgeGapsDetails } from '../../entity/KnowledgeGapsDetails';
 import { KnowledgeMatriz } from '../../entity/KnowledgeMatriz';
 import { KnowledgeSkill } from '../../entity/KnowledgeSkill';
@@ -111,7 +112,7 @@ export const saveKnowledgeGapsDetails = async (
 };
 
 export const saveUserDetails = async (
-  { officeId, roleId, teamsId }: UserDetailBaseInput,
+  { departmentId, officeId, roleId, teamsId }: UserDetailBaseInput,
   _userDetails?: UserDetails,
 ): Promise<UserDetails> => {
   let userDetails: UserDetails | undefined = _userDetails;
@@ -120,14 +121,16 @@ export const saveUserDetails = async (
     userDetails = await UserDetails.create();
   }
 
-  const [role, office, teams] = await Promise.all([
-    Role.findOne(roleId),
+  const [department, office, role, teams] = await Promise.all([
+    Department.findOne(departmentId),
     Office.findOne(officeId),
+    Role.findOne(roleId),
     Team.findByIds([...new Set(teamsId)]),
   ]);
 
-  userDetails.role = role;
+  userDetails.department = department;
   userDetails.office = office;
+  userDetails.role = role;
   userDetails.teams = teams;
 
   await userDetails.save();
