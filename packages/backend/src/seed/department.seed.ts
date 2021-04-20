@@ -3,9 +3,9 @@ export default [
     name: 'Engineering',
   },
   {
-    name: 'Support',
+    name: 'Global Services',
   },
   {
-    name: 'Global Services',
+    name: 'Subscription Services',
   },
 ];

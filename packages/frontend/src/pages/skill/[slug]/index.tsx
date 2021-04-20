@@ -104,21 +104,24 @@ type ListMembersProps = {
 const ListMembers: React.FC<ListMembersProps> = ({ matriz, onClose, slug }) => {
   const matrizOrGap = matriz.id === 'gap' ? 'userGaps' : 'userSkills';
 
+  const i18n = useLang();
   const router = useRouter();
 
   return (
-    <div className="skilldetails__listmembers">
-      <WrappedSafeComponent
-        query={membersKnowledgeSkillBySlug}
-        options={{ variables: { matriz: matriz.id, skill: slug } }}
-      >
-        {({ getKnowledgeSkillBySlug: { [matrizOrGap]: memberList } }) => (
-          <>
-            {memberList.map((member) => (
-              <div
-                className="skilldetails__listmembers--member"
-                key={member.profile.github_login}
-              >
+    <WrappedSafeComponent
+      query={membersKnowledgeSkillBySlug}
+      options={{ variables: { matriz: matriz.id, skill: slug } }}
+    >
+      {({ getKnowledgeSkillBySlug: { [matrizOrGap]: memberList } }) => (
+        <>
+          <h5>{`${i18n.get('members')} (${memberList.length})`}</h5>
+
+          {memberList.map((member) => (
+            <div
+              key={member.profile.github_login}
+              className="skilldetails__listmembers"
+            >
+              <div className="skilldetails__listmembers--member">
                 <img
                   draggable={false}
                   src={member.profile.avatar_url}
@@ -136,11 +139,11 @@ const ListMembers: React.FC<ListMembersProps> = ({ matriz, onClose, slug }) => {
                   {member.profile.name}
                 </span>
               </div>
-            ))}
-          </>
-        )}
-      </WrappedSafeComponent>
-    </div>
+            </div>
+          ))}
+        </>
+      )}
+    </WrappedSafeComponent>
   );
 };
 
@@ -217,12 +220,15 @@ const SkillDetailSummay: React.FC<SkillDetailSummaryProps> = ({
         visible={visible}
         observer={observer}
         title={matriz.name}
-        subtitle={`${i18n.sub('description-x-x', [
-          matriz.name,
-          matriz.description,
-        ])}`}
+        subtitle={
+          matriz.description
+            ? `${i18n.sub('description-x-x', [
+                matriz.name,
+                matriz.description,
+              ])}`
+            : null
+        }
       >
-        <h5>{i18n.get('members')}</h5>
         <ListMembers onClose={onClose} matriz={matriz} slug={slug} />
       </Modal>
     </Panel>
