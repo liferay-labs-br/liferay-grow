@@ -71,7 +71,6 @@ const Members: React.FC = () => {
               columns={columns}
               items={rows}
               pagination={pagination}
-              searchOnChange={(value) => console.log(value)}
               orderBy
               onDeltaChange={(value) => onResourceChange('pageSize', value)}
               onPageChange={(value) => onResourceChange('pageIndex', value)}

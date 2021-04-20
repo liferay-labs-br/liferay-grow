@@ -23,7 +23,7 @@ const SelectOptions = ({ options }) => {
   );
 };
 
-type IOfficeDetailBodyProps = {
+type OfficeDetailBodyProps = {
   teams: Team[];
   departments: BasicQuery[];
   offices: Office[];
@@ -32,7 +32,7 @@ type IOfficeDetailBodyProps = {
   setForm: Dispatch<GrowMapOfficeInput>;
 };
 
-const OfficeDetailBody: React.FC<IOfficeDetailBodyProps> = ({
+const OfficeDetailBody: React.FC<OfficeDetailBodyProps> = ({
   departments,
   form,
   offices,
@@ -44,17 +44,17 @@ const OfficeDetailBody: React.FC<IOfficeDetailBodyProps> = ({
   const i18n = useLang();
 
   const onChangeCheckbox = (event, { id }) => {
-    const _selectedTeams = [...form.teamsId];
+    let teamsId = [...form.teamsId];
 
     if (event.target.checked) {
-      _selectedTeams.push(id);
+      teamsId = [...teamsId, id];
     } else {
-      _selectedTeams.splice(_selectedTeams.map((id) => id).indexOf(id), 1);
+      teamsId = teamsId.filter((teamId) => teamId !== id);
     }
 
     setForm({
       ...form,
-      teamsId: _selectedTeams,
+      teamsId,
     });
   };
 

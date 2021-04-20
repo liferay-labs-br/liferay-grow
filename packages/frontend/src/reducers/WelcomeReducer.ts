@@ -1,12 +1,11 @@
 import {
   ActionMap,
   ActionsPayload,
-  BasicQuery,
+  GrowMapOfficeInput,
   KnowledgeGapsDetails,
   KnowledgeSkillDetails,
   Steps,
   Types,
-  UserDetails,
   Welcome,
 } from '@/types';
 
@@ -23,16 +22,11 @@ export const welcomeState: Welcome = {
     knowledgeGapsDetails: [] as KnowledgeGapsDetails[],
     knowledgeSkillDetails: [] as KnowledgeSkillDetails[],
     userDetails: {
-      office: {
-        id: '',
-        name: '',
-      },
-      role: {
-        id: '',
-        name: '',
-      },
-      teams: [] as BasicQuery[],
-    } as UserDetails,
+      departmentId: '',
+      officeId: '',
+      roleId: '',
+      teamsId: [],
+    } as GrowMapOfficeInput,
   },
   steps: STEPS,
 };
