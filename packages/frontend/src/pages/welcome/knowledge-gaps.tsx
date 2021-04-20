@@ -26,21 +26,17 @@ const normalizeGrowMapData = (data: GrowMap): GrowMapMutationData => {
         knowledgeSkillId,
       }),
     ),
-    userDetails: {
-      officeId: data.userDetails.office.id,
-      roleId: data.userDetails.role.id,
-      teamsId: data.userDetails.teams.map(({ id }) => id),
-    },
+    userDetails: data.userDetails,
   };
 
   return normalizedData;
 };
 
-const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
+const SkillDetails = () => {
   const {
     dispatch: dispatchApp,
     state: {
-      welcome: { data },
+      welcome: { data, steps },
     },
   } = useContext(AppContext);
   const {
@@ -51,6 +47,11 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
   const i18n = useLang();
   const router = useRouter();
+
+  const canSave =
+    steps.every(({ checked, value }) =>
+      value === 'knowledge-gaps' ? true : checked,
+    ) && selectedSkills.length;
 
   const saveData = () => {
     dispatchApp({
@@ -107,7 +108,7 @@ const SkillDetails: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
           {i18n.get('prev')}
         </ClayButton>
 
-        <ClayButton disabled={!selectedSkills.length} onClick={onClickNext}>
+        <ClayButton disabled={!canSave} onClick={onClickNext}>
           {i18n.get('submit')}
         </ClayButton>
       </WelcomeContent.Footer>

@@ -20,7 +20,7 @@ export default {
   export: 'Export',
   'export-as-csv': 'Export as CSV',
   'file-extension': 'File extension',
-  'filter-and-order': 'Filter and order',
+  'filter-and-order': 'Filter and Order',
   'get-started': 'Get Started',
   'go-to-home': 'Go to home',
   'grow-map-already-exists': 'Grow Map already exists',

@@ -56,7 +56,7 @@ export type KnowledgeGapsDetails = {
 
 export type GrowMap = {
   id?: string;
-  userDetails: UserDetails;
+  userDetails: UserDetails | GrowMapOfficeInput;
   knowledgeSkillDetails: KnowledgeSkillDetails[];
   knowledgeGapsDetails: KnowledgeGapsDetails[];
 };

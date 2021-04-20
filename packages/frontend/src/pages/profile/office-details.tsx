@@ -11,7 +11,14 @@ import { UpdateGrowMapOfficeDetails } from '@/graphql/mutations';
 import { getMe, getStarted } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { BasicQuery, GrowMapOfficeInput, Me, Office, Team } from '@/types';
+import {
+  BasicQuery,
+  GrowMapOfficeInput,
+  Me,
+  Office,
+  Team,
+  UserDetails,
+} from '@/types';
 import ROUTES from '@/utils/routes';
 
 type GetStartedProps = {
@@ -31,7 +38,8 @@ const GetStarted: React.FC<GetStartedProps> = ({
   roles,
   teams,
 }) => {
-  const { department, office, role, teams: userTeams } = me.growMap.userDetails;
+  const { department, office, role, teams: userTeams } = me.growMap
+    .userDetails as UserDetails;
 
   const [onUpdateGrowMapOffice] = useMutation(UpdateGrowMapOfficeDetails);
 

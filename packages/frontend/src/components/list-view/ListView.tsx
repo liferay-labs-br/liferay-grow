@@ -29,15 +29,22 @@ const ListView: React.FC<IListView> = ({
   onPageChange = () => {},
   orderBy,
   pagination,
-  searchOnChange = () => {},
+  searchOnChange,
 }) => {
   const { currentPage, totalItems = 0 } = pagination || {};
 
   if (totalItems) {
     return (
       <>
-        <ManagementToolbar orderBy={orderBy} searchOnChange={searchOnChange} />
+        {searchOnChange && (
+          <ManagementToolbar
+            orderBy={orderBy}
+            searchOnChange={searchOnChange}
+          />
+        )}
+
         <TableComponent columns={columns} items={items} />
+
         <ClayPaginationBarWithBasicItems
           activeDelta={pagination.pageSize}
           deltas={deltas}

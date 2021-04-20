@@ -9,70 +9,60 @@ import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getStarted } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { BasicQuery, Office, Team, Types } from '@/types';
+import { BasicQuery, GrowMapOfficeInput, Office, Team, Types } from '@/types';
 import ROUTES from '@/utils/routes';
 
-/**
- * Get Started page must have these implemented functions
- * saveData: () => void;
- * onClickNextPage: () => void;
- * isEnableToNextPage: () => boolean;
- */
-
-type SelectedRole = {
-  id?: string;
-  name?: string;
-};
-
-interface IGetStartedProps extends React.HTMLAttributes<HTMLElement> {
+type GetStartedProps = {
   teams: Team[];
+  departments: BasicQuery[];
   offices: Office[];
   roles: BasicQuery[];
-}
+};
 
-const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles, teams }) => {
+const GetStarted: React.FC<GetStartedProps> = ({
+  departments,
+  offices,
+  roles,
+  teams,
+}) => {
   const {
     dispatch,
     state: {
       welcome: { data },
     },
   } = useContext(AppContext);
-  const { office, role, teams: userTeams } = data.userDetails;
 
-  const [selectedRole, setSelectedRole] = useState<SelectedRole>(role);
-  const [selectedOffice, setSelectedOffice] = useState<BasicQuery>(office);
-  const [selectedTeams, setSelectedTeams] = useState<BasicQuery[]>(userTeams);
+  const [form, setForm] = useState<GrowMapOfficeInput>(
+    data.userDetails as GrowMapOfficeInput,
+  );
 
   const i18n = useLang();
   const router = useRouter();
 
-  const isEnableToNextPage = () => {
-    return selectedRole.id && !!selectedTeams.length;
-  };
+  const canSave =
+    form.departmentId && form.officeId && form.roleId && form.teamsId.length;
 
   const saveData = () => {
     dispatch({
       payload: {
         ...data,
-        userDetails: {
-          office: selectedOffice,
-          role: selectedRole,
-          teams: selectedTeams,
-        },
+        userDetails: form,
       },
       type: Types.UPDATE_DATA,
     });
   };
 
   const onClickNextPage = () => {
-    saveData();
+    if (canSave) {
+      saveData();
 
-    dispatch({
-      payload: { checked: isEnableToNextPage(), value: 'get-started' },
-      type: Types.UPDATE_STEP,
-    });
+      dispatch({
+        payload: { checked: true, value: 'get-started' },
+        type: Types.UPDATE_STEP,
+      });
 
-    router.push(ROUTES.SKILLS_DETAILS);
+      router.push(ROUTES.SKILLS_DETAILS);
+    }
   };
 
   return (
@@ -80,19 +70,16 @@ const GetStarted: React.FC<IGetStartedProps> = ({ offices, roles, teams }) => {
       <WelcomeContent.Title>{i18n.get('get-started')}</WelcomeContent.Title>
       <WelcomeContent.Body>
         <OfficeDetails
-          selectedRole={selectedRole}
-          selectedTeams={selectedTeams}
-          selectedOffice={selectedOffice}
-          setSelectedOffice={setSelectedOffice}
+          form={form}
+          departments={departments}
+          setForm={setForm}
           teams={teams}
           roles={roles}
           offices={offices}
-          setSelectedRole={setSelectedRole}
-          setSelectedTeams={setSelectedTeams}
         />
       </WelcomeContent.Body>
       <WelcomeContent.Footer>
-        <ClayButton disabled={!isEnableToNextPage()} onClick={onClickNextPage}>
+        <ClayButton disabled={!canSave} onClick={onClickNextPage}>
           {i18n.get('next')}
         </ClayButton>
       </WelcomeContent.Footer>
