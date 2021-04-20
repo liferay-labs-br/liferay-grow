@@ -42,11 +42,12 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
   return (
     <WrappedSafeComponent
       query={getTeamBySlug}
-      options={{ variables: { slug: team } }}
+      options={{
+        variables: { membersInput: { pageIndex: 1, pageSize: 10 }, slug: team },
+      }}
     >
-      {({ getAllKnowledgeMatriz, getTeamBySlug }) => {
-        const { members, name } = getTeamBySlug;
-
+      {(response) => {
+        const { members, name } = response.getTeamBySlug;
         const totalItems = members?.pagination?.totalItems || 0;
 
         return (
@@ -66,9 +67,7 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
               </div>
               <NavigationTabBar tabs={tabs}></NavigationTabBar>
               <div className="team__body">
-                {typeof children === 'function'
-                  ? children({ getAllKnowledgeMatriz, getTeamBySlug })
-                  : children}
+                {typeof children === 'function' ? children(response) : children}
               </div>
             </div>
           </>

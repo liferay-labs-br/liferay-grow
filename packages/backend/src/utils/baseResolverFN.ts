@@ -16,7 +16,7 @@ export const getAllPagination = async (
 
   const totalCount = await entity.count({ where: filter });
 
-  const pagination = paginate(totalCount, search ? 1 : pageIndex, pageSize);
+  const pagination = paginate(totalCount, pageIndex, pageSize);
 
   const rows = await entity.find({
     relations,

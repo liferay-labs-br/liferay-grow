@@ -55,9 +55,16 @@ const Members: React.FC = () => {
   return (
     <div className="team__members">
       <TeamTemplate page="members">
-        {({ getTeamBySlug: { members } }) => {
+        {({ getTeamBySlug: { members }, refetch, variables }) => {
           const rows = members?.rows ? members.rows : [];
           const pagination = members?.pagination;
+
+          const onResourceChange = async (type, value) => {
+            await refetch({
+              ...variables.membersInput,
+              membersInput: { ...variables.membersInput, [type]: value },
+            });
+          };
 
           return (
             <ListView
@@ -66,6 +73,8 @@ const Members: React.FC = () => {
               pagination={pagination}
               searchOnChange={(value) => console.log(value)}
               orderBy
+              onDeltaChange={(value) => onResourceChange('pageSize', value)}
+              onPageChange={(value) => onResourceChange('pageIndex', value)}
               emptyState={{
                 description: i18n.get('there-are-no-members-yet'),
               }}

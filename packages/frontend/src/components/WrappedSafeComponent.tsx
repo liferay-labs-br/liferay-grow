@@ -18,11 +18,12 @@ const WrappedSafeComponent: React.FC<WrappedSafeComponentProps> = ({
   options,
   query,
 }) => {
-  const { data, error, loading, refetch } = useQuery(query, options);
+  const { data, error, loading, refetch, variables } = useQuery(query, options);
 
   const response = {
     ...data,
     refetch,
+    variables,
   };
 
   try {
@@ -33,7 +34,7 @@ const WrappedSafeComponent: React.FC<WrappedSafeComponentProps> = ({
     }
 
     if (loading) {
-      return <ClayLoadingIndicator />;
+      return <ClayLoadingIndicator className="mt-4" />;
     }
   } catch (error) {
     console.error(error); // eslint-disable-line no-console

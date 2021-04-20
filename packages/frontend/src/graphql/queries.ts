@@ -204,7 +204,7 @@ export const getStarted = gql`
 export const getTeamBySlug = gql`
   ${PAGINATION_FRAGMENT}
 
-  query($slug: String!) {
+  query($slug: String!, $membersInput: UserPaginationInput!) {
     getAllKnowledgeMatriz {
       id
       name
@@ -227,7 +227,7 @@ export const getTeamBySlug = gql`
           slug
         }
       }
-      members {
+      members(data: $membersInput) {
         pagination {
           ...PaginationFragment
         }
