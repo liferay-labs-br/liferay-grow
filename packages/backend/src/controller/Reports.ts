@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
 import * as csv from 'fast-csv';
+import * as path from 'path';
 
 import { getKnowledgeSkillsAndGaps } from '../utils/queries';
 import { CSVController } from './CSV';
 
 export class Reports extends CSVController {
-  private fileName = 'data.csv';
+  private fileName = 'report.csv';
+
   private headers = [
     'Skill',
     'Member',
     'Knowledge Level',
     'Mentor',
     'Role',
-    'Email',
+    'Department',
     'Location',
     'Teams',
   ];
@@ -26,12 +28,12 @@ export class Reports extends CSVController {
 
     const ws = await this.getFileWS(this.fileName);
 
-    const path = `/${this.fileName}`;
+    const self = this; // eslint-disable-line
 
-    file
-      .on('finish', function () {
-        res.json({ path });
-      })
-      .pipe(ws);
+    file.pipe(ws).on('finish', () => {
+      res.download(
+        path.resolve(__dirname, '..', '..', self.tempFolder, self.fileName),
+      );
+    });
   }
 }

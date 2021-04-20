@@ -93,20 +93,11 @@ const KnowledgeAreaHeader: React.FC = () => {
   });
 
   const downloadFile = () => {
-    fetch(`${baseURL}/${extension}/export`)
-      .then((response) => response.json())
-      .then((res) => {
-        const url = baseURL + res.path;
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'data.csv';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        toast.success(i18n.get('your-request-completed-successfully'));
-      })
-      .catch(() => toast.error(i18n.get('an-unexpected-error-occurred')))
-      .finally(onClose);
+    window.open(`${baseURL}/csv/export`);
+
+    toast.success(i18n.get('your-request-completed-successfully'));
+
+    onClose();
   };
 
   return (
