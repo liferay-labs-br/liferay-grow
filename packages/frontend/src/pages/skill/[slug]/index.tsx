@@ -174,63 +174,71 @@ const SkillDetailSummay: React.FC<SkillDetailSummaryProps> = ({
     return i18n.sub(value > 1 ? 'x-members' : 'x-member', valueString);
   };
 
+  const hasSummary = !!summaryData.length;
+
   return (
     <Panel displayType="unstyled" title={i18n.get('summary')}>
-      <PieChart className="summary-chart" width={420} height={280}>
-        <Pie
-          data={summaryData}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          innerRadius={70}
-          outerRadius={120}
-          paddingAngle={0}
-        >
-          {summary.map((_, index) => (
-            <Cell
-              key={index}
-              fill={COLORS[index]}
-              onClick={() => console.log(summary)}
-            />
-          ))}
-        </Pie>
-        <Tooltip formatter={getFromattedTooltip} />
-        <Legend
-          align="right"
-          iconSize={16}
-          formatter={(value) => (
-            <ClayButton
-              displayType="unstyled"
-              onClick={() => {
-                setVisible(true);
-                const matriz = summary.find(({ name }) => name === value);
-                setMatriz(matriz);
-              }}
+      {hasSummary ? (
+        <>
+          <PieChart className="summary-chart" width={420} height={280}>
+            <Pie
+              data={summaryData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              innerRadius={70}
+              outerRadius={120}
+              paddingAngle={0}
             >
-              <span className="legend-text">{value}</span>
-            </ClayButton>
-          )}
-          iconType="square"
-          layout="vertical"
-          verticalAlign="middle"
-        />
-      </PieChart>
-      <Modal
-        visible={visible}
-        observer={observer}
-        title={matriz.name}
-        subtitle={
-          matriz.description
-            ? `${i18n.sub('description-x-x', [
-                matriz.name,
-                matriz.description,
-              ])}`
-            : null
-        }
-      >
-        <ListMembers onClose={onClose} matriz={matriz} slug={slug} />
-      </Modal>
+              {summary.map((_, index) => (
+                <Cell
+                  key={index}
+                  fill={COLORS[index]}
+                  onClick={() => console.log(summary)}
+                />
+              ))}
+            </Pie>
+            <Tooltip formatter={getFromattedTooltip} />
+            <Legend
+              align="right"
+              iconSize={16}
+              formatter={(value) => (
+                <ClayButton
+                  displayType="unstyled"
+                  onClick={() => {
+                    setVisible(true);
+                    const matriz = summary.find(({ name }) => name === value);
+                    setMatriz(matriz);
+                  }}
+                >
+                  <span className="legend-text">{value}</span>
+                </ClayButton>
+              )}
+              iconType="square"
+              layout="vertical"
+              verticalAlign="middle"
+            />
+          </PieChart>
+          <Modal
+            visible={visible}
+            observer={observer}
+            title={matriz.name}
+            subtitle={
+              matriz.description
+                ? `${i18n.sub('description-x-x', [
+                    matriz.name,
+                    matriz.description,
+                  ])}`
+                : null
+            }
+          >
+            <ListMembers onClose={onClose} matriz={matriz} slug={slug} />
+          </Modal>
+        </>
+      ) : (
+        <EmptyState title={i18n.get('there-are-no-members-yet')} />
+      )}
     </Panel>
   );
 };
