@@ -57,6 +57,8 @@ export default {
   'skill-name': 'Nome da Habilidade',
   'skills-details': 'Habilidades',
   'skip-it': 'Pular',
+  'sorry-there-are-no-results-found':
+    'Desculpe, não foram encontrados resultados',
   submit: 'Finalizar',
   summary: 'Sumário',
   team: 'Time',

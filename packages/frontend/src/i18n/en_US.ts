@@ -57,6 +57,7 @@ export default {
   'skill-name': 'Skill Name',
   'skills-details': 'Skills Details',
   'skip-it': 'Skip it',
+  'sorry-there-are-no-results-found': 'Sorry, there are no results found',
   team: 'Team',
   teams: 'Teams',
   'terms-of-use': 'Terms of Use | Privacy Policies',
