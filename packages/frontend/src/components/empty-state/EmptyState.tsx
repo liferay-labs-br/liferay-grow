@@ -17,7 +17,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
 
   return (
     <ClayEmptyState
-      description={description}
+      description={description || i18n.get('sorry-there-are-no-results-found')}
       imgSrc="https://clayui.com/images/success_state.gif"
       title={title || i18n.get('no-results-found')}
     >
