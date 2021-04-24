@@ -8,6 +8,15 @@ import {
   TEAM_FRAGMENT,
 } from './fragments';
 
+export const getServerInfo = gql`
+  query {
+    serverInfo: getServerInfo {
+      SERVER_NAME
+      SERVER_VERSION
+    }
+  }
+`;
+
 export const getMe = gql`
   ${ME_FRAGMENT}
   ${KNOWLEDGE_MATRIZ_FRAGMENT}

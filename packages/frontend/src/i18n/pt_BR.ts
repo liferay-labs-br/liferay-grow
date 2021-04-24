@@ -85,6 +85,7 @@ export default {
   'x-member': '{0} Membro',
   'x-members': '{0} Membros',
   'x-of-x': '{0} do {1}',
+  'x-version-x': 'Versão {0} {1}',
   'you-must-create-knowledge-areas-and-knowledge-gaps':
     'Você deve criar as áreas de conhecimentos',
   'you-need-to-go-through-the-profile-page':
