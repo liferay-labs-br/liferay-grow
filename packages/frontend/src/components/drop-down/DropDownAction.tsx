@@ -1,24 +1,24 @@
 import ClayDropDown from '@clayui/drop-down';
 import React from 'react';
 
-type NameFn = (item: string) => React.ReactNode;
+type ActionProps<T> = {
+  action: (item: T) => void;
+  name: string | ((item: T) => React.ReactNode);
+};
 
-interface IDropDownAction extends React.HTMLAttributes<HTMLElement> {
-  item: string;
+interface IDropDownAction<T> extends React.HTMLAttributes<HTMLElement> {
+  item: T;
   setActive(value: boolean): void;
-  action: {
-    action: (item: string) => void;
-    name: string | NameFn;
-  };
+  action: ActionProps<T>;
 }
 
 const { Divider, Item } = ClayDropDown;
 
-const DropDownAction: React.FC<IDropDownAction> = ({
+const DropDownAction = <T,>({
   action: { action, name },
   item,
   setActive,
-}) => {
+}: IDropDownAction<T>): React.ReactElement => {
   if (name === 'divider') {
     return <Divider />;
   }

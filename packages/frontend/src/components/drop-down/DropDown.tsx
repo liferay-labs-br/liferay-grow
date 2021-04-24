@@ -8,27 +8,28 @@ import DropDownAction from './DropDownAction';
 
 const { ItemList } = ClayDropDown;
 
-interface IDropDown extends React.HTMLAttributes<HTMLElement> {
-  actions: any[];
-  item?: any;
+type ActionProps<T> = {
+  action: (item: T) => void;
+  name: string | ((item: T) => React.ReactNode);
+};
+
+interface IDropDown<T> extends React.HTMLAttributes<HTMLElement> {
+  actions: ActionProps<T>[];
+  item?: T;
   noActionsMessage?: string;
 }
 
-const DropDown: React.FC<IDropDown> = ({
+const DropDown = <T,>({
   actions = [],
   item,
   noActionsMessage,
-}) => {
+}: IDropDown<T>): React.ReactElement => {
   const [active, setActive] = useState(false);
 
   const DropdownButton = (
     <Button className="page-link" displayType="unstyled">
       <ClayIcon symbol="ellipsis-v" />
     </Button>
-  );
-
-  actions = actions.filter((action) =>
-    action.show ? action.show(item) : true,
   );
 
   if (actions.length === 0) {

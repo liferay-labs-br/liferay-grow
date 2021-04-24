@@ -6,7 +6,7 @@ import { Pagination } from '@/types';
 
 import EmptyState, { EmptyStateProps } from '../empty-state/EmptyState';
 import ManagementToolbar from '../management-toolbar';
-import TableComponent from '../table';
+import TableComponent, { ColumnProps } from '../table';
 
 const deltas = [10, 20, 40, 50, 100].map((delta) => ({ label: delta }));
 
@@ -18,32 +18,32 @@ type FilterItems = {
 };
 
 type Variables = {
-  find?: any;
-  order?: string;
-  pageIndex?: number;
-  pageSize?: number;
-  sort?: string;
+  data: {
+    find?: any;
+    order?: string;
+    pageIndex?: number;
+    pageSize?: number;
+    sort?: string;
+  };
 };
 
-type IListView = {
+type IListView<T> = {
   pagination: Pagination;
-  columns: any[];
-  items: any[];
-  formatVariables?: (variables: { data: Variables }) => void;
+  columns: ColumnProps<T>[];
+  items: T[];
+  formatVariables?: (variables: Variables) => void;
   orderBy?: boolean;
   filterItems?: FilterItems[];
   className?: string;
   emptyState?: EmptyStateProps;
-  variables?: {
-    data: Variables;
-  };
+  variables?: Variables;
   refetch: (variables: any) => void;
   onPageChange?: (page: number) => void;
   onDeltaChange?: (delta: number) => void;
   searchOnChange?: (value: string) => void;
 };
 
-const ListView: React.FC<IListView> = ({
+const ListView = <T,>({
   className,
   columns,
   emptyState,
@@ -53,8 +53,8 @@ const ListView: React.FC<IListView> = ({
   formatVariables,
   pagination,
   refetch,
-  variables = {},
-}) => {
+  variables = {} as Variables,
+}: IListView<T>): React.ReactElement => {
   const { currentPage, totalItems = 0 } = pagination || {};
 
   const doGraphQLOperations = !!refetch;

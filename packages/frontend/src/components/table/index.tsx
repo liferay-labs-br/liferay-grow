@@ -3,21 +3,32 @@ import React from 'react';
 
 import DropDown from '@/components/drop-down/DropDown';
 
-interface ITable {
+export type ColumnProps<T> = {
+  key: string;
+  render: (value: string | number | boolean, item: T) => React.ReactNode;
+  value: string;
+};
+
+type ActionProps<T> = {
+  action: (item: T) => void;
+  name: string | ((item: T) => React.ReactNode);
+};
+
+interface ITable<T> {
   borderless?: boolean;
   className?: string;
-  actions?: any[];
-  columns: any[];
-  items: any[];
+  actions?: ActionProps<T>[];
+  columns: ColumnProps<T>[];
+  items: T[];
 }
 
-const TableComponent = ({
+const TableComponent = <T,>({
   borderless,
   className,
   actions,
   columns = [],
   items = [],
-}: ITable): React.ReactElement => {
+}: ITable<T>): React.ReactElement => {
   return (
     <ClayTable className={className} borderless={borderless}>
       <ClayTable.Head>

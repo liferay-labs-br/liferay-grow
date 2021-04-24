@@ -5,6 +5,7 @@ import ListView from '@/components/list-view';
 import TeamTemplate from '@/components/templates/TeamTemplate';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
+import { User } from '@/types';
 
 const Members: React.FC = () => {
   const i18n = useLang();
@@ -17,7 +18,7 @@ const Members: React.FC = () => {
   const columns = [
     {
       key: 'name',
-      render: (_, member) => (
+      render: (_, member: User) => (
         <span>
           <img
             className="team__members--avatar"
@@ -36,14 +37,14 @@ const Members: React.FC = () => {
     },
     {
       key: 'role',
-      render: (_, member) => (
+      render: (_, member: User) => (
         <span>{member.growMap?.userDetails?.role?.name}</span>
       ),
       value: i18n.get('role'),
     },
     {
       key: 'email',
-      render: (_, member) => <span>{member.profile.email}</span>,
+      render: (_, member: User) => <span>{member.profile.email}</span>,
       value: i18n.get('email'),
     },
   ];
@@ -56,7 +57,7 @@ const Members: React.FC = () => {
     <div className="team__members">
       <TeamTemplate page="members">
         {({ getTeamBySlug: { members }, refetch, variables }) => {
-          const rows = members?.rows ? members.rows : [];
+          const rows: User[] = members?.rows ? members.rows : [];
           const pagination = members?.pagination || {};
 
           return (
