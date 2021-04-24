@@ -3,16 +3,17 @@ import { Query, Resolver } from 'type-graphql';
 import PKG from '../../../package.json';
 import { Configuration } from '../../interfaces';
 
-const { APP_NAME = 'Graphscript Pocket' } = process.env;
-
 @Resolver()
 export class ConfigResolver {
-  @Query(() => Configuration, { name: `getConfig` })
+  @Query(() => Configuration, { name: `getServerInfo` })
   getConfig(): Configuration {
-    const { version: APP_VERSION } = PKG;
+    const { APP_NAME = 'Liferay Grow' } = process.env;
+
+    const { version: SERVER_VERSION } = PKG;
+
     return {
-      APP_NAME,
-      APP_VERSION,
+      SERVER_NAME: APP_NAME,
+      SERVER_VERSION,
     };
   }
 }
