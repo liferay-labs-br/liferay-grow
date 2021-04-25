@@ -59,21 +59,21 @@ const Members: React.FC = () => {
           const rows = members?.rows ? members.rows : [];
           const pagination = members?.pagination;
 
-          const onResourceChange = async (type, value) => {
-            await refetch({
-              ...variables.membersInput,
-              membersInput: { ...variables.membersInput, [type]: value },
-            });
-          };
-
           return (
             <ListView
               columns={columns}
               items={rows}
               pagination={pagination}
+              variables={variables}
+              formatVariables={(newVariables) => ({
+                ...variables,
+                membersInput: {
+                  ...variables.membersInput,
+                  ...newVariables.data,
+                },
+              })}
+              refetch={refetch}
               orderBy
-              onDeltaChange={(value) => onResourceChange('pageSize', value)}
-              onPageChange={(value) => onResourceChange('pageIndex', value)}
               emptyState={{
                 description: i18n.get('there-are-no-members-yet'),
               }}
