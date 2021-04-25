@@ -64,7 +64,7 @@ const TeamsWrapper: React.FC = () => {
       <WrappedSafeComponent
         query={getAllTeams}
         options={{
-          variables: { data: { order: 'name', pageSize: 5, sort: 'DESC' } },
+          variables: { data: { order: 'name', pageSize: 10, sort: 'DESC' } },
         }}
       >
         {({ refetch, teams, variables }) => {
