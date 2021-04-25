@@ -9,7 +9,6 @@ const BaseResolver = createBaseResolver(
   KnowledgeMatriz,
   Inputs,
   [],
-  [],
 );
 
 @Resolver(KnowledgeMatriz)

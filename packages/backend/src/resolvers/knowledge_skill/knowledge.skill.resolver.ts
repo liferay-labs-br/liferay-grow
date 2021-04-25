@@ -12,7 +12,6 @@ const BaseResolver = createBaseResolver<KnowledgeSkill>(
   KnowledgeSkill,
   Inputs,
   relations,
-  [],
 );
 
 @Resolver(KnowledgeSkill)
