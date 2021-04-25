@@ -1,7 +1,7 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
 
 import { User } from '../../entity/User';
-import { Pagination, PaginationQL } from '../../interfaces';
+import { Pagination, RetrievePaginationAndFilter } from '../../interfaces';
 
 @ObjectType()
 export class UserPaginationObject {
@@ -13,4 +13,13 @@ export class UserPaginationObject {
 }
 
 @InputType()
-export class UserPaginationInput extends PaginationQL {}
+class UserInput {
+  @Field(() => String)
+  name?: string;
+}
+
+@InputType()
+export class UserPaginationInput extends RetrievePaginationAndFilter {
+  @Field(() => UserInput, { nullable: true })
+  find?: UserInput;
+}
