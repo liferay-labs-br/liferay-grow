@@ -13,10 +13,7 @@ class CreateTeamInput extends TeamBaseInput {}
 class UpdateTeamInput extends TeamBaseInput {}
 
 @InputType()
-class FilterTeamInput extends TeamBaseInput {
-  @Field()
-  slug: string;
-}
+class FilterTeamInput extends TeamBaseInput {}
 
 export default {
   create: CreateTeamInput,

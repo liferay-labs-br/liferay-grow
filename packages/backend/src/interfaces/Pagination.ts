@@ -1,5 +1,7 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
 
+import { SortBy } from '.';
+
 @ObjectType()
 export class Pagination {
   @Field()
@@ -39,4 +41,13 @@ export class PaginationQL {
 
   @Field({ nullable: true })
   pageSize?: number;
+}
+
+@InputType()
+export class RetrievePaginationAndFilter extends PaginationQL {
+  @Field(() => String, { nullable: true })
+  order?: string;
+
+  @Field(() => SortBy, { nullable: true })
+  sort?: SortBy;
 }

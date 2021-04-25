@@ -7,8 +7,8 @@ import {
   Resolver,
 } from 'type-graphql';
 
+import { getAllPagination } from './baseResolverFN';
 import getTypes from './getTypes';
-import { applyFilters, paginate } from './globalMethods';
 
 /**
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
@@ -27,7 +27,7 @@ export function createBaseResolver<Entity>(
   },
   relations: string[] = [],
 ) {
-  const { getAllInput, PaginateObjectType, SortBy } = getTypes(
+  const { getAllInput, PaginateObjectType } = getTypes(
     suffix,
     entity,
     inputTypes,
@@ -41,38 +41,7 @@ export function createBaseResolver<Entity>(
       @Arg('data', () => getAllInput, { defaultValue: {}, nullable: true })
       data: any,
     ): Promise<any> {
-      const {
-        find,
-        order,
-        pageIndex = 1,
-        pageSize = 20,
-        sort = SortBy.ASC,
-      } = data;
-
-      const orderBy = order ? { [order]: sort } : null;
-      const where = applyFilters(find);
-      let rows = [];
-
-      const totalCount = await entity.count({
-        where,
-      });
-
-      const pagination = paginate(totalCount, pageIndex, pageSize);
-
-      try {
-        rows = await entity.find({
-          order: orderBy,
-          relations,
-          skip: pagination.startIndex,
-          take: pageSize,
-          where,
-        });
-      } catch (err) {}
-
-      return {
-        pagination,
-        rows,
-      };
+      return getAllPagination(entity, data, relations);
     }
 
     @Authorized()
@@ -105,16 +74,6 @@ export function createBaseResolver<Entity>(
       await entity.update(id, data);
 
       return this.getOne(id);
-    }
-
-    @Authorized()
-    @Mutation(() => [entity], { name: `createMulti${suffix}` })
-    async createMulti(
-      @Arg('data', () => [inputTypes.create]) data: any[],
-    ): Promise<Entity[]> {
-      const promises = data.map((obj) => entity.create(obj).save());
-      const insertedData = await Promise.all(promises);
-      return insertedData;
     }
 
     @Authorized()

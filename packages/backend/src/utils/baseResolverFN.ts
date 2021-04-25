@@ -2,28 +2,40 @@ import { Pagination } from 'src/interfaces';
 
 import { applyFilters, paginate } from './globalMethods';
 
+enum SortBy {
+  'ASC' = 'ASC',
+  'DESC' = 'DESC',
+}
+
 export const getAllPagination = async (
   entity: any,
-  where: any,
+  data: any,
   relations: string[],
 ): Promise<{
   pagination: Pagination;
   rows: any[];
 }> => {
-  const { pageIndex = 1, pageSize = 20, ...search } = where;
+  const { find, order, pageIndex = 1, pageSize = 20, sort = SortBy.ASC } = data;
 
-  const filter = applyFilters(search);
+  const orderBy = order ? { [order]: sort } : null;
+  const where = applyFilters(find);
+  let rows = [];
 
-  const totalCount = await entity.count({ where: filter });
+  const totalCount = await entity.count({
+    where,
+  });
 
   const pagination = paginate(totalCount, pageIndex, pageSize);
 
-  const rows = await entity.find({
-    relations,
-    skip: pagination.startIndex,
-    take: pagination.pageSize,
-    where: filter,
-  });
+  try {
+    rows = await entity.find({
+      order: orderBy,
+      relations,
+      skip: pagination.startIndex,
+      take: pageSize,
+      where,
+    });
+  } catch (err) {}
 
   return {
     pagination,
