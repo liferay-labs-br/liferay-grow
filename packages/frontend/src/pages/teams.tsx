@@ -44,7 +44,7 @@ const TeamsWrapper: React.FC = () => {
       <h1>{i18n.get('teams')}</h1>
 
       <WrappedSafeComponent query={getAllTeams}>
-        {({ teams }) => <Teams teams={teams} />}
+        {({ teams }) => <Teams teams={teams.rows} />}
       </WrappedSafeComponent>
     </HomeTemplate>
   );

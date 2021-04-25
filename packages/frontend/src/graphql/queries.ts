@@ -27,7 +27,9 @@ export const getMe = gql`
     }
 
     allKnowledgeMatriz: getAllKnowledgeMatriz {
-      ...KnowledgeMatrizFragment
+      rows {
+        ...KnowledgeMatrizFragment
+      }
     }
   }
 `;
@@ -42,49 +44,61 @@ export const getUserByLogin = gql`
     }
 
     allKnowledgeMatriz: getAllKnowledgeMatriz {
-      ...KnowledgeMatrizFragment
+      rows {
+        ...KnowledgeMatrizFragment
+      }
     }
   }
 `;
 
 const allRole = `
   getAllRole {
-    id
-    name
+    rows {
+      id
+      name
+    }
   }
 `;
 
 const allOffice = `
   getAllOffice {
-    id
-    name
-    city
-    country
+    rows {
+      id
+      name
+      city
+      country
+    }
   }
 `;
 
 const allTeam = `
   getAllTeam {
-    id
-    name
-    slug
+    rows {
+      id
+      name
+      slug
+    }
   }
 `;
 
 const allDepartment = `
   getAllDepartment {
-    id
-    name
+    rows {
+      id
+      name
+    }
   }
 `;
 
 export const allKnowledgeSkills = gql`
   query {
     skills: getAllKnowledgeSkill {
-      id
-      name
-      description
-      slug
+      rows {
+        id
+        name
+        description
+        slug
+      }
     }
   }
 `;
@@ -95,11 +109,15 @@ export const allKnowledgeData = gql`
 
   query {
     matriz: getAllKnowledgeMatriz {
-      ...KnowledgeMatrizFragment
+      rows {
+        ...KnowledgeMatrizFragment
+      }
     }
 
     area: getAllKnowledgeArea {
-      ...KnowledgeAreaFragment
+      rows {
+        ...KnowledgeAreaFragment
+      }
     }
   }
 `;
@@ -108,7 +126,7 @@ export const allKnowledgeSkillsPaginate = gql`
   ${PAGINATION_FRAGMENT}
 
   query($data: PaginateFilterInputKnowledgeSkill!) {
-    skillsPaginate: getAllKnowledgeSkillPaginate(data: $data) {
+    skillsPaginate: getAllKnowledgeSkill(data: $data) {
       pagination {
         ...PaginationFragment
       }
@@ -215,9 +233,11 @@ export const getTeamBySlug = gql`
 
   query($slug: String!, $membersInput: UserPaginationInput!) {
     getAllKnowledgeMatriz {
-      id
-      name
-      matrizLevel
+      rows {
+        id
+        name
+        matrizLevel
+      }
     }
 
     getTeamBySlug(slug: $slug) {
@@ -287,10 +307,12 @@ export const getAllTeams = gql`
 
   query {
     teams: getAllTeam {
-      ...TeamFragment
-      members {
-        pagination {
-          ...PaginationFragment
+      rows {
+        ...TeamFragment
+        members {
+          pagination {
+            ...PaginationFragment
+          }
         }
       }
     }
