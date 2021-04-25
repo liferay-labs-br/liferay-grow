@@ -32,7 +32,10 @@ const SkillContextProvider: React.FC<SkillContextProvider> = ({
     });
 
     dispatch({
-      payload: data,
+      payload: {
+        area: data.area.rows,
+        matriz: data.matriz.rows,
+      },
       type: Types.EDIT_KNOWLEDGE_DATA,
     });
 

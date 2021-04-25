@@ -108,7 +108,16 @@ const OfficeDetails = () => {
         return (
           <UserSkillTemplate me={me} title={i18n.get('office-details')}>
             <WrappedSafeComponent query={getStarted}>
-              {(data) => <GetStarted me={me} {...data} refetch={refetch} />}
+              {(data) => (
+                <GetStarted
+                  me={me}
+                  departments={data.departments.rows}
+                  offices={data.offices.rows}
+                  roles={data.roles.rows}
+                  teams={data.teams.rows}
+                  refetch={refetch}
+                />
+              )}
             </WrappedSafeComponent>
           </UserSkillTemplate>
         );

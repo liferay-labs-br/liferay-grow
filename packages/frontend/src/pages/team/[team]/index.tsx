@@ -88,7 +88,7 @@ const TeamSummary: React.FC = () => {
             <>
               <h1>{i18n.get('knowledge-areas')}</h1>
               <TeamSummaryManagement
-                knowledgeMatriz={getAllKnowledgeMatriz}
+                knowledgeMatriz={getAllKnowledgeMatriz.rows}
                 knowledgeMatrizAverage={knowledgeMatrizAverage}
               />
             </>
