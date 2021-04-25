@@ -305,13 +305,20 @@ export const getAllTeams = gql`
   ${TEAM_FRAGMENT}
   ${PAGINATION_FRAGMENT}
 
-  query {
-    teams: getAllTeam {
+  query($data: getAllInputTeam!) {
+    teams: getAllTeam(data: $data) {
+      pagination {
+        ...PaginationFragment
+      }
       rows {
         ...TeamFragment
         members {
-          pagination {
-            ...PaginationFragment
+          rows {
+            profile {
+              name
+              github_login
+              avatar_url
+            }
           }
         }
       }

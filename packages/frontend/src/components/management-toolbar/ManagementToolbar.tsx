@@ -2,7 +2,6 @@ import ClayButton, { ClayButtonWithIcon } from '@clayui/button';
 import { ClayDropDownWithItems } from '@clayui/drop-down';
 import { ClayInput } from '@clayui/form';
 import ClayIcon from '@clayui/icon';
-import ClayLabel from '@clayui/label';
 import ClayManagementToolbar, {
   ClayResultsBar,
 } from '@clayui/management-toolbar';
@@ -10,29 +9,37 @@ import React, { useState } from 'react';
 
 import useLang from '@/hooks/useLang';
 
-interface IManagementToolbarProps extends React.HTMLAttributes<HTMLElement> {
+type FilterItems = {
+  label: string;
+  active?: boolean;
+  name: string;
+  onClick?: () => void;
+};
+
+type ManagementToolbarProps = {
   searchText?: string;
   orderBy?: boolean;
   listType?: string;
+  totalItems?: number;
+  onClickOrderBy?: () => void;
+  onClickSearch?: (value: string) => void;
   info?: boolean;
+  filterItems?: FilterItems[];
   addButton?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  searchOnChange: (value: string) => void;
-}
+};
 
-const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
+const ManagementToolbar: React.FC<ManagementToolbarProps> = ({
   addButton,
+  filterItems,
   info,
   listType,
+  onClickOrderBy,
+  onClickSearch,
   orderBy,
-  searchOnChange,
   searchText,
+  totalItems,
 }) => {
   const i18n = useLang();
-
-  const filterItems = [
-    { label: 'Filter Action 1', onClick: () => alert('Filter clicked') },
-    { label: 'Filter Action 2', onClick: () => alert('Filter clicked') },
-  ];
 
   const viewTypes = [
     {
@@ -56,6 +63,7 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
   const [searchMobile, setSearchMobile] = useState(false);
   const [search, setSearch] = useState('');
 
+  const searchValue = searchText?.replaceAll('%', '');
   const viewTypeActive = viewTypes.find((type) => type.active);
 
   return (
@@ -86,6 +94,7 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
           {orderBy && (
             <ClayManagementToolbar.Item>
               <ClayButton
+                onClick={onClickOrderBy}
                 className="nav-link nav-link-monospaced order-arrow-down-active"
                 displayType="unstyled"
               >
@@ -95,7 +104,13 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
           )}
         </ClayManagementToolbar.ItemList>
 
-        <ClayManagementToolbar.Search showMobile={searchMobile}>
+        <ClayManagementToolbar.Search
+          showMobile={searchMobile}
+          onSubmit={(event) => {
+            event.preventDefault();
+            onClickSearch(search);
+          }}
+        >
           <ClayInput.Group>
             <ClayInput.GroupItem>
               <ClayInput
@@ -105,7 +120,6 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
-                  searchOnChange(e.target.value);
                 }}
                 type="text"
               />
@@ -113,13 +127,13 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
                 <ClayButtonWithIcon
                   className="navbar-breakpoint-d-none"
                   displayType="unstyled"
-                  onClick={() => setSearchMobile(false)}
+                  onClick={() => alert(false)}
                   symbol="times"
                 />
                 <ClayButtonWithIcon
+                  onClick={() => onClickSearch(search)}
                   displayType="unstyled"
                   symbol="search"
-                  type="submit"
                 />
               </ClayInput.GroupInsetItem>
             </ClayInput.GroupItem>
@@ -177,27 +191,22 @@ const ManagementToolbar: React.FC<IManagementToolbarProps> = ({
         </ClayManagementToolbar.ItemList>
       </ClayManagementToolbar>
 
-      {searchText && (
+      {searchValue && (
         <ClayResultsBar>
           <ClayResultsBar.Item>
             <span className="component-text text-truncate-inline">
               <span className="text-truncate">
-                {'2 results for "'}
-                <strong>{search}</strong>
-                {'"'}
+                {i18n.sub('x-results-for-x', [
+                  totalItems.toString(),
+                  searchValue,
+                ])}
               </span>
             </span>
           </ClayResultsBar.Item>
-          <ClayResultsBar.Item expand>
-            <ClayLabel
-              className="component-label tbar-label"
-              displayType="unstyled"
-            >
-              {i18n.get('filter')}
-            </ClayLabel>
-          </ClayResultsBar.Item>
+
           <ClayResultsBar.Item>
             <ClayButton
+              onClick={() => onClickSearch('')}
               className="component-link tbar-link"
               displayType="unstyled"
             >
