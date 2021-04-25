@@ -81,6 +81,7 @@ export default {
   'x-member': '{0} Member',
   'x-members': '{0} Members',
   'x-of-x': '{0} of {1}',
+  'x-results-for-x': '{0} results for "{1}"',
   'x-version-x': '{0} Version {1}',
   'you-must-create-knowledge-areas-and-knowledge-gaps':
     'You must create Knowledge Areas and Knowledge Gaps',

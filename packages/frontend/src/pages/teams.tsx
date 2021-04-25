@@ -1,50 +1,92 @@
-import ClayLayout from '@clayui/layout';
+import { ClayTooltipProvider } from '@clayui/tooltip';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
+import ListView from '@/components/list-view';
 import Meta from '@/components/meta';
-import Panel from '@/components/panel';
 import HomeTemplate from '@/components/templates/HomeTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getAllTeams } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { Team } from '@/types';
 
-type TeamsProps = {
-  teams: Team[];
-};
-
-const Teams: React.FC<TeamsProps> = ({ teams }) => {
-  const i18n = useLang();
-
-  return (
-    <ClayLayout.Row className="mt-4">
-      {teams.map((team) => {
-        const membersCount = String(team.members?.pagination?.totalItems || 0);
-
-        return (
-          <Panel.Item key={team.id} href={`/team/${team.slug}`}>
-            <Panel.Title className="title">{team.name}</Panel.Title>
-            <Panel.Body>
-              <span>{i18n.sub('x-members', membersCount)}</span>
-            </Panel.Body>
-          </Panel.Item>
-        );
-      })}
-    </ClayLayout.Row>
-  );
-};
+const Avatar = ({ profile, router }) => (
+  <img
+    onClick={() => router.push(`/profile/${profile.github_login}`)}
+    className="avatar"
+    data-tooltip-align="bottom"
+    data-tooltip-delay={200}
+    title={profile.name}
+    alt={profile.name}
+    src={profile.avatar_url}
+  />
+);
 
 const TeamsWrapper: React.FC = () => {
   const i18n = useLang();
+  const router = useRouter();
+
+  const columns = [
+    {
+      key: 'name',
+      render: (name, { slug }) => {
+        return <Link href={`/team/${slug}`}>{name}</Link>;
+      },
+      value: i18n.get('team'),
+    },
+    {
+      key: 'members',
+      render: (members) => {
+        if (!members) {
+          return;
+        }
+
+        return (
+          <ClayTooltipProvider>
+            <div>
+              {members.rows.map((row, index) => (
+                <Avatar key={index} profile={row.profile} router={router} />
+              ))}
+            </div>
+          </ClayTooltipProvider>
+        );
+      },
+      value: i18n.get('members'),
+    },
+  ];
 
   return (
     <HomeTemplate>
       <Meta title={i18n.sub('app-title-x', 'teams')} />
       <h1>{i18n.get('teams')}</h1>
 
-      <WrappedSafeComponent query={getAllTeams}>
-        {({ teams }) => <Teams teams={teams.rows} />}
+      <WrappedSafeComponent
+        query={getAllTeams}
+        options={{
+          variables: { data: { order: 'name', pageSize: 5, sort: 'DESC' } },
+        }}
+      >
+        {({ refetch, teams, variables }) => {
+          return (
+            <ListView
+              orderBy
+              filterItems={[
+                {
+                  active: true,
+                  label: i18n.get('Team'),
+                  name: 'name',
+                },
+              ]}
+              refetch={refetch}
+              variables={variables}
+              className="mt-4"
+              items={teams.rows}
+              columns={columns}
+              pagination={teams.pagination}
+            />
+          );
+        }}
       </WrappedSafeComponent>
     </HomeTemplate>
   );
