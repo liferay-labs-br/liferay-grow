@@ -57,7 +57,7 @@ const Members: React.FC = () => {
       <TeamTemplate page="members">
         {({ getTeamBySlug: { members }, refetch, variables }) => {
           const rows = members?.rows ? members.rows : [];
-          const pagination = members?.pagination;
+          const pagination = members?.pagination || {};
 
           return (
             <ListView
