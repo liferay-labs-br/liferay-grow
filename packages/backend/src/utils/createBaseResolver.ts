@@ -2,17 +2,12 @@ import {
   Arg,
   Authorized,
   ClassType,
-  Field,
-  InputType,
-  MiddlewareFn,
   Mutation,
-  ObjectType,
   Query,
   Resolver,
-  UseMiddleware,
 } from 'type-graphql';
 
-import { MyContext, Pagination, PaginationQL } from '../interfaces';
+import getTypes from './getTypes';
 import { applyFilters, paginate } from './globalMethods';
 
 /**
@@ -21,6 +16,7 @@ import { applyFilters, paginate } from './globalMethods';
  * @param inputTypes object with create, update and optionally update inputTypes
  * @param middlewares optional middlewares to be applied in useMiddlewares
  */
+
 export function createBaseResolver<Entity>(
   suffix: string,
   entity: any,
@@ -30,59 +26,48 @@ export function createBaseResolver<Entity>(
     filter: ClassType;
   },
   relations: string[] = [],
-  middlewares: Array<MiddlewareFn<MyContext>> = [],
 ) {
-  @ObjectType(`PaginateObject${suffix}`)
-  class PaginateObjectType {
-    @Field(() => Pagination)
-    pagination: Pagination;
-
-    @Field(() => [entity])
-    rows: typeof InputType[];
-  }
-
-  @InputType(`PaginateFilterInput${suffix}`)
-  class FilterInputCustom extends PaginationQL {
-    @Field(() => inputTypes.filter, { nullable: true })
-    search?: typeof inputTypes.filter;
-  }
+  const { getAllInput, PaginateObjectType, SortBy } = getTypes(
+    suffix,
+    entity,
+    inputTypes,
+  );
 
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
     @Authorized()
-    @UseMiddleware(middlewares)
-    @Query(() => [entity], { name: `getAll${suffix}` })
-    async getAll(): Promise<Entity[]> {
-      return entity.find({ relations });
-    }
+    @Query(() => PaginateObjectType, { name: `getAll${suffix}` })
+    async getAll(
+      @Arg('data', () => getAllInput, { defaultValue: {}, nullable: true })
+      data: any,
+    ): Promise<any> {
+      const {
+        find,
+        order,
+        pageIndex = 1,
+        pageSize = 20,
+        sort = SortBy.ASC,
+      } = data;
 
-    @Authorized()
-    @UseMiddleware(middlewares)
-    @Query(() => [entity], { name: `getAll${suffix}Filter` })
-    async getAllFiltered(
-      @Arg('data', () => inputTypes.filter || inputTypes.create) data: any,
-    ): Promise<Entity[]> {
-      return entity.find({ relations, where: data });
-    }
+      const orderBy = order ? { [order]: sort } : null;
+      const where = applyFilters(find);
+      let rows = [];
 
-    @Authorized()
-    @UseMiddleware(middlewares)
-    @Query(() => PaginateObjectType, { name: `getAll${suffix}Paginate` })
-    async getAllPagination(
-      @Arg('data', () => FilterInputCustom) data: FilterInputCustom,
-    ): Promise<PaginateObjectType> {
-      const { pageIndex = 1, pageSize = 20, search } = data;
-
-      const totalCount = await entity.count();
-
-      const pagination = paginate(totalCount, search ? 1 : pageIndex, pageSize);
-
-      const rows = await entity.find({
-        relations,
-        skip: pagination.startIndex,
-        take: pagination.pageSize,
-        where: applyFilters(search),
+      const totalCount = await entity.count({
+        where,
       });
+
+      const pagination = paginate(totalCount, pageIndex, pageSize);
+
+      try {
+        rows = await entity.find({
+          order: orderBy,
+          relations,
+          skip: pagination.startIndex,
+          take: pageSize,
+          where,
+        });
+      } catch (err) {}
 
       return {
         pagination,
@@ -91,7 +76,6 @@ export function createBaseResolver<Entity>(
     }
 
     @Authorized()
-    @UseMiddleware(middlewares)
     @Query(() => entity, { name: `get${suffix}` })
     async getOne(@Arg('id', () => String) id: string): Promise<Entity | Error> {
       const content = await entity.findOne({ relations, where: { id } });
@@ -103,7 +87,6 @@ export function createBaseResolver<Entity>(
     }
 
     @Authorized()
-    @UseMiddleware(middlewares)
     @Mutation(() => entity, { name: `create${suffix}` })
     async create(
       @Arg('data', () => inputTypes.create) data: any,
@@ -114,7 +97,6 @@ export function createBaseResolver<Entity>(
     }
 
     @Authorized()
-    @UseMiddleware(middlewares)
     @Mutation(() => entity, { name: `updateBy${suffix}ID` })
     async updateByID(
       @Arg('data', () => inputTypes.update) data: any,
@@ -126,7 +108,6 @@ export function createBaseResolver<Entity>(
     }
 
     @Authorized()
-    @UseMiddleware(middlewares)
     @Mutation(() => [entity], { name: `createMulti${suffix}` })
     async createMulti(
       @Arg('data', () => [inputTypes.create]) data: any[],
@@ -137,7 +118,6 @@ export function createBaseResolver<Entity>(
     }
 
     @Authorized()
-    @UseMiddleware(middlewares)
     @Mutation(() => Boolean, { name: `deleteBy${suffix}ID` })
     async deleteByID(@Arg('id', () => String) id: string): Promise<boolean> {
       const _entity = await this.getOne(id);
@@ -146,13 +126,6 @@ export function createBaseResolver<Entity>(
       }
       const data = await entity.remove(_entity);
       return !!data;
-    }
-
-    async update(data: any, entityData: any): Promise<any> {
-      for (const field in data) {
-        entityData[field] = data[field];
-      }
-      return entity.save(entityData);
     }
   }
 
