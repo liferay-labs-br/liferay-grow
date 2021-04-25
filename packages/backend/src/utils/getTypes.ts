@@ -6,15 +6,9 @@ import {
   registerEnumType,
 } from 'type-graphql';
 
-import { Pagination, PaginationQL } from '../interfaces';
-
-enum SortBy {
-  'ASC' = 'ASC',
-  'DESC' = 'DESC',
-}
+import { Pagination, RetrievePaginationAndFilter, SortBy } from '../interfaces';
 
 interface GetTypes {
-  SortBy: typeof SortBy;
   PaginateObjectType: ClassType;
   getAllInput: ClassType;
 }
@@ -43,20 +37,13 @@ function getTypes(
   }
 
   @InputType(`getAllInput${suffix}`)
-  class getAllInput extends PaginationQL {
-    @Field(() => String, { nullable: true })
-    orderBy?: string;
-
-    @Field(() => SortBy, { nullable: true })
-    sortBy?: SortBy;
-
+  class getAllInput extends RetrievePaginationAndFilter {
     @Field(() => inputTypes.filter, { nullable: true })
     find?: typeof inputTypes.filter;
   }
 
   return {
     PaginateObjectType,
-    SortBy,
     getAllInput,
   };
 }
