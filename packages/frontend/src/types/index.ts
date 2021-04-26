@@ -70,10 +70,7 @@ export type GrowMapMutationData = {
     knowledgeMatrizId: string;
     isMentor: boolean;
   }[];
-  userDetails: {
-    roleId: string;
-    teamsId: string[];
-  };
+  userDetails: UserDetails;
 };
 
 export type Me = {
