@@ -7,7 +7,7 @@ import { Types } from '@/types';
 
 import SkillContext from './SkillContext';
 
-const SkillManagementSearch: React.FC<any> = () => {
+const SkillManagementSearch: React.FC = () => {
   const i18n = useLang();
   const {
     dispatch,

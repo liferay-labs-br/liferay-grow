@@ -31,7 +31,9 @@ const SkillManagement: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
   );
 
   const handleClickSkill = (skill: BasicQuery) => {
-    let skillPayload: any = {
+    let skillPayload = {
+      isMentor: false,
+      knowledgeMatrizId: null,
       knowledgeSkillId: skill.id,
       name: skill.name,
     };

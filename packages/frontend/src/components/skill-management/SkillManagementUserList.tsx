@@ -16,11 +16,16 @@ type SkillForm = {
   skill: SelectedSkills;
 };
 
+type Action = {
+  payload: SelectedSkills[];
+  type: string;
+};
+
 const dispatchChangeOnRow = ({
   dispatch,
   selectedSkills,
 }: {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<Action>;
   selectedSkills: SelectedSkills[];
 }) => ({ name, value }, skill: SelectedSkills) => {
   const updatedSelectedSkill = selectedSkills.map((selectedSkill) => {
