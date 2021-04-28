@@ -2,10 +2,10 @@ import { createContext, Dispatch } from 'react';
 
 import { userReducer, userState } from './reducers/UserReducer';
 import { welcomeReducer, welcomeState } from './reducers/WelcomeReducer';
-import { Action, User, Welcome } from './types';
+import { Action, LoggedUser, Welcome } from './types';
 
 type InitialStateAppContextType = {
-  user: User;
+  user: LoggedUser;
   welcome: Welcome;
 };
 
