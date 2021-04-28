@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 
 import AppContext from '@/AppContext';
-import DropDown from '@/components/drop-down/DropDown';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
 import useLang from '@/hooks/useLang';
@@ -14,20 +13,20 @@ const defaultSteps = [
   {
     name: 'knowledge-areas',
     path: '/profile',
-    pathDynamic: '/profile/:user',
     symbol: 'books',
   },
   {
     name: 'teams',
     path: '/profile/teams',
-    pathDynamic: '/profile/:user/teams',
     symbol: 'users',
   },
 ];
 
+type Steps = typeof Sidebar.defaultProps.steps;
+
 type IProfileWrapper = {
   me: Me;
-  steps?: Array<any>;
+  steps?: Steps;
 };
 
 export const ProfileWrapper: React.FC<IProfileWrapper> = ({
@@ -49,19 +48,6 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
 
   const router = useRouter();
   const i18n = useLang();
-
-  const login = router.query.login;
-
-  const dynamicSteps = steps.map((step) => {
-    if (login) {
-      return {
-        ...step,
-        path: step.pathDynamic.replace(':user', login as string),
-      };
-    }
-
-    return step;
-  });
 
   const teamsName =
     me.growMap?.userDetails?.teams?.map(({ name }) => name) || [];
@@ -103,7 +89,7 @@ export const ProfileWrapper: React.FC<IProfileWrapper> = ({
       <ClayLayout.Row className="mt-4">
         <ClayLayout.Col size={3}>
           <ClayCard className="p-4">
-            <Sidebar steps={dynamicSteps} />
+            <Sidebar steps={steps} />
           </ClayCard>
         </ClayLayout.Col>
         <ClayLayout.Col size={9}>
