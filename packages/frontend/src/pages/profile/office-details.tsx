@@ -14,9 +14,9 @@ import useLang from '@/hooks/useLang';
 import {
   BasicQuery,
   GrowMapOfficeInput,
-  Me,
   Office,
   Team,
+  User,
   UserDetails,
 } from '@/types';
 import ROUTES from '@/utils/routes';
@@ -27,7 +27,7 @@ type GetStartedProps = {
   offices: Office[];
   roles: BasicQuery[];
   refetch: () => Promise<void>;
-  me?: Me;
+  me?: User;
 };
 
 const GetStarted: React.FC<GetStartedProps> = ({

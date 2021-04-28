@@ -7,7 +7,7 @@ import SkillContext from '@/components/skill-management/SkillContext';
 import SkillManagement from '@/components/skill-management/SkillManagement';
 import WelcomeContent from '@/components/welcome/WelcomeContent';
 import useLang from '@/hooks/useLang';
-import { Me, SelectedSkills } from '@/types';
+import { User, SelectedSkills } from '@/types';
 import ROUTES from '@/utils/routes';
 
 import Meta from '../meta';
@@ -36,7 +36,7 @@ const userSkillsPaths = [
 ];
 
 type ITemplateProps = {
-  me: Me;
+  me: User;
   title: string;
 };
 

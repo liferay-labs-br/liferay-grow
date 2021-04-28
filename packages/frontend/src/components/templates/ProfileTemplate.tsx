@@ -8,11 +8,11 @@ import SEO from '@/components/meta';
 import Panel from '@/components/panel';
 import Profile, { ProfileWrapper } from '@/components/profile';
 import useLang from '@/hooks/useLang';
-import { KnowledgeMatriz, Me } from '@/types';
+import { KnowledgeMatriz, User } from '@/types';
 import ROUTES from '@/utils/routes';
 
 type ITemplateProps = {
-  me: Me;
+  me: User;
   allKnowledgeMatriz?: KnowledgeMatriz[];
   title?: string;
 };

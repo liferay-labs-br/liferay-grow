@@ -5,7 +5,7 @@ import { TeamTemplate } from '@/components/templates/ProfileTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getUserByLogin } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
-import { Me } from '@/types';
+import { User } from '@/types';
 
 const TeamByLogin = () => {
   const {
@@ -17,7 +17,7 @@ const TeamByLogin = () => {
       query={getUserByLogin}
       options={{ variables: { login } }}
     >
-      {({ user }: { user: Me }) => <TeamTemplate me={user} />}
+      {({ user }: { user: User }) => <TeamTemplate me={user} />}
     </WrappedSafeComponent>
   );
 };
