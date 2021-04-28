@@ -12,11 +12,11 @@ import { UpdateGrowMapSkillDetails } from '@/graphql/mutations';
 import { getMe } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { KnowledgeMatriz, Me, SelectedSkills } from '@/types';
+import { KnowledgeMatriz, SelectedSkills, User } from '@/types';
 
 type RequestProps = {
   allKnowledgeMatriz: KnowledgeMatriz[];
-  me: Me;
+  me: User;
   refetch: () => void;
 };
 

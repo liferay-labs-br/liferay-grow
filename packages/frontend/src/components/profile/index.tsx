@@ -7,7 +7,7 @@ import AppContext from '@/AppContext';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
 import useLang from '@/hooks/useLang';
-import { Me } from '@/types';
+import { User } from '@/types';
 
 const defaultSteps = [
   {
@@ -25,7 +25,7 @@ const defaultSteps = [
 type Steps = typeof Sidebar.defaultProps.steps;
 
 type IProfileWrapper = {
-  me: Me;
+  me: User;
   steps?: Steps;
 };
 

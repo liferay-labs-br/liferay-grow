@@ -5,11 +5,11 @@ import { UserTemplate } from '@/components/templates/ProfileTemplate';
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getUserByLogin } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
-import { KnowledgeMatriz, Me } from '@/types';
+import { KnowledgeMatriz, User } from '@/types';
 
 type RequestProps = {
   allKnowledgeMatriz: KnowledgeMatriz[];
-  user: Me;
+  user: User;
 };
 
 const UserByLogin = () => {

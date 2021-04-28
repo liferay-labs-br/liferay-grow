@@ -73,7 +73,7 @@ export type GrowMapMutationData = {
   userDetails: UserDetails;
 };
 
-export type Me = {
+export type User = {
   id: string;
   profile: Profile;
   growMap?: GrowMap;
@@ -137,7 +137,7 @@ export type Team = {
   slug: string;
   members: {
     pagination: Pagination;
-    rows: Me[];
+    rows: User[];
   };
 };
 
@@ -192,12 +192,7 @@ export type LoggedUser = {
     id?: string;
     location?: string;
     login?: string;
-    user?: {
-      id: string;
-      growMap: {
-        id: string;
-      } | null;
-    };
+    user?: User;
   };
 };
 
