@@ -179,7 +179,7 @@ export type SkillManagement = {
   knowledgeMatriz?: KnowledgeMatriz[];
 };
 
-export type User = {
+export type LoggedUser = {
   token: string | null;
   loggedUser: {
     name?: string;
@@ -221,4 +221,16 @@ export type Pagination = {
   startPage: number;
   totalItems: number;
   totalPages: number;
+  nextPage: number | null;
+};
+
+export type Members = {
+  pagination: Pagination;
+  rows: string;
+};
+
+export type getTeamBySlug = {
+  name: string;
+  slug: string;
+  members: string;
 };

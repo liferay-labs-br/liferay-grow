@@ -1,4 +1,4 @@
-import { ActionMap, ActionsPayload, Types, User } from '@/types';
+import { ActionMap, ActionsPayload, LoggedUser, Types } from '@/types';
 import { delToken, getToken, setToken } from '@/utils/cookie';
 import { parseJwt } from '@/utils/util';
 
@@ -9,7 +9,10 @@ export const userState = {
   token: getToken(),
 };
 
-export const userReducer = (state: User, action: UserActions): User => {
+export const userReducer = (
+  state: LoggedUser,
+  action: UserActions,
+): LoggedUser => {
   switch (action.type) {
     case Types.SET_LOGGED_USER: {
       const { token } = action.payload;
