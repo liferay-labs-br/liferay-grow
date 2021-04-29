@@ -9,7 +9,7 @@ interface IModalProps extends React.HTMLAttributes<HTMLElement> {
   size?: Size;
   subtitle?: string;
   title?: string;
-  observer: any;
+  observer: typeof ClayModal.defaultProps.observer;
   visible: boolean;
 }
 
