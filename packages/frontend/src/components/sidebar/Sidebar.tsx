@@ -14,7 +14,7 @@ type Step = {
 type SidebarItemProps = {
   active?: boolean;
   symbol: string;
-  onClick: () => any;
+  onClick: () => void;
 };
 
 type SidebarProps = {
