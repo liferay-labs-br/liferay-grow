@@ -56,7 +56,13 @@ const Members: React.FC = () => {
   return (
     <div className="team__members">
       <TeamTemplate page="members">
-        {({ getTeamBySlug: { members }, refetch, variables }) => {
+        {({
+          data: {
+            getTeamBySlug: { members },
+            refetch,
+            variables,
+          },
+        }) => {
           const rows: User[] = members?.rows ? members.rows : [];
 <<<<<<< HEAD
           const pagination = members?.pagination || {};

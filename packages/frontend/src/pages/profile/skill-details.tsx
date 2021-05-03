@@ -12,12 +12,10 @@ import { UpdateGrowMapSkillDetails } from '@/graphql/mutations';
 import { getMe } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { KnowledgeMatriz, SelectedSkills, User } from '@/types';
+import { SelectedSkills, User } from '@/types';
 
 type RequestProps = {
-  allKnowledgeMatriz: KnowledgeMatriz[];
   me: User;
-  refetch: () => void;
 };
 
 const ProfileSkillDetails = () => {
@@ -51,8 +49,8 @@ const ProfileSkillDetails = () => {
   };
 
   return (
-    <WrappedSafeComponent query={getMe}>
-      {({ me, refetch }: RequestProps) => {
+    <WrappedSafeComponent<RequestProps> query={getMe}>
+      {({ data: { me }, refetch }) => {
         const knowledgeSkillDetails = me.growMap?.knowledgeSkillDetails || [];
 
         const selectedSkills: SelectedSkills[] = knowledgeSkillDetails.map(

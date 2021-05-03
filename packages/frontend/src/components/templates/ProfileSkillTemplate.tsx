@@ -7,7 +7,7 @@ import SkillContext from '@/components/skill-management/SkillContext';
 import SkillManagement from '@/components/skill-management/SkillManagement';
 import WelcomeContent from '@/components/welcome/WelcomeContent';
 import useLang from '@/hooks/useLang';
-import { User, SelectedSkills } from '@/types';
+import { SelectedSkills, User } from '@/types';
 import ROUTES from '@/utils/routes';
 
 import Meta from '../meta';

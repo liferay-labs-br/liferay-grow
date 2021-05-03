@@ -86,6 +86,7 @@ const GetStarted: React.FC<GetStartedProps> = ({
 };
 
 export default withAuth((props) => (
+<<<<<<< HEAD
   <WrappedSafeComponent query={getStarted}>
     {(data) => (
       <GetStarted
@@ -96,5 +97,9 @@ export default withAuth((props) => (
         teams={data.teams.rows}
       />
     )}
+=======
+  <WrappedSafeComponent<GetStartedProps> query={getStarted}>
+    {({ data }) => <GetStarted {...props} {...data} />}
+>>>>>>> #233 Removed type any from WrappedSafeComponent
   </WrappedSafeComponent>
 ));

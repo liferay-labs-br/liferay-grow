@@ -61,6 +61,7 @@ const TeamsWrapper: React.FC = () => {
       <Meta title={i18n.sub('app-title-x', 'teams')} />
       <h1>{i18n.get('teams')}</h1>
 
+<<<<<<< HEAD
       <WrappedSafeComponent
         query={getAllTeams}
         options={{
@@ -87,6 +88,10 @@ const TeamsWrapper: React.FC = () => {
             />
           );
         }}
+=======
+      <WrappedSafeComponent<TeamsProps> query={getAllTeams}>
+        {({ data: { teams } }) => <Teams teams={teams} />}
+>>>>>>> #233 Removed type any from WrappedSafeComponent
       </WrappedSafeComponent>
     </HomeTemplate>
   );

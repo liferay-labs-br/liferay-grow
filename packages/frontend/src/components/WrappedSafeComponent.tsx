@@ -1,4 +1,5 @@
 import {
+  ApolloQueryResult,
   DocumentNode,
   OperationVariables,
   QueryHookOptions,
@@ -7,21 +8,32 @@ import {
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import React from 'react';
 
-type WrappedSafeComponentProps = {
-  children: (data: any) => React.ReactElement;
-  options?: QueryHookOptions<any, OperationVariables>;
+type Response<T> = {
+  data: T;
+  refetch: (
+    variables?: Partial<OperationVariables>,
+  ) => Promise<ApolloQueryResult<T>>;
+  variables: OperationVariables;
+};
+
+type WrappedSafeComponentProps<T> = {
+  children: (data: Response<T>) => React.ReactElement;
+  options?: QueryHookOptions<OperationVariables>;
   query: DocumentNode;
 };
 
-const WrappedSafeComponent: React.FC<WrappedSafeComponentProps> = ({
+const WrappedSafeComponent = <T,>({
   children,
   options,
   query,
-}) => {
-  const { data, error, loading, refetch, variables } = useQuery(query, options);
+}: WrappedSafeComponentProps<T>): React.ReactElement => {
+  const { data, error, loading, refetch, variables } = useQuery<T>(
+    query,
+    options,
+  );
 
-  const response = {
-    ...data,
+  const response: Response<T> = {
+    data,
     refetch,
     variables,
   };

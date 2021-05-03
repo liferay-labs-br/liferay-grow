@@ -39,6 +39,25 @@ export interface KnowledgeArea extends BasicQuery {
   skills: Skill[];
 }
 
+export interface Summary extends BasicQuery {
+  description: string;
+  value: number;
+}
+
+export type KnowledgeSkill = {
+  area: KnowledgeArea;
+  description: string;
+  id: string;
+  knowledgeMatrizAverage: KnowledgeMatrizAverage[];
+  mentoringMembers: User[];
+  name: string;
+  otherMembers: User[];
+  slug: string;
+  summary: Summary[];
+  userGaps: User[];
+  userSkills: User[];
+};
+
 export type KnowledgeSkillDetails = {
   id: string;
   knowledgeSkillId: string;
@@ -135,16 +154,17 @@ export type Team = {
   id: string;
   name: string;
   slug: string;
-  members: {
-    pagination: Pagination;
-    rows: User[];
-  };
+  members: Members;
+  knowledgeMatrizAverage: KnowledgeMatrizAverage[];
+  knowledgeArea: KnowledgeArea[];
 };
 
 export type Office = {
   id: string;
   name: string;
   city: string;
+  state: string;
+  address: string;
   country: string;
 };
 
@@ -216,16 +236,10 @@ export type Pagination = {
   startPage: number;
   totalItems: number;
   totalPages: number;
-  nextPage: number | null;
+  nextPage?: number;
 };
 
 export type Members = {
   pagination: Pagination;
-  rows: string;
-};
-
-export type getTeamBySlug = {
-  name: string;
-  slug: string;
-  members: string;
+  rows: User[];
 };

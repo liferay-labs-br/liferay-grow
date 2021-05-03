@@ -7,17 +7,21 @@ import { getUserByLogin } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import { User } from '@/types';
 
+type RequestProps = {
+  user: User;
+};
+
 const TeamByLogin = () => {
   const {
     query: { login },
   } = useRouter();
 
   return (
-    <WrappedSafeComponent
+    <WrappedSafeComponent<RequestProps>
       query={getUserByLogin}
       options={{ variables: { login } }}
     >
-      {({ user }: { user: User }) => <TeamTemplate me={user} />}
+      {({ data: { user } }) => <TeamTemplate me={user} />}
     </WrappedSafeComponent>
   );
 };
