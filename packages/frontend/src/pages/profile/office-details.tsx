@@ -21,14 +21,21 @@ import {
 } from '@/types';
 import ROUTES from '@/utils/routes';
 
-type GetStartedProps = {
+type RequestProps = {
+  me: User;
+};
+
+type RequestGetStartedProps = {
   departments: BasicQuery[];
-  teams: Team[];
   offices: Office[];
   roles: BasicQuery[];
-  refetch: () => Promise<void>;
-  me?: User;
+  teams: Team[];
 };
+
+interface GetStartedProps extends RequestGetStartedProps {
+  refetch: () => any;
+  me?: User;
+}
 
 const GetStarted: React.FC<GetStartedProps> = ({
   departments,
@@ -103,10 +110,11 @@ const OfficeDetails = () => {
   const i18n = useLang();
 
   return (
-    <WrappedSafeComponent query={getMe}>
-      {({ me, refetch }) => {
+    <WrappedSafeComponent<RequestProps> query={getMe}>
+      {({ data: { me }, refetch }) => {
         return (
           <UserSkillTemplate me={me} title={i18n.get('office-details')}>
+<<<<<<< HEAD
             <WrappedSafeComponent query={getStarted}>
               {(data) => (
                 <GetStarted
@@ -118,6 +126,10 @@ const OfficeDetails = () => {
                   refetch={refetch}
                 />
               )}
+=======
+            <WrappedSafeComponent<RequestGetStartedProps> query={getStarted}>
+              {({ data }) => <GetStarted me={me} {...data} refetch={refetch} />}
+>>>>>>> #233 Removed type any from WrappedSafeComponent
             </WrappedSafeComponent>
           </UserSkillTemplate>
         );

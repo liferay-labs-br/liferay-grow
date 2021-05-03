@@ -73,8 +73,10 @@ const TeamSummary: React.FC = () => {
   return (
     <TeamTemplate page="summary">
       {({
-        getAllKnowledgeMatriz,
-        getTeamBySlug: { knowledgeArea, knowledgeMatrizAverage },
+        data: {
+          getAllKnowledgeMatriz,
+          getTeamBySlug: { knowledgeArea, knowledgeMatrizAverage },
+        },
       }) => (
         <SkillContextProvider
           fetchData={false}

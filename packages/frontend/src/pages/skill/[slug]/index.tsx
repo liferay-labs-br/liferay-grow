@@ -19,9 +19,13 @@ import {
 } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { KnowledgeMatriz, Profile } from '@/types';
+import { KnowledgeMatriz, KnowledgeSkill, Profile } from '@/types';
 import { COLORS } from '@/utils/constans';
 import ROUTES from '@/utils/routes';
+
+type RequestProps = {
+  getKnowledgeSkillBySlug: KnowledgeSkill;
+};
 
 type Summary = {
   id: string;
@@ -108,13 +112,19 @@ const ListMembers: React.FC<ListMembersProps> = ({ matriz, onClose, slug }) => {
   const router = useRouter();
 
   return (
-    <WrappedSafeComponent
+    <WrappedSafeComponent<RequestProps>
       query={membersKnowledgeSkillBySlug}
       options={{ variables: { matriz: matriz.id, skill: slug } }}
     >
-      {({ getKnowledgeSkillBySlug: { [matrizOrGap]: memberList } }) => (
+      {({
+        data: {
+          getKnowledgeSkillBySlug: { [matrizOrGap]: memberList },
+        },
+      }) => (
         <>
-          <h5>{`${i18n.get('members')} (${memberList.length})`}</h5>
+          <h5>{`${i18n.get('members')} (${
+            memberList.length
+          }) ${matrizOrGap}`}</h5>
 
           {memberList.map((member) => (
             <div
@@ -296,11 +306,11 @@ const SkillDetailWrapper: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
   return (
     <div className="skilldetails">
-      <WrappedSafeComponent
+      <WrappedSafeComponent<RequestProps>
         query={knowledgeSkillBySlug}
         options={{ variables: { slug } }}
       >
-        {({ getKnowledgeSkillBySlug }) => (
+        {({ data: { getKnowledgeSkillBySlug } }) => (
           <SkillDetail {...getKnowledgeSkillBySlug} slug={slug} />
         )}
       </WrappedSafeComponent>

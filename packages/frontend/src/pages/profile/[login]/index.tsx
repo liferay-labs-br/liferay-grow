@@ -8,8 +8,8 @@ import withAuth from '@/hocs/withAuth';
 import { KnowledgeMatriz, User } from '@/types';
 
 type RequestProps = {
-  allKnowledgeMatriz: KnowledgeMatriz[];
   user: User;
+  allKnowledgeMatriz: KnowledgeMatriz[];
 };
 
 const UserByLogin = () => {
@@ -18,11 +18,11 @@ const UserByLogin = () => {
   } = useRouter();
 
   return (
-    <WrappedSafeComponent
+    <WrappedSafeComponent<RequestProps>
       query={getUserByLogin}
       options={{ variables: { login } }}
     >
-      {({ allKnowledgeMatriz, user }: RequestProps) => (
+      {({ data: { allKnowledgeMatriz, user } }) => (
         <UserTemplate me={user} allKnowledgeMatriz={allKnowledgeMatriz} />
       )}
     </WrappedSafeComponent>
