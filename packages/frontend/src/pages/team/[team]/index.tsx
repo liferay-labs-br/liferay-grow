@@ -11,11 +11,11 @@ import useSkillManagement from '@/components/skill-management/useSkillManagement
 import TeamTemplate from '@/components/templates/TeamTemplate';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { KnowledgeMatriz, Skill } from '@/types';
+import { KnowledgeMatriz, KnowledgeMatrizAverage, Skill } from '@/types';
 import { flat } from '@/utils/util';
 
 type TeamSummaryManagementProps = {
-  knowledgeMatrizAverage: null | any[];
+  knowledgeMatrizAverage: KnowledgeMatrizAverage[];
   knowledgeMatriz: KnowledgeMatriz[];
 };
 
