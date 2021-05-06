@@ -1,8 +1,8 @@
-import { ActionMap, ActionsPayload, LoggedUser, Types } from '@/types';
+import { ActionMap, ActionsPayload, ResponseUser, Types } from '@/types';
 import { delToken, getToken, setToken } from '@/utils/cookie';
 import { parseJwt } from '@/utils/util';
 
-type UserActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
+export type UserActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
 export const userState = {
   loggedUser: {},
@@ -10,9 +10,9 @@ export const userState = {
 };
 
 export const userReducer = (
-  state: LoggedUser,
+  state: ResponseUser,
   action: UserActions,
-): LoggedUser => {
+): ResponseUser => {
   switch (action.type) {
     case Types.SET_LOGGED_USER: {
       const { token } = action.payload;
