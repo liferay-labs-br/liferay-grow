@@ -117,7 +117,7 @@ export interface IWrappedComponentProps
 }
 
 export type Action = {
-  payload: any;
+  payload?: any;
   type: any;
 };
 
@@ -200,20 +200,22 @@ export type SkillManagement = {
 };
 
 export type LoggedUser = {
+  name?: string;
+  accountId?: number;
+  avatar_url?: string;
+  bio?: string;
+  company?: string;
+  created_at?: string;
+  email?: string;
+  id?: string;
+  location?: string;
+  login?: string;
+  user?: User;
+};
+
+export type ResponseUser = {
   token: string | null;
-  loggedUser: {
-    name?: string;
-    accountId?: number;
-    avatar_url?: string;
-    bio?: string;
-    company?: string;
-    created_at?: string;
-    email?: string;
-    id?: string;
-    location?: string;
-    login?: string;
-    user?: User;
-  };
+  loggedUser: LoggedUser;
 };
 
 export type Steps = {

@@ -1,11 +1,11 @@
 import { createContext, Dispatch } from 'react';
 
-import { userReducer, userState } from './reducers/UserReducer';
+import { UserActions, userReducer, userState } from './reducers/UserReducer';
 import { welcomeReducer, welcomeState } from './reducers/WelcomeReducer';
-import { Action, LoggedUser, Welcome } from './types';
+import { ResponseUser, Welcome } from './types';
 
 type InitialStateAppContextType = {
-  user: LoggedUser;
+  user: ResponseUser;
   welcome: Welcome;
 };
 
@@ -16,7 +16,7 @@ const initialState = {
 
 const AppContext = createContext<{
   state: InitialStateAppContextType;
-  dispatch: Dispatch<Action>;
+  dispatch: Dispatch<UserActions>;
 }>({
   dispatch: () => null,
   state: initialState,
@@ -24,7 +24,7 @@ const AppContext = createContext<{
 
 const mainReducer = (
   { user, welcome }: InitialStateAppContextType,
-  action: Action,
+  action: UserActions,
 ): InitialStateAppContextType => ({
   user: userReducer(user, action),
   welcome: welcomeReducer(welcome, action),
