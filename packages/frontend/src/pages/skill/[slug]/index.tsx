@@ -122,9 +122,7 @@ const ListMembers: React.FC<ListMembersProps> = ({ matriz, onClose, slug }) => {
         },
       }) => (
         <>
-          <h5>{`${i18n.get('members')} (${
-            memberList.length
-          }) ${matrizOrGap}`}</h5>
+          <h5>{`${i18n.get('members')} (${memberList.length})`}</h5>
 
           {memberList.map((member) => (
             <div
