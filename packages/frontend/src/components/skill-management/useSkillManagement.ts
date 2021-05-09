@@ -1,6 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
 
 import useLang from '@/hooks/useLang';
+import { Skill } from '@/types';
 import { flat } from '@/utils/util';
 
 import SkillContext from './SkillContext';
@@ -19,9 +20,9 @@ type UseSkillManagementResponse = {
   };
   state: {
     DEFAULT_PAGE_SIZE: number;
-    filteredSkills: any[];
+    filteredSkills: Skill[];
     pageSize: number;
-    paginatedSkills: any[];
+    paginatedSkills: Skill[];
     tabs: Tab[];
   };
 };
@@ -41,7 +42,7 @@ const useSkillManagement = (): UseSkillManagementResponse => {
   };
 
   const getKnowledgeSkills = useCallback(() => {
-    let skills = [];
+    let skills: Skill[] = [];
     if (selectedTab === 'all') {
       skills = knowledgeSkills;
     } else {
