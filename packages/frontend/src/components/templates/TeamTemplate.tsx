@@ -56,8 +56,6 @@ const TeamTemplate: React.FC<TeamTeplateProps> = ({ children, page }) => {
         const { members, name } = response.data.getTeamBySlug;
         const totalItems = members?.pagination?.totalItems || 0;
 
-        console.log(response);
-
         return (
           <>
             <Meta title={`${name} - ${i18n.get(page)}`} />

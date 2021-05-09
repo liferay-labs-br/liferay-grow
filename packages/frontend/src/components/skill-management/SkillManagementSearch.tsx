@@ -14,7 +14,7 @@ const SkillManagementSearch: React.FC = () => {
     state: { search },
   } = useContext(SkillContext);
 
-  const editSearch = (value) => {
+  const editSearch = (value: string) => {
     dispatch({
       payload: value,
       type: Types.EDIT_SEARCH,
