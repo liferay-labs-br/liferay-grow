@@ -37,9 +37,9 @@ interface IHeaderProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const Header: React.FC<IHeaderProps> & {
-  Avatar: React.ElementType;
-  Info: React.ElementType;
-  Title: React.ElementType;
+  Avatar: typeof HeaderAvatar;
+  Info: typeof HeaderInfo;
+  Title: typeof HeaderTitle;
 } = ({ actions, border = true, centralized = false, children }) => {
   return (
     <div

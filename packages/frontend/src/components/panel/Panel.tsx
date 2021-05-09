@@ -56,10 +56,10 @@ interface IPanelProps {
 }
 
 const Panel: React.FC<IPanelProps> & {
-  Body: React.ElementType;
-  Item: React.ElementType;
-  Title: React.ElementType;
-  ProgressBar: React.ElementType;
+  Body: typeof PanelBody;
+  Item: typeof PanelItem;
+  Title: typeof PanelTitle;
+  ProgressBar: typeof ProgressBar;
 } = ({
   children,
   defaultExpanded = true,
