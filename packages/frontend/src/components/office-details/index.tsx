@@ -44,7 +44,7 @@ const OfficeDetailBody: React.FC<OfficeDetailBodyProps> = ({
   const i18n = useLang();
 
   const onChangeCheckbox = (event, { id }) => {
-    let teamsId = [...form.teamsId];
+    let teamsId = form.teamsId ? [...form.teamsId] : [];
 
     if (event.target.checked) {
       teamsId = [...teamsId, id];
@@ -109,7 +109,7 @@ const OfficeDetailBody: React.FC<OfficeDetailBodyProps> = ({
           trigger={
             <CustomSelect
               value={
-                form.teamsId.length
+                form.teamsId?.length
                   ? teams
                       .filter(({ id }) => form.teamsId.includes(id))
                       .map(({ name }) => name)
@@ -123,7 +123,7 @@ const OfficeDetailBody: React.FC<OfficeDetailBodyProps> = ({
             return (
               <ClayDropDown.Item key={team.id}>
                 <ClayCheckbox
-                  checked={!!form.teamsId.find((id) => id === team.id)}
+                  checked={!!form.teamsId?.find((id) => id === team.id)}
                   label={team.name}
                   onChange={(event) => onChangeCheckbox(event, team)}
                 />
