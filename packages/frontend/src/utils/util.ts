@@ -1,3 +1,5 @@
+import { LoggedUser } from '@/types';
+
 export function redirect(ctx, path: string): void {
   const { res } = ctx;
   if (res) {
@@ -6,7 +8,7 @@ export function redirect(ctx, path: string): void {
   }
 }
 
-export function parseJwt(token: string): any {
+export function parseJwt(token: string): LoggedUser {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
@@ -21,7 +23,7 @@ export function parseJwt(token: string): any {
   return JSON.parse(jsonPayload);
 }
 
-export function flat(arr: any[]): any[] {
+export function flat<A, B>(arr: A[]): B[] {
   return arr.reduce((acc, curr) => acc.concat(curr), []);
 }
 
