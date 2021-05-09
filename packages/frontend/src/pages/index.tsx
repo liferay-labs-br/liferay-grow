@@ -18,7 +18,7 @@ import useSkillManagement from '@/components/skill-management/useSkillManagement
 import HomeTemplate from '@/components/templates/HomeTemplate';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { Skill } from '@/types';
+import { KnowledgeMatrizAverage, Skill } from '@/types';
 import { flat } from '@/utils/util';
 
 import { baseURL } from '../graphql/nextApollo';
@@ -42,7 +42,10 @@ const KnowledgeAreaManagement: React.FC<
     },
   } = useSkillManagement();
 
-  const knowledgeMatrizAverages = flat(
+  const knowledgeMatrizAverages = flat<
+    KnowledgeMatrizAverage[],
+    KnowledgeMatrizAverage
+  >(
     knowledgeSkills.map(({ knowledgeMatrizAverage }) => knowledgeMatrizAverage),
   );
 
