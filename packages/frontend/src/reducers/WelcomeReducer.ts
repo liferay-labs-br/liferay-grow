@@ -21,12 +21,7 @@ export const welcomeState: Welcome = {
   data: {
     knowledgeGapsDetails: [] as KnowledgeGapsDetails[],
     knowledgeSkillDetails: [] as KnowledgeSkillDetails[],
-    userDetails: {
-      departmentId: '',
-      officeId: '',
-      roleId: '',
-      teamsId: [],
-    } as any,
+    userDetails: {} as GrowMapOfficeInput,
   },
   steps: STEPS,
 };

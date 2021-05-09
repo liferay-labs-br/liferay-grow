@@ -9,6 +9,7 @@ import { SelectedSkills, Types } from '@/types';
 
 import CustomSelect from '../custom-select';
 import SkillContext from './SkillContext';
+import { SkillManagementActions } from './SkillReducer';
 
 const SkillMatrizThreshold = 2;
 
@@ -16,16 +17,11 @@ type SkillForm = {
   skill: SelectedSkills;
 };
 
-type Action = {
-  payload: SelectedSkills[];
-  type: string;
-};
-
 const dispatchChangeOnRow = ({
   dispatch,
   selectedSkills,
 }: {
-  dispatch: Dispatch<Action>;
+  dispatch: Dispatch<SkillManagementActions>;
   selectedSkills: SelectedSkills[];
 }) => ({ name, value }, skill: SelectedSkills) => {
   const updatedSelectedSkill = selectedSkills.map((selectedSkill) => {

@@ -11,10 +11,10 @@ import WelcomeContent from '../../components/welcome/WelcomeContent';
 import { CreateGrowMapMutation } from '../../graphql/mutations';
 import withAuth from '../../hocs/withAuth';
 import useLang from '../../hooks/useLang';
-import { GrowMap, GrowMapMutationData, Types } from '../../types';
+import { GrowMapMutationData, Types } from '../../types';
 import ROUTES from '../../utils/routes';
 
-const normalizeGrowMapData = (data: GrowMap): GrowMapMutationData => {
+const normalizeGrowMapData = (data: GrowMapMutationData) => {
   const normalizedData = {
     knowledgeGapsDetails: data.knowledgeGapsDetails.map(
       ({ knowledgeSkillId }) => ({ knowledgeSkillId }),
@@ -84,7 +84,7 @@ const SkillDetails = () => {
         data: normalizeGrowMapData({
           ...data,
           knowledgeGapsDetails: selectedSkills,
-        } as GrowMap),
+        }),
       },
     });
 
