@@ -1,8 +1,12 @@
 import { createContext, Dispatch } from 'react';
 
-import { Action, SkillManagement } from '@/types';
+import { SkillManagement } from '@/types';
 
-import { SkillManagementReducer, SkillManagementState } from './SkillReducer';
+import {
+  SkillManagementActions,
+  SkillManagementReducer,
+  SkillManagementState,
+} from './SkillReducer';
 
 type InitialStateSkillManagementType = SkillManagement;
 
@@ -10,7 +14,7 @@ const initialState = SkillManagementState;
 
 const SkillContext = createContext<{
   state: InitialStateSkillManagementType;
-  dispatch: Dispatch<Action>;
+  dispatch: Dispatch<SkillManagementActions>;
 }>({
   dispatch: () => null,
   state: initialState,
@@ -18,7 +22,7 @@ const SkillContext = createContext<{
 
 const mainReducer = (
   state: InitialStateSkillManagementType,
-  action: Action,
+  action: SkillManagementActions,
 ): InitialStateSkillManagementType => SkillManagementReducer(state, action);
 
 export { mainReducer, initialState };

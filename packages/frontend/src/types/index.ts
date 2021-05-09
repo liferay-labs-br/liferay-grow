@@ -81,15 +81,9 @@ export type GrowMap = {
 };
 
 export type GrowMapMutationData = {
-  knowledgeGapsDetails: {
-    knowledgeSkillId: string;
-  }[];
-  knowledgeSkillDetails: {
-    knowledgeSkillId: string;
-    knowledgeMatrizId: string;
-    isMentor: boolean;
-  }[];
-  userDetails: UserDetails;
+  knowledgeGapsDetails: SelectedSkills[];
+  knowledgeSkillDetails: SelectedSkills[];
+  userDetails: GrowMapOfficeInput;
 };
 
 export type User = {
@@ -115,11 +109,6 @@ export interface IWrappedComponentProps
   extends React.HTMLAttributes<HTMLElement> {
   displayName?: string;
 }
-
-export type Action = {
-  payload?: any;
-  type: any;
-};
 
 export type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -147,7 +136,7 @@ export type ActionsPayload = {
     checked: boolean;
     value: string;
   };
-  [Types.UPDATE_DATA]: GrowMap;
+  [Types.UPDATE_DATA]: GrowMapMutationData;
 };
 
 export type Team = {
@@ -225,7 +214,7 @@ export type Steps = {
 
 export type Welcome = {
   steps: Steps;
-  data: GrowMap;
+  data: GrowMapMutationData;
 };
 
 export type Pagination = {

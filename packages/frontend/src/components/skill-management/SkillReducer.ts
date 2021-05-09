@@ -2,12 +2,13 @@ import {
   ActionMap,
   ActionsPayload,
   KnowledgeArea,
+  Skill,
   SkillManagement,
   Types,
 } from '@/types';
 import { flat } from '@/utils/util';
 
-type SkillManagementActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
+export type SkillManagementActions = ActionMap<ActionsPayload>[keyof ActionMap<ActionsPayload>];
 
 export const SkillManagementState: SkillManagement = {
   knowledgeArea: [],
@@ -52,7 +53,9 @@ export const SkillManagementReducer = (
         }),
       );
 
-      const knowledgeSkills = flat(knowledgeArea.map(({ skills }) => skills));
+      const knowledgeSkills = flat<Skill[], Skill>(
+        knowledgeArea.map(({ skills }) => skills),
+      );
 
       return {
         ...state,

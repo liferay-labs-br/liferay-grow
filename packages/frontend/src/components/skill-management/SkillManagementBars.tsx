@@ -46,7 +46,7 @@ const AddMoreSkillsComponent = () => {
 
   const {
     dispatch,
-    state: { knowledgeArea, search },
+    state: { knowledgeArea, knowledgeMatriz, search },
   } = useContext(SkillContext);
 
   const [onCreateKnowledgeSkill] = useMutation(CreateKnowledgeSkill);
@@ -89,22 +89,25 @@ const AddMoreSkillsComponent = () => {
         },
       });
 
-      const { id } = data?.createKnowledgeSkill || {};
+      const skillResponse: Skill = data?.createKnowledgeSkill || {};
 
-      if (id) {
-        const newKnowledgeAreas = knowledgeArea.map((area) => ({
-          ...area,
-          skills:
-            area.id === knowledgeSkill.area
-              ? [...area.skills, { id, name: knowledgeSkill.name }]
-              : area.skills,
-        }));
+      if (skillResponse.id) {
+        const newKnowledgeAreas = knowledgeArea.map((area) => {
+          return {
+            ...area,
+            skills:
+              area.id === knowledgeSkill.area
+                ? [...area.skills, skillResponse]
+                : area.skills,
+          };
+        });
 
         toast.info(i18n.get('your-request-completed-successfully'));
 
         dispatch({
           payload: {
             area: newKnowledgeAreas,
+            matriz: knowledgeMatriz,
           },
           type: Types.EDIT_KNOWLEDGE_DATA,
         });
@@ -182,10 +185,10 @@ const AddMoreSkillsComponent = () => {
 };
 
 const SkillComponent: React.FC<React.HTMLAttributes<HTMLElement>> & {
-  Footer: React.ElementType;
-  List: React.ElementType;
-  Results: React.ElementType;
-  ListAverage: React.ElementType;
+  Footer: typeof SkillFooter;
+  List: typeof SkillList;
+  Results: typeof SkillResults;
+  ListAverage: typeof SkillListWithAverage;
 } = ({ children }) => <div className="mt-3">{children}</div>;
 
 const SkillList: React.FC<SkillListProps> = ({ filteredSkills, onClick }) => (
@@ -262,7 +265,7 @@ const SkillListWithAverage: React.FC<SkillListWithAverageProps> = ({
   knowledgeMatrizAverage,
   skills,
 }) => {
-  const getAverage = ({ id }) => {
+  const getAverage = ({ id }): [number, string] => {
     const matrizAverage = knowledgeMatrizAverage.find(
       (matriz) => matriz.id === id,
     );

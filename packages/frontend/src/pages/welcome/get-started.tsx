@@ -9,7 +9,7 @@ import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getStarted } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
-import { BasicQuery, GrowMapOfficeInput, Office, Team, Types } from '@/types';
+import { BasicQuery, Office, Team, Types } from '@/types';
 import ROUTES from '@/utils/routes';
 
 type GetStartedProps = {
@@ -32,13 +32,13 @@ const GetStarted: React.FC<GetStartedProps> = ({
     },
   } = useContext(AppContext);
 
-  const [form, setForm] = useState<GrowMapOfficeInput>(data.userDetails as any);
+  const [form, setForm] = useState(data.userDetails);
 
   const i18n = useLang();
   const router = useRouter();
 
   const canSave =
-    form.departmentId && form.officeId && form.roleId && form.teamsId.length;
+    form.departmentId && form.officeId && form.roleId && form.teamsId?.length;
 
   const saveData = () => {
     dispatch({
