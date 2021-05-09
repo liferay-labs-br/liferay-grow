@@ -1,12 +1,17 @@
-function buildRoutes(config, routes = {}, prefix = '') {
+function buildRoutes<T>(config: T, prefix = '') {
+  let routes = {};
   for (const entry of Object.entries(config)) {
-    const [key, pathOrConfig]: [string, any] = entry;
+    const [key, pathOrConfig] = entry;
     if (typeof pathOrConfig === 'string') {
       routes[key] = prefix + pathOrConfig;
     } else {
       routes[key] = prefix + pathOrConfig.path;
 
-      buildRoutes(pathOrConfig.routes, routes, routes[key]);
+      const nestedValue = buildRoutes(pathOrConfig.routes, routes[key]);
+      routes = {
+        ...routes,
+        ...nestedValue,
+      };
     }
   }
 
