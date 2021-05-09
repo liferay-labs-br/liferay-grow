@@ -1,10 +1,12 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { concatPagination } from '@apollo/client/utilities';
-import { useMemo } from 'react';
 
 import { getToken } from '@/utils/cookie';
-
-let apolloClient;
 
 export const baseURL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3333';
@@ -34,14 +36,17 @@ function createApolloClient() {
   });
 }
 
-export function initializeApollo(initialState = null, createNew = false) {
+export function initializeApollo(
+  initialState = null,
+  createNew = false,
+): ApolloClient<NormalizedCacheObject> {
   if (createNew) {
     const client = createApolloClient();
 
     return client;
   }
 
-  const _apolloClient = apolloClient ?? createApolloClient();
+  const _apolloClient = createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
@@ -54,14 +59,12 @@ export function initializeApollo(initialState = null, createNew = false) {
   }
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === 'undefined') return _apolloClient;
-  // Create the Apollo Client once in the client
-  if (!apolloClient) apolloClient = _apolloClient;
 
   return _apolloClient;
 }
 
-export function useApollo(initialState: any) {
-  const store = useMemo(() => initializeApollo(initialState), [initialState]);
+export function useApollo(): ApolloClient<NormalizedCacheObject> {
+  const store = initializeApollo();
 
   return store;
 }
