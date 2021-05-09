@@ -15,7 +15,7 @@ import Layout from '@/components/layout';
 import { useApollo } from '@/graphql/nextApollo';
 
 const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  const apolloClient = useApollo();
 
   return (
     <ClayIconSpriteContext.Provider value={spritemap}>
@@ -23,21 +23,13 @@ const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
 
       <AppContextProvider>
         <AppContext.Consumer>
-          {({
-            state: {
-              user: { token },
-            },
-          }) => {
-            apolloClient.link.options.headers.Authorization = `Bearer ${token}`;
-
-            return (
-              <ApolloProvider client={apolloClient}>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ApolloProvider>
-            );
-          }}
+          {() => (
+            <ApolloProvider client={apolloClient}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ApolloProvider>
+          )}
         </AppContext.Consumer>
       </AppContextProvider>
     </ClayIconSpriteContext.Provider>

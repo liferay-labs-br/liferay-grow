@@ -1,4 +1,8 @@
-import { useMutation } from '@apollo/client';
+import {
+  ApolloQueryResult,
+  OperationVariables,
+  useMutation,
+} from '@apollo/client';
 import ClayButton from '@clayui/button';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -32,19 +36,21 @@ type RequestGetStartedProps = {
   teams: Team[];
 };
 
-interface GetStartedProps extends RequestGetStartedProps {
-  refetch: () => any;
+interface GetStartedProps<T> extends RequestGetStartedProps {
+  refetch: (
+    variables?: Partial<OperationVariables>,
+  ) => Promise<ApolloQueryResult<T>>;
   me?: User;
 }
 
-const GetStarted: React.FC<GetStartedProps> = ({
+const GetStarted = <T,>({
   departments,
   me,
   offices,
   refetch,
   roles,
   teams,
-}) => {
+}: GetStartedProps<T>) => {
   const { department, office, role, teams: userTeams } = me.growMap
     .userDetails as UserDetails;
 
@@ -54,7 +60,7 @@ const GetStarted: React.FC<GetStartedProps> = ({
     departmentId: department?.id,
     officeId: office?.id,
     roleId: role?.id,
-    teamsId: userTeams.map(({ id }) => id),
+    teamsId: userTeams.map(({ id }) => id) || [],
   });
 
   const i18n = useLang();
