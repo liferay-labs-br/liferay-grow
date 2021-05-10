@@ -19,6 +19,13 @@ type GetStartedProps = {
   roles: BasicQuery[];
 };
 
+type ResponseProps = {
+  teams: { rows: Team[] };
+  departments: { rows: BasicQuery[] };
+  offices: { rows: Office[] };
+  roles: { rows: BasicQuery[] };
+};
+
 const GetStarted: React.FC<GetStartedProps> = ({
   departments,
   offices,
@@ -86,20 +93,15 @@ const GetStarted: React.FC<GetStartedProps> = ({
 };
 
 export default withAuth((props) => (
-<<<<<<< HEAD
-  <WrappedSafeComponent query={getStarted}>
-    {(data) => (
+  <WrappedSafeComponent<ResponseProps> query={getStarted}>
+    {({ data }) => (
       <GetStarted
         {...props}
-        departments={data.departments.rows}
-        offices={data.offices.rows}
-        roles={data.roles.rows}
-        teams={data.teams.rows}
+        departments={data.departments?.rows}
+        offices={data.offices?.rows}
+        roles={data.roles?.rows}
+        teams={data.teams?.rows}
       />
     )}
-=======
-  <WrappedSafeComponent<GetStartedProps> query={getStarted}>
-    {({ data }) => <GetStarted {...props} {...data} />}
->>>>>>> #233 Removed type any from WrappedSafeComponent
   </WrappedSafeComponent>
 ));

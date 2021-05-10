@@ -10,6 +10,14 @@ import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getAllTeams } from '@/graphql/queries';
 import withAuth from '@/hocs/withAuth';
 import useLang from '@/hooks/useLang';
+import { Pagination, Team } from '@/types';
+
+type RequestProps = {
+  teams: {
+    pagination: Pagination;
+    rows: Team[];
+  };
+};
 
 const Avatar = ({ profile, router }) => (
   <img
@@ -61,14 +69,13 @@ const TeamsWrapper: React.FC = () => {
       <Meta title={i18n.sub('app-title-x', 'teams')} />
       <h1>{i18n.get('teams')}</h1>
 
-<<<<<<< HEAD
-      <WrappedSafeComponent
+      <WrappedSafeComponent<RequestProps>
         query={getAllTeams}
         options={{
           variables: { data: { order: 'name', pageSize: 10, sort: 'DESC' } },
         }}
       >
-        {({ refetch, teams, variables }) => {
+        {({ data: { teams }, refetch, variables }) => {
           return (
             <ListView
               orderBy
@@ -82,16 +89,12 @@ const TeamsWrapper: React.FC = () => {
               refetch={refetch}
               variables={variables}
               className="mt-4"
-              items={teams.rows}
+              items={teams?.rows}
               columns={columns}
-              pagination={teams.pagination}
+              pagination={teams?.pagination}
             />
           );
         }}
-=======
-      <WrappedSafeComponent<TeamsProps> query={getAllTeams}>
-        {({ data: { teams } }) => <Teams teams={teams} />}
->>>>>>> #233 Removed type any from WrappedSafeComponent
       </WrappedSafeComponent>
     </HomeTemplate>
   );
