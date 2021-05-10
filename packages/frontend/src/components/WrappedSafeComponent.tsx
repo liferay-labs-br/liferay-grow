@@ -13,7 +13,7 @@ type Response<T> = {
   refetch: (
     variables?: Partial<OperationVariables>,
   ) => Promise<ApolloQueryResult<T>>;
-  variables: OperationVariables;
+  variables: any;
 };
 
 type WrappedSafeComponentProps<T> = {
