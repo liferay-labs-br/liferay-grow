@@ -13,6 +13,13 @@ interface AuthProps {
   className?: string;
 }
 
+type ServerInfo = {
+  serverInfo: {
+    SERVER_NAME: string;
+    SERVER_VERSION: string;
+  };
+};
+
 const AuthTemplate: React.FC = ({ children, className }: AuthProps) => {
   const i18n = useLang();
 
@@ -20,8 +27,8 @@ const AuthTemplate: React.FC = ({ children, className }: AuthProps) => {
 
   return (
     <div className={classNames('sign__in', className)}>
-      <WrappedSafeComponent query={getServerInfo}>
-        {({ serverInfo }) => (
+      <WrappedSafeComponent<ServerInfo> query={getServerInfo}>
+        {({ data: { serverInfo } }) => (
           <ClayLayout.Row justify="start" className="signin__row">
             <ClayLayout.Col
               size={4}
