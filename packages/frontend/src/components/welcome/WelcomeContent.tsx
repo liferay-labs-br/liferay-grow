@@ -31,9 +31,9 @@ const WelcomeContentFooter: React.FC<React.HTMLAttributes<HTMLElement>> = ({
 };
 
 const WelcomeContent: React.FC<React.HTMLAttributes<HTMLElement>> & {
-  Title: React.ElementType;
-  Body: React.ElementType;
-  Footer: React.ElementType;
+  Title: typeof WelcomeContentTitle;
+  Body: typeof WelcomeContentBody;
+  Footer: typeof WelcomeContentFooter;
 } = ({ children }) => {
   const i18n = useLang();
   const router = useRouter();
