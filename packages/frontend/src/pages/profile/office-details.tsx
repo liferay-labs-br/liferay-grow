@@ -120,22 +120,8 @@ const OfficeDetails = () => {
       {({ data: { me }, refetch }) => {
         return (
           <UserSkillTemplate me={me} title={i18n.get('office-details')}>
-<<<<<<< HEAD
-            <WrappedSafeComponent query={getStarted}>
-              {(data) => (
-                <GetStarted
-                  me={me}
-                  departments={data.departments.rows}
-                  offices={data.offices.rows}
-                  roles={data.roles.rows}
-                  teams={data.teams.rows}
-                  refetch={refetch}
-                />
-              )}
-=======
             <WrappedSafeComponent<RequestGetStartedProps> query={getStarted}>
               {({ data }) => <GetStarted me={me} {...data} refetch={refetch} />}
->>>>>>> #233 Removed type any from WrappedSafeComponent
             </WrappedSafeComponent>
           </UserSkillTemplate>
         );

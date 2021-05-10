@@ -64,18 +64,7 @@ const Members: React.FC = () => {
           },
         }) => {
           const rows: User[] = members?.rows ? members.rows : [];
-<<<<<<< HEAD
           const pagination = members?.pagination || {};
-=======
-          const pagination = members?.pagination;
-
-          const onResourceChange = async (type, value) => {
-            await refetch({
-              ...variables.membersInput,
-              membersInput: { ...variables.membersInput, [type]: value },
-            });
-          };
->>>>>>> #233 type Me changed to User
 
           return (
             <ListView
