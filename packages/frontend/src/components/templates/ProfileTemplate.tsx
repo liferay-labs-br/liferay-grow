@@ -60,12 +60,13 @@ const Template: React.FC<ITemplateProps> = ({ children, me, title }) => {
 
 const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
   const i18n = useLang();
+  const router = useRouter();
 
   return (
     <Template me={me} title={i18n.sub('app-title-x', 'teams')}>
       <Panel title={i18n.get('teams')}>
         {me.growMap?.userDetails?.teams?.map(({ id, members, name, slug }) => (
-          <Panel.Item key={id} href={`/team/${slug}`}>
+          <Panel.Item key={id} onClick={() => router.push(`/team/${slug}`)}>
             <Panel.Title className="title">{name}</Panel.Title>
             <Panel.Body>
               <span>
@@ -84,6 +85,7 @@ const TeamTemplate: React.FC<ITemplateProps> = ({ me }) => {
 
 const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
   const i18n = useLang();
+  const router = useRouter();
 
   return (
     <Template me={me} title={i18n.sub('app-title-x', 'profile')}>
@@ -91,7 +93,10 @@ const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
         <Panel title={i18n.get('skills-details')}>
           {me.growMap?.knowledgeSkillDetails?.map(
             ({ id, knowledgeMatriz, knowledgeSkill }) => (
-              <Panel.Item key={id} href={`/skill/${knowledgeSkill.slug}`}>
+              <Panel.Item
+                key={id}
+                onClick={() => router.push(`/skill/${knowledgeSkill.slug}`)}
+              >
                 <Panel.Title>{knowledgeSkill.name}</Panel.Title>
                 <Panel.Body>
                   <span>{knowledgeMatriz.name}</span>
@@ -103,7 +108,10 @@ const UserTemplate: React.FC<ITemplateProps> = ({ me }) => {
         </Panel>
         <Panel title={i18n.get('knowledge-gaps')}>
           {me.growMap?.knowledgeGapsDetails?.map(({ id, knowledgeSkill }) => (
-            <Panel.Item key={id} href={`/skill/${knowledgeSkill.slug}`}>
+            <Panel.Item
+              key={id}
+              onClick={() => router.push(`/skill/${knowledgeSkill.slug}`)}
+            >
               <Panel.Title>{knowledgeSkill.name}</Panel.Title>
             </Panel.Item>
           ))}

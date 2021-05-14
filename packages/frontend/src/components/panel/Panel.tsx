@@ -2,33 +2,27 @@ import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
 import ClayPanel from '@clayui/panel';
 import classNames from 'classnames';
-import Link from 'next/link';
 import React from 'react';
 
 import ProgressBar from './ProgressBar';
 
 type IPanelItem = {
-  href?: string;
+  onClick?: () => void;
 };
 
-const PanelItem: React.FC<IPanelItem> = ({ children, href }) => {
-  const PanelItem = (
+const PanelItem: React.FC<IPanelItem> = ({ children, onClick }) => {
+  return (
     <ClayLayout.Col size={4} className="d-flex">
       <ClayCard
         className={classNames('p-2 flex-grow-1', {
-          'profile__panel--link': href,
+          'profile__panel--link': onClick,
         })}
+        onClick={onClick}
       >
         {children}
       </ClayCard>
     </ClayLayout.Col>
   );
-
-  if (href) {
-    return <Link href={href}>{PanelItem}</Link>;
-  }
-
-  return PanelItem;
 };
 
 const PanelTitle: React.FC<React.HTMLAttributes<HTMLElement>> = ({
