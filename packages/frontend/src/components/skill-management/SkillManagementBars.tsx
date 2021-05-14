@@ -287,13 +287,8 @@ const SkillListWithAverage: React.FC<SkillListWithAverageProps> = ({
         const [matrizLevelAvg, matrizName] = getAverage(skill);
 
         return (
-          <Panel.Item key={index}>
-            <Panel.Title
-              className="link"
-              onClick={() => handleClickSkill(skill)}
-            >
-              {skill.name}
-            </Panel.Title>
+          <Panel.Item key={index} onClick={() => handleClickSkill(skill)}>
+            <Panel.Title>{skill.name}</Panel.Title>
             <Panel.Body>
               <span>{matrizName}</span>
             </Panel.Body>
