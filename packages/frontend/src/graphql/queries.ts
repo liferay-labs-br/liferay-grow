@@ -52,7 +52,7 @@ export const getUserByLogin = gql`
 `;
 
 const allRole = `
-  getAllRole {
+  getAllRole(data: {pageSize: 50}) {
     rows {
       id
       name
@@ -72,7 +72,7 @@ const allOffice = `
 `;
 
 const allTeam = `
-  getAllTeam {
+  getAllTeam(data: {pageSize: 50}) {
     rows {
       id
       name
