@@ -30,10 +30,10 @@ type RequestProps = {
 };
 
 type RequestGetStartedProps = {
-  departments: BasicQuery[];
-  offices: Office[];
-  roles: BasicQuery[];
-  teams: Team[];
+  departments: { rows: BasicQuery[] };
+  offices: { rows: Office[] };
+  roles: { rows: BasicQuery[] };
+  teams: { rows: Team[] };
 };
 
 interface GetStartedProps<T> extends RequestGetStartedProps {
@@ -95,10 +95,10 @@ const GetStarted = <T,>({
       <OfficeDetailsBody
         form={form}
         setForm={setForm}
-        departments={departments}
-        teams={teams}
-        roles={roles}
-        offices={offices}
+        departments={departments.rows}
+        teams={teams.rows}
+        roles={roles.rows}
+        offices={offices.rows}
       />
 
       <ClayButton displayType="secondary" className="mr-2" onClick={onCancel}>
