@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { ClayPaginationBarWithBasicItems } from '@clayui/pagination-bar';
 import React from 'react';
 

@@ -1,11 +1,15 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, BaseEntity, Index } from 'typeorm';
 
-import { MainEntity } from './MainEntity';
+/**
+ * @ObjectType - Define an ObjectType to be recognized by GraphQL
+ * @Entity - Necessary to integrate with TypeORM as a Column
+ * in the Database
+ */
 
 @ObjectType()
 @Entity({ orderBy: { name: 'ASC' } })
-export class Office extends MainEntity {
+export class Office extends BaseEntity {
   @Index({ unique: true })
   @Field()
   @Column()
