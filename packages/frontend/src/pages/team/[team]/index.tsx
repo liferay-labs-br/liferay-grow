@@ -67,7 +67,7 @@ const TeamSummaryManagement: React.FC<TeamSummaryManagementProps> = ({
   );
 };
 
-const TeamSummary: React.FC = () => {
+const TeamSummary = () => {
   const i18n = useLang();
 
   return (

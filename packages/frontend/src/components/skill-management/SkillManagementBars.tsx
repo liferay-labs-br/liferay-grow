@@ -288,11 +288,13 @@ const SkillListWithAverage: React.FC<SkillListWithAverageProps> = ({
 
         return (
           <Panel.Item key={index} onClick={() => handleClickSkill(skill)}>
-            <Panel.Title>{skill.name}</Panel.Title>
-            <Panel.Body>
-              <span>{matrizName}</span>
-            </Panel.Body>
-            <Panel.ProgressBar partialValue={matrizLevelAvg} />
+            <>
+              <Panel.Title>{skill.name}</Panel.Title>
+              <Panel.Body>
+                <span>{matrizName}</span>
+              </Panel.Body>
+              <Panel.ProgressBar partialValue={matrizLevelAvg} />
+            </>
           </Panel.Item>
         );
       })}

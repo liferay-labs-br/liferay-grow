@@ -1,7 +1,7 @@
 import ClayIcon from '@clayui/icon';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import useLang from '@/hooks/useLang';
 
@@ -13,8 +13,9 @@ type Step = {
 
 type SidebarItemProps = {
   active?: boolean;
-  symbol: string;
+  children: ReactElement | string;
   onClick: () => void;
+  symbol: string;
 };
 
 type SidebarProps = {

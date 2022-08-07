@@ -6,7 +6,7 @@ import { keys, redirect } from '@/utils/util';
 
 const withAuth = (
   Component: React.ComponentType<IWrappedComponentProps>,
-): React.ReactNode => {
+): any => {
   return class WithData extends React.Component {
     static displayName = `withAuth(${Component.displayName})`;
 

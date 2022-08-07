@@ -60,41 +60,43 @@ const SkillDetailMentorsPanel: React.FC<SkillDetailMentorsPanelProps> = ({
       title={i18n.get('mentors')}
       defaultExpanded={hasMentors}
     >
-      {hasMentors ? (
-        mentoringMembers.map(({ growMap, profile }) => (
-          <ClayLayout.Col key={profile.id} size={3}>
-            <ClayCard>
-              <img
-                draggable={false}
-                width="100%"
-                height="100%"
-                src={profile.avatar_url}
-                alt={profile.name}
-              />
-              <ClayCard.Body>
-                <ClayCard.Row>
-                  <div className="autofit-col autofit-col-expand">
-                    <section className="autofit-section">
-                      <ClayCard.Description displayType="title">
-                        <Link
-                          href={`${ROUTES.PROFILE}/${profile.github_login}`}
-                        >
-                          {profile.name}
-                        </Link>
-                      </ClayCard.Description>
-                      <ClayCard.Description displayType="subtitle">
-                        {growMap?.userDetails?.role?.name}
-                      </ClayCard.Description>
-                    </section>
-                  </div>
-                </ClayCard.Row>
-              </ClayCard.Body>
-            </ClayCard>
-          </ClayLayout.Col>
-        ))
-      ) : (
-        <EmptyState title={i18n.get('there-are-no-mentors-yet')} />
-      )}
+      <>
+        {hasMentors ? (
+          mentoringMembers.map(({ growMap, profile }) => (
+            <ClayLayout.Col key={profile.id} size={3}>
+              <ClayCard>
+                <img
+                  draggable={false}
+                  width="100%"
+                  height="100%"
+                  src={profile.avatar_url}
+                  alt={profile.name}
+                />
+                <ClayCard.Body>
+                  <ClayCard.Row>
+                    <div className="autofit-col autofit-col-expand">
+                      <section className="autofit-section">
+                        <ClayCard.Description displayType="title">
+                          <Link
+                            href={`${ROUTES.PROFILE}/${profile.github_login}`}
+                          >
+                            {profile.name}
+                          </Link>
+                        </ClayCard.Description>
+                        <ClayCard.Description displayType="subtitle">
+                          {growMap?.userDetails?.role?.name}
+                        </ClayCard.Description>
+                      </section>
+                    </div>
+                  </ClayCard.Row>
+                </ClayCard.Body>
+              </ClayCard>
+            </ClayLayout.Col>
+          ))
+        ) : (
+          <EmptyState title={i18n.get('there-are-no-mentors-yet')} />
+        )}
+      </>
     </Panel>
   );
 };
