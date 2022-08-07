@@ -66,29 +66,34 @@ const AuthMiddleware: React.FC = () => {
 
   return (
     <AuthTemplate>
-      <SEO title={i18n.sub('app-title-x', 'Auth Middleware')} />
+      <>
+        <SEO title={i18n.sub('app-title-x', 'Auth Middleware')} />
 
-      {error ? (
-        <div>
-          {docs[error] ? (
-            <p>
-              <a target="_blank" href={docs[error].link} rel="noreferrer">
-                {docs[error].message}
-              </a>
-            </p>
-          ) : (
-            <p>{i18n.get(error)}</p>
-          )}
+        {error ? (
+          <div>
+            {docs[error] ? (
+              <p>
+                <a target="_blank" href={docs[error].link} rel="noreferrer">
+                  {docs[error].message}
+                </a>
+              </p>
+            ) : (
+              <p>{i18n.get(error)}</p>
+            )}
 
-          <ClayButton className="mt-4" onClick={() => router.replace('/auth')}>
-            {i18n.get('try-again')}
-          </ClayButton>
-        </div>
-      ) : loading ? (
-        <LoadingWrapper />
-      ) : (
-        <div>{`${i18n.get('redirecting')}...`}</div>
-      )}
+            <ClayButton
+              className="mt-4"
+              onClick={() => router.replace('/auth')}
+            >
+              {i18n.get('try-again')}
+            </ClayButton>
+          </div>
+        ) : loading ? (
+          <LoadingWrapper />
+        ) : (
+          <div>{`${i18n.get('redirecting')}...`}</div>
+        )}
+      </>
     </AuthTemplate>
   );
 };

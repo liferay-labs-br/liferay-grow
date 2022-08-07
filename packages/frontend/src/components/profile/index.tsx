@@ -1,7 +1,7 @@
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 
 import AppContext from '@/AppContext';
 import Header from '@/components/header';
@@ -25,6 +25,7 @@ const defaultSteps = [
 type Steps = typeof Sidebar.defaultProps.steps;
 
 type IProfileWrapper = {
+  children: ReactElement;
   me: User;
   steps?: Steps;
 };

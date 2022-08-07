@@ -25,29 +25,31 @@ const Auth = (): React.ReactElement => {
 
   return (
     <AuthTemplate>
-      <SEO title={i18n.sub('app-title-x', 'Auth')} />
-      <h1>
-        {i18n.get('engineering')} <br /> Grow Together
-      </h1>
-      <ClayLayout.Row className="mt-5">
-        <ClayLayout.Col xl={12}>
-          <ClayButton onClick={onAuthGithub} className="btn-block">
-            {i18n.get('sign-in-with-github')}
-          </ClayButton>
-        </ClayLayout.Col>
-      </ClayLayout.Row>
-      <ClayLayout.Row className="signin__navigation_buttons">
-        <ClayLayout.Col>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={GITHUB_SIGNUP}
-            className="btn-link"
-          >
-            {i18n.get('dont-have-a-github-account')}
-          </a>
-        </ClayLayout.Col>
-      </ClayLayout.Row>
+      <>
+        <SEO title={i18n.sub('app-title-x', 'Auth')} />
+        <h1>
+          {i18n.get('engineering')} <br /> Grow Together
+        </h1>
+        <ClayLayout.Row className="mt-5">
+          <ClayLayout.Col xl={12}>
+            <ClayButton onClick={onAuthGithub} className="btn-block">
+              {i18n.get('sign-in-with-github')}
+            </ClayButton>
+          </ClayLayout.Col>
+        </ClayLayout.Row>
+        <ClayLayout.Row className="signin__navigation_buttons">
+          <ClayLayout.Col>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={GITHUB_SIGNUP}
+              className="btn-link"
+            >
+              {i18n.get('dont-have-a-github-account')}
+            </a>
+          </ClayLayout.Col>
+        </ClayLayout.Row>
+      </>
     </AuthTemplate>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { ReactElement, useEffect, useReducer, useState } from 'react';
 
 import { initializeApollo } from '@/graphql/nextApollo';
 import { allKnowledgeData } from '@/graphql/queries';
@@ -9,6 +9,7 @@ import SkillContext, { initialState, mainReducer } from './SkillContext';
 
 type SkillContextProvider = {
   defaultState?: SkillManagement;
+  children: ReactElement | ReactElement[];
   fetchData?: boolean;
 };
 

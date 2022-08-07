@@ -1,7 +1,7 @@
 import ClayDropDown, { Align } from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import ClayTabs from '@clayui/tabs';
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import useLang from '@/hooks/useLang';
 
@@ -13,6 +13,7 @@ type Tab = {
 
 type ClayDropDownWithTabsProps = {
   tabs: Tab[];
+  children: ReactElement;
   offset: number;
   onClick?: (tab: Tab) => void;
 };

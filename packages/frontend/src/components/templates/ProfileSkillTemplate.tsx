@@ -1,6 +1,6 @@
 import ClayButton from '@clayui/button';
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 
 import Profile, { ProfileWrapper } from '@/components/profile';
 import SkillContext from '@/components/skill-management/SkillContext';
@@ -36,6 +36,7 @@ const userSkillsPaths = [
 ];
 
 type ITemplateProps = {
+  children: ReactElement;
   me: User;
   title: string;
 };
@@ -88,8 +89,10 @@ const UserSkillTemplate: React.FC<ITemplateProps> = ({
     <Profile>
       <Meta title={i18n.sub('app-title-x', title)} />
       <ProfileWrapper steps={userSkillsPaths} me={me}>
-        <h1 className="mb-4">{title}</h1>
-        {children}
+        <>
+          <h1 className="mb-4">{title}</h1>
+          {children}
+        </>
       </ProfileWrapper>
     </Profile>
   );

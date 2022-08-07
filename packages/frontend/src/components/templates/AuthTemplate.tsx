@@ -20,7 +20,7 @@ type ServerInfo = {
   };
 };
 
-const AuthTemplate: React.FC = ({ children, className }: AuthProps) => {
+const AuthTemplate: React.FC<AuthProps> = ({ children, className }) => {
   const i18n = useLang();
 
   const frontendVersion = process.env.NEXT_PUBLIC_PACKAGE_VERSION;

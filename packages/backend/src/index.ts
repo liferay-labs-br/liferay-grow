@@ -48,7 +48,7 @@ class App {
     try {
       const conn = await createTypeormConn();
 
-      logger.debug('Database connected success');
+      logger.debug('Database connected with success');
 
       const migrations = await conn.runMigrations({ transaction: 'all' });
 

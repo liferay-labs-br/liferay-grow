@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import WrappedSafeComponent from '@/components/WrappedSafeComponent';
 import { getTeamBySlug } from '@/graphql/queries';
@@ -21,6 +21,7 @@ export type Tab = {
 };
 
 type TeamTeplateProps = {
+  children: (data) => any | ReactElement;
   page: string;
 };
 

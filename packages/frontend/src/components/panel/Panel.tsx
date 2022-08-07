@@ -2,11 +2,12 @@ import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
 import ClayPanel from '@clayui/panel';
 import classNames from 'classnames';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import ProgressBar from './ProgressBar';
 
 type IPanelItem = {
+  children: ReactElement;
   onClick?: () => void;
 };
 
@@ -44,6 +45,7 @@ const PanelBody: React.FC<React.HTMLAttributes<HTMLElement>> = ({
 };
 
 interface IPanelProps {
+  children: ReactElement;
   title: string;
   defaultExpanded?: boolean;
   displayType?: 'secondary' | 'unstyled';

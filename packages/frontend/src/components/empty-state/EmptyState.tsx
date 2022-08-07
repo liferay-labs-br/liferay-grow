@@ -1,9 +1,10 @@
 import ClayEmptyState from '@clayui/empty-state';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import useLang from '@/hooks/useLang';
 
 export type EmptyStateProps = {
+  children?: ReactElement;
   description?: string;
   title?: string;
 };

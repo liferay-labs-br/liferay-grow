@@ -1,6 +1,6 @@
 import ClayCard from '@clayui/card';
 import ClayLayout from '@clayui/layout';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import Sidebar from '@/components/sidebar/Sidebar';
 
@@ -17,7 +17,7 @@ const steps = [
   },
 ];
 
-const HomeTemplate: React.FC = ({ children }) => {
+const HomeTemplate: React.FC<{ children: ReactElement[] }> = ({ children }) => {
   return (
     <div className="home">
       <ClayLayout.ContainerFluid>

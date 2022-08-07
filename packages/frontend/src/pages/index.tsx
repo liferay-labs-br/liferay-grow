@@ -170,7 +170,7 @@ const KnowledgeAreaHeader: React.FC = () => {
   );
 };
 
-const KnowledgeArea: React.FC = () => (
+const KnowledgeArea = () => (
   <SkillContextProvider>
     <HomeTemplate>
       <KnowledgeAreaHeader />
